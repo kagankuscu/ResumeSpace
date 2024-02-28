@@ -1,4 +1,4 @@
-﻿namespace KaganKuscu.Blog.Models
+﻿namespace KaganKuscu.Model.Models
 {
     public class BaseModel
     {

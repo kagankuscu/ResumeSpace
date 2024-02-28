@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KaganKuscu.Blog.Models
+namespace KaganKuscu.Model.Models
 {
-    public class Education : BaseModel
+    public class WorkExperience : BaseModel
     {
         public string Name { get; set; }
         public DateTime StartDate { get; set; }
