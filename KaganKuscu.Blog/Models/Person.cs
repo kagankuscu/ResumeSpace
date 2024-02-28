@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace KaganKuscu.Blog.Models
 {
-    public class User : BaseModel
+    public class Person : BaseModel
     {
         public string Name { get; set; }
-        public int Age { get; set; }
+        public DateTime BirthDate { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }
         public string Description { get; set; }
