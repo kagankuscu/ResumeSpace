@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace KaganKuscu.Model.Models
 {
-    public class Skill : BaseModel
+    public class Author : BaseModel
     {
         public string Name { get; set; }
-        public int Percent { get; set; }
-        public int PersonId { get; set; }
+        public string Email { get; set; }
     }
 }

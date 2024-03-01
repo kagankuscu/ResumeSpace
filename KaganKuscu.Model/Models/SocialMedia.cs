@@ -9,6 +9,6 @@ namespace KaganKuscu.Model.Models
     {
         public string Name { get; set; }
         public string Url { get; set; }
-        public int UserId { get; set; }
+        public int PersonId { get; set; }
     }
 }

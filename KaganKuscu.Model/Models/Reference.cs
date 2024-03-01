@@ -12,6 +12,6 @@ namespace KaganKuscu.Model.Models
         public string Title { get; set; }
         public string Role { get; set; }
         public string ImagePath { get; set; }
-        public int UserId { get; set; }
+        public int PersonId { get; set; }
     }
 }
