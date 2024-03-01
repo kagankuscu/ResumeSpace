@@ -1,3 +1,6 @@
+using KaganKuscu.DataAccess;
+using Microsoft.EntityFrameworkCore;
+
 namespace KaganKuscu.Blog
 {
     public class Program
@@ -8,6 +11,7 @@ namespace KaganKuscu.Blog
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("connstr")));
 
             var app = builder.Build();
 
