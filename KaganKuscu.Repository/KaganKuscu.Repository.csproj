@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\KaganKuscu.DataAccess\KaganKuscu.DataAccess.csproj" />
+    <ProjectReference Include="..\KaganKuscu.Model\KaganKuscu.Model.csproj" />
+  </ItemGroup>
+
 </Project>
