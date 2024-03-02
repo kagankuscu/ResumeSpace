@@ -36,7 +36,7 @@ namespace KaganKuscu.Repository.Concrete
 
         public IQueryable<T> GetAll()
         {
-            return _dbSet.Where(x => x.IsDeleted == true);
+            return _dbSet.Where(x => !x.IsDeleted);
         }
 
         public IQueryable<T> GetAll(Expression<Func<T, bool>> predicate)
@@ -46,12 +46,12 @@ namespace KaganKuscu.Repository.Concrete
 
         public IQueryable<T> GetAllDeleted()
         {
-            return _dbSet.Where(x => x.IsDeleted == false);
+            return _dbSet.Where(x => x.IsDeleted);
         }
 
         public IQueryable<T> GetAllDeleted(Expression<Func<T, bool>> filter)
         {
-            return _dbSet.Where(x => x.IsDeleted == false).Where(filter);
+            return _dbSet.Where(x => x.IsDeleted).Where(filter);
         }
 
         public T? GetById(int id)
