@@ -13,6 +13,5 @@ namespace KaganKuscu.Model.Models
         public string Role { get; set; }
         public string ImagePath { get; set; }
         public int PersonId { get; set; }
-        public virtual Person Person { get; set; }
     }
 }

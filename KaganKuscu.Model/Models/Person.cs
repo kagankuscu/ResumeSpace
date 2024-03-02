@@ -17,5 +17,11 @@ namespace KaganKuscu.Model.Models
         public string Title { get; set; }
         public string ImagePath { get; set; }
         public string ResumePath { get; set; }
+
+        public virtual ICollection<SocialMedia> SocialMedias { get; set; } = new List<SocialMedia>();
+        public virtual ICollection<WorkExperience> WorkExperiences { get; set; } = new List<WorkExperience>();
+        public virtual ICollection<Education> Educations { get; set; } = new List<Education>();
+        public virtual ICollection<Reference> References { get; set; } = new List<Reference>();
+        public virtual ICollection<Skill> Skills { get; set; } = new List<Skill>();
     }
 }
