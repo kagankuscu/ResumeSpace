@@ -1,7 +1,9 @@
 ﻿using KaganKuscu.Business.Abstract;
 using KaganKuscu.DataAccess;
+using KaganKuscu.Model.Dtos;
 using KaganKuscu.Model.Models;
 using KaganKuscu.Repository.Abstract;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,9 +33,38 @@ namespace KaganKuscu.Business.Concrete
 
         public IQueryable<Person> GetAll()
         {
-            return _repository.GetAll();
+            return _repository.GetAll()
+                .Include(p => p.SocialMedias)
+                .Include(p => p.Skills)
+                .Include(p => p.WorkExperiences)
+                .Include(p => p.Educations)
+                .Include(p => p.References);
         }
-
+        public IQueryable<PersonDto> GetAllPersonDto()
+        {
+            return _repository.GetAll()
+                .Include(p => p.SocialMedias)
+                .Include(p => p.Skills)
+                .Include(p => p.WorkExperiences)
+                .Include(p => p.Educations)
+                .Include(p => p.References)
+                .Select(p => new PersonDto
+                {
+                    Name = p.Name,
+                    Age = Convert.ToInt32((DateTime.Now - p.BirthDate).TotalDays / 365.2465),
+                    Address = p.Address,
+                    Title = p.Title,
+                    Phone = p.Phone,
+                    ImagePath = p.ImagePath,
+                    ResumePath = p.ResumePath,
+                    Educations = p.Educations,
+                    Description = p.Description,
+                    References = p.References,
+                    Skills = p.Skills,
+                    SocialMedias = p.SocialMedias,
+                    WorkExperiences = p.WorkExperiences
+                } );
+        }
         public Person GetById(int id)
         {
             return _repository.GetById(id);

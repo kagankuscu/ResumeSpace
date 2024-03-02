@@ -1,27 +1,32 @@
-﻿<!-- START: PAGE CONTENT -->
+﻿@using KaganKuscu.Model.Dtos
+@model PersonDto
+@{
+    List<Skill> skills = Model.Skills.ToList();
+}
+<!-- START: PAGE CONTENT -->
 <section id="about" class="section section-about">
     <div class="animate-up">
         <div class="section-box">
             <div class="profile">
                 <div class="row">
                     <div class="col-xs-5">
-                        <div class="profile-photo"><img src="img/uploads/rs-photo-v1.jpg" alt="Robert Smith" /></div>
+                        <div class="profile-photo"><img src="@Model.ImagePath" alt="@Model.Name" /></div>
                     </div>
                     <div class="col-xs-7">
                         <div class="profile-info">
                             <div class="profile-preword"><span>Hello</span></div>
-                            <h1 class="profile-title"><span>I'm</span> Kağan Kuşcu</h1>
+                            <h1 class="profile-title"><span>I'm</span> @Model.Name</h1>
 
-                            <h2 class="profile-position">Developer and businessman</h2>
+                            <h2 class="profile-position">@Model.Title</h2>
                         </div>
                         <ul class="profile-list">
                             <li class="clearfix">
                                 <strong class="title">Age</strong>
-                                <span class="cont">29</span>
+                                <span class="cont">@Model.Age</span>
                             </li>
                             <li class="clearfix">
                                 <strong class="title">Address</strong>
-                                <span class="cont">24058, Belgium, Brussels, Liutte 27, BE</span>
+                                <span class="cont">@Model.Address</span>
                             </li>
                             <li class="clearfix">
                                 <strong class="title">E-mail</strong>
@@ -29,7 +34,7 @@
                             </li>
                             <li class="clearfix">
                                 <strong class="title">Phone</strong>
-                                <span class="cont"><a href="tel:+12562548456">+1 256 254 84 56</a></span>
+                                <span class="cont"><a href="tel:@Model.Phone">@Model.Phone</a></span>
                             </li>
                         </ul>
                     </div>
@@ -38,17 +43,17 @@
             <div class="profile-social">
                 <ul class="social">
                     <li>
-                        <a class="ripple-centered" href="https://www.github.com" target="_blank">
+                        <a class="ripple-centered" href="@Model.SocialMedias.Where(s => s.Name.Contains("Github")).FirstOrDefault()?.Url" target="_blank">
                             <i class="rsicon rsicon-github" style="font-size: 24px;"></i>
                         </a>
                     </li>
                     <li>
-                        <a class="ripple-centered" href="https://www.linkedin.com" target="_blank">
+                        <a class="ripple-centered" href="@Model.SocialMedias.Where(s => s.Name.Contains("LinkedIn")).FirstOrDefault()?.Url" target="_blank">
                             <i class="rsicon rsicon-linkedin" style="font-size: 24px;"></i>
                         </a>
                     </li>
                     <li>
-                        <a class="ripple-centered" href="https://www.instagram.com" target="_blank">
+                        <a class="ripple-centered" href="@Model.SocialMedias.Where(s => s.Name.Contains("Instagram")).FirstOrDefault()?.Url" target="_blank">
                             <i class="rsicon rsicon-instagram" style="font-size: 24px;"></i>
                         </a>
                     </li>
@@ -59,13 +64,11 @@
         <div class="section-txt-btn">
             <p>
                 <a class="btn btn-lg btn-border ripple" target="_blank"
-                   href="http://dev.novembit.com/rs_card/wp-content/uploads/2015/11/test-1.pdf">Download Resume</a>
+                   href="@Model.ResumePath">Download Resume</a>
             </p>
 
             <p>
-                Hello! I'm Robert Smith. Senior Web Developer specializing in front end development. Experienced with all
-                stages of the development cycle for dynamic web projects. Well-versed in numerous programming languages
-                including JavaScript, SQL, and C. Stng background in project management and customer relations.
+                @Model.Description
             </p>
         </div>
     </div>
@@ -77,83 +80,37 @@
         <h2 class="section-title">Professional Skills</h2>
 
         <div class="section-box">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="progress-bar">
-                        <div class="bar-data">
-                            <span class="bar-title">Wordpress</span>
-                            <span class="bar-value">80%</span>
-                        </div>
-                        <div class="bar-line">
-                            <span class="bar-fill" data-width="51%"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="progress-bar">
-                        <div class="bar-data">
-                            <span class="bar-title">JavaScript</span>
-                            <span class="bar-value">52%</span>
-                        </div>
-                        <div class="bar-line">
-                            <span class="bar-fill" data-width="67%"></span>
+            @for (int i = 0; i < Model.Skills.Count; i += 2)
+            {
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="progress-bar">
+                            <div class="bar-data">
+                                <span class="bar-title">@skills[i].Name</span>
+                                <span class="bar-value">@skills[i].Percent%</span>
+                            </div>
+                            <div class="bar-line">
+                                <span class="bar-fill" data-width="@skills[i].Percent%"></span>
+                            </div>
                         </div>
                     </div>
+                    @if ((i + 1) < Model.Skills.Count)
+                    {
+                        <div class="col-sm-6">
+                            <div class="progress-bar">
+                                <div class="bar-data">
+                                    <span class="bar-title">@skills[i + 1].Name</span>
+                                    <span class="bar-value">@skills[i + 1].Percent%</span>
+                                </div>
+                                <div class="bar-line">
+                                    <span class="bar-fill" data-width="@skills[i + 1].Percent%"></span>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="progress-bar">
-                        <div class="bar-data">
-                            <span class="bar-title">Drupal</span>
-                            <span class="bar-value">61%</span>
-                        </div>
-                        <div class="bar-line">
-                            <span class="bar-fill" data-width="79%"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="progress-bar">
-                        <div class="bar-data">
-                            <span class="bar-title">HTML & CSS</span>
-                            <span class="bar-value">89%</span>
-                        </div>
-                        <div class="bar-line">
-                            <span class="bar-fill" data-width="67%"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="progress-bar">
-                        <div class="bar-data">
-                            <span class="bar-title">PHP & MySQL</span>
-                            <span class="bar-value">99%</span>
-                        </div>
-                        <div class="bar-line">
-                            <span class="bar-fill" data-width="54%"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="progress-bar">
-                        <div class="bar-data">
-                            <span class="bar-title">Photoshop</span>
-                            <span class="bar-value">97%</span>
-                        </div>
-                        <div class="bar-line">
-                            <span class="bar-fill" data-width="80%"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                
+            }
         </div>
     </div>
 </section>
@@ -166,110 +123,24 @@
         <div class="timeline">
             <div class="timeline-bar"></div>
             <div class="timeline-inner clearfix">
-                <div class="timeline-box timeline-box-left">
-                    <span class="dot"></span>
+                @foreach (WorkExperience workExperience in Model.WorkExperiences)
+                {
+                    <div class="timeline-box timeline-box-@(workExperience.Id % 2 == 0 ? "left" : "right")">
+                        <span class="dot"></span>
 
-                    <div class="timeline-box-inner animate-right">
-                        <span class="arrow"></span>
+                        <div class="timeline-box-inner animate-right">
+                            <span class="arrow"></span>
 
-                        <div class="date">2014 - 2016</div>
-                        <h3>PINEAPPLE</h3>
-                        <h4>Full Stack developer</h4>
+                            <div class="date">@workExperience.StartDate.Year - @(workExperience.EndDate.Year != 0001 ? workExperience.EndDate : "Present")</div>
+                            <h3>@workExperience.Name</h3>
+                            <h4>@workExperience.Role</h4>
 
-                        <p>
-                            Worked as part of a multi-disciplinary team, carrying out ad-hoc tasks as requested by the IT
-                            Manager. Had a specific brief to ensure the websites build for customer’s precisely matched
-                            their requirements.developers and marketers.
-                        </p>
+                            <p>
+                                @workExperience.Description
+                            </p>
+                        </div>
                     </div>
-                </div>
-
-                <div class="timeline-box timeline-box-right">
-                    <span class="dot"></span>
-
-                    <div class="timeline-box-inner animate-left">
-                        <span class="arrow"></span>
-
-                        <div class="date">2011 - 2014</div>
-                        <h3>MACROSOOFT</h3>
-                        <h4>Web Developer</h4>
-
-                        <p>
-                            I was responsible for working on a range of projects, designing appealing websites and
-                            interacting on a daily basis with graphic designers, back-end developers and marketers.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="timeline-box timeline-box-left">
-                    <span class="dot"></span>
-
-                    <div class="timeline-box-inner animate-right">
-                        <span class="arrow"></span>
-
-                        <div class="date">2003 - 2006</div>
-                        <h3>JOOJLE</h3>
-                        <h4>Systems Analyst / Web Developer</h4>
-
-                        <p>
-                            Rebuilt and enhanced existing ASP B2C site with ASP.NET 2.0 Framework and tools. Technology
-                            consists of ASP.NET 2.0 (C#), IIS, Microsoft SQL Server 2005, Stored Procedures & PayPal
-                            Instant Payment Notification.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="timeline-box timeline-box-right">
-                    <span class="dot"></span>
-
-                    <div class="timeline-box-inner animate-left">
-                        <span class="arrow"></span>
-
-                        <div class="date">2004 - 2008</div>
-                        <h3>IBBBM</h3>
-                        <h4>Webmaster / Web Developer</h4>
-
-                        <p>
-                            Developed, managed, operated and promoted an Internet business.Handled customer support
-                            issues.Planned and managed business finances.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="timeline-box timeline-box-left">
-                    <span class="dot"></span>
-
-                    <div class="timeline-box-inner animate-right">
-                        <span class="arrow"></span>
-
-                        <div class="date">2003 - 2004</div>
-                        <h3>HEADBOOK</h3>
-                        <h4>Intern</h4>
-
-                        <p>
-                            This was beginning of my career. Developed, managed, operated and promoted an Internet
-                            business.Handled customer support issues.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="timeline-box timeline-box-right">
-                    <span class="dot"></span>
-
-                    <div class="timeline-box-inner animate-left">
-                        <span class="arrow"></span>
-
-                        <div class="date">2000 - 2003</div>
-                        <h3>UBEAR</h3>
-                        <h4>Taxi Driver</h4>
-
-                        <p>
-                            Driving from point A to point B and if necessary to point C and sometimes even to point R and
-                            point S. I was known as experienced driver. Once my passenger who was a web developer told
-                            me about his job and I have made my decision at that moment to became a developer.
-                        </p>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>
@@ -284,65 +155,21 @@
             <div class="timeline-bar"></div>
             <div class="timeline-inner clearfix">
 
-                <div class="timeline-box timeline-box-compact timeline-box-left">
-                    <span class="dot"></span>
+                @foreach (Education education in Model.Educations)
+                {
+                    <div class="timeline-box timeline-box-compact timeline-box-@(education.Id % 2 == 0 ? "left" : "right")">
+                        <span class="dot"></span>
 
-                    <div class="timeline-box-inner animate-right">
-                        <span class="arrow"></span>
+                        <div class="timeline-box-inner animate-right">
+                            <span class="arrow"></span>
 
-                        <div class="date"><span>2012 - 2014</span></div>
-                        <h3>Master of Information Technology</h3>
-                        <h4>MIT&T</h4>
+                            <div class="date"><span>@education.StartDate.Year - @(education.EndDate.Year != 0001 ? education.EndDate : "Present")</span></div>
+                            <h3>@education.Role</h3>
+                            <h4>@education.Name</h4>
+                        </div>
                     </div>
-                </div>
+                }
 
-                <div class="timeline-box timeline-box-compact timeline-box-right">
-                    <span class="dot"></span>
-
-                    <div class="timeline-box-inner animate-left">
-                        <span class="arrow"></span>
-
-                        <div class="date"><span>2008 - 2012</span></div>
-                        <h3>Bachelor Computer Engineering</h3>
-                        <h4>Harwarg Universitey</h4>
-                    </div>
-                </div>
-
-                <div class="timeline-box timeline-box-compact timeline-box-left">
-                    <span class="dot"></span>
-
-                    <div class="timeline-box-inner animate-right">
-                        <span class="arrow"></span>
-
-                        <div class="date"><span>2007 - 2008</span></div>
-                        <h3>Certificate for courses of Computer Science</h3>
-                        <h4>Stanfoorb Universitey</h4>
-                    </div>
-                </div>
-
-                <div class="timeline-box timeline-box-compact timeline-box-right">
-                    <span class="dot"></span>
-
-                    <div class="timeline-box-inner animate-left">
-                        <span class="arrow"></span>
-
-                        <div class="date"><span>2007 - 2008</span></div>
-                        <h3>1 week Courses of Information Systems</h3>
-                        <h4>Oxforz Universitey</h4>
-                    </div>
-                </div>
-
-                <div class="timeline-box timeline-box-compact timeline-box-left">
-                    <span class="dot"></span>
-
-                    <div class="timeline-box-inner animate-right">
-                        <span class="arrow"></span>
-
-                        <div class="date"><span>2006 - 2007</span></div>
-                        <h3>Software Engineering</h3>
-                        <h4>Sordonne University</h4>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

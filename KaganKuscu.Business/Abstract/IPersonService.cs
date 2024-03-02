@@ -1,4 +1,5 @@
-﻿using KaganKuscu.Model.Models;
+﻿using KaganKuscu.Model.Dtos;
+using KaganKuscu.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace KaganKuscu.Business.Abstract
 {
     public interface IPersonService : IBaseService<Person>
     {
-        
+        IQueryable<PersonDto> GetAllPersonDto();
     }
 }

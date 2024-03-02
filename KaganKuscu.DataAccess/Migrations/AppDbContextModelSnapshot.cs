@@ -55,7 +55,7 @@ namespace KaganKuscu.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors");
+                    b.ToTable("Authors", (string)null);
                 });
 
             modelBuilder.Entity("KaganKuscu.Model.Models.Blog", b =>
@@ -96,7 +96,7 @@ namespace KaganKuscu.DataAccess.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("Blogs");
+                    b.ToTable("Blogs", (string)null);
                 });
 
             modelBuilder.Entity("KaganKuscu.Model.Models.Comment", b =>
@@ -138,7 +138,7 @@ namespace KaganKuscu.DataAccess.Migrations
 
                     b.HasIndex("BlogId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("KaganKuscu.Model.Models.Education", b =>
@@ -189,7 +189,7 @@ namespace KaganKuscu.DataAccess.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("Educations");
+                    b.ToTable("Educations", (string)null);
                 });
 
             modelBuilder.Entity("KaganKuscu.Model.Models.Person", b =>
@@ -248,7 +248,7 @@ namespace KaganKuscu.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("People");
+                    b.ToTable("People", (string)null);
                 });
 
             modelBuilder.Entity("KaganKuscu.Model.Models.Photo", b =>
@@ -285,7 +285,7 @@ namespace KaganKuscu.DataAccess.Migrations
 
                     b.HasIndex("BlogId");
 
-                    b.ToTable("Photos");
+                    b.ToTable("Photos", (string)null);
                 });
 
             modelBuilder.Entity("KaganKuscu.Model.Models.Quote", b =>
@@ -321,7 +321,7 @@ namespace KaganKuscu.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Quotes");
+                    b.ToTable("Quotes", (string)null);
                 });
 
             modelBuilder.Entity("KaganKuscu.Model.Models.Reference", b =>
@@ -374,7 +374,7 @@ namespace KaganKuscu.DataAccess.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("References");
+                    b.ToTable("References", (string)null);
                 });
 
             modelBuilder.Entity("KaganKuscu.Model.Models.Skill", b =>
@@ -414,7 +414,7 @@ namespace KaganKuscu.DataAccess.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("Skills");
+                    b.ToTable("Skills", (string)null);
                 });
 
             modelBuilder.Entity("KaganKuscu.Model.Models.SocialMedia", b =>
@@ -455,7 +455,7 @@ namespace KaganKuscu.DataAccess.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("SocialMedias");
+                    b.ToTable("SocialMedias", (string)null);
                 });
 
             modelBuilder.Entity("KaganKuscu.Model.Models.Tag", b =>
@@ -492,7 +492,7 @@ namespace KaganKuscu.DataAccess.Migrations
 
                     b.HasIndex("BlogId");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tags", (string)null);
                 });
 
             modelBuilder.Entity("KaganKuscu.Model.Models.WorkExperience", b =>
@@ -543,7 +543,7 @@ namespace KaganKuscu.DataAccess.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("WorkExperiences");
+                    b.ToTable("WorkExperiences", (string)null);
                 });
 
             modelBuilder.Entity("KaganKuscu.Model.Models.Blog", b =>
