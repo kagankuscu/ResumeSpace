@@ -24,8 +24,8 @@ namespace KaganKuscu.Repository.Abstract
         IQueryable<T> GetAll(Expression<Func<T, bool>> predicate);
         IQueryable<T> GetAllDeleted();
         IQueryable<T> GetAllDeleted(Expression<Func<T, bool>> filter);
-        T GetById(int id);
-        T GetById(Guid id);
+        T? GetById(int id);
+        T? GetById(Guid id);
         T? GetFirstOrDefault(Expression<Func<T, bool>> predicate);
 
         void Save();

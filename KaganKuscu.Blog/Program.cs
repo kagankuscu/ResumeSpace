@@ -1,5 +1,11 @@
 using KaganKuscu.DataAccess;
 using Microsoft.EntityFrameworkCore;
+using KaganKuscu.Business.Configurations;
+using KaganKuscu.Model.Models;
+using KaganKuscu.Repository.Abstract;
+using KaganKuscu.Repository.Concrete;
+using KaganKuscu.Business.Abstract;
+using KaganKuscu.Business.Concrete;
 
 namespace KaganKuscu.Blog
 {
@@ -11,6 +17,10 @@ namespace KaganKuscu.Blog
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddBusinessDI();
+            builder.Services.AddRepositoryDI();
+
             builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("connstr")));
 
             var app = builder.Build();

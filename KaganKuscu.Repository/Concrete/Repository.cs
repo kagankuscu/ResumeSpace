@@ -16,10 +16,10 @@ namespace KaganKuscu.Repository.Concrete
         private readonly AppDbContext _context;
         private DbSet<T> _dbSet;
 
-        public Repository(AppDbContext context, DbSet<T> dbSet)
+        public Repository(AppDbContext context)
         {
             _context = context;
-            _dbSet = dbSet;
+            _dbSet = _context.Set<T>();
         }
 
         public void Add(T entity)
@@ -54,14 +54,14 @@ namespace KaganKuscu.Repository.Concrete
             return _dbSet.Where(x => x.IsDeleted == false).Where(filter);
         }
 
-        public T GetById(int id)
+        public T? GetById(int id)
         {
-            return _dbSet.First(x => x.Id == id);
+            return _dbSet.FirstOrDefault(x => x.Id == id);
         }
 
-        public T GetById(Guid id)
+        public T? GetById(Guid id)
         {
-            return _dbSet.First(x => x.guid == id);
+            return _dbSet.FirstOrDefault(x => x.guid == id);
         }
 
         public T? GetFirstOrDefault(Expression<Func<T, bool>> predicate)
