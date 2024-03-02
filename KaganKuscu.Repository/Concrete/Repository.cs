@@ -61,7 +61,7 @@ namespace KaganKuscu.Repository.Concrete
 
         public T? GetById(Guid id)
         {
-            return _dbSet.FirstOrDefault(x => x.guid == id);
+            return _dbSet.FirstOrDefault(x => x.Guid == id);
         }
 
         public T? GetFirstOrDefault(Expression<Func<T, bool>> predicate)

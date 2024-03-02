@@ -10,5 +10,7 @@ namespace KaganKuscu.Model.Models
         public string Name { get; set; }
         public int Percent { get; set; }
         public int PersonId { get; set; }
+        public virtual Person Person { get; set; }
+
     }
 }

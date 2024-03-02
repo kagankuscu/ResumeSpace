@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace KaganKuscu.Model.Models
 {
+    [Table("People")]
     public class Person : BaseModel
     {
         public string Name { get; set; }

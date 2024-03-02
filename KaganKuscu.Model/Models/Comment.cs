@@ -10,5 +10,6 @@ namespace KaganKuscu.Model.Models
         public string Content { get; set; }
         public int BlogId { get; set; }
         public int AuthorId { get; set; }
+        public virtual Author Author { get; set; }
     }
 }

@@ -13,5 +13,7 @@ namespace KaganKuscu.Model.Models
         public string Role { get; set; }
         public string Description { get; set; }
         public int PersonId { get; set; }
+        public virtual Person Person { get; set; }
+
     }
 }
