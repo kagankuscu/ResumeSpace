@@ -33,7 +33,7 @@
                             </li>
                             <li class="clearfix">
                                 <strong class="title">E-mail</strong>
-                                <span class="cont"><a href="mailto:robertsmith@company.com">robertsmith@company.com</a></span>
+                                <span class="cont"><a href="@person.Email">@person.Email</a></span>
                             </li>
                             <li class="clearfix">
                                 <strong class="title">Phone</strong>
@@ -45,21 +45,14 @@
             </div>
             <div class="profile-social">
                 <ul class="social">
-                    <li>
-                        <a class="ripple-centered" href="@person.SocialMedias.Where(s => s.Name.Contains("Github")).FirstOrDefault()?.Url" target="_blank">
-                            <i class="rsicon rsicon-github" style="font-size: 24px;"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="ripple-centered" href="@person.SocialMedias.Where(s => s.Name.Contains("LinkedIn")).FirstOrDefault()?.Url" target="_blank">
-                            <i class="rsicon rsicon-linkedin" style="font-size: 24px;"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="ripple-centered" href="@person.SocialMedias.Where(s => s.Name.Contains("Instagram")).FirstOrDefault()?.Url" target="_blank">
-                            <i class="rsicon rsicon-instagram" style="font-size: 24px;"></i>
-                        </a>
-                    </li>
+                    @foreach(SocialMedia socialMedia in person.SocialMedias)
+                    {
+                        <li>
+                            <a class="ripple-centered" href="@socialMedia.Url" target="_blank">
+                                <i class="@socialMedia.IconCssClass" style="font-size: 24px;"></i>
+                            </a>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
@@ -179,79 +172,44 @@
 </section>
 <!-- #education -->
 
-<section id="references" class="section section-references">
-    <div class="animate-up">
-        <h2 class="section-title">References</h2>
+@if (person.References is not null && person.References.Count > 0)
+{
+    <section id="references" class="section section-references">
+        <div class="animate-up">
+            <h2 class="section-title">References</h2>
 
-        <div class="section-box">
-            <ul class="ref-slider">
-                <li>
-                    <div class="ref-box">
-                        <div class="person-speech">
-                            <p>
-                                I confirm that I have dealt with New Company Ltd since 1998. Their work has been a major
-                                factor in our
-                                website's success, helping it to become one of the most visited resources of its kind on
-                                the Internet.
-                            </p>
-                        </div>
-                        <div class="person-info clearfix">
-                            <img class="person-img" src="img/uploads/rs-avatar-60x60.jpg" alt="Headshot">
+            <div class="section-box">
+                <ul class="ref-slider">
+                    <li>
+                        <div class="ref-box">
+                            <div class="person-speech">
+                                <p>
+                                    I confirm that I have dealt with New Company Ltd since 1998. Their work has been a major
+                                    factor in our
+                                    website's success, helping it to become one of the most visited resources of its kind on
+                                    the Internet.
+                                </p>
+                            </div>
+                            <div class="person-info clearfix">
+                                <img class="person-img" src="img/uploads/rs-avatar-60x60.jpg" alt="Headshot">
 
-                            <div class="person-name-title">
-                                <span class="person-name">Alexander Jokovich</span>
-                                <span class="person-title">Modern LLC , HR</span>
+                                <div class="person-name-title">
+                                    <span class="person-name">Alexander Jokovich</span>
+                                    <span class="person-title">Modern LLC , HR</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="ref-box">
-                        <div class="person-speech">
-                            <p>
-                                I confirm that New Company Ltd has been a customer of ours since 1998, during which time
-                                they have always made payments reliably,
-                                in full and on time.
-                            </p>
-                        </div>
-                        <div class="person-info clearfix">
-                            <img class="person-img" src="img/uploads/rs-avatar-60x60.jpg" alt="Headshot">
-
-                            <div class="person-name-title">
-                                <span class="person-name">Alexander Jokovich</span>
-                                <span class="person-title">Modern LLC , HR</span>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="ref-box">
-                        <div class="person-speech">
-                            <p>
-                                I have known Robert Smith for 10 years as web developer. I can confirm that he is a man
-                                of great integrity, is extremely dedicated
-                                to his family and work, and is entirely peace-loving.
-                            </p>
-                        </div>
-                        <div class="person-info clearfix">
-                            <img class="person-img" src="img/uploads/rs-avatar-60x60.jpg" alt="Headshot">
-
-                            <div class="person-name-title">
-                                <span class="person-name">Alexander Jokovich</span>
-                                <span class="person-title">Modern LLC , HR</span>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            <div class="ref-slider-nav">
-                <span id="ref-slider-prev" class="slider-prev"></span>
-                <span id="ref-slider-next" class="slider-next"></span>
+                    </li>
+                </ul>
+                <div class="ref-slider-nav">
+                    <span id="ref-slider-prev" class="slider-prev"></span>
+                    <span id="ref-slider-next" class="slider-next"></span>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-<!-- #references -->
+    </section>
+    <!-- #references -->
+}
 
 @if (blogs is not null && blogs.Count > 0)
 {
@@ -322,24 +280,15 @@
         <h2 class="section-title">My Interests</h2>
 
         <div class="section-box">
-            <p>
-                Bisiklet tutkunuyum. Rüzgarı yüzümde hissederek pedallara basmak, özgürlüğün ve maceranın tadını çıkarmak benim için paha biçilemez bir deneyim. Her sürüşte yeni keşiflere yelken açıyor, doğanın güzelliklerine tanık oluyorum. Bisikletimle şehirlerin karmaşasından uzaklaşıp, sakin patikalarda huzur buluyorum. Her viraj yeni bir sürprizi, her tepe yeni bir manzarayı müjdeliyor.
-                <br />
-                <br />
-                Bisikletim sadece bir ulaşım aracı değil, aynı zamanda bir yaşam tarzı. Bisiklet kullanmak bana sadece sağlık ve zindelik değil, aynı zamanda çevreye karşı sorumluluk bilinci de kazandırıyor. Bisikletimle pedal çevirdikçe dünyayı daha güzel bir yer yapmak için katkıda bulunuyorum.
-                <br />
-                <br />
-                Bisiklet tutkum beni her geçen gün daha da ileriye taşıyor. Kendimi geliştirmek için sürekli yeni rotalar arıyor, daha uzun mesafeler kat etmek için antrenman yapıyorum. Bisiklet üzerinde kendimi sınırlarımı zorlarken, aynı zamanda kendimi de daha iyi tanıyorum.
-                <br />
-                <br />
-                Bisikletimle çıktığım her yolculuk unutulmaz bir anıya dönüşüyor. Pedallara her basışımda yeni bir hikaye yazıyorum. Bisiklet tutkum bana sadece keyif ve huzur değil, aynı zamanda unutulmaz anılar ve deneyimler de kazandırıyor.
-            </p>
-
+            @Html.Raw(person.Interest)
             <ul class="interests-list">
-                <li>
-                    <i class="map-icon map-icon-bicycling"></i>
-                    <span>Bicycling</span>
-                </li>
+                @foreach (Interest interest in person.Interests)
+                {
+                    <li>
+                        <i class="@interest.IconCssClass"></i>
+                        <span>@interest.Name</span>
+                    </li>
+                }
             </ul>
         </div>
     </div>

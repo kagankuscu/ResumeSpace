@@ -13,6 +13,8 @@ namespace KaganKuscu.Model.Dtos
         public int Age { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }
+        public string Email { get; set; }
+        public string Interest { get; set; }
         public string Description { get; set; }
         public string Title { get; set; }
         public string ImagePath { get; set; }
@@ -23,5 +25,6 @@ namespace KaganKuscu.Model.Dtos
         public virtual List<Education> Educations { get; set; } = new List<Education>();
         public virtual List<Reference> References { get; set; } = new List<Reference>();
         public virtual List<Skill> Skills { get; set; } = new List<Skill>();
+        public virtual List<Interest> Interests { get; set; } = new List<Interest>();
     }
 }

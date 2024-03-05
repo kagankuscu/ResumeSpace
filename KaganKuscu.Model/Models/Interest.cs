@@ -8,6 +8,7 @@ namespace KaganKuscu.Model.Models
 {
     public class Interest : BaseModel
     {
+        public string Name { get; set; }
         public string IconCssClass { get; set; }
     }
 }

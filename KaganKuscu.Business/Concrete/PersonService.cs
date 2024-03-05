@@ -38,7 +38,8 @@ namespace KaganKuscu.Business.Concrete
                 .Include(p => p.Skills)
                 .Include(p => p.WorkExperiences)
                 .Include(p => p.Educations)
-                .Include(p => p.References);
+                .Include(p => p.References)
+                .Include(p => p.Interests);
         }
         public IQueryable<PersonDto> GetAllPersonDto()
         {
@@ -48,6 +49,7 @@ namespace KaganKuscu.Business.Concrete
                 .Include(p => p.WorkExperiences)
                 .Include(p => p.Educations)
                 .Include(p => p.References)
+                .Include(p => p.Interests)
                 .Select(p => new PersonDto
                 {
                     Name = p.Name,
@@ -55,6 +57,9 @@ namespace KaganKuscu.Business.Concrete
                     Address = p.Address,
                     Title = p.Title,
                     Phone = p.Phone,
+                    Email = p.Email,
+                    Interest = p.Interest,
+                    Interests = p.Interests.ToList(),
                     ImagePath = p.ImagePath,
                     ResumePath = p.ResumePath,
                     Description = p.Description,
