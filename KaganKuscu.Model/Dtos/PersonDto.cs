@@ -18,10 +18,10 @@ namespace KaganKuscu.Model.Dtos
         public string ImagePath { get; set; }
         public string ResumePath { get; set; }
 
-        public virtual ICollection<SocialMedia> SocialMedias { get; set; } = new List<SocialMedia>();
-        public virtual ICollection<WorkExperience> WorkExperiences { get; set; } = new List<WorkExperience>();
-        public virtual ICollection<Education> Educations { get; set; } = new List<Education>();
-        public virtual ICollection<Reference> References { get; set; } = new List<Reference>();
-        public virtual ICollection<Skill> Skills { get; set; } = new List<Skill>();
+        public virtual List<SocialMedia> SocialMedias { get; set; } = new List<SocialMedia>();
+        public virtual List<WorkExperience> WorkExperiences { get; set; } = new List<WorkExperience>();
+        public virtual List<Education> Educations { get; set; } = new List<Education>();
+        public virtual List<Reference> References { get; set; } = new List<Reference>();
+        public virtual List<Skill> Skills { get; set; } = new List<Skill>();
     }
 }

@@ -57,13 +57,13 @@ namespace KaganKuscu.Business.Concrete
                     Phone = p.Phone,
                     ImagePath = p.ImagePath,
                     ResumePath = p.ResumePath,
-                    Educations = p.Educations,
                     Description = p.Description,
-                    References = p.References,
-                    Skills = p.Skills,
-                    SocialMedias = p.SocialMedias,
-                    WorkExperiences = p.WorkExperiences
-                } );
+                    References = p.References.ToList(),
+                    Skills = p.Skills.ToList(),
+                    SocialMedias = p.SocialMedias.ToList(),
+                    Educations = p.Educations.OrderByDescending(e => e.StartDate).ToList(),
+                    WorkExperiences = p.WorkExperiences.OrderByDescending(e => e.StartDate).ToList()
+                });
         }
         public Person GetById(int id)
         {

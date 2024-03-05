@@ -1,7 +1,10 @@
-﻿@using KaganKuscu.Model.Dtos
-@model PersonDto
+﻿@using KaganKuscu.Model.ViewModels
+@using KaganKuscu.Model.Dtos
+@model HomePageVm
 @{
-    List<Skill> skills = Model.Skills.ToList();
+    PersonDto person = Model.Person;
+    Quote quote = Model.Quote;
+    List<Blog> blogs = Model.Blogs;
 }
 <!-- START: PAGE CONTENT -->
 <section id="about" class="section section-about">
@@ -10,23 +13,23 @@
             <div class="profile">
                 <div class="row">
                     <div class="col-xs-5">
-                        <div class="profile-photo"><img src="@Model.ImagePath" alt="@Model.Name" /></div>
+                        <div class="profile-photo"><img src="@person.ImagePath" alt="@person.Name" /></div>
                     </div>
                     <div class="col-xs-7">
                         <div class="profile-info">
                             <div class="profile-preword"><span>Hello</span></div>
-                            <h1 class="profile-title"><span>I'm</span> @Model.Name</h1>
+                            <h1 class="profile-title"><span>I'm</span> @person.Name</h1>
 
-                            <h2 class="profile-position">@Model.Title</h2>
+                            <h2 class="profile-position">@person.Title</h2>
                         </div>
                         <ul class="profile-list">
                             <li class="clearfix">
                                 <strong class="title">Age</strong>
-                                <span class="cont">@Model.Age</span>
+                                <span class="cont">@person.Age</span>
                             </li>
                             <li class="clearfix">
                                 <strong class="title">Address</strong>
-                                <span class="cont">@Model.Address</span>
+                                <span class="cont">@person.Address</span>
                             </li>
                             <li class="clearfix">
                                 <strong class="title">E-mail</strong>
@@ -34,7 +37,7 @@
                             </li>
                             <li class="clearfix">
                                 <strong class="title">Phone</strong>
-                                <span class="cont"><a href="tel:@Model.Phone">@Model.Phone</a></span>
+                                <span class="cont"><a href="tel:@person.Phone">@person.Phone</a></span>
                             </li>
                         </ul>
                     </div>
@@ -43,17 +46,17 @@
             <div class="profile-social">
                 <ul class="social">
                     <li>
-                        <a class="ripple-centered" href="@Model.SocialMedias.Where(s => s.Name.Contains("Github")).FirstOrDefault()?.Url" target="_blank">
+                        <a class="ripple-centered" href="@person.SocialMedias.Where(s => s.Name.Contains("Github")).FirstOrDefault()?.Url" target="_blank">
                             <i class="rsicon rsicon-github" style="font-size: 24px;"></i>
                         </a>
                     </li>
                     <li>
-                        <a class="ripple-centered" href="@Model.SocialMedias.Where(s => s.Name.Contains("LinkedIn")).FirstOrDefault()?.Url" target="_blank">
+                        <a class="ripple-centered" href="@person.SocialMedias.Where(s => s.Name.Contains("LinkedIn")).FirstOrDefault()?.Url" target="_blank">
                             <i class="rsicon rsicon-linkedin" style="font-size: 24px;"></i>
                         </a>
                     </li>
                     <li>
-                        <a class="ripple-centered" href="@Model.SocialMedias.Where(s => s.Name.Contains("Instagram")).FirstOrDefault()?.Url" target="_blank">
+                        <a class="ripple-centered" href="@person.SocialMedias.Where(s => s.Name.Contains("Instagram")).FirstOrDefault()?.Url" target="_blank">
                             <i class="rsicon rsicon-instagram" style="font-size: 24px;"></i>
                         </a>
                     </li>
@@ -64,11 +67,11 @@
         <div class="section-txt-btn">
             <p>
                 <a class="btn btn-lg btn-border ripple" target="_blank"
-                   href="@Model.ResumePath">Download Resume</a>
+                   href="@person.ResumePath">Download Resume</a>
             </p>
 
             <p>
-                @Model.Description
+                @person.Description
             </p>
         </div>
     </div>
@@ -80,30 +83,30 @@
         <h2 class="section-title">Professional Skills</h2>
 
         <div class="section-box">
-            @for (int i = 0; i < Model.Skills.Count; i += 2)
+            @for (int i = 0; i < person.Skills.Count; i += 2)
             {
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="progress-bar">
                             <div class="bar-data">
-                                <span class="bar-title">@skills[i].Name</span>
-                                <span class="bar-value">@skills[i].Percent%</span>
+                                <span class="bar-title">@person.Skills[i].Name</span>
+                                <span class="bar-value">@person.Skills[i].Percent%</span>
                             </div>
                             <div class="bar-line">
-                                <span class="bar-fill" data-width="@skills[i].Percent%"></span>
+                                <span class="bar-fill" data-width="@person.Skills[i].Percent%"></span>
                             </div>
                         </div>
                     </div>
-                    @if ((i + 1) < Model.Skills.Count)
+                    @if ((i + 1) < person.Skills.Count)
                     {
                         <div class="col-sm-6">
                             <div class="progress-bar">
                                 <div class="bar-data">
-                                    <span class="bar-title">@skills[i + 1].Name</span>
-                                    <span class="bar-value">@skills[i + 1].Percent%</span>
+                                    <span class="bar-title">@person.Skills[i + 1].Name</span>
+                                    <span class="bar-value">@person.Skills[i + 1].Percent%</span>
                                 </div>
                                 <div class="bar-line">
-                                    <span class="bar-fill" data-width="@skills[i + 1].Percent%"></span>
+                                    <span class="bar-fill" data-width="@person.Skills[i + 1].Percent%"></span>
                                 </div>
                             </div>
                         </div>
@@ -123,7 +126,7 @@
         <div class="timeline">
             <div class="timeline-bar"></div>
             <div class="timeline-inner clearfix">
-                @foreach (WorkExperience workExperience in Model.WorkExperiences)
+                @foreach (WorkExperience workExperience in person.WorkExperiences)
                 {
                     <div class="timeline-box timeline-box-@(workExperience.Id % 2 == 0 ? "left" : "right")">
                         <span class="dot"></span>
@@ -155,7 +158,7 @@
             <div class="timeline-bar"></div>
             <div class="timeline-inner clearfix">
 
-                @foreach (Education education in Model.Educations)
+                @foreach (Education education in person.Educations)
                 {
                     <div class="timeline-box timeline-box-compact timeline-box-@(education.Id % 2 == 0 ? "left" : "right")">
                         <span class="dot"></span>
@@ -163,7 +166,7 @@
                         <div class="timeline-box-inner animate-right">
                             <span class="arrow"></span>
 
-                            <div class="date"><span>@education.StartDate.Year - @(education.EndDate.Year != 0001 ? education.EndDate : "Present")</span></div>
+                            <div class="date"><span>@education.StartDate.Year - @(education.EndDate.Year != 0001 ? education.EndDate.Year : "Present")</span></div>
                             <h3>@education.Role</h3>
                             <h4>@education.Name</h4>
                         </div>
@@ -250,97 +253,65 @@
 </section>
 <!-- #references -->
 
-<section id="blog" class="section section-blog">
-    <div class="animate-up">
-        <h2 class="section-title">From The Blog</h2>
+@if (blogs is not null && blogs.Count > 0)
+{
 
-        <div class="blog-grid">
-            <div class="grid-sizer"></div>
-            <div class="grid-item">
-                <article class="post-box">
-                    <div class="post-media">
-                        <div class="post-image">
-                            <a href="single.html"><img src="img/uploads/thumb-449x286-1.jpg" alt=""> </a>
-                        </div>
+    <section id="blog" class="section section-blog">
+        <div class="animate-up">
+            <h2 class="section-title">From The Blog</h2>
+
+            <div class="blog-grid">
+                <div class="grid-sizer"></div>
+                @foreach (Blog blog in blogs)
+                {
+                    <div class="grid-item">
+                        <article class="post-box">
+                            <div class="post-media">
+                                <div class="post-image">
+                                    <a href="single.html"><img src="img/uploads/thumb-449x286-1.jpg" alt=""> </a>
+                                </div>
+                            </div>
+
+                            <div class="post-data">
+                                <time class="post-datetime" datetime="2015-03-13T07:44:01+00:00">
+                                    <span class="day">03</span>
+                                    <span class="month">MAY</span>
+                                </time>
+
+                                <div class="post-tag">
+                                    <a href="">#Photo</a>
+                                    <a href="">#Architect</a>
+                                </div>
+
+                                <h3 class="post-title">
+                                    <a href="single-image.html">Image Post</a>
+                                </h3>
+
+                                <div class="post-info">
+                                    <a href=""><i class="rsicon rsicon-user"></i>by admin</a>
+                                    <a href=""><i class="rsicon rsicon-comments"></i>56</a>
+                                </div>
+                            </div>
+                        </article>
                     </div>
-
-                    <div class="post-data">
-                        <time class="post-datetime" datetime="2015-03-13T07:44:01+00:00">
-                            <span class="day">03</span>
-                            <span class="month">MAY</span>
-                        </time>
-
-                        <div class="post-tag">
-                            <a href="">#Photo</a>
-                            <a href="">#Architect</a>
-                        </div>
-
-                        <h3 class="post-title">
-                            <a href="single-image.html">Image Post</a>
-                        </h3>
-
-                        <div class="post-info">
-                            <a href=""><i class="rsicon rsicon-user"></i>by admin</a>
-                            <a href=""><i class="rsicon rsicon-comments"></i>56</a>
-                        </div>
-                    </div>
-                </article>
-            </div>
-
-            <div class="grid-item">
-                <article class="post-box">
-                    <div class="post-media">
-                        <div class="post-image">
-                            <a href="single-vimeo.html">
-                                <img src="img/uploads/thumb-449x286-5.jpg" alt="">
-                                <span class="post-type-icon"><i class="rsicon rsicon-play"></i></span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="post-data">
-                        <time class="post-datetime" datetime="2015-03-13T07:44:01+00:00">
-                            <span class="day">03</span>
-                            <span class="month">MAY</span>
-                        </time>
-
-                        <div class="post-tag">
-                            <a href="">#Photo</a>
-                            <a href="">#Architect</a>
-                        </div>
-
-                        <h3 class="post-title">
-                            <a href="single-vimeo.html">Vimeo Video Post</a>
-                        </h3>
-
-                        <div class="post-info">
-                            <a href=""><i class="rsicon rsicon-user"></i>by admin</a>
-                            <a href=""><i class="rsicon rsicon-comments"></i>56</a>
-                        </div>
-                    </div>
-                </article>
+                }
             </div>
         </div>
-    </div>
-</section>
-<!-- #blog -->
+    </section>
+    <!-- #blog -->
+}
 
 <section id="text-section" class="section section-text">
     <div class="animate-up animated">
         <h2 class="section-title">Text Section</h2>
 
         <div class="section-box">
-            <p>
-                Hello! I’m Robert Smith and this is custom editor section. You can add here any text or "Strikethrough"
-                text and even you can add bulleted or numbered text and even you will be able to add blockquot text. You
-                can align this text to left/right/center.
-
-                One of the most interesting options is to divide this section to "One half" "One Third" and "One
-                Fourth".
-
-                You can use this for Honors or Achievments or Awards sections. You can insert images and photos right in
-                this editor!
-            </p>
+            <blockquote>
+                <p>
+                    "@quote.Content"<br>
+                    <cite><a href="">@quote.Owner</a></cite>
+                </p>
+            </blockquote>
         </div>
     </div>
 </section>
@@ -352,41 +323,22 @@
 
         <div class="section-box">
             <p>
-                I have a keen interest in photography. I was vice-president of the photography club during my time at
-                university,
-                and during this period I organised a number of very successful exhibitions and events both on and off
-                campus.
-                <br />I also play the piano to grade 8 standard.
+                Bisiklet tutkunuyum. Rüzgarı yüzümde hissederek pedallara basmak, özgürlüğün ve maceranın tadını çıkarmak benim için paha biçilemez bir deneyim. Her sürüşte yeni keşiflere yelken açıyor, doğanın güzelliklerine tanık oluyorum. Bisikletimle şehirlerin karmaşasından uzaklaşıp, sakin patikalarda huzur buluyorum. Her viraj yeni bir sürprizi, her tepe yeni bir manzarayı müjdeliyor.
+                <br />
+                <br />
+                Bisikletim sadece bir ulaşım aracı değil, aynı zamanda bir yaşam tarzı. Bisiklet kullanmak bana sadece sağlık ve zindelik değil, aynı zamanda çevreye karşı sorumluluk bilinci de kazandırıyor. Bisikletimle pedal çevirdikçe dünyayı daha güzel bir yer yapmak için katkıda bulunuyorum.
+                <br />
+                <br />
+                Bisiklet tutkum beni her geçen gün daha da ileriye taşıyor. Kendimi geliştirmek için sürekli yeni rotalar arıyor, daha uzun mesafeler kat etmek için antrenman yapıyorum. Bisiklet üzerinde kendimi sınırlarımı zorlarken, aynı zamanda kendimi de daha iyi tanıyorum.
+                <br />
+                <br />
+                Bisikletimle çıktığım her yolculuk unutulmaz bir anıya dönüşüyor. Pedallara her basışımda yeni bir hikaye yazıyorum. Bisiklet tutkum bana sadece keyif ve huzur değil, aynı zamanda unutulmaz anılar ve deneyimler de kazandırıyor.
             </p>
 
             <ul class="interests-list">
                 <li>
                     <i class="map-icon map-icon-bicycling"></i>
                     <span>Bicycling</span>
-                </li>
-                <li>
-                    <i class="map-icon map-icon-movie-theater"></i>
-                    <span>Watch Movies</span>
-                </li>
-                <li>
-                    <i class="map-icon map-icon-ice-skating"></i>
-                    <span>Skating</span>
-                </li>
-                <li>
-                    <i class="map-icon map-icon-shopping-mall"></i>
-                    <span>Shopping</span>
-                </li>
-                <li>
-                    <i class="map-icon map-icon-tennis"></i>
-                    <span>Playing Tennis</span>
-                </li>
-                <li>
-                    <i class="map-icon map-icon-bowling-alley"></i>
-                    <span>Playing Bowling</span>
-                </li>
-                <li>
-                    <i class="map-icon map-icon-swimming"></i>
-                    <span>Swimming</span>
                 </li>
             </ul>
         </div>
