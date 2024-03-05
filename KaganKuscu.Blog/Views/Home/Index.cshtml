@@ -180,26 +180,26 @@
 
             <div class="section-box">
                 <ul class="ref-slider">
-                    <li>
-                        <div class="ref-box">
-                            <div class="person-speech">
-                                <p>
-                                    I confirm that I have dealt with New Company Ltd since 1998. Their work has been a major
-                                    factor in our
-                                    website's success, helping it to become one of the most visited resources of its kind on
-                                    the Internet.
-                                </p>
-                            </div>
-                            <div class="person-info clearfix">
-                                <img class="person-img" src="img/uploads/rs-avatar-60x60.jpg" alt="Headshot">
+                    @foreach (Reference reference in person.References)
+                    {
+                        <li>
+                            <div class="ref-box">
+                                <div class="person-speech">
+                                    <p>
+                                        @reference.Description
+                                    </p>
+                                </div>
+                                <div class="person-info clearfix">
+                                    <img class="person-img" src="@reference.ImagePath" alt="Headshot">
 
-                                <div class="person-name-title">
-                                    <span class="person-name">Alexander Jokovich</span>
-                                    <span class="person-title">Modern LLC , HR</span>
+                                    <div class="person-name-title">
+                                        <span class="person-name">@reference.Name</span>
+                                        <span class="person-title">@reference.Title, </span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
+                        </li>
+                    }
                 </ul>
                 <div class="ref-slider-nav">
                     <span id="ref-slider-prev" class="slider-prev"></span>
@@ -226,28 +226,30 @@
                         <article class="post-box">
                             <div class="post-media">
                                 <div class="post-image">
-                                    <a href="single.html"><img src="img/uploads/thumb-449x286-1.jpg" alt=""> </a>
+                                    <a asp-controller="Blog" asp-action="Details" asp-route-id="@blog.Guid"><img src="@blog.Photos.First()" alt="@blog.Title"> </a>
                                 </div>
                             </div>
 
                             <div class="post-data">
-                                <time class="post-datetime" datetime="2015-03-13T07:44:01+00:00">
-                                    <span class="day">03</span>
-                                    <span class="month">MAY</span>
+                                <time class="post-datetime" datetime="@blog.DateCreated">
+                                    <span class="day">@blog.DateCreated.Day</span>
+                                    <span class="month">@blog.DateCreated.ToString("MMM")</span>
                                 </time>
 
                                 <div class="post-tag">
-                                    <a href="">#Photo</a>
-                                    <a href="">#Architect</a>
+                                    @foreach (Tag tag in blog.Tags)
+                                    {
+                                        <a href="">#@tag.Name</a>
+                                    }
                                 </div>
 
                                 <h3 class="post-title">
-                                    <a href="single-image.html">Image Post</a>
+                                    <a asp-controller="Blog" asp-action="Details" asp-route-id="@blog.Guid">@blog.Title</a>
                                 </h3>
 
                                 <div class="post-info">
-                                    <a href=""><i class="rsicon rsicon-user"></i>by admin</a>
-                                    <a href=""><i class="rsicon rsicon-comments"></i>56</a>
+                                    <a href=""><i class="rsicon rsicon-user"></i>@blog.Person.Name</a>
+                                    <a href=""><i class="rsicon rsicon-comments"></i>@blog.Comments.Count()</a>
                                 </div>
                             </div>
                         </article>
