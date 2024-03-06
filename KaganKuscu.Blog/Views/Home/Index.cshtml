@@ -117,20 +117,20 @@
         <div class="timeline">
             <div class="timeline-bar"></div>
             <div class="timeline-inner clearfix">
-                @foreach (WorkExperience workExperience in person.WorkExperiences)
+                @foreach (var item in person.WorkExperiences.Select((ew, index) => new {index, ew}))
                 {
-                    <div class="timeline-box timeline-box-@(workExperience.Id % 2 == 0 ? "left" : "right")">
+                    <div class="timeline-box timeline-box-@(item.index % 2 == 0 ? "left" : "right")">
                         <span class="dot"></span>
 
                         <div class="timeline-box-inner animate-right">
                             <span class="arrow"></span>
 
-                            <div class="date">@workExperience.StartDate.Year - @(workExperience.EndDate.Year != 0001 ? workExperience.EndDate : "Present")</div>
-                            <h3>@workExperience.Name</h3>
-                            <h4>@workExperience.Role</h4>
+                            <div class="date">@item.ew.StartDate.Year - @(item.ew.EndDate.Year != 0001 ? item.ew.EndDate : "Present")</div>
+                            <h3>@item.ew.Name</h3>
+                            <h4>@item.ew.Role</h4>
 
                             <p>
-                                @workExperience.Description
+                                @item.ew.Description
                             </p>
                         </div>
                     </div>
@@ -149,17 +149,17 @@
             <div class="timeline-bar"></div>
             <div class="timeline-inner clearfix">
 
-                @foreach (Education education in person.Educations)
+                @foreach (var item in person.Educations.Select((e, index) => new { index, e } ))
                 {
-                    <div class="timeline-box timeline-box-compact timeline-box-@(education.Id % 2 == 0 ? "left" : "right")">
+                    <div class="timeline-box timeline-box-compact timeline-box-@(item.index % 2 == 0 ? "left" : "right")">
                         <span class="dot"></span>
 
                         <div class="timeline-box-inner animate-right">
                             <span class="arrow"></span>
 
-                            <div class="date"><span>@education.StartDate.Year - @(education.EndDate.Year != 0001 ? education.EndDate.Year : "Present")</span></div>
-                            <h3>@education.Role</h3>
-                            <h4>@education.Name</h4>
+                            <div class="date"><span>@item.e.StartDate.Year - @(item.e.EndDate.Year != 0001 ? item.e.EndDate.Year : "Present")</span></div>
+                            <h3>@item.e.Role</h3>
+                            <h4>@item.e.Name</h4>
                         </div>
                     </div>
                 }
