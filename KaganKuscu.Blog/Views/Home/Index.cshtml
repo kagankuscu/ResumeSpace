@@ -33,7 +33,7 @@
                             </li>
                             <li class="clearfix">
                                 <strong class="title">E-mail</strong>
-                                <span class="cont"><a href="@person.Email">@person.Email</a></span>
+                                <span class="cont"><a href="mailto:@person.Email">@person.Email</a></span>
                             </li>
                             <li class="clearfix">
                                 <strong class="title">Phone</strong>
@@ -63,9 +63,7 @@
                    href="@person.ResumePath">Download Resume</a>
             </p>
 
-            <p>
-                @person.Description
-            </p>
+            @Html.Raw(@person.Description)
         </div>
     </div>
 </section>
