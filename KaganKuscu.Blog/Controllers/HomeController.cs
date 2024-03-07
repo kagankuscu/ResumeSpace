@@ -10,10 +10,12 @@ namespace KaganKuscu.Blog.Controllers
     public class HomeController : Controller
     {
         private readonly IPersonService _personService;
+        private readonly IQuoteService _quoteService;
 
-        public HomeController(IPersonService personService)
+        public HomeController(IPersonService personService, IQuoteService quoteService)
         {
             _personService = personService;
+            _quoteService = quoteService;
         }
 
         public IActionResult Index()
@@ -21,13 +23,7 @@ namespace KaganKuscu.Blog.Controllers
             HomePageVm vm = new HomePageVm
             {
                 Person = _personService.GetAllPersonDto().Where(p => p.Name.Contains("Kağan Kuşcu")).FirstOrDefault(),
-                Quote = new Quote
-                {
-                    Content = @"My commute is extremely short. Just 20 steps across the apartment to my office
-                    overlooking Butler St. Sometimes when I'm feeling fancy, I'll walk 2 blocks down the
-                    street for coffee first. Either way, it's very convenient.",
-                    Owner = "John Doe",
-                },
+                Quote = _quoteService.GetRandomQuote(),
                 Blogs = [],
             };
             return View(vm);

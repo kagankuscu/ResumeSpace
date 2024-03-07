@@ -17,6 +17,7 @@ namespace KaganKuscu.Business.Configurations
         public static void AddBusinessDI(this IServiceCollection service)
         {
             service.AddScoped<IPersonService, PersonService>();
+            service.AddScoped<IQuoteService, QuoteService>();
         }
         public static void AddRepositoryDI(this IServiceCollection service)
         {
