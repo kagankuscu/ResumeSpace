@@ -10,5 +10,6 @@ namespace KaganKuscu.Model.Models
     {
         public string Name { get; set; }
         public string IconCssClass { get; set; }
+        public int PersonId { get; set; }
     }
 }
