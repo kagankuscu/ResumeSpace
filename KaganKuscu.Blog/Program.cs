@@ -53,7 +53,7 @@ namespace KaganKuscu.Blog
 
             app.MapControllerRoute(
                 name: "adminArea",
-                pattern: "{area:exists}/{controller=Authentication}/{action=Login}/{id?}"
+                pattern: "{area:exists}/{controller=Authentication}/{action=Index}/{id?}"
             );
 
             app.MapControllerRoute(
