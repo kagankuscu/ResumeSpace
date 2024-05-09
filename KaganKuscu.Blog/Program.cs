@@ -30,7 +30,7 @@ namespace KaganKuscu.Blog
 
             builder.Services.ConfigureApplicationCookie(options => 
             {
-                options.AccessDeniedPath = "/Test/AccesDenied";
+                options.AccessDeniedPath = "/admin/authentication/accessdenied";
                 options.LoginPath = "/admin/authentication/login";
             });
 
