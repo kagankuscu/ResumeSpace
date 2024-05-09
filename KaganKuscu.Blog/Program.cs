@@ -6,6 +6,7 @@ using KaganKuscu.Repository.Abstract;
 using KaganKuscu.Repository.Concrete;
 using KaganKuscu.Business.Abstract;
 using KaganKuscu.Business.Concrete;
+using Microsoft.AspNetCore.Identity;
 
 namespace KaganKuscu.Blog
 {
@@ -20,8 +21,18 @@ namespace KaganKuscu.Blog
 
             builder.Services.AddBusinessDI();
             builder.Services.AddRepositoryDI();
+            builder.Services.AddAuthorization();
 
             builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("connstr")));
+
+            builder.Services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>();
+
+            builder.Services.ConfigureApplicationCookie(options => 
+            {
+                options.AccessDeniedPath = "/Test/AccesDenied";
+                options.LoginPath = "/admin/authentication/login";
+            });
 
             var app = builder.Build();
 
@@ -39,6 +50,11 @@ namespace KaganKuscu.Blog
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.MapControllerRoute(
+                name: "adminArea",
+                pattern: "{area:exists}/{controller=Authentication}/{action=Login}/{id?}"
+            );
 
             app.MapControllerRoute(
                 name: "default",
