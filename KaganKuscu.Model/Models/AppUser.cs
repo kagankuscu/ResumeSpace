@@ -9,6 +9,6 @@ namespace KaganKuscu.Model.Models
 {
     public class AppUser : IdentityUser
     {
-        
+        public string? ProfilePhoto { get; set; }
     }
 }
