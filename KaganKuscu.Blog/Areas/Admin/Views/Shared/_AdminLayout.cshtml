@@ -4,7 +4,7 @@
     <head>
 
         <meta charset="utf-8" />
-        <title>Dashboard | Minible - Admin & Dashboard Template</title>
+        <title>Dashboard</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesbrand" name="author" />
@@ -142,33 +142,68 @@
                             <li class="menu-title">Menu</li>
 
                             <li>
-                                <a href="index.html">
+                                <a href="/Admin/Dashboard/">
                                     <i class="uil-home-alt"></i><span class="badge rounded-pill bg-primary float-end">01</span>
                                     <span>Dashboard</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a href="calendar.html" class="waves-effect">
+                                <a href="/Admin/Dashboard/People" class=" waves-effect">
+                                    <i class="uil-comments-alt"></i>
+                                    <span>İnsanlar</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/Admin/Dashboard/Files" class=" waves-effect">
+                                    <i class="uil-comments-alt"></i>
+                                    <span>Dosyalar</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/Admin/Dashboard/Educations" class="waves-effect">
                                     <i class="uil-calender"></i>
-                                    <span>Calendar</span>
+                                    <span>Eğitimler</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a href="chat.html" class=" waves-effect">
+                                <a href="/Admin/Dashboard/Skills" class=" waves-effect">
                                     <i class="uil-comments-alt"></i>
-                                    <span>Chat</span>
+                                    <span>Yetenekler</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a href="file-manager.html" class=" waves-effect">
+                                <a href="/Admin/Dashboard/WorkExperiences" class=" waves-effect">
                                     <i class="uil-comments-alt"></i>
-                                    <!-- <span class="badge rounded-pill bg-success float-end">New</span> -->
-                                    <span>File Manager</span>
+                                    <span>Çalışma Deneyimleri</span>
                                 </a>
                             </li>
+
+                            <li>
+                                <a href="/Admin/Dashboard/References" class=" waves-effect">
+                                    <i class="uil-comments-alt"></i>
+                                    <span>Referanslar</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/Admin/Dashboard/SocialMedias" class=" waves-effect">
+                                    <i class="uil-comments-alt"></i>
+                                    <span>Sosyal Medyalar</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/Admin/Dashboard/Quotes" class=" waves-effect">
+                                    <i class="uil-comments-alt"></i>
+                                    <span>Özlü Sözler</span>
+                                </a>
+                            </li>
+
                         </ul>
                     </div>
                     <!-- Sidebar -->
@@ -237,6 +272,23 @@
 
         <!-- Dark Mode js -->
         <script type="text/javascript" src="~/js/darkmode.js"></script>
+
+        <!-- Required datatable js -->
+        <script src="~/admin/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+        <script src="~/admin/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+        <!-- Buttons examples -->
+        <script src="~/admin/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+        <script src="~/admin/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+        <script src="~/admin/libs/jszip/jszip.min.js"></script>
+        <script src="~/admin/libs/pdfmake/build/pdfmake.min.js"></script>
+        <script src="~/admin/libs/pdfmake/build/vfs_fonts.js"></script>
+        <script src="~/admin/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+        <script src="~/admin/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+        <script src="~/admin/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+        
+        <!-- Responsive examples -->
+        <script src="~/admin/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+        <script src="~/admin/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
 
         @await RenderSectionAsync("Scripts", false)
     </body>
