@@ -4,6 +4,7 @@ using KaganKuscu.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KaganKuscu.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240505105126_AddSecondPhoneForPerson")]
+    partial class AddSecondPhoneForPerson
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,92 +24,6 @@ namespace KaganKuscu.DataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("KaganKuscu.Model.Models.AppUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ProfilePhoto")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "D0C23476-68D0-4DA0-AAD4-3ADAE20702C0",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "0447978d-cdf4-4735-8451-d31a438f8eb1",
-                            Email = "kuscukagan@gmail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "KUSCUKAGAN@GMAIL.COM",
-                            NormalizedUserName = "KAGANKUSCU",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDIHT8kOao9od40jQwjEVw+WxoMUy42+INzDB48ZAZKEgnNbTtDosTBXOBFsj+/TWA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "eb63e6e9-f2a4-4362-9040-229e0114845f",
-                            TwoFactorEnabled = false,
-                            UserName = "kagankuscu"
-                        });
-                });
 
             modelBuilder.Entity("KaganKuscu.Model.Models.Author", b =>
                 {
@@ -281,8 +198,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(6940),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(6970),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(2770),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(2800),
                             Description = "",
                             EndDate = new DateTime(2015, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
@@ -296,8 +213,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(6980),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(6990),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(2810),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(2810),
                             Description = "",
                             EndDate = new DateTime(2017, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
@@ -311,8 +228,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(6990),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(6990),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(2810),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(2810),
                             Description = "",
                             EndDate = new DateTime(2021, 6, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
@@ -326,8 +243,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(6990),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(6990),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(2810),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(2810),
                             Description = "",
                             EndDate = new DateTime(2023, 6, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
@@ -341,8 +258,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 5,
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(6990),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(6990),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(2820),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(2820),
                             Description = "",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
@@ -399,8 +316,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7480),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7480),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3420),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3420),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
                             IconCssClass = "map-icon map-icon-bicycling",
                             IsActive = true,
@@ -484,8 +401,8 @@ namespace KaganKuscu.DataAccess.Migrations
                             Id = 1,
                             Address = "Kocaeli/Izmit",
                             BirthDate = new DateTime(1996, 2, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(9470),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(9470),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(5110),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(5120),
                             Description = "<p>Teknolojinin sunduğu sonsuz olasılıklar beni her zaman heyecanlandırmıştır. Yazılım geliştirme dünyasına adım atarak bu heyecanımı gerçeğe dönüştürme şansı yakaladım. .NET Core platformlarında backend web geliştirmeye olan ilgimi keşfettim ve bu alanlarda kendimi geliştirmeye başladım. C#, JavaScript ve MS SQL Server dillerini öğrenerek temellerimi sağlamlaştırmaya çalışıyorum.</p>\n\n                        <p>Meraklı ve araştırmacı ruhum sayesinde her gün yeni bir şeyler öğreniyor ve kendimi geliştirmeye devam ediyorum. Kod yazmak benim için sadece bir meslek değil, aynı zamanda bir tutku ve öğrenme fırsatı. Her projede kendimi geliştirmenin ve yeni bilgiler edinmenin heyecanını yaşıyorum.</p>\n\n                        <p>Problem çözme becerilerimi geliştirmeye ve analitik düşünme yeteneğimi güçlendirmeye odaklanıyorum. Karmaşık problemler karşısında yılmadan çözümler aramak ve en uygun çözümü bulmak için çabalıyorum.</p>\n\n                        <p>Ekip çalışmasına yatkın bir kişiliğe sahibim ve iletişim becerilerimi geliştirmeye önem veriyorum. Ekip arkadaşlarımla uyum içinde çalışarak ortak hedeflere ulaşmanın keyfini yaşıyorum.</p>",
                             Email = "kuscukagan@gmail.com",
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
@@ -578,8 +495,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 1,
                             Content = "Başarısızlıktan korkma. Başarısızlık, başarıya giden yoldaki en önemli adımdır.",
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7870),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7880),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3860),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3860),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
                             IsActive = true,
                             IsDeleted = false,
@@ -589,8 +506,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 2,
                             Content = "Bilgisayarlar, bisiklete binmek gibi bir şeydir. Dengeyi bir kez yakaladınız mı, düşmeniz çok zor.",
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7880),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7880),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3860),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3860),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
                             IsActive = true,
                             IsDeleted = false,
@@ -600,8 +517,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 3,
                             Content = "Yazılım, bir insanın zekasını en iyi şekilde yansıtan şeydir.",
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7880),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7880),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3870),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3870),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
                             IsActive = true,
                             IsDeleted = false,
@@ -611,8 +528,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 4,
                             Content = "Gelecek, bugünü nasıl geçirdiğimize bağlıdır.",
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7880),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7880),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3870),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3870),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
                             IsActive = true,
                             IsDeleted = false,
@@ -622,8 +539,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 5,
                             Content = "Dünyayı değiştirmek istiyorsan, önce kendini değiştirmelisin.",
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7890),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7890),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3870),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3870),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
                             IsActive = true,
                             IsDeleted = false,
@@ -633,8 +550,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 6,
                             Content = "Teknolojinin kalbi insan ruhudur.",
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7890),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7890),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3870),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3870),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
                             IsActive = true,
                             IsDeleted = false,
@@ -644,8 +561,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 7,
                             Content = "Noktaları birleştirmek ancak geriye baktığınızda mümkündür.",
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7890),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7890),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3880),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3880),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
                             IsActive = true,
                             IsDeleted = false,
@@ -655,8 +572,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 8,
                             Content = "Zamanınız sınırlı, onu başkasının hayatını yaşayarak harcamayın.",
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7890),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7890),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3880),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3880),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
                             IsActive = true,
                             IsDeleted = false,
@@ -666,8 +583,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 9,
                             Content = "Harika işler yapmak için tutkulu olmanız gerekir.",
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7900),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7900),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3880),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3880),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
                             IsActive = true,
                             IsDeleted = false,
@@ -677,8 +594,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 10,
                             Content = "Yaratıcı olmak, başkalarının ne düşündüğünü önemsememektir.",
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7900),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7900),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3880),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3880),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
                             IsActive = true,
                             IsDeleted = false,
@@ -688,8 +605,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 11,
                             Content = "Hızlı hareket et ve bir şeyler yap. Mükemmellik, eylemin sonucudur.",
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7900),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7900),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3890),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3890),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
                             IsActive = true,
                             IsDeleted = false,
@@ -699,8 +616,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 12,
                             Content = "Her zaman daha iyisini yapmanin bir yolu vardir.",
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7900),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7900),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3890),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3890),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
                             IsActive = true,
                             IsDeleted = false,
@@ -710,8 +627,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 13,
                             Content = "Başarısızlık bir seçenek değildir. Pes edene kadar denemeye devam et.",
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7900),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7910),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3890),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3890),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
                             IsActive = true,
                             IsDeleted = false,
@@ -721,8 +638,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 14,
                             Content = "Basitlik, karmaşıklığın en üst noktasıdır.",
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7910),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7910),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3890),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3890),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
                             IsActive = true,
                             IsDeleted = false,
@@ -732,8 +649,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 15,
                             Content = "Teknolojinin iyilik için bir güç olduğuna inanıyorum.",
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7910),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(7910),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3900),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(3900),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
                             IsActive = true,
                             IsDeleted = false,
@@ -837,8 +754,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(8710),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(8710),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(4310),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(4320),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
                             IsActive = true,
                             IsDeleted = false,
@@ -849,8 +766,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(8710),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(8710),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(4320),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(4320),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
                             IsActive = true,
                             IsDeleted = false,
@@ -861,8 +778,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(8720),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(8720),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(4330),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(4330),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
                             IsActive = true,
                             IsDeleted = false,
@@ -873,8 +790,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(8720),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(8720),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(4330),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(4340),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
                             IsActive = true,
                             IsDeleted = false,
@@ -885,8 +802,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 5,
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(8720),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(8720),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(4340),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(4340),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
                             IsActive = true,
                             IsDeleted = false,
@@ -944,8 +861,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(9090),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(9090),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(4730),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(4730),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
                             IconCssClass = "rsicon rsicon-github",
                             IsActive = true,
@@ -957,8 +874,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(9100),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(9100),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(4740),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(4740),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
                             IconCssClass = "rsicon rsicon-linkedin",
                             IsActive = true,
@@ -970,8 +887,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(9100),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(9110),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(4740),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(4740),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
                             IconCssClass = "rsicon rsicon-instagram",
                             IsActive = true,
@@ -1073,8 +990,8 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(9910),
-                            DateModified = new DateTime(2024, 5, 10, 16, 54, 47, 432, DateTimeKind.Local).AddTicks(9910),
+                            DateCreated = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(5550),
+                            DateModified = new DateTime(2024, 5, 5, 13, 51, 25, 898, DateTimeKind.Local).AddTicks(5560),
                             Description = ".Net Backend Developer",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Guid = new Guid("00000000-0000-0000-0000-000000000000"),
@@ -1085,160 +1002,6 @@ namespace KaganKuscu.DataAccess.Migrations
                             Role = ".Net Backend Developer",
                             StartDate = new DateTime(2023, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "A34A825F-E1A6-427C-8194-0D051C22560F",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "40A649CC-F41A-4505-94B6-7335F12E3A5D",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("LoginProvider", "ProviderKey");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserLogins", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "D0C23476-68D0-4DA0-AAD4-3ADAE20702C0",
-                            RoleId = "A34A825F-E1A6-427C-8194-0D051C22560F"
-                        });
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId", "LoginProvider", "Name");
-
-                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("KaganKuscu.Model.Models.Blog", b =>
@@ -1335,57 +1098,6 @@ namespace KaganKuscu.DataAccess.Migrations
                     b.HasOne("KaganKuscu.Model.Models.Person", null)
                         .WithMany("WorkExperiences")
                         .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.HasOne("KaganKuscu.Model.Models.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.HasOne("KaganKuscu.Model.Models.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("KaganKuscu.Model.Models.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.HasOne("KaganKuscu.Model.Models.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
