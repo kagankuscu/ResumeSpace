@@ -15,11 +15,13 @@ namespace KaganKuscu.DataAccess.Config
             builder.HasData(
                 new IdentityRole 
                 {
+                    Id = "A34A825F-E1A6-427C-8194-0D051C22560F",
                     Name = "Admin",
                     NormalizedName = "ADMIN"
                 },
                 new IdentityRole
                 {
+                    Id = "40A649CC-F41A-4505-94B6-7335F12E3A5D",
                     Name = "User",
                     NormalizedName = "USER"
                 }
