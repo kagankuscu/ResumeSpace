@@ -200,7 +200,7 @@
                                 SwalToast.fire
                                 ({
                                     icon: "success",
-                                    title: "Başarılı olarak silindi"
+                                    title: "silindi"
                                 });
 
                             },
@@ -284,7 +284,7 @@
                                 {
                                     $("#mdlAddAndUpdate").modal("hide");
                                     datatable.row(row).data(data).draw();
-                                    SwalToast.fire("Saved :" + guid);
+                                    SwalToast.fire("Güncellendi");
                                 }
                             });
                         }
