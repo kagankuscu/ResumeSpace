@@ -1,3 +1,5 @@
+@using System.Security.Claims;
+
 <!doctype html>
 <html lang="en">
 
@@ -61,44 +63,21 @@
                     </div>
 
                     <div class="d-flex">
-
-                        <div class="dropdown d-inline-block d-lg-none ms-2">
-                            <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="uil-search"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
-                                aria-labelledby="page-header-search-dropdown">
-                    
-                                <form class="p-3">
-                                    <div class="m-0">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-primary" type="submit"><i class="mdi mdi-magnify"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
                         <div class="dropdown d-inline-block">
                             <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img class="rounded-circle header-profile-user" src="~/admin/images/users/avatar-10.jpg"
                                     alt="Header Avatar">
 
-                                <span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">@(ViewData["username"] is not null ? ViewData["username"] : "Username")</span>
+                                <span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">@(User.FindFirstValue(ClaimTypes.Name) is not null ? User.FindFirstValue(ClaimTypes.Name) : "Username")</span>
                                 <i class="uil-angle-down d-none d-xl-inline-block font-size-15"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
-                                <a class="dropdown-item" href="#"><i class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i> <span class="align-middle">View Profile</span></a>
-                                <a class="dropdown-item" href="#"><i class="uil uil-wallet font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">My Wallet</span></a>
-                                <a class="dropdown-item d-block" href="#"><i class="uil uil-cog font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Settings</span> <span class="badge bg-success-subtle text-success rounded-pill mt-1 ms-2">03</span></a>
-                                <a class="dropdown-item" href="#"><i class="uil uil-lock-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Lock screen</span></a>
-                                <a class="dropdown-item" href="/Admin/Authentication/Logout"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Sign out</span></a>
+                                <a class="dropdown-item" href="/Admin/Profile"><i class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i> <span class="align-middle">Profil'i Görüntüle</span></a>
+                                <a class="dropdown-item" href="/Home/Index"><i class="uil uil-home-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Anasayfa'ya Geri Dön</span></a>
+                                <a class="dropdown-item" href="/Admin/Authentication/Lockout"><i class="uil uil-lock-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Ekranı Kilitle</span></a>
+                                <a class="dropdown-item" href="/Admin/Authentication/Logout"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Çıkış</span></a>
                             </div>
                         </div>
 
@@ -143,42 +122,42 @@
 
                             <li>
                                 <a href="/Admin/Dashboard/">
-                                    <i class="uil-home-alt"></i><span class="badge rounded-pill bg-primary float-end">01</span>
-                                    <span>Dashboard</span>
+                                    <i class="uil-home-alt"></i>
+                                    <span>Anasayfa</span>
                                 </a>
                             </li>
 
                             <li>
                                 <a href="/Admin/Dashboard/People" class=" waves-effect">
-                                    <i class="uil-comments-alt"></i>
-                                    <span>İnsanlar</span>
+                                    <i class="uil-users-alt"></i>
+                                    <span>Kişiler</span>
                                 </a>
                             </li>
 
                             <li>
                                 <a href="/Admin/Dashboard/Files" class=" waves-effect">
-                                    <i class="uil-comments-alt"></i>
+                                    <i class="uil-folder"></i>
                                     <span>Dosyalar</span>
                                 </a>
                             </li>
 
                             <li>
                                 <a href="/Admin/Dashboard/Educations" class="waves-effect">
-                                    <i class="uil-calender"></i>
+                                    <i class="uil-book-alt"></i>
                                     <span>Eğitimler</span>
                                 </a>
                             </li>
 
                             <li>
                                 <a href="/Admin/Dashboard/Skills" class=" waves-effect">
-                                    <i class="uil-comments-alt"></i>
+                                    <i class="uil-lightbulb-alt"></i>
                                     <span>Yetenekler</span>
                                 </a>
                             </li>
 
                             <li>
                                 <a href="/Admin/Dashboard/WorkExperiences" class=" waves-effect">
-                                    <i class="uil-comments-alt"></i>
+                                    <i class="uil-suitcase"></i>
                                     <span>Çalışma Deneyimleri</span>
                                 </a>
                             </li>
@@ -192,14 +171,14 @@
 
                             <li>
                                 <a href="/Admin/Dashboard/SocialMedias" class=" waves-effect">
-                                    <i class="uil-comments-alt"></i>
+                                    <i class="uil-user-square"></i>
                                     <span>Sosyal Medyalar</span>
                                 </a>
                             </li>
 
                             <li>
                                 <a href="/Admin/Dashboard/Quotes" class=" waves-effect">
-                                    <i class="uil-comments-alt"></i>
+                                    <i class="uil-google-hangouts-alt"></i>
                                     <span>Özlü Sözler</span>
                                 </a>
                             </li>
@@ -221,9 +200,7 @@
                 <div class="page-content">
                     <div class="container-fluid">
 
-                        <div class="row">
-                            @RenderBody()
-                        </div> <!-- end row-->
+                        @RenderBody()
 
                     </div> <!-- container-fluid -->
                 </div>
@@ -234,12 +211,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-sm-6">
-                                <script>document.write(new Date().getFullYear())</script> © Minible.
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="text-sm-end d-none d-sm-block">
-                                    Crafted with <i class="mdi mdi-heart text-danger"></i> by <a href="https://themesbrand.com/" target="_blank" class="text-reset">Themesbrand</a>
-                                </div>
+                                <script>document.write(new Date().getFullYear())</script> © Kağan Kuşcu.
                             </div>
                         </div>
                     </div>
@@ -261,6 +233,9 @@
         <script src="~/admin/libs/node-waves/waves.min.js"></script>
         <script src="~/admin/libs/waypoints/lib/jquery.waypoints.min.js"></script>
         <script src="~/admin/libs/jquery.counterup/jquery.counterup.min.js"></script>
+
+        <!-- sweetalert -->
+        <script src="~/admin/libs/sweetalert2/sweetalert2.all.min.js"></script>
 
         <!-- apexcharts -->
         <script src="~/admin/libs/apexcharts/apexcharts.min.js"></script>

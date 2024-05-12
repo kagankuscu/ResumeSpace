@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,12 +7,10 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class DashboardController : Controller
     {
-        
+
         public IActionResult Index()
         {
-            var username = User.FindFirstValue(ClaimTypes.Name);
-
-            return View(model: username);
+            return View();
         }
 
         public IActionResult People()
