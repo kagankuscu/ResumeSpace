@@ -1,0 +1,295 @@
+<!-- Center Modal example -->
+<div id="mdlAddAndUpdate" class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="mdlTitle" class="modal-title">Center modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                
+                <div class="row mb-2">
+                    <label for="txtName">Name :</label>
+                    <input class="form-control" type="text" id="txtName" placeholder="Lütfen adınızı giriniz."/>
+                </div>
+
+                <div class="row mb-2">
+                    <label for="txtTitle">Pozisyon :</label>
+                    <input class="form-control" type="text" id="txtTitle" placeholder="Lütfen poziyonunuzu giriniz."/>
+                </div>
+
+                <div class="row mb-2">
+                    <label for="txtEmail">Email :</label>
+                    <input class="form-control" type="text" id="txtEmail" placeholder="Lütfen email giriniz."/>
+                </div>
+
+                <div class="row mb-2">
+                    <label for="txtAddress">Adres :</label>
+                    <input class="form-control" type="text" id="txtAddress" placeholder="Lütfen adresinizi giriniz."/>
+                </div>
+
+                <div class="row mb-2">
+                    <label for="txtNumber">Gsm :</label>
+                    <input class="form-control" type="text" id="txtPhone" placeholder="Lütfen numaranızı giriniz."/>
+                </div>
+
+                <div class="row mb-2">
+                    <label for="txtNumber">Gsm :</label>
+                    <input class="form-control" type="text" id="txtSecondPhone" placeholder="Lütfen numaranızı giriniz."/>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
+                <button id="btnSave" type="button" class="btn btn-success">Kaydet</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <a onclick="add()" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-plus me-2"></i> Yeni Ekle</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+                
+                <div class="row">
+                    <table id="datatable" class="table table-centered table-nowrap mb-0">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts 
+{    
+    <script src="~/js/customSwalButton.js"></script>
+    <script>
+        let datatable;
+
+        $(document).ready(() => 
+        {
+            fillDatatable();
+        });
+
+        function fillDatatable()
+        {
+            datatable = $("#datatable").DataTable
+                ({
+                    paging: false,
+                    pageLenght: 50,
+                    ajax: "/Admin/People/GetAll",
+                    columns: 
+                    [
+                        { data: "name", title: "Ad" },
+                        { data: "title", title: "Ünvan" },
+                        { data: "email", title: "Email" },
+                        { data: "address", title: "Adres" },
+                        { data: "phone", title: "Gsm" },
+                        { data: "secondPhone", title: "Ikinci Gsm" },
+                        { 
+                            data: "guid",
+                            title: "İşlemler",
+                            render: (guid) => 
+                            {
+                                return `<ul class="list-inline mb-0">
+                                            <li class="list-inline-item">
+                                                <a onclick="update('${guid}', this)" class="px-2 text-primary"><i class="uil uil-pen font-size-18"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a onclick="remove('${guid}', this)" class="px-2 text-danger"><i class="uil uil-trash-alt font-size-18"></i></a>
+                                            </li>
+                                            <li class="list-inline-item dropdown">
+                                                <a class="text-muted dropdown-toggle font-size-18 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
+                                                    <i class="uil uil-ellipsis-v"></i>
+                                                </a>
+                                            
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a class="dropdown-item" href="#">Action</a>
+                                                    <a class="dropdown-item" href="#">Another action</a>
+                                                    <a class="dropdown-item" href="#">Something else here</a>
+                                                </div>
+                                            </li>
+                                        </ul>`
+                            }
+                        },
+                    ]
+                });
+        }
+
+        function add()
+        {
+            $("#mdlTitle").text("Ekleme");
+
+            $("#mdlAddAndUpdate").modal("show");
+            $("#mdlAddAndUpdate input").val("");
+
+            $("#btnSave").off().text("Kaydet").removeClass("btn-warning").addClass("btn-success").click(() => 
+            {
+                SwalToast.fire
+                ({
+                    icon: "success",
+                    title: "Kaydedildi"
+                });
+                
+                let data =
+                {
+                    "name": $("#txtName").val(),
+                    "title": $("#txtTitle").val(),
+                    "phone": $("#txtPhone").val(),
+                    "secondPhone": $("#txtSecondPhone").val(),
+                    "address": $("#txtAddress").val(),
+                    "email": $("#txtEmail").val(),
+                    "birthdate": "1996-02-11 00:00:00.000",
+                    "imagePath": "imagepath",
+                    "description": "description",
+                    "resumePath": "resumePath",
+                }
+
+                $.ajax(
+                    {
+                        url: "/Admin/People/Add",
+                        data: data,
+                        type: "POST",
+                        success: (res) =>
+                        {
+                            datatable.row.add(
+                            {
+                                "name": data.name,
+                                "title": data.title,
+                                "email": data.email,
+                                "phone": data.phone,
+                                "secondPhone": data.secondPhone,
+                                "address": data.address,
+                                "guid": res
+                            }).draw();
+
+                            $("#mdlAddAndUpdate").modal("hide");
+                        }
+                    }
+                );
+            });
+        }
+
+        function remove(guid, element)
+        {
+            SwalRemove
+                .fire()
+                .then(result => 
+                {
+                    if(result.isConfirmed)
+                    {
+                        $.ajax
+                        ({
+                            url: "/Admin/People/Remove",
+                            type: "POST",
+                            data: { guid: guid } ,
+                            success: res => 
+                            {
+                                datatable.row($(element).parents("tr")).remove().draw();
+
+                                SwalToast.fire
+                                ({
+                                    icon: "success",
+                                    title: "Başarılı olarak silindi"
+                                });
+
+                            },
+                            error: (err) =>
+                            {
+                                SwalToast.fire
+                                ({
+                                    icon: "error",
+                                    title: "error: " + err
+                                });
+                            }
+                        })
+                    }
+                });
+        }
+
+        function update(guid, element)
+        {
+            $("#mdlTitle").text("Güncelleme");
+
+            $("#mdlAddAndUpdate").modal("show");
+            $("#mdlAddAndUpdate input").val("");
+
+            // Find the table head values
+            // split with tab (\t) and remove for last object.
+            let keys = $("thead")[0].innerText.split("\t");
+            keys.pop();
+
+            // Find the given element parents until tr element
+            // split with tab (\t) and remove for last object.
+            let row = $(element).parents("tr");
+            let values = row[0].innerText.split("\t")
+            values.pop();
+
+            // create empty object
+            let obj = {};
+
+            // creating new object table head keys, given element is values
+            for(let i = 0; i < keys.length; i++)
+            {
+                obj[keys[i]] = values[i];
+            }
+
+            $("#txtName").val(obj["Ad"]);
+            $("#txtTitle").val(obj["Ünvan"])
+            $("#txtPhone").val(obj["Gsm"])
+            $("#txtSecondPhone").val(obj["Ikinci Gsm"])
+            $("#txtAddress").val(obj["Adres"])
+            $("#txtEmail").val(obj["Email"])
+
+            $("#btnSave").off().text("Güncelle").removeClass("btn-success").addClass("btn-warning").click(() => 
+
+            {
+                SwalSave
+                    .fire()
+                    .then(result => 
+                    {
+                        if(result.isConfirmed)
+                        {
+                            let data =
+                            {
+                                "name": $("#txtName").val(),
+                                "title": $("#txtTitle").val(),
+                                "phone": $("#txtPhone").val(),
+                                "secondPhone": $("#txtSecondPhone").val(),
+                                "address": $("#txtAddress").val(),
+                                "email": $("#txtEmail").val(),
+                                "birthdate": "1996-02-11 00:00:00.000",
+                                "imagePath": "imagepath",
+                                "description": "description",
+                                "guid": guid,
+                                "resumePath": "resumePath",
+                            }
+
+                            $.ajax(
+                            {
+                                url: "/Admin/People/Update",
+                                data: data,
+                                type: "POST",
+                                success: (res) =>
+                                {
+                                    $("#mdlAddAndUpdate").modal("hide");
+                                    datatable.row(row).data(data).draw();
+                                    SwalToast.fire("Saved :" + guid);
+                                }
+                            });
+                        }
+                    });
+            });
+        }
+    </script>
+}
