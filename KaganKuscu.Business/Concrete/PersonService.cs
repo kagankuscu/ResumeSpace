@@ -97,10 +97,19 @@ namespace KaganKuscu.Business.Concrete
 
         public void Update(Person entity)
         {
-            Person real = GetById(entity.Id);
+            Person real = GetById(entity.Guid);
+
+            // TODO: Use AutoMapper
+            real.Email = entity.Email;
+            real.Name = entity.Name;
+            real.Title = entity.Title;
+            real.Phone = entity.Phone;
+            real.SecondPhone = entity.SecondPhone;
             real.Address = entity.Address;
             real.BirthDate = entity.BirthDate;
             real.Description = entity.Description;
+
+            _repository.Update(real);
         }
 
         public void Update(Guid guid)
