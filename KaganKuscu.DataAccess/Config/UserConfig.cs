@@ -15,12 +15,13 @@ namespace KaganKuscu.DataAccess.Config
             builder.HasData(
                 new Person {
                     Id = 1,
-                    Name = "Kağan Kuşcu",
+                    FullName = "Kağan Kuşcu",
                     BirthDate = new DateTime(1996, 2, 11),
                     Address = "Kocaeli/Izmit",
-                    Phone = "0905510973377",
-                    SecondPhone = "03590893006776",
-                    Description = @"<p>Teknolojinin sunduğu sonsuz olasılıklar beni her zaman heyecanlandırmıştır. Yazılım geliştirme dünyasına adım atarak bu heyecanımı gerçeğe dönüştürme şansı yakaladım. .NET Core platformlarında backend web geliştirmeye olan ilgimi keşfettim ve bu alanlarda kendimi geliştirmeye başladım. C#, JavaScript ve MS SQL Server dillerini öğrenerek temellerimi sağlamlaştırmaya çalışıyorum.</p>
+                    Phone = "905510973377",
+                    SecondPhone = "3590893006776",
+                    AppUserId = "D0C23476-68D0-4DA0-AAD4-3ADAE20702C0",
+                    About = @"<p>Teknolojinin sunduğu sonsuz olasılıklar beni her zaman heyecanlandırmıştır. Yazılım geliştirme dünyasına adım atarak bu heyecanımı gerçeğe dönüştürme şansı yakaladım. .NET Core platformlarında backend web geliştirmeye olan ilgimi keşfettim ve bu alanlarda kendimi geliştirmeye başladım. C#, JavaScript ve MS SQL Server dillerini öğrenerek temellerimi sağlamlaştırmaya çalışıyorum.</p>
 
                         <p>Meraklı ve araştırmacı ruhum sayesinde her gün yeni bir şeyler öğreniyor ve kendimi geliştirmeye devam ediyorum. Kod yazmak benim için sadece bir meslek değil, aynı zamanda bir tutku ve öğrenme fırsatı. Her projede kendimi geliştirmenin ve yeni bilgiler edinmenin heyecanını yaşıyorum.</p>
 

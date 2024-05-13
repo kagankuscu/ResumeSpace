@@ -52,7 +52,7 @@ namespace KaganKuscu.Business.Concrete
                 .Include(p => p.Interests)
                 .Select(p => new PersonDto
                 {
-                    Name = p.Name,
+                    Name = p.FullName,
                     Age = Convert.ToInt32((DateTime.Now - p.BirthDate).TotalDays / 365.2465),
                     Address = p.Address,
                     Title = p.Title,
@@ -62,7 +62,7 @@ namespace KaganKuscu.Business.Concrete
                     Interests = p.Interests.ToList(),
                     ImagePath = p.ImagePath,
                     ResumePath = p.ResumePath,
-                    Description = p.Description,
+                    Description = p.About,
                     References = p.References.ToList(),
                     Skills = p.Skills.ToList(),
                     SocialMedias = p.SocialMedias.ToList(),
@@ -101,13 +101,13 @@ namespace KaganKuscu.Business.Concrete
 
             // TODO: Use AutoMapper
             real.Email = entity.Email;
-            real.Name = entity.Name;
+            real.FullName = entity.FullName;
             real.Title = entity.Title;
             real.Phone = entity.Phone;
             real.SecondPhone = entity.SecondPhone;
             real.Address = entity.Address;
             real.BirthDate = entity.BirthDate;
-            real.Description = entity.Description;
+            real.About = entity.About;
 
             _repository.Update(real);
         }
