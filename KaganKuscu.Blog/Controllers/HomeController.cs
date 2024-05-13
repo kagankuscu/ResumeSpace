@@ -22,7 +22,7 @@ namespace KaganKuscu.Blog.Controllers
         {
             HomePageVm vm = new HomePageVm
             {
-                Person = _personService.GetAllPersonDto().Where(p => p.Name.Contains("Kağan Kuşcu")).FirstOrDefault(),
+                Person = _personService.GetAllPersonDto().Where(p => p.Name.Contains("Kağan Kuşcu")).FirstOrDefault()!,
                 Quote = _quoteService.GetRandomQuote(),
                 Blogs = [],
             };
