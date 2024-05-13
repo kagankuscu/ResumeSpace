@@ -1,9 +1,9 @@
 <!-- Center Modal example -->
-<div id="mdlAddAndUpdate" class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div id="mdlAddAndUpdate" class="modal fade bs-example-modal-center modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 id="mdlTitle" class="modal-title">Center modal</h5>
+                <h5 id="mdlTitle" class="modal-title">Kişi Bilgileri</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
             </div>
@@ -12,6 +12,11 @@
                 <div class="row mb-2">
                     <label for="txtName">Name :</label>
                     <input class="form-control" type="text" id="txtName" placeholder="Lütfen adınızı giriniz."/>
+                </div>
+
+                <div class="row mb-2">
+                    <label for="txtBirthdate">Doğum Tarihi :</label>
+                    <input class="form-control" type="date" id="txtBirthdate" placeholder="Lütfen doğum tarihinizi giriniz."/>
                 </div>
 
                 <div class="row mb-2">
@@ -34,15 +39,39 @@
                     <input class="form-control" type="text" id="txtPhone" placeholder="Lütfen numaranızı giriniz."/>
                 </div>
 
-                <div class="row mb-2">
-                    <label for="txtNumber">Gsm :</label>
-                    <input class="form-control" type="text" id="txtSecondPhone" placeholder="Lütfen numaranızı giriniz."/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
+                <button class="btn btn-primary" data-bs-target="#mdlDescription" data-bs-toggle="modal">
+                    Sonraki Sayfa
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Center Modal example -->
+<div id="mdlDescription" class="modal fade bs-example-modal-center modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Hakkımda</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div id="test" class="row mb-2">
+                    <textarea id="default"></textarea>
                 </div>
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
                 <button id="btnSave" type="button" class="btn btn-success">Kaydet</button>
+                <button class="btn btn-primary" data-bs-target="#mdlAddAndUpdate" data-bs-toggle="modal">
+                    Önceki Sayfa
+                </button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -73,7 +102,10 @@
 @section Scripts 
 {    
     <script src="~/js/customSwalButton.js"></script>
+    <script src="~/lib/tinymce/tinymce.min.js"></script>
+    <script src="~/js/customTinymce.init.js"></script>
     <script>
+        let people = [];
         let datatable;
 
         $(document).ready(() => 
@@ -81,13 +113,21 @@
             fillDatatable();
         });
 
-        function fillDatatable()
+        async function fillDatatable()
         {
+            let data = await $.ajax
+            ({
+                url: "/Admin/People/GetAll",
+                type: "GET"
+            });
+
+            people = people.concat(data.data);
+
             datatable = $("#datatable").DataTable
                 ({
                     paging: false,
                     pageLenght: 50,
-                    ajax: "/Admin/People/GetAll",
+                    data: data.data,
                     columns: 
                     [
                         { data: "name", title: "Ad" },
@@ -114,24 +154,25 @@
                                                 </a>
                                             
                                                 <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">Action</a>
-                                                    <a class="dropdown-item" href="#">Another action</a>
-                                                    <a class="dropdown-item" href="#">Something else here</a>
+                                                    <a class="dropdown-item" href="/Admin/Dashboard/Educations/${guid}">Eğitimler</a>
+                                                    <a class="dropdown-item" href="#">Hobilerim Ekle</a>
+                                                    <a class="dropdown-item" href="#">Ektra Bilgiler Ekle</a>
                                                 </div>
                                             </li>
                                         </ul>`
                             }
                         },
-                    ]
+                    ],
+                    language: {
+                        url: "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Turkish.json"
+                    }
                 });
         }
 
         function add()
         {
-            $("#mdlTitle").text("Ekleme");
-
-            $("#mdlAddAndUpdate").modal("show");
-            $("#mdlAddAndUpdate input").val("");
+            toggleModal();
+            clearModal();
 
             $("#btnSave").off().text("Kaydet").removeClass("btn-warning").addClass("btn-success").click(() => 
             {
@@ -146,13 +187,13 @@
                     "name": $("#txtName").val(),
                     "title": $("#txtTitle").val(),
                     "phone": $("#txtPhone").val(),
-                    "secondPhone": $("#txtSecondPhone").val(),
                     "address": $("#txtAddress").val(),
                     "email": $("#txtEmail").val(),
-                    "birthdate": "1996-02-11 00:00:00.000",
+                    "birthdate": $("#txtBirthdate").val(),
+                    "description": tinymce.activeEditor.getContent(),
+                    "secondPhone": "",
                     "imagePath": "imagepath",
-                    "description": "description",
-                    "resumePath": "resumePath",
+                    "resumePath": "resumepath",
                 }
 
                 $.ajax(
@@ -172,8 +213,11 @@
                                 "address": data.address,
                                 "guid": res
                             }).draw();
+                            
+                            data["guid"] = res;
+                            people.push(data);
 
-                            $("#mdlAddAndUpdate").modal("hide");
+                            toggleModal();
                         }
                     }
                 );
@@ -219,10 +263,8 @@
 
         function update(guid, element)
         {
-            $("#mdlTitle").text("Güncelleme");
-
-            $("#mdlAddAndUpdate").modal("show");
-            $("#mdlAddAndUpdate input").val("");
+            toggleModal();
+            clearModal();
 
             // Find the table head values
             // split with tab (\t) and remove for last object.
@@ -251,6 +293,9 @@
             $("#txtAddress").val(obj["Adres"])
             $("#txtEmail").val(obj["Email"])
 
+            let personIndex = people.findIndex(p => p.guid === guid);
+            tinymce.activeEditor.setContent(people[personIndex].description)
+
             $("#btnSave").off().text("Güncelle").removeClass("btn-success").addClass("btn-warning").click(() => 
 
             {
@@ -262,18 +307,20 @@
                         {
                             let data =
                             {
+                                "guid": guid,
                                 "name": $("#txtName").val(),
                                 "title": $("#txtTitle").val(),
                                 "phone": $("#txtPhone").val(),
-                                "secondPhone": $("#txtSecondPhone").val(),
                                 "address": $("#txtAddress").val(),
                                 "email": $("#txtEmail").val(),
-                                "birthdate": "1996-02-11 00:00:00.000",
+                                "birthdate": $("#txtBirthdate").val(),
+                                "description": tinymce.activeEditor.getContent(),
                                 "imagePath": "imagepath",
-                                "description": "description",
-                                "guid": guid,
                                 "resumePath": "resumePath",
+                                "secondPhone": "",
                             }
+
+                            people[personIndex] = data;
 
                             $.ajax(
                             {
@@ -282,7 +329,7 @@
                                 type: "POST",
                                 success: (res) =>
                                 {
-                                    $("#mdlAddAndUpdate").modal("hide");
+                                    toggleModal();
                                     datatable.row(row).data(data).draw();
                                     SwalToast.fire("Güncellendi");
                                 }
@@ -290,6 +337,28 @@
                         }
                     });
             });
+        }
+
+        function clearModal()
+        {
+            $("#mdlAddAndUpdate input").val("");
+            tinymce.activeEditor.setContent("");
+        }
+
+        function toggleModal()
+        {
+            let firstModal = $("#mdlAddAndUpdate").hasClass('show');
+            let secondModal = $("#mdlDescription").hasClass('show');
+
+            if (firstModal || secondModal)
+            {
+                $("#mdlAddAndUpdate").modal("hide");
+                $("#mdlDescription").modal("hide");
+            }
+            else if (!firstModal)
+                $("#mdlAddAndUpdate").modal("show");
+            else if (!secondModal)
+                $("#mdlDescription").modal("show");
         }
     </script>
 }

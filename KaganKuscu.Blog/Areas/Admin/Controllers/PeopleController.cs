@@ -1,13 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
+using System.Security.Claims;
 using KaganKuscu.Business.Abstract;
 using KaganKuscu.Model.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace KaganKuscu.Blog.Areas.Admin.Controllers
 {
@@ -23,13 +17,21 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
 
         public IActionResult GetAll()
         {
-            return Json(new { data = _personService.GetAll() });
+            if(User.FindFirstValue(ClaimTypes.Role) is "Admin")
+                return Json(new {Data = _personService.GetAll() });
+            
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Guid guid = Guid.Parse(userId ?? string.Empty);
+
+            if (guid == Guid.Empty)
+                return BadRequest();
+
+            return Json(new { Data = _personService.GetById(guid) });
         }
 
         [HttpPost]
         public IActionResult Add(Person person)
         {
-            person.Guid = Guid.NewGuid();
             _personService.Add(person);
 
             return StatusCode(201, person.Guid);

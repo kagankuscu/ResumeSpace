@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace KaganKuscu.Blog.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class DashboardController : Controller
     {
 
@@ -48,6 +48,7 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Quotes()
         {
             return View();
