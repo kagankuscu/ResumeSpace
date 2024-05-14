@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace KaganKuscu.DataAccess.Config
 {
-    public class QuetpConfig : IEntityTypeConfiguration<Quote>
+    public class QuetoConfig : IEntityTypeConfiguration<Quote>
     {
         public void Configure(EntityTypeBuilder<Quote> builder)
         {

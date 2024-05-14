@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KaganKuscu.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240514092006_Initial")]
+    [Migration("20240514163919_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -99,18 +99,35 @@ namespace KaganKuscu.DataAccess.Migrations
                     b.HasData(
                         new
                         {
+                            Id = "bf6215ac-ffd1-4f8b-894e-8b9ab32e66c4",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "0645e58e-f4bb-4837-8b1a-241c884095cc",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = false,
+                            FullName = "",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAIAAYagAAAAELz3SI381eSGKLZzL/Nkncy54HjsLiI24JnpDuq0U6HOr2wEWxjvgM0v39KhERWdBw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "5eca597d-27a8-4c4e-ad10-ace62576a02a",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        },
+                        new
+                        {
                             Id = "D0C23476-68D0-4DA0-AAD4-3ADAE20702C0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a8771174-243a-4214-888e-d238e9d4068e",
+                            ConcurrencyStamp = "7f8b0071-6acd-4634-b228-48638f5b5630",
                             Email = "kuscukagan@gmail.com",
                             EmailConfirmed = false,
                             FullName = "",
                             LockoutEnabled = false,
                             NormalizedEmail = "KUSCUKAGAN@GMAIL.COM",
                             NormalizedUserName = "KAGANKUSCU",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAmtvR3Lq5GrnnrFhg0y5wdEryxjVKbD3p64LFRkgUcDDpuf6s8aSlY4rcCjHtnfyg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJlKkmSj9z/JcM9t8KWjV/6RavvDfhlTcisK1kHMF5clPUolyAYvT+WyyH/fvEUvEQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a3767949-e6fc-4571-bfaa-c61e19de90ac",
+                            SecurityStamp = "c0af8be3-b363-43f9-aa56-5eff8119aa6d",
                             TwoFactorEnabled = false,
                             UserName = "kagankuscu"
                         });
@@ -289,11 +306,11 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(2370),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(2410),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(3780),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(3860),
                             Description = "",
                             EndDate = new DateTime(2015, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Guid = new Guid("16e6575a-157e-4240-9e4c-f5fa751faa8e"),
+                            Guid = new Guid("49226fde-5ced-4ef2-bad3-9d816ac2380d"),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "İZMİT MESLEKİ VE TEKNİK ANADOLU LİSESİ",
@@ -304,11 +321,11 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(2430),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(2430),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(3900),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(3900),
                             Description = "",
                             EndDate = new DateTime(2017, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Guid = new Guid("cfbafbc2-0d96-4746-855b-7fce073bb154"),
+                            Guid = new Guid("ebfebbde-6012-4aba-af11-28e8526b4639"),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "KOCAELİ ÜNİVERSİTESİ HEREKE YÜKSEK OKULU",
@@ -319,11 +336,11 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(2430),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(2440),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(3900),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(3900),
                             Description = "",
                             EndDate = new DateTime(2021, 6, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Guid = new Guid("6c9b1d33-d7f7-4053-a7a2-820f13e85dde"),
+                            Guid = new Guid("076ccd1a-b903-4042-85d8-2f88aea8543d"),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "SOFYA TEKNİK ÜNİVERSİTESİ",
@@ -334,11 +351,11 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(2510),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(2510),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(3910),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(3910),
                             Description = "",
                             EndDate = new DateTime(2023, 6, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Guid = new Guid("e392fa7c-30e5-42a6-944e-4f147ed139f5"),
+                            Guid = new Guid("246fb930-de56-486f-a6cc-ca8d044f3a65"),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "SOFYA TEKNİK ÜNİVERSİTESİ",
@@ -349,11 +366,11 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 5,
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(2510),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(2510),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(3910),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(3920),
                             Description = "",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Guid = new Guid("f025e6c1-6843-4e85-b13b-064e6350ae34"),
+                            Guid = new Guid("f6d1137a-a2fb-4870-af91-bfb2e26fd00a"),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "ACUNMEDYA AKADEMİ",
@@ -407,9 +424,9 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3000),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3010),
-                            Guid = new Guid("16412137-b65b-4c0d-99b9-1cb70e7ab0e6"),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4430),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4440),
+                            Guid = new Guid("3aed358b-dd40-4320-aaeb-571cf4fce145"),
                             IconCssClass = "map-icon map-icon-bicycling",
                             IsActive = true,
                             IsDeleted = false,
@@ -496,18 +513,18 @@ namespace KaganKuscu.DataAccess.Migrations
                             Address = "Kocaeli/Izmit",
                             AppUserId = "D0C23476-68D0-4DA0-AAD4-3ADAE20702C0",
                             BirthDate = new DateTime(1996, 2, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(5150),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(5160),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(6570),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(6580),
                             Email = "kuscukagan@gmail.com",
                             FullName = "Kağan Kuşcu",
-                            Guid = new Guid("5d6b6feb-45d4-4c78-acc2-40959014475e"),
+                            Guid = new Guid("c5416102-e3a2-40e0-917d-db6e4c09b951"),
                             ImagePath = "img/People/kagankuscu.jpg",
                             Interest = "<p>Bisiklet tutkunuyum. Rüzgarı yüzümde hissederek pedallara basmak, özgürlüğün ve maceranın tadını çıkarmak benim için paha biçilemez bir deneyim. Her sürüşte yeni keşiflere yelken açıyor, doğanın güzelliklerine tanık oluyorum. Bisikletimle şehirlerin karmaşasından uzaklaşıp, sakin patikalarda huzur buluyorum. Her viraj yeni bir sürprizi, her tepe yeni bir manzarayı müjdeliyor.\n                        <br />\n                        <br />\n                        Bisikletim sadece bir ulaşım aracı değil, aynı zamanda bir yaşam tarzı. Bisiklet kullanmak bana sadece sağlık ve zindelik değil, aynı zamanda çevreye karşı sorumluluk bilinci de kazandırıyor. Bisikletimle pedal çevirdikçe dünyayı daha güzel bir yer yapmak için katkıda bulunuyorum.\n                        <br />\n                        <br />\n                        Bisiklet tutkum beni her geçen gün daha da ileriye taşıyor. Kendimi geliştirmek için sürekli yeni rotalar arıyor, daha uzun mesafeler kat etmek için antrenman yapıyorum. Bisiklet üzerinde kendimi sınırlarımı zorlarken, aynı zamanda kendimi de daha iyi tanıyorum.\n                        <br />\n                        <br />\n                        Bisikletimle çıktığım her yolculuk unutulmaz bir anıya dönüşüyor. Pedallara her basışımda yeni bir hikaye yazıyorum. Bisiklet tutkum bana sadece keyif ve huzur değil, aynı zamanda unutulmaz anılar ve deneyimler de kazandırıyor.</p>",
                             IsActive = true,
                             IsDeleted = false,
-                            Phone = "905510973377",
+                            Phone = "(551)-0973377",
                             ResumePath = "Files/Resume/kagankuscu.pdf",
-                            SecondPhone = "3590893006776",
+                            SecondPhone = "(089)-3006776",
                             Title = ".Net Backend Developer"
                         });
                 });
@@ -589,9 +606,9 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 1,
                             Content = "Başarısızlıktan korkma. Başarısızlık, başarıya giden yoldaki en önemli adımdır.",
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3420),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3430),
-                            Guid = new Guid("3e8558fe-6530-4793-b43e-abe50cacf4d4"),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4840),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4840),
+                            Guid = new Guid("1d76b0fb-929e-4b91-ac7b-42e6e83be1ab"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Bill Gates"
@@ -600,9 +617,9 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 2,
                             Content = "Bilgisayarlar, bisiklete binmek gibi bir şeydir. Dengeyi bir kez yakaladınız mı, düşmeniz çok zor.",
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3430),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3430),
-                            Guid = new Guid("099b30a4-b285-4ec4-9318-4f27696cabe1"),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4840),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4850),
+                            Guid = new Guid("9df1398b-5514-4567-bddd-e6fffd3e85b4"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Bill Gates"
@@ -611,9 +628,9 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 3,
                             Content = "Yazılım, bir insanın zekasını en iyi şekilde yansıtan şeydir.",
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3440),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3440),
-                            Guid = new Guid("c0870b79-f1d1-456a-8cfe-36db6a57fb46"),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4850),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4850),
+                            Guid = new Guid("96866605-333b-461e-860d-40e183086484"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Bill Gates"
@@ -622,9 +639,9 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 4,
                             Content = "Gelecek, bugünü nasıl geçirdiğimize bağlıdır.",
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3440),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3440),
-                            Guid = new Guid("7cd06d19-9e27-4a1e-a1c1-7e56fb33ed17"),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4850),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4860),
+                            Guid = new Guid("197170a0-ef96-4169-85d9-b0f6829e08f5"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Bill Gates"
@@ -633,9 +650,9 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 5,
                             Content = "Dünyayı değiştirmek istiyorsan, önce kendini değiştirmelisin.",
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3450),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3450),
-                            Guid = new Guid("c1271dde-b848-4f31-ada7-b6175c6f4ba3"),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4860),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4860),
+                            Guid = new Guid("d4c556a3-1210-42ae-b0b5-2341c33077df"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Bill Gates"
@@ -644,9 +661,9 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 6,
                             Content = "Teknolojinin kalbi insan ruhudur.",
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3450),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3450),
-                            Guid = new Guid("c5fa4dd4-9438-4b3a-9b66-522e6f38889f"),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4860),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4870),
+                            Guid = new Guid("fa360cc0-7b59-42af-a3cd-25c34939a70f"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Steve Jobs"
@@ -655,9 +672,9 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 7,
                             Content = "Noktaları birleştirmek ancak geriye baktığınızda mümkündür.",
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3460),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3460),
-                            Guid = new Guid("9dc80df8-cb1f-424e-9ff5-0fba718241b0"),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4870),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4870),
+                            Guid = new Guid("e38aea3a-fe30-4882-9b93-6a0a0712b48f"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Steve Jobs"
@@ -666,9 +683,9 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 8,
                             Content = "Zamanınız sınırlı, onu başkasının hayatını yaşayarak harcamayın.",
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3460),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3460),
-                            Guid = new Guid("137a7697-8985-4e08-aa50-4c3b1a9fcb16"),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4880),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4880),
+                            Guid = new Guid("cca1b7ae-9214-4629-bbdd-e6836b028b7c"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Steve Jobs"
@@ -677,9 +694,9 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 9,
                             Content = "Harika işler yapmak için tutkulu olmanız gerekir.",
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3470),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3470),
-                            Guid = new Guid("058af618-5d4d-433e-8610-16c640702626"),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4880),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4880),
+                            Guid = new Guid("3a1dbf32-7e37-470d-b969-aa7e36b6ad33"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Steve Jobs"
@@ -688,9 +705,9 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 10,
                             Content = "Yaratıcı olmak, başkalarının ne düşündüğünü önemsememektir.",
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3470),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3470),
-                            Guid = new Guid("a587550c-213e-4339-9470-b42c6de9d33a"),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4890),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4890),
+                            Guid = new Guid("636265af-d89b-4141-a396-b2bd3ed0d342"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Steve Jobs"
@@ -699,9 +716,9 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 11,
                             Content = "Hızlı hareket et ve bir şeyler yap. Mükemmellik, eylemin sonucudur.",
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3480),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3480),
-                            Guid = new Guid("e95e6684-e4d4-4b99-8564-765f339d7396"),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4890),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4890),
+                            Guid = new Guid("8371007f-2d50-4532-88c7-7a90f217c593"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Mark Zuckerberg"
@@ -710,9 +727,9 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 12,
                             Content = "Her zaman daha iyisini yapmanin bir yolu vardir.",
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3480),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3480),
-                            Guid = new Guid("03f81881-e271-4a8e-b6a9-84c4e1b1c9e5"),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4900),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4900),
+                            Guid = new Guid("262ce316-cf2d-4ad4-a6b6-dc4381b6ddb8"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Larry Page"
@@ -721,9 +738,9 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 13,
                             Content = "Başarısızlık bir seçenek değildir. Pes edene kadar denemeye devam et.",
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3490),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3490),
-                            Guid = new Guid("8cf5eb74-a1b9-4cf9-b751-8856d2a85fa5"),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4900),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4900),
+                            Guid = new Guid("db0c5d88-20be-44d9-b440-cbdb5024fc8f"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Elon Musk"
@@ -732,9 +749,9 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 14,
                             Content = "Basitlik, karmaşıklığın en üst noktasıdır.",
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3490),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3490),
-                            Guid = new Guid("ed68b650-c9c3-45a7-83c8-e469bd1005be"),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4910),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4910),
+                            Guid = new Guid("4abba044-6c05-4417-a0ca-8f72a26a2e97"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Tim Cook"
@@ -743,9 +760,9 @@ namespace KaganKuscu.DataAccess.Migrations
                         {
                             Id = 15,
                             Content = "Teknolojinin iyilik için bir güç olduğuna inanıyorum.",
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3500),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(3500),
-                            Guid = new Guid("b4d9a132-e6b8-46ed-a84d-35875d6588c6"),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4910),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(4910),
+                            Guid = new Guid("f4e1d36e-46f7-4f64-ac5a-466f27e9e04e"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Satya Nadella"
@@ -848,9 +865,9 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(4320),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(4320),
-                            Guid = new Guid("d10d6978-3d34-4bbd-a497-72af3d4f9545"),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(5750),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(5760),
+                            Guid = new Guid("bdb65d50-e991-40b6-90f7-5e3e3c46613d"),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Asp.Net Core",
@@ -860,9 +877,9 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(4320),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(4330),
-                            Guid = new Guid("bc3db32c-e246-43d5-897b-95ade7bff1f4"),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(5760),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(5760),
+                            Guid = new Guid("7050b027-e8b5-4955-9b4f-9598916711bc"),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "C#",
@@ -872,9 +889,9 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(4330),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(4330),
-                            Guid = new Guid("629a83d0-1df4-466b-8b43-3da55917ae52"),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(5770),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(5770),
+                            Guid = new Guid("1bce4bec-512f-4aac-8d45-b17cd6000a8f"),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Javascript",
@@ -884,9 +901,9 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(4340),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(4340),
-                            Guid = new Guid("424ee681-5896-4690-a8ab-0f3ac7ed47e8"),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(5780),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(5780),
+                            Guid = new Guid("21a8bfdc-50ca-4b6b-8752-0215ddc39d8c"),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "MS SQL",
@@ -896,9 +913,9 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 5,
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(4340),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(4350),
-                            Guid = new Guid("7097caf4-38a6-4732-b333-1a2e587f765c"),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(5780),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(5780),
+                            Guid = new Guid("d707d0b8-18e4-4dcc-9de6-fafe2e313479"),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "HTML & CSS",
@@ -955,9 +972,9 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(4740),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(4740),
-                            Guid = new Guid("9bbf19f0-775c-4239-a477-80339ea00a39"),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(6160),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(6160),
+                            Guid = new Guid("815c1827-e32c-4ae8-b9e2-d994d89d669f"),
                             IconCssClass = "rsicon rsicon-github",
                             IsActive = true,
                             IsDeleted = false,
@@ -968,9 +985,9 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(4750),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(4750),
-                            Guid = new Guid("5e7629d5-6a5e-49c6-bbce-f9fea4ddcd97"),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(6170),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(6170),
+                            Guid = new Guid("5551ed57-e80c-4f57-97c1-d91d77a6780e"),
                             IconCssClass = "rsicon rsicon-linkedin",
                             IsActive = true,
                             IsDeleted = false,
@@ -981,9 +998,9 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(4760),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(4760),
-                            Guid = new Guid("29072a56-ac32-421c-8c68-fff523b664e3"),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(6170),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(6170),
+                            Guid = new Guid("18b1f9f9-6bac-4607-b241-2b6294ae3fea"),
                             IconCssClass = "rsicon rsicon-instagram",
                             IsActive = true,
                             IsDeleted = false,
@@ -1084,11 +1101,11 @@ namespace KaganKuscu.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(5540),
-                            DateModified = new DateTime(2024, 5, 14, 12, 20, 5, 796, DateTimeKind.Local).AddTicks(5540),
+                            DateCreated = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(6960),
+                            DateModified = new DateTime(2024, 5, 14, 19, 39, 18, 957, DateTimeKind.Local).AddTicks(6960),
                             Description = ".Net Backend Developer",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Guid = new Guid("0049e26c-ccdf-44b8-9d12-549b5f08f050"),
+                            Guid = new Guid("b5e04e68-00c0-47d6-af19-ec96dbed6f15"),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Deadline Bilişim",
@@ -1228,8 +1245,13 @@ namespace KaganKuscu.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "D0C23476-68D0-4DA0-AAD4-3ADAE20702C0",
+                            UserId = "bf6215ac-ffd1-4f8b-894e-8b9ab32e66c4",
                             RoleId = "A34A825F-E1A6-427C-8194-0D051C22560F"
+                        },
+                        new
+                        {
+                            UserId = "D0C23476-68D0-4DA0-AAD4-3ADAE20702C0",
+                            RoleId = "40A649CC-F41A-4505-94B6-7335F12E3A5D"
                         });
                 });
 

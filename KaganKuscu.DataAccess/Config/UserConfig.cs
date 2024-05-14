@@ -18,8 +18,8 @@ namespace KaganKuscu.DataAccess.Config
                     FullName = "Kağan Kuşcu",
                     BirthDate = new DateTime(1996, 2, 11),
                     Address = "Kocaeli/Izmit",
-                    Phone = "905510973377",
-                    SecondPhone = "3590893006776",
+                    Phone = "(551)-0973377",
+                    SecondPhone = "(089)-3006776",
                     AppUserId = "D0C23476-68D0-4DA0-AAD4-3ADAE20702C0",
                     About = @"<p>Teknolojinin sunduğu sonsuz olasılıklar beni her zaman heyecanlandırmıştır. Yazılım geliştirme dünyasına adım atarak bu heyecanımı gerçeğe dönüştürme şansı yakaladım. .NET Core platformlarında backend web geliştirmeye olan ilgimi keşfettim ve bu alanlarda kendimi geliştirmeye başladım. C#, JavaScript ve MS SQL Server dillerini öğrenerek temellerimi sağlamlaştırmaya çalışıyorum.</p>
 
