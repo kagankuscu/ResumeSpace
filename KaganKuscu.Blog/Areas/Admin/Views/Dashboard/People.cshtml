@@ -42,7 +42,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
-                <button class="btn btn-primary" data-bs-target="#mdlDescription" data-bs-toggle="modal">
+                <button class="btn btn-primary" data-bs-target="#mdlAbout" data-bs-toggle="modal">
                     Sonraki Sayfa
                 </button>
             </div>
@@ -51,7 +51,7 @@
 </div><!-- /.modal -->
 
 <!-- Center Modal example -->
-<div id="mdlDescription" class="modal fade bs-example-modal-center modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div id="mdlAbout" class="modal fade bs-example-modal-center modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -130,7 +130,7 @@
                     data: data.data,
                     columns: 
                     [
-                        { data: "name", title: "Ad" },
+                        { data: "fullName", title: "Ad" },
                         { data: "title", title: "Ünvan" },
                         { data: "email", title: "Email" },
                         { data: "address", title: "Adres" },
@@ -184,16 +184,14 @@
                 
                 let data =
                 {
-                    "name": $("#txtName").val(),
+                    "fullName": $("#txtName").val(),
                     "title": $("#txtTitle").val(),
                     "phone": $("#txtPhone").val(),
                     "address": $("#txtAddress").val(),
                     "email": $("#txtEmail").val(),
                     "birthdate": $("#txtBirthdate").val(),
-                    "description": tinymce.activeEditor.getContent(),
-                    "secondPhone": "",
-                    "imagePath": "imagepath",
-                    "resumePath": "resumepath",
+                    "about": tinymce.activeEditor.getContent(),
+                    // "appUserId": "b8aa7057-ed44-468e-a76d-0e7f362f16d0"
                 }
 
                 $.ajax(
@@ -205,11 +203,11 @@
                         {
                             datatable.row.add(
                             {
-                                "name": data.name,
+                                "fullName": data.fullName,
                                 "title": data.title,
                                 "email": data.email,
                                 "phone": data.phone,
-                                "secondPhone": data.secondPhone,
+                                "secondPhone": "",
                                 "address": data.address,
                                 "guid": res
                             }).draw();
@@ -294,7 +292,7 @@
             $("#txtEmail").val(obj["Email"])
 
             let personIndex = people.findIndex(p => p.guid === guid);
-            tinymce.activeEditor.setContent(people[personIndex].description)
+            tinymce.activeEditor.setContent(people[personIndex].about)
 
             $("#btnSave").off().text("Güncelle").removeClass("btn-success").addClass("btn-warning").click(() => 
 
@@ -308,16 +306,13 @@
                             let data =
                             {
                                 "guid": guid,
-                                "name": $("#txtName").val(),
+                                "fullName": $("#txtName").val(),
                                 "title": $("#txtTitle").val(),
                                 "phone": $("#txtPhone").val(),
                                 "address": $("#txtAddress").val(),
                                 "email": $("#txtEmail").val(),
                                 "birthdate": $("#txtBirthdate").val(),
-                                "description": tinymce.activeEditor.getContent(),
-                                "imagePath": "imagepath",
-                                "resumePath": "resumePath",
-                                "secondPhone": "",
+                                "about": tinymce.activeEditor.getContent(),
                             }
 
                             people[personIndex] = data;
@@ -348,17 +343,17 @@
         function toggleModal()
         {
             let firstModal = $("#mdlAddAndUpdate").hasClass('show');
-            let secondModal = $("#mdlDescription").hasClass('show');
+            let secondModal = $("#mdlAbout").hasClass('show');
 
             if (firstModal || secondModal)
             {
                 $("#mdlAddAndUpdate").modal("hide");
-                $("#mdlDescription").modal("hide");
+                $("#mdlAbout").modal("hide");
             }
             else if (!firstModal)
                 $("#mdlAddAndUpdate").modal("show");
             else if (!secondModal)
-                $("#mdlDescription").modal("show");
+                $("#mdlAbout").modal("show");
         }
     </script>
 }

@@ -13,8 +13,8 @@ namespace KaganKuscu.Business.Abstract
         void AddRange(IEnumerable<T> entities);
 
         IQueryable<T> GetAll();
-        T GetById(int id);
-        T GetById(Guid guid);
+        T? GetById(int id);
+        T? GetById(Guid guid);
 
         void Remove(T entity);
         void Remove(int id);

@@ -21,7 +21,7 @@ namespace KaganKuscu.Model.Models
         public string? ImagePath { get; set; }
         public string? ResumePath { get; set; }
         public string? Interest { get; set; }
-        public string AppUserId { get; set; } = Guid.NewGuid().ToString();
+        public string AppUserId { get; set; } = string.Empty;
 
         public AppUser? AppUser { get; set; }
         public virtual ICollection<SocialMedia> SocialMedias { get; set; } = new List<SocialMedia>();

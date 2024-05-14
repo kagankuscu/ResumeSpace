@@ -1,6 +1,7 @@
 ﻿using KaganKuscu.Business.Abstract;
 using KaganKuscu.DataAccess;
 using KaganKuscu.Model.Dtos;
+using KaganKuscu.Model.Dtos.Person;
 using KaganKuscu.Model.Models;
 using KaganKuscu.Repository.Abstract;
 using Microsoft.EntityFrameworkCore;
@@ -41,6 +42,28 @@ namespace KaganKuscu.Business.Concrete
                 .Include(p => p.References)
                 .Include(p => p.Interests);
         }
+
+        public IQueryable<PersonForAppUserDto> GetAllByAppUserGuid(Guid guid)
+        {
+            return _repository
+                .GetAll(p => p.AppUserId == guid.ToString())
+                .Select(p => new PersonForAppUserDto{
+                    Guid = p.Guid,
+                    FullName = p.FullName,
+                    BirthDate = p.BirthDate,
+                    Address = p.Address,
+                    Email = p.Email,
+                    Phone = p.Phone,
+                    SecondPhone = p.SecondPhone,
+                    About = p.About ?? string.Empty,
+                    Title = p.Title,
+                    ImagePath = p.ImagePath,
+                    ResumePath = p.ResumePath,
+                    Interest = p.Interest,
+                    AppUserId = p.AppUserId
+                });
+        }
+
         public IQueryable<PersonDto> GetAllPersonDto()
         {
             return _repository.GetAll()
@@ -54,15 +77,15 @@ namespace KaganKuscu.Business.Concrete
                 {
                     Name = p.FullName,
                     Age = Convert.ToInt32((DateTime.Now - p.BirthDate).TotalDays / 365.2465),
-                    Address = p.Address,
+                    Address = p.Address ?? string.Empty,
                     Title = p.Title,
                     Phone = p.Phone,
                     Email = p.Email,
-                    Interest = p.Interest,
+                    Interest = p.Interest ?? string.Empty,
                     Interests = p.Interests.ToList(),
-                    ImagePath = p.ImagePath,
-                    ResumePath = p.ResumePath,
-                    Description = p.About,
+                    ImagePath = p.ImagePath ?? string.Empty,
+                    ResumePath = p.ResumePath ?? string.Empty,
+                    Description = p.About ?? string.Empty,
                     References = p.References.ToList(),
                     Skills = p.Skills.ToList(),
                     SocialMedias = p.SocialMedias.ToList(),
@@ -70,12 +93,12 @@ namespace KaganKuscu.Business.Concrete
                     WorkExperiences = p.WorkExperiences.OrderByDescending(e => e.StartDate).ToList()
                 });
         }
-        public Person GetById(int id)
+        public Person? GetById(int id)
         {
             return _repository.GetById(id);
         }
 
-        public Person GetById(Guid guid)
+        public Person? GetById(Guid guid)
         {
             return _repository.GetById(guid);
         }
@@ -97,31 +120,35 @@ namespace KaganKuscu.Business.Concrete
 
         public void Update(Person entity)
         {
-            Person real = GetById(entity.Guid);
+            Person? real = GetById(entity.Guid);
+            if (real is not null)
+            {
+                // TODO: Use AutoMapper
+                real.Email = entity.Email;
+                real.FullName = entity.FullName;
+                real.Title = entity.Title;
+                real.Phone = entity.Phone;
+                real.SecondPhone = entity.SecondPhone;
+                real.Address = entity.Address;
+                real.BirthDate = entity.BirthDate;
+                real.About = entity.About;
 
-            // TODO: Use AutoMapper
-            real.Email = entity.Email;
-            real.FullName = entity.FullName;
-            real.Title = entity.Title;
-            real.Phone = entity.Phone;
-            real.SecondPhone = entity.SecondPhone;
-            real.Address = entity.Address;
-            real.BirthDate = entity.BirthDate;
-            real.About = entity.About;
-
-            _repository.Update(real);
+                _repository.Update(real);
+            }
         }
 
         public void Update(Guid guid)
         {
-            Person real = GetById(guid);
-            Update(real);
+            Person? real = GetById(guid);
+            if (real is not null)
+                Update(real);
         }
 
         public void Update(int id)
         {
-            Person real = GetById(id);
-            Update(real);
+            Person? real = GetById(id);
+            if (real is not null)
+                Update(real);
         }
     }
 }

@@ -1,11 +1,13 @@
 using System.Security.Claims;
 using KaganKuscu.Business.Abstract;
 using KaganKuscu.Model.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KaganKuscu.Blog.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class PeopleController : Controller
     {
         private readonly IPersonService _personService;
@@ -26,12 +28,13 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
             if (guid == Guid.Empty)
                 return BadRequest();
 
-            return Json(new { Data = _personService.GetById(guid) });
+            return Json(new { Data = _personService.GetAllByAppUserGuid(guid) });
         }
 
         [HttpPost]
         public IActionResult Add(Person person)
         {
+            person.AppUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
             _personService.Add(person);
 
             return StatusCode(201, person.Guid);
