@@ -55,5 +55,19 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
 
             return Ok();
         }
+    
+        [HttpPost]
+        public async Task<IActionResult> UploadFiles(IFormCollection form, Person person)
+        {
+            string? username = User.FindFirstValue(ClaimTypes.Name);
+            
+            if (username is null)
+                return BadRequest();
+
+            bool result = await _personService.UploadFiles(form, username, person);
+            if (result)
+                return Ok();
+            return BadRequest("Hataaaa :)");
+        }
     }
 }

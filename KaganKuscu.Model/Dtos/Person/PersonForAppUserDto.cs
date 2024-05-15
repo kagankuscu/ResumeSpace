@@ -19,6 +19,7 @@ namespace KaganKuscu.Model.Dtos.Person
         public string? ImagePath { get; set; }
         public string? ResumePath { get; set; }
         public string? Interest { get; set; }
+        public bool IsActive { get; set; }
         public string AppUserId { get; set; } = Guid.NewGuid().ToString();
     }
 }

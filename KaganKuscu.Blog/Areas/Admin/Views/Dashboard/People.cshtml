@@ -63,7 +63,7 @@
             <div class="modal-body">
 
                 <div id="test" class="row mb-2">
-                    <textarea id="default"></textarea>
+                    <textarea class="tinymce-modal" id="txtareaAbout"></textarea>
                 </div>
 
             </div>
@@ -77,6 +77,72 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<!-- Extras Information modal -->
+<div id="mdlExtras" class="modal fade bs-example-modal-center modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="frmExtra" class="needs-validation">
+                <div class="modal-header">
+                    <h5 class="modal-title">Kişi Ek Bilgileri</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-2">
+                        <label for="txtImage" class="form-label">Lütfen resim ekleyiniz</label>
+                        <input class="form-control" type="file" id="txtImage" accept="image/png, image/jpeg">
+                    </div>
+
+                    <div class="row mb-2">
+                        <label for="txtResume" class="form-label">Lütfen CV ekleyiniz</label>
+                        <input class="form-control" type="file" id="txtResume" accept=".pdf" value="deneme">
+                    </div>
+
+                    <div class="row mb-2">
+                        <label for="txtSecondPhone">Gsm :</label>
+                        <input class="form-control input-mask" id="txtSecondPhone" placeholder="Lütfen numaranızı giriniz." data-parsley-minlength="13" maxlength="13" 
+                            data-parsley-pattern="^\(5\d{2}\)-\d{7}$" data-inputmask="'mask': '(999)-9999999'"  im-insert="true"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
+                    <button id="btnNextModal" type="submit" onclick="nextExtraModal()" class="btn btn-primary">
+                        Sonraki Sayfa
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div><!-- modal end-->
+
+<!-- Center Modal example -->
+<div id="mdlInterest" class="modal fade bs-example-modal-center modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Hobilerim</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row mb-2">
+                    <textarea class="tinymce-modal" id="txtareaExtras"></textarea>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
+                <button id="btnExtrasSave" type="button" class="btn btn-success">Kaydet</button>
+                <button class="btn btn-primary" data-bs-target="#mdlExtras" data-bs-toggle="modal">
+                    Önceki Sayfa
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 
 <div class="row">
     <div class="col-lg-12">
@@ -148,7 +214,7 @@
                         { 
                             data: "guid",
                             title: "İşlemler",
-                            render: (guid) => 
+                            render: (guid, type, row) => 
                             {
                                 return `<ul class="list-inline mb-0">
                                             <li class="list-inline-item">
@@ -163,9 +229,9 @@
                                                 </a>
                                             
                                                 <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="/Admin/Dashboard/Educations/${guid}">Eğitimler</a>
-                                                    <a class="dropdown-item" href="#">Hobilerim Ekle</a>
-                                                    <a class="dropdown-item" href="#">Ektra Bilgiler Ekle</a>
+                                                    <a class="dropdown-item" href="#"><i class="${row.isActive ? "uil-check-circle" : "uil-times-circle" } me-2 
+                                                        text-${row.isActive ? "success" : "danger" }" style="font-size: 19px"></i>${row.isActive ? "Pasif yap" : "Aktif yap" }</a>
+                                                    <a class="dropdown-item" onclick="extrasInformation('${guid}', this)">Ektra Bilgiler Ekle</a>
                                                 </div>
                                             </li>
                                         </ul>`
@@ -199,7 +265,7 @@
                     "address": $("#txtAddress").val(),
                     "email": $("#txtEmail").val(),
                     "birthdate": $("#txtBirthdate").val(),
-                    "about": tinymce.activeEditor.getContent(),
+                    "about": tinymce.get("txtareaAbout").getContent(),
                     // "appUserId": "b8aa7057-ed44-468e-a76d-0e7f362f16d0"
                 }
 
@@ -302,7 +368,7 @@
             $("#txtEmail").val(obj["Email"])
 
             let personIndex = people.findIndex(p => p.guid === guid);
-            tinymce.activeEditor.setContent(people[personIndex].about ?? "")
+            tinymce.get("txtareaAbout").setContent(people[personIndex].about ?? "")
 
             $("#btnSave").off().text("Güncelle").removeClass("btn-success").addClass("btn-warning").click(() => 
             {
@@ -322,7 +388,7 @@
                                 "address": $("#txtAddress").val(),
                                 "email": $("#txtEmail").val(),
                                 "birthdate": $("#txtBirthdate").val(),
-                                "about": tinymce.activeEditor.getContent(),
+                                "about": tinymce.get("txtareaAbout").getContent(),
                             }
 
                             people[personIndex] = data;
@@ -352,7 +418,9 @@
         function clearModal()
         {
             $("#mdlAddAndUpdate input").val("");
-            tinymce.activeEditor.setContent("");
+            tinymce.get("txtareaAbout").setContent("");
+            tinymce.get("txtareaExtras").setContent("");
+            $("#mdlExtras input").val('');
         }
 
         function toggleModal()
@@ -385,5 +453,106 @@
                 $("#mdlAbout").modal("show");
             }
         }
+
+        function extrasInformation(guid, element)
+        {
+            toggleModalExtras();
+            clearModal();
+
+            let personIndex = people.findIndex(p => p.guid === guid);
+            $("#txtSecondPhone").val(people[personIndex].secondPhone);
+            tinymce.get("txtareaExtras").setContent(people[personIndex].interest ?? "");
+
+            $("#btnExtrasSave").off().click(() => addExtrasInformation(guid, element));
+        }
+        
+        function addExtrasInformation(guid, element)
+        {
+            let formData = new FormData();
+
+            formData.append("image", $("#txtImage").prop("files")[0]);
+            formData.append("resume", $("#txtResume").prop("files")[0]);
+            formData.append("secondPhone", $("#txtSecondPhone").val());
+            formData.append("interest", tinymce.get("txtareaExtras").getContent());
+            formData.append("guid", guid);
+
+            let personIndex = people.findIndex(p => p.guid === guid);
+            people[personIndex].secondPhone = $("#txtSecondPhone").val();
+            people[personIndex].interest = tinymce.get("txtareaExtras").getContent();
+
+            let row = $(element).parents("tr");
+            let data =
+            {
+                "guid": guid,
+                "fullName": people[personIndex].fullName,
+                "title": people[personIndex].title,
+                "phone": people[personIndex].phone,
+                "secondPhone": $("#txtSecondPhone").val(),
+                "address": people[personIndex].address,
+                "email": people[personIndex].email,
+                "birthdate": people[personIndex].birthdate,
+                "about": tinymce.get("txtareaAbout").getContent(),
+            }
+
+            $.ajax
+            ({
+                url: "/Admin/People/UploadFiles",
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: (res) =>
+                {
+                    toggleModalExtras();
+                    datatable.row(row).data(data).draw();
+                    SwalToast.fire
+                    ({
+                        icon: "success",
+                        title: "Kaydedildi"
+                    });
+                },
+                error: (err) =>
+                {
+                    SwalToast.fire
+                    ({
+                        icon: "error",
+                        title: err.responseText === '' ? "HATA!" : err.responseText
+                    })
+                        
+                }
+            });
+        }
+
+        function toggleModalExtras()
+        {
+            let extrasModal = $("#mdlExtras").hasClass('show');
+            let interestModal = $("#mdlInterest").hasClass('show');
+
+            if (extrasModal || interestModal)
+            {
+                $("#mdlExtras").modal("hide");
+                $("#mdlInterest").modal("hide");
+            }
+            else if (!extrasModal)
+                $("#mdlExtras").modal("show");
+            else if (!interestModal)
+                $("#mdlInterest").modal("show");
+        }
+
+        function nextExtraModal()
+        {
+            event.preventDefault();
+            if ($("#frmExtra").parsley().isValid() === false) 
+            {
+                $('#frmExtra').parsley().validate();
+                $("#frmExtra").addClass("was-validated");
+            }
+            else
+            {
+                $("#mdlExtras").modal("hide");
+                $("#mdlInterest").modal("show");
+            }
+        }
+
     </script>
 }

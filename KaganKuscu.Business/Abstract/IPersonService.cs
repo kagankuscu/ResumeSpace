@@ -1,11 +1,7 @@
 ﻿using KaganKuscu.Model.Dtos;
 using KaganKuscu.Model.Dtos.Person;
 using KaganKuscu.Model.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace KaganKuscu.Business.Abstract
 {
@@ -13,5 +9,6 @@ namespace KaganKuscu.Business.Abstract
     {
         IQueryable<PersonDto> GetAllPersonDto();
         IQueryable<PersonForAppUserDto> GetAllByAppUserGuid(Guid guid);
+        Task<bool> UploadFiles(IFormCollection form, string username, Person person);
     }
 }

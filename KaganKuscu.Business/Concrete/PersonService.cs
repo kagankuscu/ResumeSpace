@@ -4,6 +4,8 @@ using KaganKuscu.Model.Dtos;
 using KaganKuscu.Model.Dtos.Person;
 using KaganKuscu.Model.Models;
 using KaganKuscu.Repository.Abstract;
+using KaganKuscu.Utilities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -60,6 +62,7 @@ namespace KaganKuscu.Business.Concrete
                     ImagePath = p.ImagePath,
                     ResumePath = p.ResumePath,
                     Interest = p.Interest,
+                    IsActive = p.IsActive,
                     AppUserId = p.AppUserId
                 });
         }
@@ -149,6 +152,72 @@ namespace KaganKuscu.Business.Concrete
             Person? real = GetById(id);
             if (real is not null)
                 Update(real);
+        }
+
+        public async Task<bool> UploadFiles(IFormCollection form, string username, Person person)
+        {            
+            // wwwroot/img/People/<username>/<imagename>
+            // wwwroot/Files/Resume/<username>/<resumename>
+            IFormFile? image = form.Files["image"];
+            IFormFile? resume = form.Files["resume"];
+
+            string imageFilename;
+            string resumeFilename;
+            Person? real = GetById(person.Guid);
+            if (real is null)
+                return false;
+
+            if (image is not null)
+            {
+                string serverImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "People", username);
+                
+                if (!Directory.Exists(serverImagePath))
+                    Directory.CreateDirectory(serverImagePath);
+                
+                imageFilename = Helper.RandomStringGenerator(3) + "-" +  username + Path.GetExtension(image.FileName);
+
+                string imagePath = Path.Combine(serverImagePath, imageFilename);
+
+                using (var stream = new FileStream(imagePath, FileMode.Create))
+                {
+                    await image.CopyToAsync(stream);
+                }
+
+                real.ImagePath = $"{username}/{imageFilename}";
+            }
+
+            if (resume is not null)
+            {
+                string serverResumePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Files", "Resume", username);
+
+                if (!Directory.Exists(serverResumePath))
+                    Directory.CreateDirectory(serverResumePath);
+                
+                resumeFilename = Helper.RandomStringGenerator(3) + "-" + username + Path.GetExtension(resume.FileName);
+
+                string resumePath = Path.Combine(serverResumePath, resumeFilename);
+
+                using (var stream = new FileStream(resumePath, FileMode.Create))
+                {
+                    await resume.CopyToAsync(stream);
+                }
+
+                real.ResumePath = $"{username}/{resumeFilename}";
+            }
+            
+            try
+            {
+                real.SecondPhone = person.SecondPhone;
+                real.Interest = person.Interest;
+
+                _repository.Update(real);
+                _repository.Save();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
