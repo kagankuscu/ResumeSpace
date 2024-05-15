@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaganKuscu.Business", "Kaga
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaganKuscu.Model", "KaganKuscu.Model\KaganKuscu.Model.csproj", "{DF5D94BA-4ED0-4216-9D24-F434D9D3CEE5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaganKuscu.Utilities", "KaganKuscu.Utilities\KaganKuscu.Utilities.csproj", "{2890896B-F9A3-4DE1-99F0-E3643078A9BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{DF5D94BA-4ED0-4216-9D24-F434D9D3CEE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF5D94BA-4ED0-4216-9D24-F434D9D3CEE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF5D94BA-4ED0-4216-9D24-F434D9D3CEE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2890896B-F9A3-4DE1-99F0-E3643078A9BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2890896B-F9A3-4DE1-99F0-E3643078A9BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2890896B-F9A3-4DE1-99F0-E3643078A9BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2890896B-F9A3-4DE1-99F0-E3643078A9BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
