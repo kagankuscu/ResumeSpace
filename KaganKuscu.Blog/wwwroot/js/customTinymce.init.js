@@ -2,7 +2,7 @@ let themeTinymce = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
 let tinymceConfig = 
 {
-    selector: 'textarea#default',
+    selector: 'textarea.tinymce-modal',
     skin: ( themeTinymce ? 'oxide-dark' : 'oxide'),
     content_css: (themeTinymce ? 'dark' : 'default'),
     menubar: false,
