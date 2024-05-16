@@ -49,7 +49,8 @@ namespace KaganKuscu.Business.Concrete
         {
             return _repository
                 .GetAll(p => p.AppUserId == guid.ToString())
-                .Select(p => new PersonForAppUserDto{
+                .Select(p => new PersonForAppUserDto
+                {
                     Guid = p.Guid,
                     FullName = p.FullName,
                     BirthDate = p.BirthDate,
@@ -152,6 +153,24 @@ namespace KaganKuscu.Business.Concrete
             Person? real = GetById(id);
             if (real is not null)
                 Update(real);
+        }
+
+        public bool UpdateIsActiveForUser(Guid guid)
+        {
+            try
+            {
+                var people = _repository.GetAll(p => p.AppUserId == guid.ToString() && p.IsActive).ToList();
+                foreach (Person person in people)
+                {
+                    person.IsActive = false;
+                    _repository.Update(person);
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public async Task<bool> UploadFiles(IFormCollection form, string username, Person person)

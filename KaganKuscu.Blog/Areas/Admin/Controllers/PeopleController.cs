@@ -35,6 +35,8 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
         public IActionResult Add(Person person)
         {
             person.AppUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+
+            _personService.UpdateIsActiveForUser(Guid.Parse(person.AppUserId));
             _personService.Add(person);
 
             return StatusCode(201, person.Guid);

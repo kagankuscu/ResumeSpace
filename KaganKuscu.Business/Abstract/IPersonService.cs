@@ -10,5 +10,6 @@ namespace KaganKuscu.Business.Abstract
         IQueryable<PersonDto> GetAllPersonDto();
         IQueryable<PersonForAppUserDto> GetAllByAppUserGuid(Guid guid);
         Task<bool> UploadFiles(IFormCollection form, string username, Person person);
+        bool UpdateIsActiveForUser(Guid guid);
     }
 }
