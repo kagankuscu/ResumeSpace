@@ -158,7 +158,7 @@
                 <!-- end row -->
                 
                 <div class="row">
-                    <table id="datatable" class="table table-centered table-nowrap mb-0">
+                    <table id="datatable" class="table table-centered table-nowrap table-hover mb-0">
                     </table>
                 </div>
             </div>
@@ -237,6 +237,24 @@
                                         </ul>`
                             }
                         },
+                        { 
+                            data: "isActive",
+                            title: "Durum",
+                            render: (data) => `<i style="font-size: 25px" class="${data ? "uil-check-circle text-success" : "uil-times-circle text-danger"}"></i>`
+                        },
+                    ],
+                    columnDefs:
+                    [
+                        {
+                            targets: 8,
+                            visible: true,
+                            className: "text-center",
+                            width: "5px"
+                        },
+                        {
+                            targets: 7,
+                            width: "5px"
+                        }
                     ],
                     language: {
                         url: "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Turkish.json"
@@ -276,6 +294,7 @@
                         type: "POST",
                         success: (res) =>
                         {
+                            updateAllRow();
                             datatable.row.add(
                             {
                                 "fullName": data.fullName,
@@ -284,6 +303,7 @@
                                 "phone": data.phone,
                                 "secondPhone": "",
                                 "address": data.address,
+                                "isActive": true,
                                 "guid": res
                             }).draw();
                             
@@ -295,6 +315,19 @@
                     }
                 );
             });
+        }
+
+        function updateAllRow()
+        {
+            for (let x of $("tbody tr"))
+            {
+                // Get the data
+                let data = datatable.row(x).data()
+                // change to isActive false
+                data.isActive = false
+                // update datatable data
+                datatable.row(x).data(data);
+            }
         }
 
         function remove(guid, element)
@@ -389,6 +422,7 @@
                                 "email": $("#txtEmail").val(),
                                 "birthdate": $("#txtBirthdate").val(),
                                 "about": tinymce.get("txtareaAbout").getContent(),
+                                "isActive": datatable.row(8).data().isActive,
                             }
 
                             people[personIndex] = data;
