@@ -16,7 +16,7 @@
 
                         <div class="row mb-2">
                             <label for="txtBirthdate">Doğum Tarihi :</label>
-                            <input class="form-control input-mask" id="txtBirthdate" placeholder="Lütfen doğum tarihinizi giriniz." data-inputmask="'alias': 'datetime'" data-inputmask-inputformat="dd/mm/yyyy" im-insert="false" required/>
+                            <input class="form-control input-mask" id="txtBirthdate" placeholder="Lütfen doğum tarihinizi giriniz." data-inputmask="'alias': 'datetime'" data-inputmask-inputformat="mm/dd/yyyy" im-insert="false" required/>
                         </div>
 
                         <div class="row mb-2">
@@ -461,9 +461,9 @@
                                 "secondPhone": obj["Ikinci Gsm"],
                                 "address": $("#txtAddress").val(),
                                 "email": $("#txtEmail").val(),
-                                "birthdate": $("#txtBirthdate").val(),
+                                "birthDate": $("#txtBirthdate").val(),
                                 "about": tinymce.get("txtareaAbout").getContent(),
-                                "isActive": datatable.row(8).data().isActive,
+                                "isActive": datatable.row(row).data().isActive,
                             }
 
                             people[personIndex] = data;
