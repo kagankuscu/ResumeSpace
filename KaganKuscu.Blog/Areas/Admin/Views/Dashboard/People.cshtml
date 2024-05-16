@@ -62,7 +62,7 @@
             </div>
             <div class="modal-body">
 
-                <div id="test" class="row mb-2">
+                <div class="row mb-2">
                     <textarea class="tinymce-modal" id="txtareaAbout"></textarea>
                 </div>
 
@@ -229,8 +229,10 @@
                                                 </a>
                                             
                                                 <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#"><i class="${row.isActive ? "uil-check-circle" : "uil-times-circle" } me-2 
-                                                        text-${row.isActive ? "success" : "danger" }" style="font-size: 19px"></i>${row.isActive ? "Pasif yap" : "Aktif yap" }</a>
+                                                    <a class="dropdown-item" onclick="toggleStatus(this)">
+                                                        <i class="${row.isActive ? "uil-check-circle" : "uil-times-circle" } me-2 
+                                                        text-${row.isActive ? "success" : "danger" }" style="font-size: 19px"></i>${row.isActive ? "Pasif yap" : "Aktif yap" }
+                                                    </a>
                                                     <a class="dropdown-item" onclick="extrasInformation('${guid}', this)">Ektra Bilgiler Ekle</a>
                                                 </div>
                                             </li>
@@ -317,17 +319,56 @@
             });
         }
 
-        function updateAllRow()
+        function updateAllRow(guid)
         {
             for (let x of $("tbody tr"))
             {
                 // Get the data
-                let data = datatable.row(x).data()
+                let data = datatable.row(x).data();
+                
+                if (guid === data.guid)
+                    continue;
+
                 // change to isActive false
-                data.isActive = false
+                data.isActive = false;
                 // update datatable data
-                datatable.row(x).data(data);
+                datatable.row(x).data(data).draw();
             }
+        }
+
+        function toggleStatus(element)
+        {
+            let row = $(element).parents("tr");
+            let data = datatable.row(row).data();
+
+            $.ajax(
+                {
+                    url: "/Admin/People/ToggleStatus",
+                    type: "POST",
+                    data: { guid: data.guid },
+                    success: () => 
+                    {
+                        SwalToast.fire(
+                            {
+                                icon: "success",
+                                title: !data.isActive ? "Aktif edildi." : "Pasif yapıldı"
+                            });
+                        
+                        data.isActive = !data.isActive;
+                        datatable.row(row).data(data).draw();
+
+                        updateAllRow(data.guid);
+                    },
+                    error: (err) =>
+                    {
+                        SwalToast.fire
+                            ({
+                                icon: "error",
+                                title: "Hata: " + err.responseText
+                            });
+                    }
+                }
+            )
         }
 
         function remove(guid, element)
@@ -359,7 +400,7 @@
                                 SwalToast.fire
                                 ({
                                     icon: "error",
-                                    title: "error: " + err
+                                    title: "error: " + err.responseText
                                 });
                             }
                         })

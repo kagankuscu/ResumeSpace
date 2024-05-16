@@ -71,5 +71,18 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
                 return Ok();
             return BadRequest("Hataaaa :)");
         }
+
+        [HttpPost]
+        public IActionResult ToggleStatus(Guid guid)
+        {
+            Person? person = _personService.GetById(guid);
+            if (person is null)
+                return BadRequest();
+            
+            person.IsActive = !person.IsActive;
+            if (_personService.UpdateIsActiveForUser(Guid.Parse(person.AppUserId)))
+                _personService.Update(person);
+            return Ok();
+        }
     }
 }
