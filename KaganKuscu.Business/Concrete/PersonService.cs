@@ -49,6 +49,7 @@ namespace KaganKuscu.Business.Concrete
         {
             return _repository
                 .GetAll(p => p.AppUserId == guid.ToString())
+                .Where(p => !p.IsDeleted)
                 .Select(p => new PersonForAppUserDto
                 {
                     Guid = p.Guid,
