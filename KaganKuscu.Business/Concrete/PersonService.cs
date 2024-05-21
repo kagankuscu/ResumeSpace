@@ -1,7 +1,7 @@
 ﻿using KaganKuscu.Business.Abstract;
 using KaganKuscu.DataAccess;
 using KaganKuscu.Model.Dtos;
-using KaganKuscu.Model.Dtos.Person;
+using KaganKuscu.Model.Dtos.PersonDto;
 using KaganKuscu.Model.Models;
 using KaganKuscu.Repository.Abstract;
 using KaganKuscu.Utilities;
@@ -69,7 +69,7 @@ namespace KaganKuscu.Business.Concrete
                 });
         }
 
-        public IQueryable<PersonDto> GetAllPersonDto()
+        public IQueryable<PersonForGetDto> GetAllPersonDto()
         {
             return _repository.GetAll()
                 .Include(p => p.SocialMedias)
@@ -78,7 +78,7 @@ namespace KaganKuscu.Business.Concrete
                 .Include(p => p.Educations)
                 .Include(p => p.References)
                 .Include(p => p.Interests)
-                .Select(p => new PersonDto
+                .Select(p => new PersonForGetDto
                 {
                     Name = p.FullName,
                     Age = Convert.ToInt32((DateTime.Now - p.BirthDate).TotalDays / 365.2465),

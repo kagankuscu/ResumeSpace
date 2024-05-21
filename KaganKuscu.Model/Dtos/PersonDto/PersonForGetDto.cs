@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KaganKuscu.Model.Dtos
 {
-    public class PersonDto
+    public class PersonForGetDto
     {
         public string Name { get; set; } = string.Empty;
         public int Age { get; set; }
