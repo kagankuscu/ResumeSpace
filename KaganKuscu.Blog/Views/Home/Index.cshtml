@@ -2,8 +2,8 @@
 @using KaganKuscu.Model.Dtos
 @model HomePageVm
 @{
-    PersonDto person = Model.Person;
-    Quote quote = Model.Quote;
+    PersonForGetDto? person = Model.Person;
+    Quote? quote = Model.Quote;
     List<Blog> blogs = Model.Blogs;
 }
 <!-- START: PAGE CONTENT -->
