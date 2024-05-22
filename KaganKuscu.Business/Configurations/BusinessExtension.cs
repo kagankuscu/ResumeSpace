@@ -1,16 +1,12 @@
 ﻿using KaganKuscu.Business.Abstract;
 using KaganKuscu.Business.Concrete;
+using KaganKuscu.Model;
+using KaganKuscu.Model.ManyToMany;
 using KaganKuscu.Model.Models;
 using KaganKuscu.Repository.Abstract;
 using KaganKuscu.Repository.Concrete;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KaganKuscu.Business.Configurations
 {
@@ -40,7 +36,7 @@ namespace KaganKuscu.Business.Configurations
                         service.AddScoped(interfaceService, type);
             }
 
-            // service.AddScoped<IPersonService, PersonService>();
+            service.AddScoped<IPersonSkillService, PersonSkillService>();
             // service.AddScoped<IQuoteService, QuoteService>();
         }
 
@@ -55,16 +51,29 @@ namespace KaganKuscu.Business.Configurations
             // filtering not is abstract and class
             // checking is generic type and generic type definition equel to typeof IBaseService<> we don't include it.
             // we dont need to register IBaseService<>
-            IEnumerable<Type> types = Assembly.GetAssembly(typeof(BaseModel))!
+            IEnumerable<Type> types = Assembly.GetAssembly(typeof(ModelAssembly))!
                 .GetTypes()
-                .Where(x => x.IsAssignableTo(typeof(BaseModel)))
                 .Where(x => x.IsClass && !x.IsAbstract)
-                .Where(x => !x.FullName!.Equals("KaganKuscu.Model.Models.BaseModel"));
+                .Where(x => x.FullName!.Contains("KaganKuscu.Model.Models") && !x.FullName!.Contains("BaseModel"))
+                .Where(x => !x.FullName!.Contains("AppUser"));
 
             foreach (var t in types)
             {
                 Type interfaceRepositoryType = typeof(IRepository<>).MakeGenericType(t);
                 Type repositoryType = typeof(Repository<>).MakeGenericType(t);
+
+                service.AddScoped(interfaceRepositoryType, repositoryType);
+            }
+
+            IEnumerable<Type> mtmTypes = Assembly.GetAssembly(typeof(ModelAssembly))!
+                .GetTypes()
+                .Where(x => x.IsClass && !x.IsAbstract)
+                .Where(x => x.FullName!.Contains("KaganKuscu.Model.ManyToMany")).ToList();
+            
+            foreach (var t in mtmTypes)
+            {
+                Type interfaceRepositoryType = typeof(IRelationRepository<>).MakeGenericType(t);
+                Type repositoryType = typeof(RelationRepository<>).MakeGenericType(t);
 
                 service.AddScoped(interfaceRepositoryType, repositoryType);
             }
