@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using KaganKuscu.Model.ManyToMany;
 
 namespace KaganKuscu.Model.Models
 {
@@ -9,7 +6,9 @@ namespace KaganKuscu.Model.Models
     {
         public string Name { get; set; }
         public int Percent { get; set; }
-        public int PersonId { get; set; }
+        public Guid AppUserId { get; set; }
+        public virtual ICollection<Person> People { get; set; } = new List<Person>(); 
+        public ICollection<PersonSkill> PersonSkills { get; set; } = [];
 
     }
 }

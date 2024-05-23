@@ -1,15 +1,12 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+using KaganKuscu.Model.ManyToMany;
 
 namespace KaganKuscu.Model.Models
 {
-    [Table("People")]
+    [Table("Resumes")]
     public class Person : BaseModel
     {
+        public string ResumeName { get; set; } = string.Empty;
         public string FullName { get; set; } = string.Empty;
         public DateTime BirthDate { get; set; }
         public string? Address { get; set; }
@@ -29,6 +26,7 @@ namespace KaganKuscu.Model.Models
         public virtual ICollection<Education> Educations { get; set; } = new List<Education>();
         public virtual ICollection<Reference> References { get; set; } = new List<Reference>();
         public virtual ICollection<Skill> Skills { get; set; } = new List<Skill>();
+        public ICollection<PersonSkill> PersonSkills { get; set; } = [];
         public virtual ICollection<Interest> Interests { get; set; } = new List<Interest>();
     }
 }

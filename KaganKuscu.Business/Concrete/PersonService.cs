@@ -52,7 +52,9 @@ namespace KaganKuscu.Business.Concrete
                 .Where(p => !p.IsDeleted)
                 .Select(p => new PersonForAppUserDto
                 {
+                    Id = p.Id,
                     Guid = p.Guid,
+                    ResumeName = p.ResumeName,
                     FullName = p.FullName,
                     BirthDate = p.BirthDate,
                     Address = p.Address,
@@ -175,7 +177,7 @@ namespace KaganKuscu.Business.Concrete
         }
 
         public async Task<bool> UploadFiles(IFormCollection form, string username, Person person)
-        {            
+        {
             // wwwroot/img/People/<username>/<imagename>
             // wwwroot/Files/Resume/<username>/<resumename>
             IFormFile? image = form.Files["image"];
@@ -190,11 +192,11 @@ namespace KaganKuscu.Business.Concrete
             if (image is not null)
             {
                 string serverImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "People", username);
-                
+
                 if (!Directory.Exists(serverImagePath))
                     Directory.CreateDirectory(serverImagePath);
-                
-                imageFilename = Helper.RandomStringGenerator(3) + "-" +  username + Path.GetExtension(image.FileName);
+
+                imageFilename = Helper.RandomStringGenerator(3) + "-" + username + Path.GetExtension(image.FileName);
 
                 string imagePath = Path.Combine(serverImagePath, imageFilename);
 
@@ -212,7 +214,7 @@ namespace KaganKuscu.Business.Concrete
 
                 if (!Directory.Exists(serverResumePath))
                     Directory.CreateDirectory(serverResumePath);
-                
+
                 resumeFilename = Helper.RandomStringGenerator(3) + "-" + username + Path.GetExtension(resume.FileName);
 
                 string resumePath = Path.Combine(serverResumePath, resumeFilename);
@@ -224,7 +226,7 @@ namespace KaganKuscu.Business.Concrete
 
                 real.ResumePath = $"{username}/{resumeFilename}";
             }
-            
+
             try
             {
                 real.SecondPhone = person.SecondPhone;

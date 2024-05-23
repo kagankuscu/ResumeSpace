@@ -44,6 +44,11 @@ namespace KaganKuscu.DataAccess
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             modelBuilder.Entity<PersonSkill>(x => x.HasKey(p => new { p.PersonId, p.SkillId}));
+
+            modelBuilder.Entity<Person>()
+                .HasMany(x => x.Skills)
+                .WithMany(x => x.People)
+                .UsingEntity<PersonSkill>();
         }
 
     }
