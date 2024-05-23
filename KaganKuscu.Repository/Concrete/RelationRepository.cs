@@ -1,4 +1,6 @@
+using System.Linq.Expressions;
 using KaganKuscu.DataAccess;
+using KaganKuscu.Model.ManyToMany;
 using KaganKuscu.Repository.Abstract;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +27,16 @@ namespace KaganKuscu.Repository.Concrete
         {
             _dbSet.AddRange(entities);
             Save();
+        }
+
+        public List<T> GetAll()
+        {
+            return _dbSet.ToList();
+        }
+
+        public IQueryable<T> GetAll(Expression<Func<T, bool>> predicate)
+        {
+            return _dbSet.Where(predicate);
         }
 
         public void Remove(T entity)
