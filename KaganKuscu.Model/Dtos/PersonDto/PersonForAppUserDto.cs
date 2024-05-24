@@ -7,7 +7,9 @@ namespace KaganKuscu.Model.Dtos.PersonDto
 {
     public record PersonForAppUserDto
     {
+        public int Id { get; set; }
         public Guid Guid { get; set; }
+        public string ResumeName { get; set; } = string.Empty;
         public string FullName { get; set; } = string.Empty;
         public DateTime BirthDate { get; set; }
         public string? Address { get; set; }
