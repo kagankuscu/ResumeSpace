@@ -7,11 +7,6 @@ using KaganKuscu.Repository.Abstract;
 using KaganKuscu.Utilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KaganKuscu.Business.Concrete
 {
@@ -38,7 +33,6 @@ namespace KaganKuscu.Business.Concrete
         {
             return _repository.GetAll()
                 .Include(p => p.SocialMedias)
-                .Include(p => p.Skills)
                 .Include(p => p.WorkExperiences)
                 .Include(p => p.Educations)
                 .Include(p => p.References)
@@ -75,7 +69,6 @@ namespace KaganKuscu.Business.Concrete
         {
             return _repository.GetAll()
                 .Include(p => p.SocialMedias)
-                .Include(p => p.Skills)
                 .Include(p => p.WorkExperiences)
                 .Include(p => p.Educations)
                 .Include(p => p.References)
@@ -94,7 +87,7 @@ namespace KaganKuscu.Business.Concrete
                     ResumePath = p.ResumePath ?? string.Empty,
                     Description = p.About ?? string.Empty,
                     References = p.References.ToList(),
-                    Skills = p.Skills.ToList(),
+                    Skills = p.Skills.Where(s => s.IsActive).ToList(),
                     SocialMedias = p.SocialMedias.ToList(),
                     Educations = p.Educations.OrderByDescending(e => e.StartDate).ToList(),
                     WorkExperiences = p.WorkExperiences.OrderByDescending(e => e.StartDate).ToList()
