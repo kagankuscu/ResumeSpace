@@ -1,14 +1,7 @@
-﻿using KaganKuscu.Model.ManyToMany;
-using KaganKuscu.Model.Models;
+﻿using KaganKuscu.Model.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KaganKuscu.DataAccess
 {
@@ -36,20 +29,11 @@ namespace KaganKuscu.DataAccess
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<WorkExperience> WorkExperiences { get; set; }
         public virtual DbSet<Interest> Interests { get; set; }
-        public virtual DbSet<PersonSkill> PersonSkill { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
-            modelBuilder.Entity<PersonSkill>(x => x.HasKey(p => new { p.PersonId, p.SkillId}));
-
-            modelBuilder.Entity<Person>()
-                .HasMany(x => x.Skills)
-                .WithMany(x => x.People)
-                .UsingEntity<PersonSkill>();
         }
-
     }
 }

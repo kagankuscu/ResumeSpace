@@ -2,11 +2,8 @@ using KaganKuscu.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using KaganKuscu.Business.Configurations;
 using KaganKuscu.Model.Models;
-using KaganKuscu.Repository.Abstract;
-using KaganKuscu.Repository.Concrete;
-using KaganKuscu.Business.Abstract;
-using KaganKuscu.Business.Concrete;
 using Microsoft.AspNetCore.Identity;
+using System.Text.Json.Serialization;
 
 namespace KaganKuscu.Blog
 {
@@ -17,7 +14,8 @@ namespace KaganKuscu.Blog
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews()
+                .AddJsonOptions(option => option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
             builder.Services.AddBusinessDI();
             builder.Services.AddRepositoryDI();

@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using KaganKuscu.Model.ManyToMany;
 
 namespace KaganKuscu.Model.Models
 {

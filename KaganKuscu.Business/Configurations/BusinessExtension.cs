@@ -1,8 +1,5 @@
 ﻿using KaganKuscu.Business.Abstract;
-using KaganKuscu.Business.Concrete;
 using KaganKuscu.Model;
-using KaganKuscu.Model.ManyToMany;
-using KaganKuscu.Model.Models;
 using KaganKuscu.Repository.Abstract;
 using KaganKuscu.Repository.Concrete;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,7 +33,6 @@ namespace KaganKuscu.Business.Configurations
                         service.AddScoped(interfaceService, type);
             }
 
-            service.AddScoped<IPersonSkillService, PersonSkillService>();
             // service.AddScoped<IQuoteService, QuoteService>();
         }
 
@@ -61,19 +57,6 @@ namespace KaganKuscu.Business.Configurations
             {
                 Type interfaceRepositoryType = typeof(IRepository<>).MakeGenericType(t);
                 Type repositoryType = typeof(Repository<>).MakeGenericType(t);
-
-                service.AddScoped(interfaceRepositoryType, repositoryType);
-            }
-
-            IEnumerable<Type> mtmTypes = Assembly.GetAssembly(typeof(ModelAssembly))!
-                .GetTypes()
-                .Where(x => x.IsClass && !x.IsAbstract)
-                .Where(x => x.FullName!.Contains("KaganKuscu.Model.ManyToMany")).ToList();
-            
-            foreach (var t in mtmTypes)
-            {
-                Type interfaceRepositoryType = typeof(IRelationRepository<>).MakeGenericType(t);
-                Type repositoryType = typeof(RelationRepository<>).MakeGenericType(t);
 
                 service.AddScoped(interfaceRepositoryType, repositoryType);
             }
