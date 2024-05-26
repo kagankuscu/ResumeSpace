@@ -10,7 +10,7 @@ namespace KaganKuscu.Business.Abstract
     public interface ISkillService : IBaseService<Skill>
     {
         IQueryable<Skill> GetAllByUserId(Guid userId);
-        Skill Add(SkillForAddDto skillDto);
+        SkillForAddDto Add(SkillForAddDto skillDto);
         Skill Update(SkillForUpdateDto skillDto);
         bool ToggleStatus(Guid guid);
     }

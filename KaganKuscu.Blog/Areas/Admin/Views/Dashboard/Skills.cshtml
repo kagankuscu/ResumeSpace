@@ -189,8 +189,9 @@
                     $.ajax
                     ({
                         url: "/Admin/Skill/Add",
-                        data: data,
                         type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(data),
                         success: (res) => {
                             datatable.row.add(res).draw();
                             modalToggle();

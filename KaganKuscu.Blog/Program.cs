@@ -14,8 +14,7 @@ namespace KaganKuscu.Blog
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews()
-                .AddJsonOptions(option => option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+            builder.Services.AddControllersWithViews();
 
             builder.Services.AddBusinessDI();
             builder.Services.AddRepositoryDI();

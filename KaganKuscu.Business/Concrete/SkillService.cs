@@ -21,7 +21,7 @@ namespace KaganKuscu.Business.Concrete
             _repository.Add(entity);
         }
 
-        public Skill Add(SkillForAddDto skillDto)
+        public SkillForAddDto Add(SkillForAddDto skillDto)
         {
             try
             {
@@ -32,17 +32,17 @@ namespace KaganKuscu.Business.Concrete
                 
                 foreach (var item in skillDto.Resumes)
                 {
-                    var person = _personService.GetById(item);
+                    var person = _personService.GetById(item.Id);
                     if (person != null)
                         skill.People.Add(person);
                 }
 
                 Add(skill);
-                return skill;
+                return skillDto;
             }
             catch
             {
-                return new Skill();
+                return new SkillForAddDto();
             }
         }
 
