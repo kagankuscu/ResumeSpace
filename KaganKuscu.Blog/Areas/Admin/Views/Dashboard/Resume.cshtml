@@ -172,7 +172,7 @@
     <script src="~/lib/tinymce/tinymce.min.js"></script>
     <script src="~/js/customTinymce.init.js"></script>
     <script>
-        let people = [];
+        let resume = [];
         let datatable;
 
         $(document).ready(() => 
@@ -184,11 +184,11 @@
         {
             let data = await $.ajax
             ({
-                url: "/Admin/People/GetAll",
+                url: "/Admin/Resume/GetAll",
                 type: "GET"
             });
 
-            people = people.concat(data.data);
+            resume = resume.concat(data.data);
 
             datatable = $("#datatable").DataTable
                 ({
@@ -291,7 +291,7 @@
 
                 $.ajax(
                     {
-                        url: "/Admin/People/Add",
+                        url: "/Admin/Resume/Add",
                         data: data,
                         type: "POST",
                         success: (res) =>
@@ -310,7 +310,7 @@
                             }).draw();
                             
                             data["guid"] = res;
-                            people.push(data);
+                            resume.push(data);
 
                             toggleModal();
                         }
@@ -343,7 +343,7 @@
 
             $.ajax(
                 {
-                    url: "/Admin/People/ToggleStatus",
+                    url: "/Admin/Resume/ToggleStatus",
                     type: "POST",
                     data: { guid: data.guid },
                     success: () => 
@@ -381,7 +381,7 @@
                     {
                         $.ajax
                         ({
-                            url: "/Admin/People/Remove",
+                            url: "/Admin/Resume/Remove",
                             type: "POST",
                             data: { guid: guid } ,
                             success: res => 
@@ -441,8 +441,8 @@
             $("#txtAddress").val(obj["Adres"])
             $("#txtEmail").val(obj["Email"])
 
-            let personIndex = people.findIndex(p => p.guid === guid);
-            tinymce.get("txtareaAbout").setContent(people[personIndex].about ?? "")
+            let resumeIndex = resume.findIndex(p => p.guid === guid);
+            tinymce.get("txtareaAbout").setContent(resume[resumeIndex].about ?? "")
 
             $("#btnSave").off().text("Güncelle").removeClass("btn-success").addClass("btn-warning").click(() => 
             {
@@ -466,11 +466,11 @@
                                 "isActive": datatable.row(row).data().isActive,
                             }
 
-                            people[personIndex] = data;
+                            resume[resumeIndex] = data;
 
                             $.ajax(
                             {
-                                url: "/Admin/People/Update",
+                                url: "/Admin/Resume/Update",
                                 data: data,
                                 type: "POST",
                                 success: (res) =>
@@ -534,9 +534,9 @@
             toggleModalExtras();
             clearModal();
 
-            let personIndex = people.findIndex(p => p.guid === guid);
-            $("#txtSecondPhone").val(people[personIndex].secondPhone);
-            tinymce.get("txtareaExtras").setContent(people[personIndex].interest ?? "");
+            let resumeIndex = resume.findIndex(p => p.guid === guid);
+            $("#txtSecondPhone").val(resume[resumeIndex].secondPhone);
+            tinymce.get("txtareaExtras").setContent(resume[resumeIndex].interest ?? "");
 
             $("#btnExtrasSave").off().click(() => addExtrasInformation(guid, element));
         }
@@ -551,27 +551,27 @@
             formData.append("interest", tinymce.get("txtareaExtras").getContent());
             formData.append("guid", guid);
 
-            let personIndex = people.findIndex(p => p.guid === guid);
-            people[personIndex].secondPhone = $("#txtSecondPhone").val();
-            people[personIndex].interest = tinymce.get("txtareaExtras").getContent();
+            let resumeIndex = resume.findIndex(p => p.guid === guid);
+            resume[resumeIndex].secondPhone = $("#txtSecondPhone").val();
+            resume[resumeIndex].interest = tinymce.get("txtareaExtras").getContent();
 
             let row = $(element).parents("tr");
             let data =
             {
                 "guid": guid,
-                "fullName": people[personIndex].fullName,
-                "title": people[personIndex].title,
-                "phone": people[personIndex].phone,
+                "fullName": resume[resumeIndex].fullName,
+                "title": resume[resumeIndex].title,
+                "phone": resume[resumeIndex].phone,
                 "secondPhone": $("#txtSecondPhone").val(),
-                "address": people[personIndex].address,
-                "email": people[personIndex].email,
-                "birthdate": people[personIndex].birthdate,
+                "address": resume[resumeIndex].address,
+                "email": resume[resumeIndex].email,
+                "birthdate": resume[resumeIndex].birthdate,
                 "about": tinymce.get("txtareaAbout").getContent(),
             }
 
             $.ajax
             ({
-                url: "/Admin/People/UploadFiles",
+                url: "/Admin/Resume/UploadFiles",
                 type: "POST",
                 processData: false,
                 contentType: false,

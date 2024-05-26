@@ -9,11 +9,11 @@ namespace KaganKuscu.Business.Concrete
     public class SkillService : ISkillService
     {
         private readonly IRepository<Skill> _repository;
-        private readonly IPersonService _personService;
-        public SkillService(IRepository<Skill> repository, IPersonService personService)
+        private readonly IResumeService _resumeService;
+        public SkillService(IRepository<Skill> repository, IResumeService resumeService)
         {
             _repository = repository;
-            _personService = personService;
+            _resumeService = resumeService;
         }
 
         public void Add(Skill entity)
@@ -32,9 +32,12 @@ namespace KaganKuscu.Business.Concrete
                 
                 foreach (var item in skillDto.Resumes)
                 {
-                    var person = _personService.GetById(item.Id);
-                    if (person != null)
-                        skill.People.Add(person);
+                    var resume = _resumeService.GetById(item.Id);
+                    if (resume != null)
+                        skill.Resumes.Add(new ResumeSkill
+                        {
+                            Resume = resume
+                        });
                 }
 
                 Add(skill);
@@ -66,7 +69,7 @@ namespace KaganKuscu.Business.Concrete
                 Name = s.Name,
                 Percent = s.Percent,
                 IsActive = s.IsActive,
-                People = s.People
+                Resumes = s.Resumes
             });
         }
 
@@ -127,7 +130,7 @@ namespace KaganKuscu.Business.Concrete
 
         public Skill Update(SkillForUpdateDto skillDto)
         {
-            Skill? skill = _repository.GetAll(s => s.Guid == skillDto.Guid).Include(s => s.People).FirstOrDefault();
+            Skill? skill = _repository.GetAll(s => s.Guid == skillDto.Guid).Include(s => s.Resumes).FirstOrDefault();
             if (skill is not null)
             {
                 skill.Name = skillDto.Name;
@@ -135,28 +138,40 @@ namespace KaganKuscu.Business.Concrete
                 
                 if (skillDto.Resumes.Count == 0)
                 {
-                    skill.People.Clear();
+                    skill.Resumes.Clear();
                 }
 
                 var appUserId = skillDto.AppUserId.ToString();
-                var deleteResumes = _personService.GetAll()
+                var deleteResumes = _resumeService.GetAll()
                                     .Where(p => p.AppUserId == appUserId)
                                     .Where(p => !skillDto.Resumes.Contains(p.Id));
 
-                var resumes = _personService.GetAll()
+                var resumes = _resumeService.GetAll()
                                     .Where(p => p.AppUserId == appUserId)
                                     .Where(p => skillDto.Resumes.Contains(p.Id));
 
                 foreach (var resume in deleteResumes)
                 {
-                    if(skill.People.Contains(resume))
-                        skill.People.Remove(resume);
+                    if(skill.Resumes.Contains(new ResumeSkill
+                    {
+                        Resume = resume
+                    }))
+                        skill.Resumes.Remove(new ResumeSkill
+                        {
+                            Resume = resume
+                        });
                 }
                 
                 foreach (var resume in resumes) 
                 {
-                    if (!skill.People.Contains(resume))
-                        skill.People.Add(resume);
+                    if (!skill.Resumes.Contains(new ResumeSkill
+                        {
+                            Resume = resume
+                        }))
+                        skill.Resumes.Add(new ResumeSkill
+                        {
+                            Resume = resume
+                        });
                 }
 
                 Update(skill);

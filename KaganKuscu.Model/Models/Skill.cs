@@ -5,6 +5,6 @@ namespace KaganKuscu.Model.Models
         public string Name { get; set; }
         public int Percent { get; set; }
         public Guid AppUserId { get; set; }
-        public virtual ICollection<Person> People { get; set; } = new List<Person>(); 
+        public virtual ICollection<ResumeSkill> Resumes { get; set; } = new List<ResumeSkill>(); 
     }
 }

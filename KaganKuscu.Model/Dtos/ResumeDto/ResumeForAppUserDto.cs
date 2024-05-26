@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace KaganKuscu.Model.Dtos.PersonDto
+namespace KaganKuscu.Model.Dtos.ResumeDto
 {
-    public record PersonForAppUserDto
+    public record ResumeForAppUserDto
     {
         public int Id { get; set; }
         public Guid Guid { get; set; }

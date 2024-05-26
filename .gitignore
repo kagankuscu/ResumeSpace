@@ -488,3 +488,12 @@ $RECYCLE.BIN/
 
 # vscode
 .vscode
+
+#Admin Brand Image
+KaganKuscu.Blog/wwwroot/admin/images/
+KaganKuscu.Blog/wwwroot/admin/images/brands
+KaganKuscu.Blog/wwwroot/admin/images/flags
+KaganKuscu.Blog/wwwroot/admin/images/flags/select2
+KaganKuscu.Blog/wwwroot/lib/tinymce/*
+
+Markdown/

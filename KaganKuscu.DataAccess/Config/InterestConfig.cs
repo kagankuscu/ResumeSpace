@@ -15,7 +15,7 @@ namespace KaganKuscu.DataAccess.Config
             builder.HasData(
                 new Interest {
                     Id = 1,
-                    PersonId = 1,
+                    ResumeId = 1,
                     Name = "Bisiklet",
                     IconCssClass = "map-icon map-icon-bicycling"
                 }

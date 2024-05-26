@@ -1,19 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using KaganKuscu.Model.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace KaganKuscu.DataAccess.Config
 {
-    public class UserConfig : IEntityTypeConfiguration<Person>
+    public class ResumeConfig : IEntityTypeConfiguration<Resume>
     {
-        public void Configure(EntityTypeBuilder<Person> builder)
+        public void Configure(EntityTypeBuilder<Resume> builder)
         {
             builder.HasData(
-                new Person {
+                new Resume {
                     Id = 1,
                     FullName = "Kağan Kuşcu",
                     BirthDate = new DateTime(1996, 2, 11),
@@ -29,7 +25,7 @@ namespace KaganKuscu.DataAccess.Config
 
                         <p>Ekip çalışmasına yatkın bir kişiliğe sahibim ve iletişim becerilerimi geliştirmeye önem veriyorum. Ekip arkadaşlarımla uyum içinde çalışarak ortak hedeflere ulaşmanın keyfini yaşıyorum.</p>",
                     Title = ".Net Backend Developer",
-                    ImagePath = "img/People/kagankuscu.jpg",
+                    ImagePath = "img/resume/kagankuscu.jpg",
                     ResumePath = "Files/Resume/kagankuscu.pdf",
                     Email = "kuscukagan@gmail.com",
                     Interest = @"<p>Bisiklet tutkunuyum. Rüzgarı yüzümde hissederek pedallara basmak, özgürlüğün ve maceranın tadını çıkarmak benim için paha biçilemez bir deneyim. Her sürüşte yeni keşiflere yelken açıyor, doğanın güzelliklerine tanık oluyorum. Bisikletimle şehirlerin karmaşasından uzaklaşıp, sakin patikalarda huzur buluyorum. Her viraj yeni bir sürprizi, her tepe yeni bir manzarayı müjdeliyor.

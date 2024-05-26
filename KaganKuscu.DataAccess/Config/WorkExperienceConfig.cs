@@ -15,7 +15,7 @@ namespace KaganKuscu.DataAccess.Config
             builder.HasData(
                 new WorkExperience {
                     Id = 1,
-                    PersonId = 1,
+                    ResumeId = 1,
                     Name = "Deadline Bilişim",
                     StartDate = new DateTime(2023, 12, 25),
                     EndDate = new DateTime(0001, 1, 1),

@@ -10,7 +10,7 @@ namespace KaganKuscu.Model.ViewModels
 {
     public class HomePageVm
     {
-        public PersonForGetDto? Person { get; set; }
+        public ResumeForGetDto? Resume { get; set; }
         public Quote? Quote { get; set; }
         public List<Blog> Blogs { get; set; } = new List<Blog>();
     }

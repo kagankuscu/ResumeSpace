@@ -20,7 +20,7 @@ namespace KaganKuscu.DataAccess
         public virtual DbSet<Blog> Blogs { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Education> Educations { get; set; }
-        public virtual DbSet<Person> People { get; set; }
+        public virtual DbSet<Resume> Resumes { get; set; }
         public virtual DbSet<Photo> Photos { get; set; }
         public virtual DbSet<Quote> Quotes { get; set; }
         public virtual DbSet<Reference> References { get; set; }
@@ -34,6 +34,18 @@ namespace KaganKuscu.DataAccess
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            modelBuilder.Entity<ResumeSkill>().HasKey(x => new { x.ResumeId, x.SkillId });
+
+            modelBuilder.Entity<ResumeSkill>()
+              .HasOne(r => r.Resume)
+              .WithMany(r => r.Skills)
+              .HasForeignKey(x => x.ResumeId);
+
+            modelBuilder.Entity<ResumeSkill>()
+              .HasOne(s => s.Skill)
+              .WithMany(s => s.Resumes)
+              .HasForeignKey(x => x.SkillId);
         }
     }
 }

@@ -24,7 +24,7 @@
 
                     <div class="row mb-2">
                         <label for="ddlResume">Kişi :</label>
-                        <select id="ddlResume" name="people[]" multiple="multiple" style="width: 100%" >
+                        <select id="ddlResume" name="resumes[]" multiple="multiple" style="width: 100%" >
                         </select>
                     </div>
 
@@ -94,7 +94,7 @@
                                 render: (data) => `${data} %`
                             },
                             {
-                                data: "people",
+                                data: "resumes",
                                 title: "Ekli olan Özgeçmişler",
                                 render: (data) => {
                                     let txt = '';
@@ -201,20 +201,20 @@
             });
         }
         
-        function fillDdlResume(resume)
+        function fillDdlResume(resumes)
         {
             $.ajax(
                 {
-                    url: "/Admin/People/GetAll",
+                    url: "/Admin/Resume/GetAll",
                     type: "GET",
                     success: (res) => 
                     {
-                        for (let person of res.data)
+                        for (let resume of res.data)
                         {
                             $("#ddlResume").append(
-                                new Option(person.resumeName, person.id, 
+                                new Option(resume.resumeName, resume.id, 
                                     false, 
-                                    resume === undefined ? false : resume.find(r => r.id === person.id) !== undefined)
+                                    resumes === undefined ? false : resumes.find(r => r.id === resume.id) !== undefined)
                                 );
                         }
                     },
@@ -296,12 +296,12 @@
 
             let row = $(element).parents("tr");
             let oldData = datatable.row(row).data();
-            oldData.people = oldData.people;
+            oldData.resumes = oldData.resumes;
 
             $("#txtSkill").val(oldData.name);
             $("#txtPercent").val(oldData.percent);
 
-            fillDdlResume(oldData.people);
+            fillDdlResume(oldData.resumes);
 
             $("#btnSave").off().text("Güncelle").removeClass("btn-success").addClass("btn-warning").click(() => {
                 event.preventDefault();

@@ -1,7 +1,7 @@
 ﻿using KaganKuscu.Business.Abstract;
 using KaganKuscu.DataAccess;
 using KaganKuscu.Model.Dtos;
-using KaganKuscu.Model.Dtos.PersonDto;
+using KaganKuscu.Model.Dtos.ResumeDto;
 using KaganKuscu.Model.Models;
 using KaganKuscu.Repository.Abstract;
 using KaganKuscu.Utilities;
@@ -10,26 +10,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KaganKuscu.Business.Concrete
 {
-    public class PersonService : IPersonService
+    public class ResumeService : IResumeService
     {
-        private readonly IRepository<Person> _repository;
+        private readonly IRepository<Resume> _repository;
 
-        public PersonService(IRepository<Person> repository)
+        public ResumeService(IRepository<Resume> repository)
         {
             _repository = repository;
         }
 
-        public void Add(Person entity)
+        public void Add(Resume entity)
         {
             _repository.Add(entity);
         }
 
-        public void AddRange(IEnumerable<Person> entities)
+        public void AddRange(IEnumerable<Resume> entities)
         {
             _repository.AddRange(entities);
         }
 
-        public IQueryable<Person> GetAll()
+        public IQueryable<Resume> GetAll()
         {
             return _repository.GetAll()
                 .Include(p => p.SocialMedias)
@@ -39,12 +39,12 @@ namespace KaganKuscu.Business.Concrete
                 .Include(p => p.Interests);
         }
 
-        public IQueryable<PersonForAppUserDto> GetAllByAppUserGuid(Guid guid)
+        public IQueryable<ResumeForAppUserDto> GetAllByAppUserGuid(Guid guid)
         {
             return _repository
                 .GetAll(p => p.AppUserId == guid.ToString())
                 .Where(p => !p.IsDeleted)
-                .Select(p => new PersonForAppUserDto
+                .Select(p => new ResumeForAppUserDto
                 {
                     Id = p.Id,
                     Guid = p.Guid,
@@ -65,7 +65,7 @@ namespace KaganKuscu.Business.Concrete
                 });
         }
 
-        public IQueryable<PersonForGetDto> GetAllPersonDto()
+        public IQueryable<ResumeForGetDto> GetAllResumeDto()
         {
             return _repository.GetAll()
                 .Include(p => p.SocialMedias)
@@ -73,7 +73,7 @@ namespace KaganKuscu.Business.Concrete
                 .Include(p => p.Educations)
                 .Include(p => p.References)
                 .Include(p => p.Interests)
-                .Select(p => new PersonForGetDto
+                .Select(p => new ResumeForGetDto
                 {
                     Name = p.FullName,
                     Age = Convert.ToInt32((DateTime.Now - p.BirthDate).TotalDays / 365.2465),
@@ -87,23 +87,23 @@ namespace KaganKuscu.Business.Concrete
                     ResumePath = p.ResumePath ?? string.Empty,
                     Description = p.About ?? string.Empty,
                     References = p.References.ToList(),
-                    Skills = p.Skills.Where(s => s.IsActive).ToList(),
+                    Skills = p.Skills.Select(s => s.Skill).Where(s => s.IsActive).ToList(),
                     SocialMedias = p.SocialMedias.ToList(),
                     Educations = p.Educations.OrderByDescending(e => e.StartDate).ToList(),
                     WorkExperiences = p.WorkExperiences.OrderByDescending(e => e.StartDate).ToList()
                 });
         }
-        public Person? GetById(int id)
+        public Resume? GetById(int id)
         {
             return _repository.GetById(id);
         }
 
-        public Person? GetById(Guid guid)
+        public Resume? GetById(Guid guid)
         {
             return _repository.GetById(guid);
         }
 
-        public void Remove(Person entity)
+        public void Remove(Resume entity)
         {
             _repository.Remove(entity);
         }
@@ -118,9 +118,9 @@ namespace KaganKuscu.Business.Concrete
             _repository.Remove(guid);
         }
 
-        public void Update(Person entity)
+        public void Update(Resume entity)
         {
-            Person? real = GetById(entity.Guid);
+            Resume? real = GetById(entity.Guid);
             if (real is not null)
             {
                 // TODO: Use AutoMapper
@@ -139,14 +139,14 @@ namespace KaganKuscu.Business.Concrete
 
         public void Update(Guid guid)
         {
-            Person? real = GetById(guid);
+            Resume? real = GetById(guid);
             if (real is not null)
                 Update(real);
         }
 
         public void Update(int id)
         {
-            Person? real = GetById(id);
+            Resume? real = GetById(id);
             if (real is not null)
                 Update(real);
         }
@@ -155,11 +155,11 @@ namespace KaganKuscu.Business.Concrete
         {
             try
             {
-                var people = _repository.GetAll(p => p.AppUserId == guid.ToString() && p.IsActive).ToList();
-                foreach (Person person in people)
+                var resumes = _repository.GetAll(p => p.AppUserId == guid.ToString() && p.IsActive).ToList();
+                foreach (Resume resume in resumes)
                 {
-                    person.IsActive = false;
-                    _repository.Update(person);
+                    resume.IsActive = false;
+                    _repository.Update(resume);
                 }
                 return true;
             }
@@ -169,22 +169,22 @@ namespace KaganKuscu.Business.Concrete
             }
         }
 
-        public async Task<bool> UploadFiles(IFormCollection form, string username, Person person)
+        public async Task<bool> UploadFiles(IFormCollection form, string username, Resume resume)
         {
-            // wwwroot/img/People/<username>/<imagename>
+            // wwwroot/img/resumes/<username>/<imagename>
             // wwwroot/Files/Resume/<username>/<resumename>
             IFormFile? image = form.Files["image"];
-            IFormFile? resume = form.Files["resume"];
+            IFormFile? resumeFile = form.Files["resume"];
 
             string imageFilename;
             string resumeFilename;
-            Person? real = GetById(person.Guid);
+            Resume? real = GetById(resume.Guid);
             if (real is null)
                 return false;
 
             if (image is not null)
             {
-                string serverImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "People", username);
+                string serverImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "resumes", username);
 
                 if (!Directory.Exists(serverImagePath))
                     Directory.CreateDirectory(serverImagePath);
@@ -201,20 +201,20 @@ namespace KaganKuscu.Business.Concrete
                 real.ImagePath = $"{username}/{imageFilename}";
             }
 
-            if (resume is not null)
+            if (resumeFile is not null)
             {
                 string serverResumePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Files", "Resume", username);
 
                 if (!Directory.Exists(serverResumePath))
                     Directory.CreateDirectory(serverResumePath);
 
-                resumeFilename = Helper.RandomStringGenerator(3) + "-" + username + Path.GetExtension(resume.FileName);
+                resumeFilename = Helper.RandomStringGenerator(3) + "-" + username + Path.GetExtension(resumeFile.FileName);
 
                 string resumePath = Path.Combine(serverResumePath, resumeFilename);
 
                 using (var stream = new FileStream(resumePath, FileMode.Create))
                 {
-                    await resume.CopyToAsync(stream);
+                    await resumeFile.CopyToAsync(stream);
                 }
 
                 real.ResumePath = $"{username}/{resumeFilename}";
@@ -222,8 +222,8 @@ namespace KaganKuscu.Business.Concrete
 
             try
             {
-                real.SecondPhone = person.SecondPhone;
-                real.Interest = person.Interest;
+                real.SecondPhone = resume.SecondPhone;
+                real.Interest = resume.Interest;
 
                 _repository.Update(real);
                 _repository.Save();

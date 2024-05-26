@@ -8,19 +8,19 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize]
-    public class PeopleController : Controller
+    public class ResumeController : Controller
     {
-        private readonly IPersonService _personService;
+        private readonly IResumeService _resumeService;
 
-        public PeopleController(IPersonService personService)
+        public ResumeController(IResumeService resumeService)
         {
-            _personService = personService;
+            _resumeService = resumeService;
         }
 
         public IActionResult GetAll()
         {
             if(User.FindFirstValue(ClaimTypes.Role) is "Admin")
-                return Json(new {Data = _personService.GetAll() });
+                return Json(new {Data = _resumeService.GetAll() });
             
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             Guid guid = Guid.Parse(userId ?? string.Empty);
@@ -28,45 +28,45 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
             if (guid == Guid.Empty)
                 return BadRequest();
 
-            return Json(new { Data = _personService.GetAllByAppUserGuid(guid) });
+            return Json(new { Data = _resumeService.GetAllByAppUserGuid(guid) });
         }
 
         [HttpPost]
-        public IActionResult Add(Person person)
+        public IActionResult Add(Resume resume)
         {
-            person.AppUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+            resume.AppUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
 
-            _personService.UpdateIsActiveForUser(Guid.Parse(person.AppUserId));
-            _personService.Add(person);
+            _resumeService.UpdateIsActiveForUser(Guid.Parse(resume.AppUserId));
+            _resumeService.Add(resume);
 
-            return StatusCode(201, person.Guid);
+            return StatusCode(201, resume.Guid);
         }
 
         [HttpPost]
         public IActionResult Remove(Guid guid)
         {
-            _personService.Remove(guid);
+            _resumeService.Remove(guid);
 
             return Ok();
         }
 
         [HttpPost]
-        public IActionResult Update(Person person)
+        public IActionResult Update(Resume resume)
         {
-            _personService.Update(person);
+            _resumeService.Update(resume);
 
             return Ok();
         }
     
         [HttpPost]
-        public async Task<IActionResult> UploadFiles(IFormCollection form, Person person)
+        public async Task<IActionResult> UploadFiles(IFormCollection form, Resume resume)
         {
             string? username = User.FindFirstValue(ClaimTypes.Name);
             
             if (username is null)
                 return BadRequest();
 
-            bool result = await _personService.UploadFiles(form, username, person);
+            bool result = await _resumeService.UploadFiles(form, username, resume);
             if (result)
                 return Ok();
             return BadRequest("Hataaaa :)");
@@ -75,13 +75,13 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult ToggleStatus(Guid guid)
         {
-            Person? person = _personService.GetById(guid);
-            if (person is null)
+            Resume? resume = _resumeService.GetById(guid);
+            if (resume is null)
                 return BadRequest();
             
-            person.IsActive = !person.IsActive;
-            if (_personService.UpdateIsActiveForUser(Guid.Parse(person.AppUserId)))
-                _personService.Update(person);
+            resume.IsActive = !resume.IsActive;
+            if (_resumeService.UpdateIsActiveForUser(Guid.Parse(resume.AppUserId)))
+                _resumeService.Update(resume);
             return Ok();
         }
     }
