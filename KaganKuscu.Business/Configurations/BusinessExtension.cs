@@ -77,5 +77,10 @@ namespace KaganKuscu.Business.Configurations
             // service.AddScoped<IRepository<WorkExperience>, Repository<WorkExperience>>();
             #endregion
         }
+
+        public static void AddAutoMapper(this IServiceCollection service)
+        {
+          service.AddAutoMapper(Assembly.GetExecutingAssembly());
+        }
     }
 }
