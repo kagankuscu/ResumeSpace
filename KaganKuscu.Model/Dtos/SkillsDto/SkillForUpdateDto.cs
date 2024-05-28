@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace KaganKuscu.Model.Dtos.Skills
+namespace KaganKuscu.Model.Dtos.SkillsDto
 {
     public record SkillForUpdateDto
     {

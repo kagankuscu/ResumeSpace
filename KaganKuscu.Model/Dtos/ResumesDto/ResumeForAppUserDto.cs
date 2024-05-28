@@ -1,4 +1,4 @@
-namespace KaganKuscu.Model.Dtos.ResumeDto
+namespace KaganKuscu.Model.Dtos.ResumesDto
 {
     public record ResumeForAppUserDto
     {

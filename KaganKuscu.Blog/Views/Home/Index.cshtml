@@ -1,8 +1,8 @@
 ﻿@using KaganKuscu.Model.ViewModels
-@using KaganKuscu.Model.Dtos
+@using KaganKuscu.Model.Dtos.ResumesDto
 @model HomePageVm
 @{
-    ResumeForGetDto? resume = Model.Resume;
+    ResumeForGetWithDetailsDto? resume = Model.Resume;
     Quote? quote = Model.Quote;
     List<Blog> blogs = Model.Blogs;
 }

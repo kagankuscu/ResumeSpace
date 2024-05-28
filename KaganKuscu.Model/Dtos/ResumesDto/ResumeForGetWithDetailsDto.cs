@@ -1,8 +1,8 @@
 ﻿using KaganKuscu.Model.Models;
 
-namespace KaganKuscu.Model.Dtos
+namespace KaganKuscu.Model.Dtos.ResumesDto
 {
-    public class ResumeForGetDto
+    public class ResumeForGetWithDetailsDto
     {
         public string Name { get; set; } = string.Empty;
         public int Age { get; set; }
