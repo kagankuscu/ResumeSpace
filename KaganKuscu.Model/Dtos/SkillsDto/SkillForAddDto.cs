@@ -8,6 +8,6 @@ namespace KaganKuscu.Model.Dtos.SkillsDto
         public string Name { get; init; } = string.Empty; 
         public int Percent { get; init; }
         public bool IsActive { get; set; }
-        public ICollection<ResumeForGetDto> Resumes { get; init; } = [];
+        public ICollection<ResumeForGetDto> Resumes { get; set; } = [];
     }
 }

@@ -39,12 +39,12 @@ namespace KaganKuscu.DataAccess
 
             modelBuilder.Entity<ResumeSkill>()
               .HasOne(r => r.Resume)
-              .WithMany(r => r.Skills)
+              .WithMany(r => r.ResumesSkills)
               .HasForeignKey(x => x.ResumeId);
 
             modelBuilder.Entity<ResumeSkill>()
               .HasOne(s => s.Skill)
-              .WithMany(s => s.Resumes)
+              .WithMany(s => s.ResumesSkills)
               .HasForeignKey(x => x.SkillId);
         }
     }

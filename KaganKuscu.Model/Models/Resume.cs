@@ -21,7 +21,7 @@ namespace KaganKuscu.Model.Models
         public virtual ICollection<WorkExperience> WorkExperiences { get; set; } = new List<WorkExperience>();
         public virtual ICollection<Education> Educations { get; set; } = new List<Education>();
         public virtual ICollection<Reference> References { get; set; } = new List<Reference>();
-        public virtual ICollection<ResumeSkill> Skills { get; set; } = new List<ResumeSkill>();
+        public virtual ICollection<ResumeSkill> ResumesSkills { get; set; } = new List<ResumeSkill>();
         public virtual ICollection<Interest> Interests { get; set; } = new List<Interest>();
     }
 }
