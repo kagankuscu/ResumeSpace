@@ -1,6 +1,6 @@
 using System.Security.Claims;
 using KaganKuscu.Business.Abstract;
-using KaganKuscu.Model.Dtos.Skills;
+using KaganKuscu.Model.Dtos.SkillsDto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
