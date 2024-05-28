@@ -1,5 +1,7 @@
+using AutoMapper;
 using KaganKuscu.Business.Abstract;
-using KaganKuscu.Model.Dtos.Skills;
+using KaganKuscu.Model.Dtos.ResumesDto;
+using KaganKuscu.Model.Dtos.SkillsDto;
 using KaganKuscu.Model.Models;
 using KaganKuscu.Repository.Abstract;
 using Microsoft.EntityFrameworkCore;
@@ -10,10 +12,13 @@ namespace KaganKuscu.Business.Concrete
     {
         private readonly IRepository<Skill> _repository;
         private readonly IResumeService _resumeService;
-        public SkillService(IRepository<Skill> repository, IResumeService resumeService)
+        private readonly IMapper _mapper;
+
+        public SkillService(IRepository<Skill> repository, IResumeService resumeService, IMapper mapper)
         {
             _repository = repository;
             _resumeService = resumeService;
+            _mapper = mapper;
         }
 
         public void Add(Skill entity)
@@ -25,23 +30,24 @@ namespace KaganKuscu.Business.Concrete
         {
             try
             {
-                Skill skill = new Skill();
-                skill.Name = skillDto.Name;
-                skill.Percent = skillDto.Percent;
-                skill.AppUserId = skillDto.AppUserId;
-                
-                foreach (var item in skillDto.Resumes)
-                {
-                    var resume = _resumeService.GetById(item.Id);
-                    if (resume != null)
-                        skill.Resumes.Add(new ResumeSkill
-                        {
-                            Resume = resume
-                        });
-                }
+                Skill skill = _mapper.Map<Skill>(skillDto); 
+              
+                var resumes = _resumeService.GetAll().Where(r => skillDto.Resumes.Select(r => r.Id).Contains(r.Id)).ToList();
 
+                 List<ResumeSkill> resumeSkill = new List<ResumeSkill>();
+                 
+                 foreach (var item in resumes)
+                 {
+                     // var resume = _resumeService.GetById(item.Id);
+                     // if (resume != null)
+                     resumeSkill.Add(new ResumeSkill { Resume = item }); 
+                 }
+
+                skill.ResumesSkills = resumeSkill; 
                 Add(skill);
-                return skillDto;
+                var data = _mapper.Map<SkillForAddDto>(skill);
+                data.Resumes = _mapper.Map<List<ResumeForGetDto>>(_resumeService.GetAll().Where(r => r.ResumesSkills.Any(rs => rs.SkillId == skill.Id)).ToList());
+                return data; 
             }
             catch
             {
@@ -59,9 +65,9 @@ namespace KaganKuscu.Business.Concrete
             return _repository.GetAll();
         }
 
-        public IQueryable<Skill> GetAllByUserId(Guid userId)
+        public IQueryable<SkillForGetDto> GetAllByUserId(Guid userId)
         {
-            return GetAll().Where(x => x.AppUserId == userId).Select(s => new Skill 
+            return GetAll().Where(x => x.AppUserId == userId).Select(s => new SkillForGetDto 
             {
                 Id = s.Id,
                 Guid = s.Guid,
@@ -69,7 +75,7 @@ namespace KaganKuscu.Business.Concrete
                 Name = s.Name,
                 Percent = s.Percent,
                 IsActive = s.IsActive,
-                Resumes = s.Resumes
+                Resumes = s.ResumesSkills.Select(r => r.Resume!).ToList()
             });
         }
 
@@ -130,7 +136,7 @@ namespace KaganKuscu.Business.Concrete
 
         public Skill Update(SkillForUpdateDto skillDto)
         {
-            Skill? skill = _repository.GetAll(s => s.Guid == skillDto.Guid).Include(s => s.Resumes).FirstOrDefault();
+            Skill? skill = _repository.GetAll(s => s.Guid == skillDto.Guid).Include(s => s.ResumesSkills).FirstOrDefault();
             if (skill is not null)
             {
                 skill.Name = skillDto.Name;
@@ -138,7 +144,7 @@ namespace KaganKuscu.Business.Concrete
                 
                 if (skillDto.Resumes.Count == 0)
                 {
-                    skill.Resumes.Clear();
+                    skill.ResumesSkills.Clear();
                 }
 
                 var appUserId = skillDto.AppUserId.ToString();
@@ -152,11 +158,11 @@ namespace KaganKuscu.Business.Concrete
 
                 foreach (var resume in deleteResumes)
                 {
-                    if(skill.Resumes.Contains(new ResumeSkill
+                    if(skill.ResumesSkills.Contains(new ResumeSkill
                     {
                         Resume = resume
                     }))
-                        skill.Resumes.Remove(new ResumeSkill
+                        skill.ResumesSkills.Remove(new ResumeSkill
                         {
                             Resume = resume
                         });
@@ -164,11 +170,11 @@ namespace KaganKuscu.Business.Concrete
                 
                 foreach (var resume in resumes) 
                 {
-                    if (!skill.Resumes.Contains(new ResumeSkill
+                    if (!skill.ResumesSkills.Contains(new ResumeSkill
                         {
                             Resume = resume
                         }))
-                        skill.Resumes.Add(new ResumeSkill
+                        skill.ResumesSkills.Add(new ResumeSkill
                         {
                             Resume = resume
                         });

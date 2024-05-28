@@ -1,12 +1,11 @@
 ﻿using KaganKuscu.Business.Abstract;
-using KaganKuscu.DataAccess;
-using KaganKuscu.Model.Dtos;
-using KaganKuscu.Model.Dtos.ResumeDto;
+using KaganKuscu.Model.Dtos.ResumesDto;
 using KaganKuscu.Model.Models;
 using KaganKuscu.Repository.Abstract;
 using KaganKuscu.Utilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace KaganKuscu.Business.Concrete
 {
@@ -27,6 +26,70 @@ namespace KaganKuscu.Business.Concrete
         public void AddRange(IEnumerable<Resume> entities)
         {
             _repository.AddRange(entities);
+        }
+
+        public IQueryable<ResumeForGetDto> GetAllResume()
+        {
+          return _repository.GetAll().Select(r => new ResumeForGetDto
+              {
+                ResumeName = r.ResumeName,
+                FullName = r.FullName,
+                BirthDate = r.BirthDate,
+                Address = r.Address,
+                Email = r.Email,
+                Phone = r.Phone,
+                SecondPhone = r.SecondPhone,
+                About = r.About,
+                Title = r.Title,
+                ImagePath = r.ImagePath,
+                ResumePath = r.ResumePath,
+                Interest = r.Interest,
+                AppUserId = r.AppUserId
+              });
+        }
+
+        public IQueryable<ResumeForGetDto> GetAllResume(Expression<Func<ResumeForGetDto, bool>> predicate)
+        {
+          return _repository.GetAll().Select(r => new ResumeForGetDto 
+              {
+                ResumeName = r.ResumeName,
+                FullName = r.FullName,
+                BirthDate = r.BirthDate,
+                Address = r.Address,
+                Email = r.Email,
+                Phone = r.Phone,
+                SecondPhone = r.SecondPhone,
+                About = r.About,
+                Title = r.Title,
+                ImagePath = r.ImagePath,
+                ResumePath = r.ResumePath,
+                Interest = r.Interest,
+                AppUserId = r.AppUserId
+              });
+        }
+
+        public IQueryable<ResumeForGetDto> GetAllResumeBySkillId(int id)
+        {
+          return _repository
+            .GetAll()
+            .Include(r => r.ResumesSkills)
+            .Select(r => new ResumeForGetDto 
+              {
+                ResumeName = r.ResumeName,
+                FullName = r.FullName,
+                BirthDate = r.BirthDate,
+                Address = r.Address,
+                Email = r.Email,
+                Phone = r.Phone,
+                SecondPhone = r.SecondPhone,
+                About = r.About,
+                Title = r.Title,
+                ImagePath = r.ImagePath,
+                ResumePath = r.ResumePath,
+                Interest = r.Interest,
+                AppUserId = r.AppUserId
+              });
+
         }
 
         public IQueryable<Resume> GetAll()
@@ -65,7 +128,7 @@ namespace KaganKuscu.Business.Concrete
                 });
         }
 
-        public IQueryable<ResumeForGetDto> GetAllResumeDto()
+        public IQueryable<ResumeForGetWithDetailsDto> GetAllResumeDto()
         {
             return _repository.GetAll()
                 .Include(p => p.SocialMedias)
@@ -73,7 +136,7 @@ namespace KaganKuscu.Business.Concrete
                 .Include(p => p.Educations)
                 .Include(p => p.References)
                 .Include(p => p.Interests)
-                .Select(p => new ResumeForGetDto
+                .Select(p => new ResumeForGetWithDetailsDto
                 {
                     Name = p.FullName,
                     Age = Convert.ToInt32((DateTime.Now - p.BirthDate).TotalDays / 365.2465),
@@ -87,7 +150,7 @@ namespace KaganKuscu.Business.Concrete
                     ResumePath = p.ResumePath ?? string.Empty,
                     Description = p.About ?? string.Empty,
                     References = p.References.ToList(),
-                    Skills = p.Skills.Select(s => s.Skill).Where(s => s.IsActive).ToList(),
+                    Skills = p.ResumesSkills.Select(s => s.Skill).Where(s => s.IsActive).ToList(),
                     SocialMedias = p.SocialMedias.ToList(),
                     Educations = p.Educations.OrderByDescending(e => e.StartDate).ToList(),
                     WorkExperiences = p.WorkExperiences.OrderByDescending(e => e.StartDate).ToList()
@@ -234,5 +297,6 @@ namespace KaganKuscu.Business.Concrete
                 return false;
             }
         }
+
     }
 }

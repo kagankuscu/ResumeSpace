@@ -10,7 +10,12 @@ namespace KaganKuscu.Business.Configurations
     public MappingProfile()
     {
       CreateMap<ResumeSkill, ResumeForGetDto>().ReverseMap();
+      CreateMap<Resume, ResumeForGetDto>().ReverseMap();
       CreateMap<ResumeSkill, SkillForGetDto>().ReverseMap();
+      CreateMap<ResumeSkill, Resume>().ReverseMap();
+      CreateMap<ResumeSkill, Skill>().ReverseMap();
+
+      CreateMap<Skill, SkillForAddDto>().ReverseMap();
     }
   }
 }

@@ -183,8 +183,11 @@
                     {
                         "name": $("#txtSkill").val(),
                         "percent": $("#txtPercent").val(),
-                        "resumes": $("#ddlResume").val(),
+                        "resumes": [] 
                     }
+                  
+                    for (let resumeId of $("#ddlResume").val())
+                      data.resumes.push({ id: resumeId });
 
                     $.ajax
                     ({
