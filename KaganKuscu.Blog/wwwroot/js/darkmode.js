@@ -18,9 +18,15 @@ function changeTheme(matches) {
 }
 
 function changeThemeAdmin(matches) {
-    if (matches) {
+    if (matches) 
+    {
         $("body").attr("data-bs-theme", "dark");
-    } else {
+        $(".logo.logo-dark").css("display", "none");
+        $(".logo.logo-light").css("display", "block");
+    } else 
+    {
+        $(".logo.logo-dark").css("display", "block");
+        $(".logo.logo-light").css("display", "none");
         $("body").attr("data-bs-theme", "light");
     }
 }

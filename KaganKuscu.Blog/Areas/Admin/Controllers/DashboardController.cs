@@ -1,19 +1,57 @@
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KaganKuscu.Blog.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class DashboardController : Controller
     {
-        
-        [Authorize(Roles = "Admin")]
+
         public IActionResult Index()
         {
-            var username = User.FindFirstValue(ClaimTypes.Name);
+            return View();
+        }
 
-            return View(model: username);
+        public IActionResult Resume()
+        {
+            return View();
+        }
+
+        public IActionResult Files()
+        {
+            return View();
+        }
+
+        public IActionResult Educations()
+        {
+            return View();
+        }
+
+        public IActionResult Skills()
+        {
+            return View();
+        }
+
+        public IActionResult WorkExperiences()
+        {
+            return View();
+        }
+
+        public IActionResult References()
+        {
+            return View();
+        }
+
+        public IActionResult SocialMedias()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult Quotes()
+        {
+            return View();
         }
     }
 }

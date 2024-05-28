@@ -1,0 +1,633 @@
+<!-- Center Modal example -->
+<div id="mdlAddAndUpdate" class="modal fade bs-example-modal-center modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="frm" class="needs-validation">
+                <div class="modal-header">
+                    <h5 id="mdlTitle" class="modal-title">Kişi Bilgileri</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                        <div class="row mb-2">
+                            <label for="txtName">Ad Soyad :</label>
+                            <input class="form-control" type="text" id="txtName" placeholder="Lütfen adınızı giriniz." required/>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label for="txtBirthdate">Doğum Tarihi :</label>
+                            <input class="form-control input-mask" id="txtBirthdate" placeholder="Lütfen doğum tarihinizi giriniz." data-inputmask="'alias': 'datetime'" data-inputmask-inputformat="mm/dd/yyyy" im-insert="false" required/>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label for="txtTitle">Pozisyon :</label>
+                            <input class="form-control" type="text" id="txtTitle" placeholder="Lütfen poziyonunuzu giriniz." required/>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label for="txtEmail">Email :</label>
+                            <input id="txtEmail" placeholder="Lütfen email giriniz." class="form-control input-mask" data-inputmask="'alias': 'email'" im-insert="true" required>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label for="txtAddress">Adres :</label>
+                            <input class="form-control" type="text" id="txtAddress" placeholder="Lütfen adresinizi giriniz."/>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label for="txtNumber">Gsm :</label>
+                            <input class="form-control input-mask" id="txtPhone" placeholder="Lütfen numaranızı giriniz." data-parsley-minlength="13" maxlength="13" 
+                            data-parsley-pattern="^\(5\d{2}\)-\d{7}$" data-inputmask="'mask': '(999)-9999999'"  im-insert="true" required/>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
+                    <button id="btnNextModal" type="submit" onclick="nextModal()" class="btn btn-primary">
+                        Sonraki Sayfa
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Center Modal example -->
+<div id="mdlAbout" class="modal fade bs-example-modal-center modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Hakkımda</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row mb-2">
+                    <textarea class="tinymce-modal" id="txtareaAbout"></textarea>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
+                <button id="btnSave" type="button" class="btn btn-success">Kaydet</button>
+                <button class="btn btn-primary" data-bs-target="#mdlAddAndUpdate" data-bs-toggle="modal">
+                    Önceki Sayfa
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Extras Information modal -->
+<div id="mdlExtras" class="modal fade bs-example-modal-center modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="frmExtra" class="needs-validation">
+                <div class="modal-header">
+                    <h5 class="modal-title">Kişi Ek Bilgileri</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-2">
+                        <label for="txtImage" class="form-label">Lütfen resim ekleyiniz</label>
+                        <input class="form-control" type="file" id="txtImage" accept="image/png, image/jpeg">
+                    </div>
+
+                    <div class="row mb-2">
+                        <label for="txtResume" class="form-label">Lütfen CV ekleyiniz</label>
+                        <input class="form-control" type="file" id="txtResume" accept=".pdf" value="deneme">
+                    </div>
+
+                    <div class="row mb-2">
+                        <label for="txtSecondPhone">Gsm :</label>
+                        <input class="form-control input-mask" id="txtSecondPhone" placeholder="Lütfen numaranızı giriniz." data-parsley-minlength="13" maxlength="13" 
+                            data-parsley-pattern="^\(5\d{2}\)-\d{7}$" data-inputmask="'mask': '(999)-9999999'"  im-insert="true"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
+                    <button id="btnNextModal" type="submit" onclick="nextExtraModal()" class="btn btn-primary">
+                        Sonraki Sayfa
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div><!-- modal end-->
+
+<!-- Center Modal example -->
+<div id="mdlInterest" class="modal fade bs-example-modal-center modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Hobilerim</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row mb-2">
+                    <textarea class="tinymce-modal" id="txtareaExtras"></textarea>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
+                <button id="btnExtrasSave" type="button" class="btn btn-success">Kaydet</button>
+                <button class="btn btn-primary" data-bs-target="#mdlExtras" data-bs-toggle="modal">
+                    Önceki Sayfa
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <a onclick="add()" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-plus me-2"></i> Yeni Ekle</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+                
+                <div class="row">
+                    <table id="datatable" class="table table-centered table-nowrap table-hover mb-0">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts 
+{    
+    <script src="~/js/customSwalButton.js"></script>
+    <script src="~/lib/tinymce/tinymce.min.js"></script>
+    <script src="~/js/customTinymce.init.js"></script>
+    <script>
+        let resume = [];
+        let datatable;
+
+        $(document).ready(() => 
+        {
+            fillDatatable();
+        });
+
+        async function fillDatatable()
+        {
+            let data = await $.ajax
+            ({
+                url: "/Admin/Resume/GetAll",
+                type: "GET"
+            });
+
+            resume = resume.concat(data.data);
+
+            datatable = $("#datatable").DataTable
+                ({
+                    paging: false,
+                    pageLenght: 50,
+                    data: data.data,
+                    columns: 
+                    [
+                        { data: "fullName", title: "Ad" },
+                        { data: "title", title: "Ünvan" },
+                        { data: "email", title: "Email" },
+                        { data: "address", title: "Adres" },
+                        { data: "phone", title: "Gsm" },
+                        { 
+                            data: "birthDate", 
+                            title: "Doğum Tarihi",
+                            render: (data) => 
+                            {
+                                return moment(data).format("DD/MM/YYYY");
+                            }
+                        },
+                        { data: "secondPhone", title: "Ikinci Gsm" },
+                        { 
+                            data: "guid",
+                            title: "İşlemler",
+                            render: (guid, type, row) => 
+                            {
+                                return `<ul class="list-inline mb-0">
+                                            <li class="list-inline-item">
+                                                <a onclick="update('${guid}', this)" class="px-2 text-primary"><i class="uil uil-pen font-size-18"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a onclick="remove('${guid}', this)" class="px-2 text-danger"><i class="uil uil-trash-alt font-size-18"></i></a>
+                                            </li>
+                                            <li class="list-inline-item dropdown">
+                                                <a class="text-muted dropdown-toggle font-size-18 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
+                                                    <i class="uil uil-ellipsis-v"></i>
+                                                </a>
+                                            
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a class="dropdown-item" onclick="toggleStatus(this)">
+                                                        <i class="${row.isActive ? "uil-check-circle" : "uil-times-circle" } me-2 
+                                                        text-${row.isActive ? "success" : "danger" }" style="font-size: 19px"></i>${row.isActive ? "Pasif yap" : "Aktif yap" }
+                                                    </a>
+                                                    <a class="dropdown-item" onclick="extrasInformation('${guid}', this)">Ektra Bilgiler Ekle</a>
+                                                </div>
+                                            </li>
+                                        </ul>`
+                            }
+                        },
+                        { 
+                            data: "isActive",
+                            title: "Durum",
+                            render: (data) => `<i style="font-size: 25px" class="${data ? "uil-check-circle text-success" : "uil-times-circle text-danger"}"></i>`
+                        },
+                    ],
+                    columnDefs:
+                    [
+                        {
+                            targets: 8,
+                            visible: true,
+                            className: "text-center",
+                            width: "5px"
+                        },
+                        {
+                            targets: 7,
+                            width: "5px"
+                        }
+                    ],
+                    language: {
+                        url: "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Turkish.json"
+                    }
+                });
+        }
+
+        function add()
+        {
+            toggleModal();
+            clearModal();
+
+            $("#btnSave").off().text("Kaydet").removeClass("btn-warning").addClass("btn-success").click(() => 
+            {
+                SwalToast.fire
+                ({
+                    icon: "success",
+                    title: "Kaydedildi"
+                });
+                
+                let data =
+                {
+                    "fullName": $("#txtName").val(),
+                    "title": $("#txtTitle").val(),
+                    "phone": $("#txtPhone").val(),
+                    "address": $("#txtAddress").val(),
+                    "email": $("#txtEmail").val(),
+                    "birthdate": $("#txtBirthdate").val(),
+                    "about": tinymce.get("txtareaAbout").getContent(),
+                    // "appUserId": "b8aa7057-ed44-468e-a76d-0e7f362f16d0"
+                }
+
+                $.ajax(
+                    {
+                        url: "/Admin/Resume/Add",
+                        data: data,
+                        type: "POST",
+                        success: (res) =>
+                        {
+                            updateAllRow();
+                            datatable.row.add(
+                            {
+                                "fullName": data.fullName,
+                                "title": data.title,
+                                "email": data.email,
+                                "phone": data.phone,
+                                "secondPhone": "",
+                                "address": data.address,
+                                "isActive": true,
+                                "guid": res
+                            }).draw();
+                            
+                            data["guid"] = res;
+                            resume.push(data);
+
+                            toggleModal();
+                        }
+                    }
+                );
+            });
+        }
+
+        function updateAllRow(guid)
+        {
+            for (let x of $("tbody tr"))
+            {
+                // Get the data
+                let data = datatable.row(x).data();
+                
+                if (guid === data.guid)
+                    continue;
+
+                // change to isActive false
+                data.isActive = false;
+                // update datatable data
+                datatable.row(x).data(data).draw();
+            }
+        }
+
+        function toggleStatus(element)
+        {
+            let row = $(element).parents("tr");
+            let data = datatable.row(row).data();
+
+            $.ajax(
+                {
+                    url: "/Admin/Resume/ToggleStatus",
+                    type: "POST",
+                    data: { guid: data.guid },
+                    success: () => 
+                    {
+                        SwalToast.fire(
+                            {
+                                icon: "success",
+                                title: !data.isActive ? "Aktif edildi." : "Pasif yapıldı"
+                            });
+                        
+                        data.isActive = !data.isActive;
+                        datatable.row(row).data(data).draw();
+
+                        updateAllRow(data.guid);
+                    },
+                    error: (err) =>
+                    {
+                        SwalToast.fire
+                            ({
+                                icon: "error",
+                                title: "Hata: " + err.responseText
+                            });
+                    }
+                }
+            )
+        }
+
+        function remove(guid, element)
+        {
+            SwalRemove
+                .fire()
+                .then(result => 
+                {
+                    if(result.isConfirmed)
+                    {
+                        $.ajax
+                        ({
+                            url: "/Admin/Resume/Remove",
+                            type: "POST",
+                            data: { guid: guid } ,
+                            success: res => 
+                            {
+                                datatable.row($(element).parents("tr")).remove().draw();
+
+                                SwalToast.fire
+                                ({
+                                    icon: "success",
+                                    title: "Silindi"
+                                });
+
+                            },
+                            error: (err) =>
+                            {
+                                SwalToast.fire
+                                ({
+                                    icon: "error",
+                                    title: "error: " + err.responseText
+                                });
+                            }
+                        })
+                    }
+                });
+        }
+
+        function update(guid, element)
+        {
+            toggleModal();
+            clearModal();
+
+            // Find the table head values
+            // split with tab (\t) and remove for last object.
+            let keys = $("thead")[0].innerText.split("\t");
+            keys.pop();
+
+            // Find the given element parents until tr element
+            // split with tab (\t) and remove for last object.
+            let row = $(element).parents("tr");
+            let values = row[0].innerText.split("\t")
+            values.pop();
+
+            // create empty object
+            let obj = {};
+
+            // creating new object table head keys, given element is values
+            for(let i = 0; i < keys.length; i++)
+            {
+                obj[keys[i]] = values[i];
+            }
+
+            $("#txtName").val(obj["Ad"]);
+            $("#txtTitle").val(obj["Ünvan"])
+            $("#txtPhone").val(obj["Gsm"])
+            $("#txtBirthdate").val(moment(obj["Doğum Tarihi"]).format("DD/MM/YYYY"))
+            $("#txtSecondPhone").val(obj["Ikinci Gsm"])
+            $("#txtAddress").val(obj["Adres"])
+            $("#txtEmail").val(obj["Email"])
+
+            let resumeIndex = resume.findIndex(p => p.guid === guid);
+            tinymce.get("txtareaAbout").setContent(resume[resumeIndex].about ?? "")
+
+            $("#btnSave").off().text("Güncelle").removeClass("btn-success").addClass("btn-warning").click(() => 
+            {
+                SwalSave
+                    .fire()
+                    .then(result => 
+                    {
+                        if(result.isConfirmed)
+                        {
+                            let data =
+                            {
+                                "guid": guid,
+                                "fullName": $("#txtName").val(),
+                                "title": $("#txtTitle").val(),
+                                "phone": $("#txtPhone").val(),
+                                "secondPhone": obj["Ikinci Gsm"],
+                                "address": $("#txtAddress").val(),
+                                "email": $("#txtEmail").val(),
+                                "birthDate": $("#txtBirthdate").val(),
+                                "about": tinymce.get("txtareaAbout").getContent(),
+                                "isActive": datatable.row(row).data().isActive,
+                            }
+
+                            resume[resumeIndex] = data;
+
+                            $.ajax(
+                            {
+                                url: "/Admin/Resume/Update",
+                                data: data,
+                                type: "POST",
+                                success: (res) =>
+                                {
+                                    toggleModal();
+                                    datatable.row(row).data(data).draw();
+                                    SwalToast.fire(
+                                        {
+                                            icon: "success",
+                                            title: "Güncellendi"
+                                        }
+                                    );
+                                }
+                            });
+                        }
+                    });
+            });
+        }
+
+        function clearModal()
+        {
+            $("#mdlAddAndUpdate input").val("");
+            tinymce.get("txtareaAbout").setContent("");
+            tinymce.get("txtareaExtras").setContent("");
+            $("#mdlExtras input").val('');
+        }
+
+        function toggleModal()
+        {
+            let firstModal = $("#mdlAddAndUpdate").hasClass('show');
+            let secondModal = $("#mdlAbout").hasClass('show');
+
+            if (firstModal || secondModal)
+            {
+                $("#mdlAddAndUpdate").modal("hide");
+                $("#mdlAbout").modal("hide");
+            }
+            else if (!firstModal)
+                $("#mdlAddAndUpdate").modal("show");
+            else if (!secondModal)
+                $("#mdlAbout").modal("show");
+        }
+
+        function nextModal()
+        {
+            event.preventDefault();
+            if ($("#frm").parsley().isValid() === false) 
+            {
+                $('#frm').parsley().validate();
+                $("#frm").addClass("was-validated");
+            } 
+            else 
+            {
+                $("#mdlAddAndUpdate").modal("hide");
+                $("#mdlAbout").modal("show");
+            }
+        }
+
+        function extrasInformation(guid, element)
+        {
+            toggleModalExtras();
+            clearModal();
+
+            let resumeIndex = resume.findIndex(p => p.guid === guid);
+            $("#txtSecondPhone").val(resume[resumeIndex].secondPhone);
+            tinymce.get("txtareaExtras").setContent(resume[resumeIndex].interest ?? "");
+
+            $("#btnExtrasSave").off().click(() => addExtrasInformation(guid, element));
+        }
+        
+        function addExtrasInformation(guid, element)
+        {
+            let formData = new FormData();
+
+            formData.append("image", $("#txtImage").prop("files")[0]);
+            formData.append("resume", $("#txtResume").prop("files")[0]);
+            formData.append("secondPhone", $("#txtSecondPhone").val());
+            formData.append("interest", tinymce.get("txtareaExtras").getContent());
+            formData.append("guid", guid);
+
+            let resumeIndex = resume.findIndex(p => p.guid === guid);
+            resume[resumeIndex].secondPhone = $("#txtSecondPhone").val();
+            resume[resumeIndex].interest = tinymce.get("txtareaExtras").getContent();
+
+            let row = $(element).parents("tr");
+            let data =
+            {
+                "guid": guid,
+                "fullName": resume[resumeIndex].fullName,
+                "title": resume[resumeIndex].title,
+                "phone": resume[resumeIndex].phone,
+                "secondPhone": $("#txtSecondPhone").val(),
+                "address": resume[resumeIndex].address,
+                "email": resume[resumeIndex].email,
+                "birthdate": resume[resumeIndex].birthdate,
+                "about": tinymce.get("txtareaAbout").getContent(),
+            }
+
+            $.ajax
+            ({
+                url: "/Admin/Resume/UploadFiles",
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: (res) =>
+                {
+                    toggleModalExtras();
+                    datatable.row(row).data(data).draw();
+                    SwalToast.fire
+                    ({
+                        icon: "success",
+                        title: "Kaydedildi"
+                    });
+                },
+                error: (err) =>
+                {
+                    SwalToast.fire
+                    ({
+                        icon: "error",
+                        title: err.responseText === '' ? "HATA!" : err.responseText
+                    })
+                        
+                }
+            });
+        }
+
+        function toggleModalExtras()
+        {
+            let extrasModal = $("#mdlExtras").hasClass('show');
+            let interestModal = $("#mdlInterest").hasClass('show');
+
+            if (extrasModal || interestModal)
+            {
+                $("#mdlExtras").modal("hide");
+                $("#mdlInterest").modal("hide");
+            }
+            else if (!extrasModal)
+                $("#mdlExtras").modal("show");
+            else if (!interestModal)
+                $("#mdlInterest").modal("show");
+        }
+
+        function nextExtraModal()
+        {
+            event.preventDefault();
+            if ($("#frmExtra").parsley().isValid() === false) 
+            {
+                $('#frmExtra').parsley().validate();
+                $("#frmExtra").addClass("was-validated");
+            }
+            else
+            {
+                $("#mdlExtras").modal("hide");
+                $("#mdlInterest").modal("show");
+            }
+        }
+
+    </script>
+}

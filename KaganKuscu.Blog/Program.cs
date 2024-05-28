@@ -2,10 +2,6 @@ using KaganKuscu.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using KaganKuscu.Business.Configurations;
 using KaganKuscu.Model.Models;
-using KaganKuscu.Repository.Abstract;
-using KaganKuscu.Repository.Concrete;
-using KaganKuscu.Business.Abstract;
-using KaganKuscu.Business.Concrete;
 using Microsoft.AspNetCore.Identity;
 
 namespace KaganKuscu.Blog
@@ -22,6 +18,7 @@ namespace KaganKuscu.Blog
             builder.Services.AddBusinessDI();
             builder.Services.AddRepositoryDI();
             builder.Services.AddAuthorization();
+            builder.Services.AddAutoMapper();
 
             builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("connstr")));
 
