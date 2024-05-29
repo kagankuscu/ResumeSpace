@@ -7,7 +7,7 @@ namespace KaganKuscu.Business.Abstract
     {
         IQueryable<SkillForGetDto> GetAllByUserId(Guid userId);
         SkillForAddDto Add(SkillForAddDto skillDto);
-        Skill Update(SkillForUpdateDto skillDto);
+        SkillForGetDto Update(SkillForUpdateDto skillDto);
         bool ToggleStatus(Guid guid);
     }
 }

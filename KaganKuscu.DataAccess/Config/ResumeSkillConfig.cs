@@ -1,4 +1,4 @@
-using KaganKuscu.Model.Models;
+using KaganKuscu.Model.Rel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

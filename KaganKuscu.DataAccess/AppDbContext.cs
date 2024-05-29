@@ -1,4 +1,5 @@
 ﻿using KaganKuscu.Model.Models;
+using KaganKuscu.Model.Rel;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;

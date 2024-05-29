@@ -27,26 +27,16 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
             return Json(new { Data = _skillService.GetAllByUserId(guid)});
         }
 
-//       public IActionResult Add(SkillForAddDto skillDto) 
-//       {
-//            string? guid = User.FindFirstValue(ClaimTypes.NameIdentifier);
-//            if (guid is null)
-//                return BadRequest("User Not found");
-//
-//            skillDto.AppUserId = Guid.Parse(guid);
-//            return Json(_skillService.Add(skillDto));
-//       }
         [HttpPost]
-      public IActionResult Add([FromBody] SkillForAddDto skillDto)
-      {
-        string? guid = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (guid is null)
-          return BadRequest("User Not Found");
+        public IActionResult Add([FromBody] SkillForAddDto skillDto)
+        {
+          string? guid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+          if (guid is null)
+            return BadRequest("User Not Found");
 
-        skillDto.AppUserId = Guid.Parse(guid);
-        return Json(_skillService.Add(skillDto));
-
-      }
+          skillDto.AppUserId = Guid.Parse(guid);
+          return Json(_skillService.Add(skillDto));
+        }
 
        public IActionResult ToggleStatus(Guid guid)
        {
@@ -55,13 +45,15 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
             return BadRequest();
        }
 
-       public IActionResult Remove(Guid guid)
+       [HttpPost]
+       public IActionResult Remove([FromBody] Guid guid)
        {
             _skillService.Remove(guid);
             return Json(new { guid });
        }
-
-       public IActionResult Update(SkillForUpdateDto skillDto)
+       
+       [HttpPost]
+       public IActionResult Update([FromBody] SkillForUpdateDto skillDto)
        {
             return Json(_skillService.Update(skillDto));
        }

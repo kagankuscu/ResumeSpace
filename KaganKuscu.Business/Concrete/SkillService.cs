@@ -3,6 +3,7 @@ using KaganKuscu.Business.Abstract;
 using KaganKuscu.Model.Dtos.ResumesDto;
 using KaganKuscu.Model.Dtos.SkillsDto;
 using KaganKuscu.Model.Models;
+using KaganKuscu.Model.Rel;
 using KaganKuscu.Repository.Abstract;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,11 +38,7 @@ namespace KaganKuscu.Business.Concrete
                  List<ResumeSkill> resumeSkill = new List<ResumeSkill>();
                  
                  foreach (var item in resumes)
-                 {
-                     // var resume = _resumeService.GetById(item.Id);
-                     // if (resume != null)
                      resumeSkill.Add(new ResumeSkill { Resume = item }); 
-                 }
 
                 skill.ResumesSkills = resumeSkill; 
                 Add(skill);
@@ -75,7 +72,7 @@ namespace KaganKuscu.Business.Concrete
                 Name = s.Name,
                 Percent = s.Percent,
                 IsActive = s.IsActive,
-                Resumes = s.ResumesSkills.Select(r => r.Resume!).ToList()
+                Resumes = _mapper.Map<List<ResumeForGetDto>>(s.ResumesSkills.Select(r => r.Resume!).ToList())
             });
         }
 
@@ -134,55 +131,29 @@ namespace KaganKuscu.Business.Concrete
             throw new NotImplementedException();
         }
 
-        public Skill Update(SkillForUpdateDto skillDto)
+        public SkillForGetDto Update(SkillForUpdateDto skillDto)
         {
-            Skill? skill = _repository.GetAll(s => s.Guid == skillDto.Guid).Include(s => s.ResumesSkills).FirstOrDefault();
-            if (skill is not null)
-            {
-                skill.Name = skillDto.Name;
-                skill.Percent = skillDto.Percent;
-                
-                if (skillDto.Resumes.Count == 0)
-                {
-                    skill.ResumesSkills.Clear();
-                }
+          Skill? skill = _repository.GetAll(s => s.Guid == skillDto.Guid).Include(s => s.ResumesSkills).FirstOrDefault(); 
 
-                var appUserId = skillDto.AppUserId.ToString();
-                var deleteResumes = _resumeService.GetAll()
-                                    .Where(p => p.AppUserId == appUserId)
-                                    .Where(p => !skillDto.Resumes.Contains(p.Id));
+          if (skill is null)
+            return new SkillForGetDto();
+          
+          skill.ResumesSkills.Clear();
 
-                var resumes = _resumeService.GetAll()
-                                    .Where(p => p.AppUserId == appUserId)
-                                    .Where(p => skillDto.Resumes.Contains(p.Id));
+          foreach (var item in skillDto.ResumesSkills)
+          {
+             if (!skill.ResumesSkills.Select(rs => rs.ResumeId).Contains(item.ResumeId)) 
+             {
+               skill.ResumesSkills.Add(item);
+             }
+          }
+          
+          skill = _mapper.Map<Skill>(skillDto);
+          Update(skill);
 
-                foreach (var resume in deleteResumes)
-                {
-                    if(skill.ResumesSkills.Contains(new ResumeSkill
-                    {
-                        Resume = resume
-                    }))
-                        skill.ResumesSkills.Remove(new ResumeSkill
-                        {
-                            Resume = resume
-                        });
-                }
-                
-                foreach (var resume in resumes) 
-                {
-                    if (!skill.ResumesSkills.Contains(new ResumeSkill
-                        {
-                            Resume = resume
-                        }))
-                        skill.ResumesSkills.Add(new ResumeSkill
-                        {
-                            Resume = resume
-                        });
-                }
-
-                Update(skill);
-            }
-            return skill;
+          var returnDto = _mapper.Map<SkillForGetDto>(skill);
+          returnDto.Resumes = _mapper.Map<List<ResumeForGetDto>>(_resumeService.GetAll().Where(r => r.ResumesSkills.Any(rs => rs.SkillId == skill.Id)).ToList());
+          return returnDto; 
         }
     }
 }

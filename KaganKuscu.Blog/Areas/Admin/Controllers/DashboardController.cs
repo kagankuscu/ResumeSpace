@@ -13,7 +13,7 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
             return View();
         }
 
-        public IActionResult Resume()
+        public IActionResult Resumes()
         {
             return View();
         }

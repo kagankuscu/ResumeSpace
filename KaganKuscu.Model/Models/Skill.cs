@@ -1,3 +1,5 @@
+using KaganKuscu.Model.Rel;
+
 namespace KaganKuscu.Model.Models
 {
     public class Skill : BaseModel

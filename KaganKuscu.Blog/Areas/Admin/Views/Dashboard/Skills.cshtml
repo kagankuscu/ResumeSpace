@@ -183,6 +183,7 @@
                     {
                         "name": $("#txtSkill").val(),
                         "percent": $("#txtPercent").val(),
+                        "isActive": true,
                         "resumes": [] 
                     }
                   
@@ -268,8 +269,9 @@
                         $.ajax
                             ({
                                 url: "/Admin/Skill/Remove",
+                                contentType: "application/json",
                                 type: "POST",
-                                data: { guid: guid },
+                                data: JSON.stringify(guid),
                                 success: res => {
                                     datatable.row($(element).parents("tr")).remove().draw();
 
@@ -323,17 +325,19 @@
                                 {
                                     "name": $("#txtSkill").val(),
                                     "percent": $("#txtPercent").val(),
-                                    "resumes": $("#ddlResume").val(),
-                                    "isActive": oldData.isActive,
                                     "guid" : oldData.guid,
-                                    "appUserId": oldData.appUserId
+                                    "resumesSkills": [], 
                                 }
+
+                                for (let resumeId of $("#ddlResume").val())
+                                  data.resumesSkills.push({ resumeId: resumeId });
 
                                 $.ajax(
                                     {
                                         url: "/Admin/Skill/Update",
-                                        data: data,
                                         type: "POST",
+                                        contentType: "application/json",
+                                        data: JSON.stringify(data),
                                         success: (res) => {
                                             datatable.row(row).data(res).draw();
                                             modalToggle();
@@ -358,7 +362,6 @@
                 mdlSkill.modal("hide");
             else
                 mdlSkill.modal("show");
-            
         }
 
         function clearModal() 

@@ -1,6 +1,8 @@
-namespace KaganKuscu.Model.Models
+using KaganKuscu.Model.Models;
+
+namespace KaganKuscu.Model.Rel
 {
-  public class ResumeSkill : BaseModel
+  public class ResumeSkill
   {
     public int ResumeId { get; set; }
     public Resume? Resume { get; set; }

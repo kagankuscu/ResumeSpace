@@ -2,6 +2,7 @@ using AutoMapper;
 using KaganKuscu.Model.Dtos.ResumesDto;
 using KaganKuscu.Model.Dtos.SkillsDto;
 using KaganKuscu.Model.Models;
+using KaganKuscu.Model.Rel;
 
 namespace KaganKuscu.Business.Configurations
 {
@@ -16,6 +17,8 @@ namespace KaganKuscu.Business.Configurations
       CreateMap<ResumeSkill, Skill>().ReverseMap();
 
       CreateMap<Skill, SkillForAddDto>().ReverseMap();
+      CreateMap<Skill, SkillForGetDto>().ReverseMap();
+      CreateMap<Skill, SkillForUpdateDto>().ReverseMap();
     }
   }
 }
