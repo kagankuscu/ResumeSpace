@@ -1,0 +1,531 @@
+<!-- Center Modal example -->
+<div id="mdlAddAndUpdate" class="modal fade bs-example-modal-center modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="frm" class="needs-validation">
+                <div class="modal-header">
+                    <h5 id="mdlTitle" class="modal-title">Kişi Bilgileri</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                        <div class="row mb-2">
+                            <label for="txtEducationName">Eğitimin Adı :</label>
+                            <input class="form-control" type="text" id="txtEducationName" placeholder="Lütfen eğitimin adını giriniz." required/>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label for="txtStartDate">Başlama Tarihi :</label>
+                            <input class="form-control input-mask" id="txtStartDate" placeholder="Lütfen başlama tarihini giriniz." data-inputmask="'alias': 'datetime'" data-inputmask-inputformat="mm/dd/yyyy" im-insert="false" required/>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label for="txtEndDate">Bitiş Tarihi :</label>
+                            <input class="form-control input-mask" id="txtEndDate" placeholder="Lütfen bitiş tarihini giriniz." data-inputmask="'alias': 'datetime'" data-inputmask-inputformat="mm/dd/yyyy" im-insert="false" />
+                        </div>
+
+                        <div class="row mb-2">
+                            <label for="txtTitle">Kazanılan Ünvan :</label>
+                            <input class="form-control" type="text" id="txtTitle" placeholder="Lütfen kazanılan ünvanı giriniz." required/>
+                        </div>
+
+                        <div class="row mb-2">
+                          <label for="ddlResume">Öz Geçmiş :</label>
+                          <select id="ddlResume" name="resumes[]" multiple="multiple" style="width: 100%" >
+                          </select>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
+                    <button id="btnSave" type="submit" class="btn btn-success">Kaydet</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <a onclick="add()" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-plus me-2"></i> Yeni Ekle</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+                
+                <div class="row">
+                    <table id="datatable" class="table table-centered table-nowrap table-hover mb-0">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts 
+{
+    <script src="~/js/customSwalButton.js"></script>
+    <script src="~/admin/libs/select2/js/select2.min.js"></script>
+    <script>
+        let datatable;
+
+        $(document).ready(() => 
+        {
+            $("#ddlResume").select2(
+                {
+                    dropdownParent: $('#mdlSkill'),
+                    width: "resolve",
+                    theme: "kagan"
+                }
+            )
+            fillDatatable();
+        });
+
+        function fillDatatable()
+        {
+            datatable = $("#datatable").DataTable
+                ({
+                    paging: false,
+                    pageLenght: 100,
+                    ajax: "/Admin/Education/GetAllEducation",
+                    columns: 
+                    [
+                        { data: "name", title: "Eğitim Adı" },
+                        { data: "startDate", title: "Başlangıç Tarihi" },
+                        { 
+                          data: "endDate", 
+                          title: "Bitiş Tarihi", 
+                          render: (data) => data === "" ? "empty" : `${data}`
+                        },
+                        { data: "role", title: "Kazanılan Ünvan" },
+                        { 
+                          data: "resumes", 
+                          title: "Ekli olan Özgeçmişler", 
+                          render: (data) => {
+                            let txt = '';
+
+                            for (let item of data)
+                              txt += `<span>${item.resumeName}</span><br>`;
+                            return txt;
+                          }
+                        },
+                        { 
+                            data: "guid",
+                            title: "İşlemler",
+                            render: (guid, type, row) => 
+                            {
+                                return `<ul class="list-inline mb-0">
+                                            <li class="list-inline-item">
+                                                <a onclick="update('${guid}', this)" class="px-2 text-primary"><i class="uil uil-pen font-size-18"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a onclick="remove('${guid}', this)" class="px-2 text-danger"><i class="uil uil-trash-alt font-size-18"></i></a>
+                                            </li>
+                                            <li class="list-inline-item dropdown">
+                                                <a class="text-muted dropdown-toggle font-size-18 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
+                                                    <i class="uil uil-ellipsis-v"></i>
+                                                </a>
+                                            
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a class="dropdown-item" onclick="toggleStatus(this)">
+                                                        <i class="${row.isActive ? "uil-check-circle" : "uil-times-circle" } me-2 
+                                                        text-${row.isActive ? "success" : "danger" }" style="font-size: 19px"></i>${row.isActive ? "Pasif yap" : "Aktif yap" }
+                                                    </a>
+                                                    <a class="dropdown-item" onclick="extrasInformation('${guid}', this)">Ektra Bilgiler Ekle</a>
+                                                </div>
+                                            </li>
+                                        </ul>`
+                            }
+                        },
+                        { 
+                            data: "isActive",
+                            title: "Durum",
+                            render: (data) => `<i style="font-size: 25px" class="${data ? "uil-check-circle text-success" : "uil-times-circle text-danger"}"></i>`
+                        },
+                    ],
+                    columnDefs:
+                    [
+                        {
+                            targets: [5, 6],
+                            visible: true,
+                            className: "text-center",
+                            width: "5px"
+                        },
+                    ],
+                    language: {
+                        url: "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Turkish.json"
+                    }
+                });
+        }
+
+        function add()
+        {
+            toggleModal();
+            clearModal();
+
+            $("#btnSave").off().text("Kaydet").removeClass("btn-warning").addClass("btn-success").click(() => 
+            {
+                SwalToast.fire
+                ({
+                    icon: "success",
+                    title: "Kaydedildi"
+                });
+                
+                let data =
+                {
+                    "fullName": $("#txtName").val(),
+                    "title": $("#txtTitle").val(),
+                    "phone": $("#txtPhone").val(),
+                    "address": $("#txtAddress").val(),
+                    "email": $("#txtEmail").val(),
+                    "birthdate": $("#txtStartDate").val(),
+                    "about": tinymce.get("txtareaAbout").getContent(),
+                    // "appUserId": "b8aa7057-ed44-468e-a76d-0e7f362f16d0"
+                }
+
+                $.ajax(
+                    {
+                        url: "/Admin/Resume/Add",
+                        data: data,
+                        type: "POST",
+                        success: (res) =>
+                        {
+                            updateAllRow();
+                            datatable.row.add(
+                            {
+                                "fullName": data.fullName,
+                                "title": data.title,
+                                "email": data.email,
+                                "phone": data.phone,
+                                "secondPhone": "",
+                                "address": data.address,
+                                "isActive": true,
+                                "guid": res
+                            }).draw();
+                            
+                            data["guid"] = res;
+                            resume.push(data);
+
+                            toggleModal();
+                        }
+                    }
+                );
+            });
+        }
+
+        function updateAllRow(guid)
+        {
+            for (let x of $("tbody tr"))
+            {
+                // Get the data
+                let data = datatable.row(x).data();
+                
+                if (guid === data.guid)
+                    continue;
+
+                // change to isActive false
+                data.isActive = false;
+                // update datatable data
+                datatable.row(x).data(data).draw();
+            }
+        }
+
+        function toggleStatus(element)
+        {
+            let row = $(element).parents("tr");
+            let data = datatable.row(row).data();
+
+            $.ajax(
+                {
+                    url: "/Admin/Resume/ToggleStatus",
+                    type: "POST",
+                    data: { guid: data.guid },
+                    success: () => 
+                    {
+                        SwalToast.fire(
+                            {
+                                icon: "success",
+                                title: !data.isActive ? "Aktif edildi." : "Pasif yapıldı"
+                            });
+                        
+                        data.isActive = !data.isActive;
+                        datatable.row(row).data(data).draw();
+
+                        updateAllRow(data.guid);
+                    },
+                    error: (err) =>
+                    {
+                        SwalToast.fire
+                            ({
+                                icon: "error",
+                                title: "Hata: " + err.responseText
+                            });
+                    }
+                }
+            )
+        }
+
+        function remove(guid, element)
+        {
+            SwalRemove
+                .fire()
+                .then(result => 
+                {
+                    if(result.isConfirmed)
+                    {
+                        $.ajax
+                        ({
+                            url: "/Admin/Resume/Remove",
+                            type: "POST",
+                            data: { guid: guid } ,
+                            success: res => 
+                            {
+                                datatable.row($(element).parents("tr")).remove().draw();
+
+                                SwalToast.fire
+                                ({
+                                    icon: "success",
+                                    title: "Silindi"
+                                });
+
+                            },
+                            error: (err) =>
+                            {
+                                SwalToast.fire
+                                ({
+                                    icon: "error",
+                                    title: "error: " + err.responseText
+                                });
+                            }
+                        })
+                    }
+                });
+        }
+
+        function update(guid, element)
+        {
+            toggleModal();
+            clearModal();
+
+            // Find the table head values
+            // split with tab (\t) and remove for last object.
+            let keys = $("thead")[0].innerText.split("\t");
+            keys.pop();
+
+            // Find the given element parents until tr element
+            // split with tab (\t) and remove for last object.
+            let row = $(element).parents("tr");
+            let values = row[0].innerText.split("\t")
+            values.pop();
+
+            // create empty object
+            let obj = {};
+
+            // creating new object table head keys, given element is values
+            for(let i = 0; i < keys.length; i++)
+            {
+                obj[keys[i]] = values[i];
+            }
+
+            $("#txtName").val(obj["Ad"]);
+            $("#txtTitle").val(obj["Ünvan"])
+            $("#txtPhone").val(obj["Gsm"])
+            $("#txtStartDate").val(moment(obj["Doğum Tarihi"]).format("DD/MM/YYYY"))
+            $("#txtSecondPhone").val(obj["Ikinci Gsm"])
+            $("#txtAddress").val(obj["Adres"])
+            $("#txtEmail").val(obj["Email"])
+
+            let resumeIndex = resume.findIndex(p => p.guid === guid);
+            tinymce.get("txtareaAbout").setContent(resume[resumeIndex].about ?? "")
+
+            $("#btnSave").off().text("Güncelle").removeClass("btn-success").addClass("btn-warning").click(() => 
+            {
+                SwalSave
+                    .fire()
+                    .then(result => 
+                    {
+                        if(result.isConfirmed)
+                        {
+                            let data =
+                            {
+                                "guid": guid,
+                                "fullName": $("#txtName").val(),
+                                "title": $("#txtTitle").val(),
+                                "phone": $("#txtPhone").val(),
+                                "secondPhone": obj["Ikinci Gsm"],
+                                "address": $("#txtAddress").val(),
+                                "email": $("#txtEmail").val(),
+                                "birthDate": $("#txtStartDate").val(),
+                                "about": tinymce.get("txtareaAbout").getContent(),
+                                "isActive": datatable.row(row).data().isActive,
+                            }
+
+                            resume[resumeIndex] = data;
+
+                            $.ajax(
+                            {
+                                url: "/Admin/Resume/Update",
+                                data: data,
+                                type: "POST",
+                                success: (res) =>
+                                {
+                                    toggleModal();
+                                    datatable.row(row).data(data).draw();
+                                    SwalToast.fire(
+                                        {
+                                            icon: "success",
+                                            title: "Güncellendi"
+                                        }
+                                    );
+                                }
+                            });
+                        }
+                    });
+            });
+        }
+
+        function clearModal()
+        {
+            $("#mdlAddAndUpdate input").val("");
+            tinymce.get("txtareaAbout").setContent("");
+            tinymce.get("txtareaExtras").setContent("");
+            $("#mdlExtras input").val('');
+        }
+
+        function toggleModal()
+        {
+            let firstModal = $("#mdlAddAndUpdate").hasClass('show');
+            let secondModal = $("#mdlAbout").hasClass('show');
+
+            if (firstModal || secondModal)
+            {
+                $("#mdlAddAndUpdate").modal("hide");
+                $("#mdlAbout").modal("hide");
+            }
+            else if (!firstModal)
+                $("#mdlAddAndUpdate").modal("show");
+            else if (!secondModal)
+                $("#mdlAbout").modal("show");
+        }
+
+        function nextModal()
+        {
+            event.preventDefault();
+            if ($("#frm").parsley().isValid() === false) 
+            {
+                $('#frm').parsley().validate();
+                $("#frm").addClass("was-validated");
+            } 
+            else 
+            {
+                $("#mdlAddAndUpdate").modal("hide");
+                $("#mdlAbout").modal("show");
+            }
+        }
+
+        function extrasInformation(guid, element)
+        {
+            toggleModalExtras();
+            clearModal();
+
+            let resumeIndex = resume.findIndex(p => p.guid === guid);
+            $("#txtSecondPhone").val(resume[resumeIndex].secondPhone);
+            tinymce.get("txtareaExtras").setContent(resume[resumeIndex].interest ?? "");
+
+            $("#btnExtrasSave").off().click(() => addExtrasInformation(guid, element));
+        }
+        
+        function addExtrasInformation(guid, element)
+        {
+            let formData = new FormData();
+
+            formData.append("image", $("#txtImage").prop("files")[0]);
+            formData.append("resume", $("#txtResume").prop("files")[0]);
+            formData.append("secondPhone", $("#txtSecondPhone").val());
+            formData.append("interest", tinymce.get("txtareaExtras").getContent());
+            formData.append("guid", guid);
+
+            let resumeIndex = resume.findIndex(p => p.guid === guid);
+            resume[resumeIndex].secondPhone = $("#txtSecondPhone").val();
+            resume[resumeIndex].interest = tinymce.get("txtareaExtras").getContent();
+
+            let row = $(element).parents("tr");
+            let data =
+            {
+                "guid": guid,
+                "fullName": resume[resumeIndex].fullName,
+                "title": resume[resumeIndex].title,
+                "phone": resume[resumeIndex].phone,
+                "secondPhone": $("#txtSecondPhone").val(),
+                "address": resume[resumeIndex].address,
+                "email": resume[resumeIndex].email,
+                "birthdate": resume[resumeIndex].birthdate,
+                "about": tinymce.get("txtareaAbout").getContent(),
+            }
+
+            $.ajax
+            ({
+                url: "/Admin/Resume/UploadFiles",
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: (res) =>
+                {
+                    toggleModalExtras();
+                    datatable.row(row).data(data).draw();
+                    SwalToast.fire
+                    ({
+                        icon: "success",
+                        title: "Kaydedildi"
+                    });
+                },
+                error: (err) =>
+                {
+                    SwalToast.fire
+                    ({
+                        icon: "error",
+                        title: err.responseText === '' ? "HATA!" : err.responseText
+                    })
+                        
+                }
+            });
+        }
+
+        function toggleModalExtras()
+        {
+            let extrasModal = $("#mdlExtras").hasClass('show');
+            let interestModal = $("#mdlInterest").hasClass('show');
+
+            if (extrasModal || interestModal)
+            {
+                $("#mdlExtras").modal("hide");
+                $("#mdlInterest").modal("hide");
+            }
+            else if (!extrasModal)
+                $("#mdlExtras").modal("show");
+            else if (!interestModal)
+                $("#mdlInterest").modal("show");
+        }
+
+        function nextExtraModal()
+        {
+            event.preventDefault();
+            if ($("#frmExtra").parsley().isValid() === false) 
+            {
+                $('#frmExtra').parsley().validate();
+                $("#frmExtra").addClass("was-validated");
+            }
+            else
+            {
+                $("#mdlExtras").modal("hide");
+                $("#mdlInterest").modal("show");
+            }
+        }
+
+    </script>
+}
