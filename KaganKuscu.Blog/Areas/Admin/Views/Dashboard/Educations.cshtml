@@ -25,8 +25,8 @@
                         </div>
 
                         <div class="row mb-2">
-                            <label for="txtTitle">Kazanılan Ünvan :</label>
-                            <input class="form-control" type="text" id="txtTitle" placeholder="Lütfen kazanılan ünvanı giriniz." required/>
+                            <label for="txtRole">Kazanılan Ünvan :</label>
+                            <input class="form-control" type="text" id="txtRole" placeholder="Lütfen kazanılan ünvanı giriniz." required/>
                         </div>
 
                         <div class="row mb-2">
@@ -77,7 +77,7 @@
         {
             $("#ddlResume").select2(
                 {
-                    dropdownParent: $('#mdlSkill'),
+                    dropdownParent: $('#mdlAddAndUpdate'),
                     width: "resolve",
                     theme: "kagan"
                 }
@@ -95,11 +95,15 @@
                     columns: 
                     [
                         { data: "name", title: "Eğitim Adı" },
-                        { data: "startDate", title: "Başlangıç Tarihi" },
+                        { 
+                          data: "startDate", 
+                          title: "Başlangıç Tarihi",
+                          render: (data) => moment(data).format("DD/MM/YYYY")
+                        },
                         { 
                           data: "endDate", 
                           title: "Bitiş Tarihi", 
-                          render: (data) => data === "" ? "empty" : `${data}`
+                          render: (data) => data.split("-")[0] === "0001" ? "Devam Ediyor" : moment(data).format("DD/MM/YYYY")
                         },
                         { data: "role", title: "Kazanılan Ünvan" },
                         { 
@@ -156,6 +160,7 @@
                             width: "5px"
                         },
                     ],
+                    order: [[2, "desc"]],
                     language: {
                         url: "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Turkish.json"
                     }
@@ -164,74 +169,48 @@
 
         function add()
         {
-            toggleModal();
-            clearModal();
+          toggleModal();
+          fillDdlResume();
+          clearModal();
 
-            $("#btnSave").off().text("Kaydet").removeClass("btn-warning").addClass("btn-success").click(() => 
+          $("#btnSave").off().text("Kaydet").removeClass("btn-warning").addClass("btn-success").click(() => 
             {
-                SwalToast.fire
-                ({
-                    icon: "success",
-                    title: "Kaydedildi"
-                });
-                
-                let data =
+              event.preventDefault();
+              if (!checkValidateForm())
+                return;
+
+              let data =
                 {
-                    "fullName": $("#txtName").val(),
-                    "title": $("#txtTitle").val(),
-                    "phone": $("#txtPhone").val(),
-                    "address": $("#txtAddress").val(),
-                    "email": $("#txtEmail").val(),
-                    "birthdate": $("#txtStartDate").val(),
-                    "about": tinymce.get("txtareaAbout").getContent(),
-                    // "appUserId": "b8aa7057-ed44-468e-a76d-0e7f362f16d0"
+                  name: $("#txtEducationName").val(),
+                  startDate: $("#txtStartDate").val(),
+                  role: $("#txtRole").val(),
+                  resumesEducations: [],
                 }
+              if ($("#txtEndDate").val() !== "")
+                data.endDate = $("#txtEndDate").val();
 
-                $.ajax(
-                    {
-                        url: "/Admin/Resume/Add",
-                        data: data,
-                        type: "POST",
-                        success: (res) =>
-                        {
-                            updateAllRow();
-                            datatable.row.add(
-                            {
-                                "fullName": data.fullName,
-                                "title": data.title,
-                                "email": data.email,
-                                "phone": data.phone,
-                                "secondPhone": "",
-                                "address": data.address,
-                                "isActive": true,
-                                "guid": res
-                            }).draw();
-                            
-                            data["guid"] = res;
-                            resume.push(data);
+              for (let resumeId of $("#ddlResume").val())
+                data.resumesEducations.push({ resumeId: resumeId });
 
-                            toggleModal();
-                        }
-                    }
-                );
+              $.ajax(
+                {
+                  url: "/Admin/Education/AddEducation",
+                  type: "POST",
+                  contentType: "application/json",
+                  data: JSON.stringify(data),
+                  success: (res) =>
+                  {
+                    datatable.row.add(res).draw();
+                    toggleModal();
+                    SwalToast.fire
+                    ({
+                      icon: "success",
+                      title: "Kaydedildi"
+                    });
+                  }
+                }
+              );
             });
-        }
-
-        function updateAllRow(guid)
-        {
-            for (let x of $("tbody tr"))
-            {
-                // Get the data
-                let data = datatable.row(x).data();
-                
-                if (guid === data.guid)
-                    continue;
-
-                // change to isActive false
-                data.isActive = false;
-                // update datatable data
-                datatable.row(x).data(data).draw();
-            }
         }
 
         function toggleStatus(element)
@@ -241,9 +220,10 @@
 
             $.ajax(
                 {
-                    url: "/Admin/Resume/ToggleStatus",
+                    url: "/Admin/Education/ToggleStatus",
                     type: "POST",
-                    data: { guid: data.guid },
+                    contentType: "application/json",
+                    data: JSON.stringify(data.guid),
                     success: () => 
                     {
                         SwalToast.fire(
@@ -254,8 +234,6 @@
                         
                         data.isActive = !data.isActive;
                         datatable.row(row).data(data).draw();
-
-                        updateAllRow(data.guid);
                     },
                     error: (err) =>
                     {
@@ -279,9 +257,10 @@
                     {
                         $.ajax
                         ({
-                            url: "/Admin/Resume/Remove",
-                            type: "POST",
-                            data: { guid: guid } ,
+                            url: "/Admin/Education/RemoveEducation",
+                            type: "GET",
+                            contentType: "application/json",
+                            data: { guid: guid },
                             success: res => 
                             {
                                 datatable.row($(element).parents("tr")).remove().draw();
@@ -308,224 +287,112 @@
 
         function update(guid, element)
         {
-            toggleModal();
-            clearModal();
+          toggleModal();
+          clearModal();
 
-            // Find the table head values
-            // split with tab (\t) and remove for last object.
-            let keys = $("thead")[0].innerText.split("\t");
-            keys.pop();
+          let row = $(element).parents("tr");
+          let oldData = datatable.row(row).data();
+          oldData.resumes = oldData.resumes;
 
-            // Find the given element parents until tr element
-            // split with tab (\t) and remove for last object.
-            let row = $(element).parents("tr");
-            let values = row[0].innerText.split("\t")
-            values.pop();
+          $("#txtEducationName").val(oldData.name);
+          $("#txtStartDate").val(moment(oldData.startDate).format("MM/DD/YYYY"));
+          $("#txtRole").val(oldData.role);
+          
+          if (oldData.endDate.split("-")[0] !== "0001")
+            $("#txtEndDate").val(moment(oldData.endDate).format("MM/DD/YYYY"));
 
-            // create empty object
-            let obj = {};
 
-            // creating new object table head keys, given element is values
-            for(let i = 0; i < keys.length; i++)
+          fillDdlResume(oldData.resumes);
+
+          $("#btnSave").off().text("Güncelle").removeClass("btn-success").addClass("btn-warning").click(() =>
             {
-                obj[keys[i]] = values[i];
-            }
+              event.preventDefault();
+              if (!checkValidateForm())
+                return;
 
-            $("#txtName").val(obj["Ad"]);
-            $("#txtTitle").val(obj["Ünvan"])
-            $("#txtPhone").val(obj["Gsm"])
-            $("#txtStartDate").val(moment(obj["Doğum Tarihi"]).format("DD/MM/YYYY"))
-            $("#txtSecondPhone").val(obj["Ikinci Gsm"])
-            $("#txtAddress").val(obj["Adres"])
-            $("#txtEmail").val(obj["Email"])
+              let data =
+                {
+                  guid: oldData.guid,
+                  name: $("#txtEducationName").val(),
+                  startDate: moment($("#txtStartDate").val()).format("YYYY-MM-DD"),
+                  role: $("#txtRole").val(),
+                  isActive: oldData.isActive,
+                  resumesEducations: [],
+                }
+              if ($("#txtEndDate").val() !== "")
+                data.endDate = moment($("#txtEndDate").val()).format("YYYY-MM-DD");
 
-            let resumeIndex = resume.findIndex(p => p.guid === guid);
-            tinymce.get("txtareaAbout").setContent(resume[resumeIndex].about ?? "")
+              for (let resumeId of $("#ddlResume").val())
+                data.resumesEducations.push({ resumeId: resumeId });
 
-            $("#btnSave").off().text("Güncelle").removeClass("btn-success").addClass("btn-warning").click(() => 
-            {
-                SwalSave
-                    .fire()
-                    .then(result => 
-                    {
-                        if(result.isConfirmed)
-                        {
-                            let data =
-                            {
-                                "guid": guid,
-                                "fullName": $("#txtName").val(),
-                                "title": $("#txtTitle").val(),
-                                "phone": $("#txtPhone").val(),
-                                "secondPhone": obj["Ikinci Gsm"],
-                                "address": $("#txtAddress").val(),
-                                "email": $("#txtEmail").val(),
-                                "birthDate": $("#txtStartDate").val(),
-                                "about": tinymce.get("txtareaAbout").getContent(),
-                                "isActive": datatable.row(row).data().isActive,
-                            }
-
-                            resume[resumeIndex] = data;
-
-                            $.ajax(
-                            {
-                                url: "/Admin/Resume/Update",
-                                data: data,
-                                type: "POST",
-                                success: (res) =>
-                                {
-                                    toggleModal();
-                                    datatable.row(row).data(data).draw();
-                                    SwalToast.fire(
-                                        {
-                                            icon: "success",
-                                            title: "Güncellendi"
-                                        }
-                                    );
-                                }
-                            });
-                        }
+              $.ajax(
+                {
+                  url: "/Admin/Education/UpdateEducation",
+                  type: "POST",
+                  contentType: "application/json",
+                  data: JSON.stringify(data),
+                  success: (res) =>
+                  {
+                    datatable.row(row).data(res).draw();
+                    toggleModal();
+                    SwalToast.fire
+                    ({
+                      icon: "success",
+                      title: "Güncellendi"
                     });
+                  }
+                }
+              );
+
             });
+        }
+
+        function checkValidateForm()
+        {
+          if ($("#frm").parsley().isValid() === false)
+          {
+            $("#frm").parsley().validate();
+            $("#frm").addClass("was-validated");
+            return false;
+          }
+          return true;
+        }
+
+        function fillDdlResume(resumes)
+        {
+            $.ajax(
+                {
+                    url: "/Admin/Resume/GetAll",
+                    type: "GET",
+                    success: (res) => 
+                    {
+                        for (let resume of res.data)
+                        {
+                            $("#ddlResume").append(
+                                new Option(resume.resumeName, resume.id, 
+                                    false, 
+                                    resumes === undefined ? false : resumes.find(r => r.id === resume.id) !== undefined)
+                                );
+                        }
+                    },
+                    error: (_, status) => console.error(status)
+                }
+            )
         }
 
         function clearModal()
         {
+            $("#ddlResume").empty();
             $("#mdlAddAndUpdate input").val("");
-            tinymce.get("txtareaAbout").setContent("");
-            tinymce.get("txtareaExtras").setContent("");
-            $("#mdlExtras input").val('');
         }
 
         function toggleModal()
         {
-            let firstModal = $("#mdlAddAndUpdate").hasClass('show');
-            let secondModal = $("#mdlAbout").hasClass('show');
-
-            if (firstModal || secondModal)
-            {
-                $("#mdlAddAndUpdate").modal("hide");
-                $("#mdlAbout").modal("hide");
-            }
-            else if (!firstModal)
-                $("#mdlAddAndUpdate").modal("show");
-            else if (!secondModal)
-                $("#mdlAbout").modal("show");
-        }
-
-        function nextModal()
-        {
-            event.preventDefault();
-            if ($("#frm").parsley().isValid() === false) 
-            {
-                $('#frm').parsley().validate();
-                $("#frm").addClass("was-validated");
-            } 
-            else 
-            {
-                $("#mdlAddAndUpdate").modal("hide");
-                $("#mdlAbout").modal("show");
-            }
-        }
-
-        function extrasInformation(guid, element)
-        {
-            toggleModalExtras();
-            clearModal();
-
-            let resumeIndex = resume.findIndex(p => p.guid === guid);
-            $("#txtSecondPhone").val(resume[resumeIndex].secondPhone);
-            tinymce.get("txtareaExtras").setContent(resume[resumeIndex].interest ?? "");
-
-            $("#btnExtrasSave").off().click(() => addExtrasInformation(guid, element));
-        }
-        
-        function addExtrasInformation(guid, element)
-        {
-            let formData = new FormData();
-
-            formData.append("image", $("#txtImage").prop("files")[0]);
-            formData.append("resume", $("#txtResume").prop("files")[0]);
-            formData.append("secondPhone", $("#txtSecondPhone").val());
-            formData.append("interest", tinymce.get("txtareaExtras").getContent());
-            formData.append("guid", guid);
-
-            let resumeIndex = resume.findIndex(p => p.guid === guid);
-            resume[resumeIndex].secondPhone = $("#txtSecondPhone").val();
-            resume[resumeIndex].interest = tinymce.get("txtareaExtras").getContent();
-
-            let row = $(element).parents("tr");
-            let data =
-            {
-                "guid": guid,
-                "fullName": resume[resumeIndex].fullName,
-                "title": resume[resumeIndex].title,
-                "phone": resume[resumeIndex].phone,
-                "secondPhone": $("#txtSecondPhone").val(),
-                "address": resume[resumeIndex].address,
-                "email": resume[resumeIndex].email,
-                "birthdate": resume[resumeIndex].birthdate,
-                "about": tinymce.get("txtareaAbout").getContent(),
-            }
-
-            $.ajax
-            ({
-                url: "/Admin/Resume/UploadFiles",
-                type: "POST",
-                processData: false,
-                contentType: false,
-                data: formData,
-                success: (res) =>
-                {
-                    toggleModalExtras();
-                    datatable.row(row).data(data).draw();
-                    SwalToast.fire
-                    ({
-                        icon: "success",
-                        title: "Kaydedildi"
-                    });
-                },
-                error: (err) =>
-                {
-                    SwalToast.fire
-                    ({
-                        icon: "error",
-                        title: err.responseText === '' ? "HATA!" : err.responseText
-                    })
-                        
-                }
-            });
-        }
-
-        function toggleModalExtras()
-        {
-            let extrasModal = $("#mdlExtras").hasClass('show');
-            let interestModal = $("#mdlInterest").hasClass('show');
-
-            if (extrasModal || interestModal)
-            {
-                $("#mdlExtras").modal("hide");
-                $("#mdlInterest").modal("hide");
-            }
-            else if (!extrasModal)
-                $("#mdlExtras").modal("show");
-            else if (!interestModal)
-                $("#mdlInterest").modal("show");
-        }
-
-        function nextExtraModal()
-        {
-            event.preventDefault();
-            if ($("#frmExtra").parsley().isValid() === false) 
-            {
-                $('#frmExtra').parsley().validate();
-                $("#frmExtra").addClass("was-validated");
-            }
+            const mdlAddAndUpdate = $("#mdlAddAndUpdate");
+            if (mdlAddAndUpdate.hasClass("show"))
+                mdlAddAndUpdate.modal("hide");
             else
-            {
-                $("#mdlExtras").modal("hide");
-                $("#mdlInterest").modal("show");
-            }
+                mdlAddAndUpdate.modal("show");
         }
-
     </script>
 }

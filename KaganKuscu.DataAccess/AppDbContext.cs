@@ -37,6 +37,7 @@ namespace KaganKuscu.DataAccess
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             modelBuilder.Entity<ResumeSkill>().HasKey(x => new { x.ResumeId, x.SkillId });
+            modelBuilder.Entity<ResumesEducations>().HasKey(x => new { x.ResumeId, x.EducationId });
 
             modelBuilder.Entity<ResumeSkill>()
               .HasOne(r => r.Resume)
@@ -47,6 +48,16 @@ namespace KaganKuscu.DataAccess
               .HasOne(s => s.Skill)
               .WithMany(s => s.ResumesSkills)
               .HasForeignKey(x => x.SkillId);
+
+            modelBuilder.Entity<ResumeSkill>()
+              .HasOne(rs => rs.Resume)
+              .WithMany(r => r.ResumesSkills)
+              .HasForeignKey(rs => rs.ResumeId);
+
+            modelBuilder.Entity<ResumesEducations>()
+              .HasOne(re => re.Education)
+              .WithMany(e => e.ResumesEducations)
+              .HasForeignKey(re => re.EducationId);
         }
     }
 }
