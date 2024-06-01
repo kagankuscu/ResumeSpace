@@ -10,6 +10,11 @@
                 </div>
                 <div class="modal-body">
                         <div class="row mb-2">
+                            <label for="txtResumeName">Öz Geçmiş Adı :</label>
+                            <input class="form-control" type="text" id="txtResumeName" placeholder="Lütfen adınızı giriniz." required/>
+                        </div>
+
+                        <div class="row mb-2">
                             <label for="txtName">Ad Soyad :</label>
                             <input class="form-control" type="text" id="txtName" placeholder="Lütfen adınızı giriniz." required/>
                         </div>
@@ -197,6 +202,7 @@
                     data: data.data,
                     columns: 
                     [
+                        { data: "resumeName", title: "Öz Geçmiş Adı" },
                         { data: "fullName", title: "Ad" },
                         { data: "title", title: "Ünvan" },
                         { data: "email", title: "Email" },
@@ -279,6 +285,7 @@
                 
                 let data =
                 {
+                    "resumeName": $("#txtResumeName").val(),
                     "fullName": $("#txtName").val(),
                     "title": $("#txtTitle").val(),
                     "phone": $("#txtPhone").val(),
@@ -299,6 +306,7 @@
                             updateAllRow();
                             datatable.row.add(
                             {
+                               "resumeName": data.resumeName,
                                 "fullName": data.fullName,
                                 "title": data.title,
                                 "email": data.email,
@@ -433,6 +441,7 @@
                 obj[keys[i]] = values[i];
             }
 
+            $("#txtResumeName").val(obj["Öz Geçmiş Adı"])
             $("#txtName").val(obj["Ad"]);
             $("#txtTitle").val(obj["Ünvan"])
             $("#txtPhone").val(obj["Gsm"])
@@ -455,6 +464,7 @@
                             let data =
                             {
                                 "guid": guid,
+                                "resumeName": $("#txtResumeName").val(),
                                 "fullName": $("#txtName").val(),
                                 "title": $("#txtTitle").val(),
                                 "phone": $("#txtPhone").val(),
@@ -496,6 +506,14 @@
             tinymce.get("txtareaAbout").setContent("");
             tinymce.get("txtareaExtras").setContent("");
             $("#mdlExtras input").val('');
+
+            resetFormValidate();
+        }
+
+        function resetFormValidate()
+        {
+          $("#frm").parsley().reset();
+          $("#frm").removeClass("was-validated");
         }
 
         function toggleModal()
@@ -559,6 +577,7 @@
             let data =
             {
                 "guid": guid,
+                "resumeName": $("#txtResumeName").val(),
                 "fullName": resume[resumeIndex].fullName,
                 "title": resume[resumeIndex].title,
                 "phone": resume[resumeIndex].phone,

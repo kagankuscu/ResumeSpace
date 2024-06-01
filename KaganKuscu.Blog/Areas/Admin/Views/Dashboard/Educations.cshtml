@@ -383,6 +383,14 @@
         {
             $("#ddlResume").empty();
             $("#mdlAddAndUpdate input").val("");
+
+            resetFormValidate();
+        }
+
+        function resetFormValidate()
+        {
+          $("#frm").parsley().reset();
+          $("#frm").removeClass("was-validated");
         }
 
         function toggleModal()

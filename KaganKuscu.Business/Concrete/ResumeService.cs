@@ -184,6 +184,7 @@ namespace KaganKuscu.Business.Concrete
             {
                 // TODO: Use AutoMapper
                 real.Email = entity.Email;
+                real.ResumeName = entity.ResumeName;
                 real.FullName = entity.FullName;
                 real.Title = entity.Title;
                 real.Phone = entity.Phone;
