@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using KaganKuscu.Model.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -15,7 +11,7 @@ namespace KaganKuscu.DataAccess.Config
             builder.HasData(
                 new WorkExperience {
                     Id = 1,
-                    ResumeId = 1,
+                    AppUserId = Guid.Parse("D0C23476-68D0-4DA0-AAD4-3ADAE20702C0"),
                     Name = "Deadline Bilişim",
                     StartDate = new DateTime(2023, 12, 25),
                     EndDate = new DateTime(0001, 1, 1),

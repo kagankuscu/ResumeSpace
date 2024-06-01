@@ -96,7 +96,6 @@ namespace KaganKuscu.Business.Concrete
         {
             return _repository.GetAll()
                 .Include(p => p.SocialMedias)
-                .Include(p => p.WorkExperiences)
                 .Include(p => p.References)
                 .Include(p => p.Interests);
         }
@@ -131,7 +130,6 @@ namespace KaganKuscu.Business.Concrete
         {
             return _repository.GetAll()
                 .Include(p => p.SocialMedias)
-                .Include(p => p.WorkExperiences)
                 .Include(p => p.References)
                 .Include(p => p.Interests)
                 .Select(p => new ResumeForGetWithDetailsDto
@@ -148,10 +146,10 @@ namespace KaganKuscu.Business.Concrete
                     ResumePath = p.ResumePath ?? string.Empty,
                     Description = p.About ?? string.Empty,
                     References = p.References.ToList(),
-                    Skills = p.ResumesSkills.Select(s => s.Skill).Where(s => s.IsActive).ToList(),
+                    Skills = p.ResumesSkills!.Select(s => s.Skill!).Where(s => s.IsActive).ToList(),
                     SocialMedias = p.SocialMedias.ToList(),
-                    Educations = p.ResumesEducations.Select(rs => rs.Education).Where(e => e.IsActive).OrderByDescending(e => e.StartDate).ToList(),
-                    WorkExperiences = p.WorkExperiences.OrderByDescending(e => e.StartDate).ToList()
+                    Educations = p.ResumesEducations!.Select(rs => rs.Education!).Where(e => e.IsActive).OrderByDescending(e => e.StartDate).ToList(),
+                    WorkExperiences = p.ResumesWorkExperiences.Select(rwe => rwe.WorkExperience!).Where(rwe => rwe.IsActive).OrderByDescending(e => e.StartDate).ToList()
                 });
         }
         public Resume? GetById(int id)
