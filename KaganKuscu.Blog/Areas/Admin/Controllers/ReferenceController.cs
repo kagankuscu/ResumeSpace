@@ -66,8 +66,8 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
     public async Task<IActionResult> AddImage(IFormCollection form)
     {
       bool data = await _referenceService.AddImage(form);
-      if (data)
-        return BadRequest();
+      if (!data)
+        return BadRequest("Data is not saved.");
 
       return Ok();
     }
