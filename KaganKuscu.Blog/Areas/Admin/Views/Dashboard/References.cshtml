@@ -1,0 +1,471 @@
+<!-- Center Modal example -->
+<div id="mdlAddAndUpdate" class="modal fade bs-example-modal-center modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="frm" class="needs-validation">
+                <div class="modal-header">
+                    <h5 id="mdlTitle" class="modal-title">Referans Bilgileri</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                        <div class="row mb-2">
+                            <label for="txtCompanyName">Firma Ad :</label>
+                            <input class="form-control" type="text" id="txtCompanyName" placeholder="Lütfen firmanın adını giriniz." required/>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label for="txtName">Ad :</label>
+                            <input class="form-control" type="text" id="txtName" placeholder="Lütfen adını giriniz." required/>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label for="txtTitle">Pozisyon :</label>
+                            <input class="form-control" type="text" id="txtTitle" placeholder="Lütfen ünvan içerik giriniz." required/>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label for="txtImage">Fotoğraf :</label>
+                            <input class="form-control" type="file" id="txtImage" accept="image/png, image/jpeg">
+                        </div>
+
+                        <div class="row mb-2">
+                          <label for="ddlResume">Öz Geçmiş :</label>
+                          <select id="ddlResume" name="resumes[]" multiple="multiple" style="width: 100%" >
+                          </select>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
+                    <button id="btnNextModal" type="submit" onclick="nextModal()" class="btn btn-primary">
+                        Sonraki Sayfa
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Center Modal example -->
+<div id="mdlQuote" class="modal fade bs-example-modal-center modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Içerik</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row mb-2">
+                    <textarea class="tinymce-modal" id="txtQuote"></textarea>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
+                <button id="btnSave" type="button" class="btn btn-success">Kaydet</button>
+                <button class="btn btn-primary" data-bs-target="#mdlAddAndUpdate" data-bs-toggle="modal">
+                    Önceki Sayfa
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <a onclick="add()" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-plus me-2"></i> Yeni Ekle</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+                
+                <div class="row">
+                    <table id="datatable" class="table table-centered table-nowrap table-hover mb-0">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts 
+{
+    <script src="~/js/customSwalButton.js"></script>
+    <script src="~/admin/libs/select2/js/select2.min.js"></script>
+    <script src="~/lib/tinymce/tinymce.min.js"></script>
+    <script src="~/js/customTinymce.init.js"></script>
+    <script>
+        let datatable;
+
+        $(document).ready(() => 
+        {
+            $("#ddlResume").select2(
+                {
+                    dropdownParent: $('#mdlAddAndUpdate'),
+                    width: "resolve",
+                    theme: "kagan"
+                }
+            )
+            fillDatatable();
+        });
+
+        function fillDatatable()
+        {
+            datatable = $("#datatable").DataTable
+                ({
+                    paging: false,
+                    pageLenght: 100,
+                    ajax: "/Admin/Reference/GetAllReference",
+                    columns: 
+                    [
+                        { data: "companyName", title: "Firma Adı" },
+                        { data: "name", title: "Ad" },
+                        { 
+                          data: "title", 
+                          title: "Pozisyon", 
+                        },
+                        { 
+                          data: "resumes", 
+                          title: "Ekli olan Özgeçmişler", 
+                          render: (data) => {
+                            let txt = '';
+
+                            for (let item of data)
+                              txt += `<span>${item.resumeName}</span><br>`;
+                            return txt;
+                          }
+                        },
+                        { 
+                            data: "guid",
+                            title: "İşlemler",
+                            render: (guid, type, row) => 
+                            {
+                                return `<ul class="list-inline mb-0">
+                                            <li class="list-inline-item">
+                                                <a onclick="update('${guid}', this)" class="px-2 text-primary"><i class="uil uil-pen font-size-18"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a onclick="remove('${guid}', this)" class="px-2 text-danger"><i class="uil uil-trash-alt font-size-18"></i></a>
+                                            </li>
+                                            <li class="list-inline-item dropdown">
+                                                <a class="text-muted dropdown-toggle font-size-18 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
+                                                    <i class="uil uil-ellipsis-v"></i>
+                                                </a>
+                                            
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a class="dropdown-item" onclick="toggleStatus(this)">
+                                                        <i class="${row.isActive ? "uil-check-circle" : "uil-times-circle" } me-2 
+                                                        text-${row.isActive ? "success" : "danger" }" style="font-size: 19px"></i>${row.isActive ? "Pasif yap" : "Aktif yap" }
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        </ul>`
+                            }
+                        },
+                        { 
+                            data: "isActive",
+                            title: "Durum",
+                            render: (data) => `<i style="font-size: 25px" class="${data ? "uil-check-circle text-success" : "uil-times-circle text-danger"}"></i>`
+                        },
+                    ],
+                    columnDefs:
+                    [
+                        {
+                            targets: [4, 5],
+                            visible: true,
+                            className: "text-center",
+                            width: "5px"
+                        },
+                    ],
+                    language: {
+                        url: "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Turkish.json"
+                    }
+                });
+        }
+
+        function add()
+        {
+          toggleModal();
+          fillDdlResume();
+          clearModal();
+
+          $("#btnSave").off().text("Kaydet").removeClass("btn-warning").addClass("btn-success").click(() => 
+            {
+              event.preventDefault();
+              if (!checkValidateForm())
+                return;
+
+              let data =
+                {
+                  name: $("#txtName").val(),
+                  companyName: $("#txtCompanyName").val(),
+                  quote: tinymce.get("txtQuote").getContent(),
+                  title: $("#txtTitle").val(),
+                  isActive: true,
+                  resumesReferences: [],
+                }
+
+              for (let resumeId of $("#ddlResume").val())
+                data.resumesReferences.push({ resumeId: resumeId });
+
+              $.ajax(
+                {
+                  url: "/Admin/Reference/AddReference",
+                  type: "POST",
+                  contentType: "application/json",
+                  data: JSON.stringify(data),
+                  success: (res) =>
+                  {
+                    datatable.row.add(res).draw();
+                    toggleModal();
+                    SwalToast.fire
+                    ({
+                      icon: "success",
+                      title: "Kaydedildi"
+                    });
+
+                    if ($("#txtImage").prop("files")[0] !== undefined)
+                      addImage(res.guid, $("#txtImage").prop("files")[0])
+                  }
+                }
+              );
+            });
+        }
+
+        function addImage(guid, image)
+        {
+          let formData = new FormData();
+          formData.append("guid", guid);
+          formData.append("image", image);
+
+          $.ajax({
+            url: "/Admin/Reference/AddImage",
+            type: "POST",
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: (res) => {
+              SwalToast.fire
+              ({
+                icon: "success",
+                title: "Resim Kaydedildi"
+              });
+            },
+          });
+        }
+
+        function toggleStatus(element)
+        {
+            let row = $(element).parents("tr");
+            let data = datatable.row(row).data();
+
+            $.ajax(
+                {
+                    url: "/Admin/Reference/ToggleStatus",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(data.guid),
+                    success: () => 
+                    {
+                        SwalToast.fire(
+                            {
+                                icon: "success",
+                                title: !data.isActive ? "Aktif edildi." : "Pasif yapıldı"
+                            });
+                        
+                        data.isActive = !data.isActive;
+                        datatable.row(row).data(data).draw();
+                    },
+                    error: (err) =>
+                    {
+                        SwalToast.fire
+                            ({
+                                icon: "error",
+                                title: "Hata: " + err.responseText
+                            });
+                    }
+                }
+            )
+        }
+
+        function remove(guid, element)
+        {
+            SwalRemove
+                .fire()
+                .then(result => 
+                {
+                    if(result.isConfirmed)
+                    {
+                        $.ajax
+                        ({
+                            url: "/Admin/Reference/RemoveReference",
+                            type: "GET",
+                            contentType: "application/json",
+                            data: { guid: guid },
+                            success: res => 
+                            {
+                                datatable.row($(element).parents("tr")).remove().draw();
+
+                                SwalToast.fire
+                                ({
+                                    icon: "success",
+                                    title: "Silindi"
+                                });
+
+                            },
+                            error: (err) =>
+                            {
+                                SwalToast.fire
+                                ({
+                                    icon: "error",
+                                    title: "error: " + err.responseText
+                                });
+                            }
+                        })
+                    }
+                });
+        }
+
+        function update(guid, element)
+        {
+          toggleModal();
+          clearModal();
+
+          let row = $(element).parents("tr");
+          let oldData = datatable.row(row).data();
+          oldData.resumes = oldData.resumes;
+
+          $("#txtName").val(oldData.name);
+          $("#txtCompanyName").val(oldData.companyName);
+          tinymce.get("txtQuote").setContent(oldData.quote),
+          $("#txtTitle").val(oldData.title);
+
+          fillDdlResume(oldData.resumes);
+
+          $("#btnSave").off().text("Güncelle").removeClass("btn-success").addClass("btn-warning").click(() =>
+            {
+              event.preventDefault();
+              if (!checkValidateForm())
+                return;
+
+              let data =
+                {
+                  guid: oldData.guid,
+                  name: $("#txtName").val(),
+                  companyName: $("#txtCompanyName").val(),
+                  quote: tinymce.get("txtQuote").getContent(),
+                  title: $("#txtTitle").val(),
+                  isActive: oldData.isActive,
+                  resumesReferences: [],
+                }
+
+              for (let resumeId of $("#ddlResume").val())
+                data.resumesReferences.push({ resumeId: resumeId });
+
+              $.ajax(
+                {
+                  url: "/Admin/Reference/UpdateReference",
+                  type: "POST",
+                  contentType: "application/json",
+                  data: JSON.stringify(data),
+                  success: (res) =>
+                  {
+                    datatable.row(row).data(res).draw();
+                    toggleModal();
+                    SwalToast.fire
+                    ({
+                      icon: "success",
+                      title: "Güncellendi"
+                    });
+
+                    if ($("#txtImage").prop("files")[0] !== undefined)
+                      addImage(res.guid, $("#txtImage").prop("files")[0])
+                  }
+                }
+              );
+            });
+        }
+
+        function checkValidateForm()
+        {
+          if ($("#frm").parsley().isValid() === false)
+          {
+            $("#frm").parsley().validate();
+            $("#frm").addClass("was-validated");
+            return false;
+          }
+          return true;
+        }
+
+        function fillDdlResume(resumes)
+        {
+            $.ajax(
+                {
+                    url: "/Admin/Resume/GetAll",
+                    type: "GET",
+                    success: (res) => 
+                    {
+                        for (let resume of res.data)
+                        {
+                            $("#ddlResume").append(
+                                new Option(resume.resumeName, resume.id, 
+                                    false, 
+                                    resumes === undefined ? false : resumes.find(r => r.id === resume.id) !== undefined)
+                                );
+                        }
+                    },
+                    error: (_, status) => console.error(status)
+                }
+            )
+        }
+
+        function nextModal()
+        {
+          event.preventDefault();
+          
+          if (!checkValidateForm())
+            return ; 
+
+          $("#mdlAddAndUpdate").modal("hide");
+          $("#mdlQuote").modal("show");
+        }
+
+        function clearModal()
+        {
+            $("#ddlResume").empty();
+            $("#mdlAddAndUpdate input").val("");
+            tinymce.get("txtQuote").setContent("")
+
+            resetFormValidate();
+        }
+
+        function resetFormValidate()
+        {
+          $("#frm").parsley().reset();
+          $("#frm").removeClass("was-validated");
+        }
+
+        function toggleModal()
+        {
+            const mdlAddAndUpdate = $("#mdlAddAndUpdate").hasClass('show');
+            const mdlQuote = $("#mdlQuote").hasClass('show');
+
+            if (mdlAddAndUpdate || mdlQuote)
+            {
+                $("#mdlAddAndUpdate").modal("hide");
+                $("#mdlQuote").modal("hide");
+            }
+            else if (!mdlAddAndUpdate)
+                $("#mdlAddAndUpdate").modal("show");
+            else if (!mdlQuote)
+                $("#mdlQuote").modal("show");
+        }
+    </script>
+}

@@ -173,7 +173,7 @@
 @if (resume.References is not null && resume.References.Count > 0)
 {
     <section id="references" class="section section-references">
-        <div class="animate-up">
+        <div class="animate-up animated">
             <h2 class="section-title">References</h2>
 
             <div class="section-box">
@@ -182,17 +182,15 @@
                     {
                         <li>
                             <div class="ref-box">
-                                <div class="resume-speech">
-                                    <p>
-                                        @reference.Description
-                                    </p>
+                                <div class="person-speech">
+                                 @Html.Raw(@reference.Quote)
                                 </div>
-                                <div class="resume-info clearfix">
-                                    <img class="resume-img" src="@reference.ImagePath" alt="Headshot">
+                                <div class="person-info clearfix">
+                                    <img class="person-img" src="@reference.ImagePath" alt="Headshot">
 
-                                    <div class="resume-name-title">
-                                        <span class="resume-name">@reference.Name</span>
-                                        <span class="resume-title">@reference.Title, </span>
+                                    <div class="person-name-title">
+                                        <span class="person-name">@reference.Name</span>
+                                        <span class="person-title">@reference.CompanyName, @reference.Title</span>
                                     </div>
                                 </div>
                             </div>
