@@ -206,7 +206,8 @@ namespace KaganKuscu.Business.Concrete
         await image.CopyToAsync(stream);
       }
 
-      real.ImagePath = $"{imageFilename}";
+      real.ImagePath = $"/img/Reference/{imageFilename}";
+      Update(real);
       return true;
     }
     }

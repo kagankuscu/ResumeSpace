@@ -96,7 +96,6 @@ namespace KaganKuscu.Business.Concrete
         {
             return _repository.GetAll()
                 .Include(p => p.SocialMedias)
-                .Include(p => p.References)
                 .Include(p => p.Interests);
         }
 
@@ -130,7 +129,6 @@ namespace KaganKuscu.Business.Concrete
         {
             return _repository.GetAll()
                 .Include(p => p.SocialMedias)
-                .Include(p => p.References)
                 .Include(p => p.Interests)
                 .Select(p => new ResumeForGetWithDetailsDto
                 {
@@ -145,7 +143,7 @@ namespace KaganKuscu.Business.Concrete
                     ImagePath = p.ImagePath ?? string.Empty,
                     ResumePath = p.ResumePath ?? string.Empty,
                     Description = p.About ?? string.Empty,
-                    References = p.References.ToList(),
+                    References = p.ResumesReferences.Select(rr => rr.Reference!).Where(r => r.IsActive).ToList(),
                     Skills = p.ResumesSkills!.Select(s => s.Skill!).Where(s => s.IsActive).ToList(),
                     SocialMedias = p.SocialMedias.ToList(),
                     Educations = p.ResumesEducations!.Select(rs => rs.Education!).Where(e => e.IsActive).OrderByDescending(e => e.StartDate).ToList(),
