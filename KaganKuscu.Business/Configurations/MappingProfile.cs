@@ -1,5 +1,6 @@
 using AutoMapper;
 using KaganKuscu.Model.Dtos.EducationDto;
+using KaganKuscu.Model.Dtos.ReferenceDto;
 using KaganKuscu.Model.Dtos.ResumesDto;
 using KaganKuscu.Model.Dtos.SkillsDto;
 using KaganKuscu.Model.Dtos.WorkExperienceDto;
@@ -33,6 +34,11 @@ namespace KaganKuscu.Business.Configurations
       CreateMap<WorkExperience, WorkExperienceForGetWithResumesDto>().ReverseMap();
       CreateMap<WorkExperience, WorkExperienceForAddDto>().ReverseMap();
       CreateMap<WorkExperience, WorkExperienceForUpdateDto>().ReverseMap();
+
+      CreateMap<Reference, ReferenceForGetDto>().ReverseMap();
+      CreateMap<Reference, ReferenceForGetWithResumesDto>().ReverseMap();
+      CreateMap<Reference, ReferenceForAddDto>().ReverseMap();
+      CreateMap<Reference, ReferenceForUpdateDto>().ReverseMap();
     }
   }
 }

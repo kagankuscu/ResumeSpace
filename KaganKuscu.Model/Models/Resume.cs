@@ -22,7 +22,7 @@ namespace KaganKuscu.Model.Models
         public virtual ICollection<SocialMedia> SocialMedias { get; set; } = new List<SocialMedia>();
         public virtual ICollection<ResumesWorkExperiences> ResumesWorkExperiences { get; set; } = new List<ResumesWorkExperiences>();
         public virtual ICollection<ResumesEducations> ResumesEducations { get; set; } = new List<ResumesEducations>();
-        public virtual ICollection<Reference> References { get; set; } = new List<Reference>();
+        public virtual ICollection<ResumesReferences> ResumesReferences { get; set; } = new List<ResumesReferences>();
         public virtual ICollection<ResumeSkill> ResumesSkills { get; set; } = new List<ResumeSkill>();
         public virtual ICollection<Interest> Interests { get; set; } = new List<Interest>();
     }

@@ -1,17 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using KaganKuscu.Model.Rel;
 
 namespace KaganKuscu.Model.Models
 {
     public class Reference : BaseModel
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string Title { get; set; }
-        public string Role { get; set; }
-        public string ImagePath { get; set; }
-        public int ResumeId { get; set; }
+        public Guid AppUserId { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string CompanyName { get; set; } = string.Empty;
+        public string Quote { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty;
+        public string ImagePath { get; set; } = string.Empty;
+        public List<ResumesReferences> ResumesReferences { get; set; } = [];
     }
 }
