@@ -27,6 +27,7 @@ namespace KaganKuscu.DataAccess
         public virtual DbSet<Reference> References { get; set; }
         public virtual DbSet<Skill> Skills { get; set; }
         public virtual DbSet<SocialMedia> SocialMedias { get; set; }
+        public virtual DbSet<SocialMediaIcon> SocialMediaIcons { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<WorkExperience> WorkExperiences { get; set; }
         public virtual DbSet<Interest> Interests { get; set; }

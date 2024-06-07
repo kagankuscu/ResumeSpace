@@ -59,7 +59,7 @@ namespace KaganKuscu.Business.Concrete
                   Guid = e.Guid,
                   Name = e.Name,
                   Url = e.Url,
-                  IconCssClass = e.IconCssClass,
+                  SocialMediaIcon = e.SocialMediaIcon,
                   IsActive = e.IsActive,
                   Resumes = _mapper.Map<List<ResumeForGetDto>>(e.ResumesSocialMedias.Select(re => re.Resume).ToList())
               }).ToList();
@@ -76,7 +76,7 @@ namespace KaganKuscu.Business.Concrete
                   Guid = e.Guid,
                   Name = e.Name,
                   Url = e.Url,
-                  IconCssClass = e.IconCssClass,
+                  SocialMediaIcon = e.SocialMediaIcon,
                   IsActive = e.IsActive,
                   Resumes = _mapper.Map<List<ResumeForGetDto>>(e.ResumesSocialMedias.Select(re => re.Resume).ToList())
               }).ToList();
@@ -160,7 +160,7 @@ namespace KaganKuscu.Business.Concrete
 
             socialMedia.Name = socialMediaDto.Name;
             socialMedia.Url = socialMediaDto.Url;
-            socialMedia.IconCssClass = socialMediaDto.IconCssClass;
+            socialMedia.SocialMediaIcon = socialMediaDto.SocialMediaIcon;
             socialMedia.IsActive = socialMediaDto.IsActive;
             Update(socialMedia);
 
