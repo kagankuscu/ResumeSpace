@@ -95,7 +95,6 @@ namespace KaganKuscu.Business.Concrete
         public IQueryable<Resume> GetAll()
         {
             return _repository.GetAll()
-                .Include(p => p.SocialMedias)
                 .Include(p => p.Interests);
         }
 
@@ -128,7 +127,6 @@ namespace KaganKuscu.Business.Concrete
         public IQueryable<ResumeForGetWithDetailsDto> GetAllResumeDto()
         {
             return _repository.GetAll()
-                .Include(p => p.SocialMedias)
                 .Include(p => p.Interests)
                 .Select(p => new ResumeForGetWithDetailsDto
                 {
@@ -145,7 +143,7 @@ namespace KaganKuscu.Business.Concrete
                     Description = p.About ?? string.Empty,
                     References = p.ResumesReferences.Select(rr => rr.Reference!).Where(r => r.IsActive).ToList(),
                     Skills = p.ResumesSkills!.Select(s => s.Skill!).Where(s => s.IsActive).ToList(),
-                    SocialMedias = p.SocialMedias.ToList(),
+                    SocialMedias = p.ResumesSocialMedias.Select(rsm => rsm.SocialMedia!).Where(rsm => rsm.IsActive).ToList(),
                     Educations = p.ResumesEducations!.Select(rs => rs.Education!).Where(e => e.IsActive).OrderByDescending(e => e.StartDate).ToList(),
                     WorkExperiences = p.ResumesWorkExperiences.Select(rwe => rwe.WorkExperience!).Where(rwe => rwe.IsActive).OrderByDescending(e => e.StartDate).ToList()
                 });

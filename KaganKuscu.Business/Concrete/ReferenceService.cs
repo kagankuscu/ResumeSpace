@@ -123,12 +123,12 @@ namespace KaganKuscu.Business.Concrete
 
     public bool ToggleStatus(Guid guid)
     {
-      Reference? eduction = _repository.GetById(guid);
-      if (eduction is null)
+      Reference? reference = _repository.GetById(guid);
+      if (reference is null)
         return false;
 
-      eduction.IsActive = !eduction.IsActive;
-      _repository.Update(eduction);
+      reference.IsActive = !reference.IsActive;
+      _repository.Update(reference);
       return true;
     }
 
