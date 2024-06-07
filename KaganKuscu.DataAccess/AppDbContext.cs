@@ -40,6 +40,7 @@ namespace KaganKuscu.DataAccess
             modelBuilder.Entity<ResumesEducations>().HasKey(x => new { x.ResumeId, x.EducationId });
             modelBuilder.Entity<ResumesWorkExperiences>().HasKey(x => new { x.ResumeId, x.WorkExperienceId });
             modelBuilder.Entity<ResumesReferences>().HasKey(x => new { x.ResumeId, x.ReferenceId });
+            modelBuilder.Entity<ResumesSocialMedias>().HasKey(x => new { x.ResumeId, x.SocialMediaId });
 
             modelBuilder.Entity<ResumeSkill>()
               .HasOne(r => r.Resume)
@@ -80,6 +81,16 @@ namespace KaganKuscu.DataAccess
               .HasOne(s => s.Reference)
               .WithMany(s => s.ResumesReferences)
               .HasForeignKey(x => x.ReferenceId);
+
+            modelBuilder.Entity<ResumesSocialMedias>()
+              .HasOne(r => r.Resume)
+              .WithMany(r => r.ResumesSocialMedias)
+              .HasForeignKey(x => x.ResumeId);
+
+            modelBuilder.Entity<ResumesSocialMedias>()
+              .HasOne(r => r.SocialMedia)
+              .WithMany(r => r.ResumesSocialMedias)
+              .HasForeignKey(x => x.SocialMediaId);
         }
     }
 }

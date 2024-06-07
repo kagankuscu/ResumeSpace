@@ -1,0 +1,405 @@
+<!-- Center Modal example -->
+<div id="mdlAddAndUpdate" class="modal fade bs-example-modal-center modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="frm" class="needs-validation">
+                <div class="modal-header">
+                    <h5 id="mdlTitle" class="modal-title">Eğitim Bilgileri</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                        <div class="row mb-2">
+                            <label for="txtEducationName">Eğitimin Adı :</label>
+                            <input class="form-control" type="text" id="txtEducationName" placeholder="Lütfen eğitimin adını giriniz." required/>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label for="txtStartDate">Başlama Tarihi :</label>
+                            <input class="form-control input-mask" id="txtStartDate" placeholder="Lütfen başlama tarihini giriniz." data-inputmask="'alias': 'datetime'" data-inputmask-inputformat="mm/dd/yyyy" im-insert="false" required/>
+                        </div>
+
+                        <div class="row mb-2">
+                            <label for="txtEndDate">Bitiş Tarihi :</label>
+                            <input class="form-control input-mask" id="txtEndDate" placeholder="Lütfen bitiş tarihini giriniz." data-inputmask="'alias': 'datetime'" data-inputmask-inputformat="mm/dd/yyyy" im-insert="false" />
+                        </div>
+
+                        <div class="row mb-2">
+                            <label for="txtRole">Kazanılan Ünvan :</label>
+                            <input class="form-control" type="text" id="txtRole" placeholder="Lütfen kazanılan ünvanı giriniz." required/>
+                        </div>
+
+                        <div class="row mb-2">
+                          <label for="ddlResume">Öz Geçmiş :</label>
+                          <select id="ddlResume" name="resumes[]" multiple="multiple" style="width: 100%" >
+                          </select>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
+                    <button id="btnSave" type="submit" class="btn btn-success">Kaydet</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <a onclick="add()" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-plus me-2"></i> Yeni Ekle</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+                
+                <div class="row">
+                    <table id="datatable" class="table table-centered table-nowrap table-hover mb-0">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts 
+{
+    <script src="~/js/customSwalButton.js"></script>
+    <script src="~/admin/libs/select2/js/select2.min.js"></script>
+    <script>
+        let datatable;
+
+        $(document).ready(() => 
+        {
+            $("#ddlResume").select2(
+                {
+                    dropdownParent: $('#mdlAddAndUpdate'),
+                    width: "resolve",
+                    theme: "kagan"
+                }
+            )
+            fillDatatable();
+        });
+
+        function fillDatatable()
+        {
+            datatable = $("#datatable").DataTable
+                ({
+                    paging: false,
+                    pageLenght: 100,
+                    ajax: "/Admin/Education/GetAllEducation",
+                    columns: 
+                    [
+                        { data: "name", title: "Eğitim Adı" },
+                        { 
+                          data: "startDate", 
+                          title: "Başlangıç Tarihi",
+                          render: (data) => moment(data).format("DD/MM/YYYY")
+                        },
+                        { 
+                          data: "endDate", 
+                          title: "Bitiş Tarihi", 
+                          render: (data) => data.split("-")[0] === "0001" ? "Devam Ediyor" : moment(data).format("DD/MM/YYYY")
+                        },
+                        { data: "role", title: "Kazanılan Ünvan" },
+                        { 
+                          data: "resumes", 
+                          title: "Ekli olan Özgeçmişler", 
+                          render: (data) => {
+                            let txt = '';
+
+                            for (let item of data)
+                              txt += `<span>${item.resumeName}</span><br>`;
+                            return txt;
+                          }
+                        },
+                        { 
+                            data: "guid",
+                            title: "İşlemler",
+                            render: (guid, type, row) => 
+                            {
+                                return `<ul class="list-inline mb-0">
+                                            <li class="list-inline-item">
+                                                <a onclick="update('${guid}', this)" class="px-2 text-primary"><i class="uil uil-pen font-size-18"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a onclick="remove('${guid}', this)" class="px-2 text-danger"><i class="uil uil-trash-alt font-size-18"></i></a>
+                                            </li>
+                                            <li class="list-inline-item dropdown">
+                                                <a class="text-muted dropdown-toggle font-size-18 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
+                                                    <i class="uil uil-ellipsis-v"></i>
+                                                </a>
+                                            
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a class="dropdown-item" onclick="toggleStatus(this)">
+                                                        <i class="${row.isActive ? "uil-check-circle" : "uil-times-circle" } me-2 
+                                                        text-${row.isActive ? "success" : "danger" }" style="font-size: 19px"></i>${row.isActive ? "Pasif yap" : "Aktif yap" }
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        </ul>`
+                            }
+                        },
+                        { 
+                            data: "isActive",
+                            title: "Durum",
+                            render: (data) => `<i style="font-size: 25px" class="${data ? "uil-check-circle text-success" : "uil-times-circle text-danger"}"></i>`
+                        },
+                    ],
+                    columnDefs:
+                    [
+                        {
+                            targets: [5, 6],
+                            visible: true,
+                            className: "text-center",
+                            width: "5px"
+                        },
+                    ],
+                    order: [[2, "desc"]],
+                    language: {
+                        url: "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Turkish.json"
+                    }
+                });
+        }
+
+        function add()
+        {
+          toggleModal();
+          fillDdlResume();
+          clearModal();
+
+          $("#btnSave").off().text("Kaydet").removeClass("btn-warning").addClass("btn-success").click(() => 
+            {
+              event.preventDefault();
+              if (!checkValidateForm())
+                return;
+
+              let data =
+                {
+                  name: $("#txtEducationName").val(),
+                  startDate: $("#txtStartDate").val(),
+                  role: $("#txtRole").val(),
+                  resumesEducations: [],
+                }
+              if ($("#txtEndDate").val() !== "")
+                data.endDate = $("#txtEndDate").val();
+
+              for (let resumeId of $("#ddlResume").val())
+                data.resumesEducations.push({ resumeId: resumeId });
+
+              $.ajax(
+                {
+                  url: "/Admin/Education/AddEducation",
+                  type: "POST",
+                  contentType: "application/json",
+                  data: JSON.stringify(data),
+                  success: (res) =>
+                  {
+                    datatable.row.add(res).draw();
+                    toggleModal();
+                    SwalToast.fire
+                    ({
+                      icon: "success",
+                      title: "Kaydedildi"
+                    });
+                  }
+                }
+              );
+            });
+        }
+
+        function toggleStatus(element)
+        {
+            let row = $(element).parents("tr");
+            let data = datatable.row(row).data();
+
+            $.ajax(
+                {
+                    url: "/Admin/Education/ToggleStatus",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(data.guid),
+                    success: () => 
+                    {
+                        SwalToast.fire(
+                            {
+                                icon: "success",
+                                title: !data.isActive ? "Aktif edildi." : "Pasif yapıldı"
+                            });
+                        
+                        data.isActive = !data.isActive;
+                        datatable.row(row).data(data).draw();
+                    },
+                    error: (err) =>
+                    {
+                        SwalToast.fire
+                            ({
+                                icon: "error",
+                                title: "Hata: " + err.responseText
+                            });
+                    }
+                }
+            )
+        }
+
+        function remove(guid, element)
+        {
+            SwalRemove
+                .fire()
+                .then(result => 
+                {
+                    if(result.isConfirmed)
+                    {
+                        $.ajax
+                        ({
+                            url: "/Admin/Education/RemoveEducation",
+                            type: "GET",
+                            contentType: "application/json",
+                            data: { guid: guid },
+                            success: res => 
+                            {
+                                datatable.row($(element).parents("tr")).remove().draw();
+
+                                SwalToast.fire
+                                ({
+                                    icon: "success",
+                                    title: "Silindi"
+                                });
+
+                            },
+                            error: (err) =>
+                            {
+                                SwalToast.fire
+                                ({
+                                    icon: "error",
+                                    title: "error: " + err.responseText
+                                });
+                            }
+                        })
+                    }
+                });
+        }
+
+        function update(guid, element)
+        {
+          toggleModal();
+          clearModal();
+
+          let row = $(element).parents("tr");
+          let oldData = datatable.row(row).data();
+          oldData.resumes = oldData.resumes;
+
+          $("#txtEducationName").val(oldData.name);
+          $("#txtStartDate").val(moment(oldData.startDate).format("MM/DD/YYYY"));
+          $("#txtRole").val(oldData.role);
+          
+          if (oldData.endDate.split("-")[0] !== "0001")
+            $("#txtEndDate").val(moment(oldData.endDate).format("MM/DD/YYYY"));
+
+
+          fillDdlResume(oldData.resumes);
+
+          $("#btnSave").off().text("Güncelle").removeClass("btn-success").addClass("btn-warning").click(() =>
+            {
+              event.preventDefault();
+              if (!checkValidateForm())
+                return;
+
+              let data =
+                {
+                  guid: oldData.guid,
+                  name: $("#txtEducationName").val(),
+                  startDate: moment($("#txtStartDate").val()).format("YYYY-MM-DD"),
+                  role: $("#txtRole").val(),
+                  isActive: oldData.isActive,
+                  resumesEducations: [],
+                }
+              if ($("#txtEndDate").val() !== "")
+                data.endDate = moment($("#txtEndDate").val()).format("YYYY-MM-DD");
+
+              for (let resumeId of $("#ddlResume").val())
+                data.resumesEducations.push({ resumeId: resumeId });
+
+              $.ajax(
+                {
+                  url: "/Admin/Education/UpdateEducation",
+                  type: "POST",
+                  contentType: "application/json",
+                  data: JSON.stringify(data),
+                  success: (res) =>
+                  {
+                    datatable.row(row).data(res).draw();
+                    toggleModal();
+                    SwalToast.fire
+                    ({
+                      icon: "success",
+                      title: "Güncellendi"
+                    });
+                  }
+                }
+              );
+
+            });
+        }
+
+        function checkValidateForm()
+        {
+          if ($("#frm").parsley().isValid() === false)
+          {
+            $("#frm").parsley().validate();
+            $("#frm").addClass("was-validated");
+            return false;
+          }
+          return true;
+        }
+
+        function fillDdlResume(resumes)
+        {
+            $.ajax(
+                {
+                    url: "/Admin/Resume/GetAll",
+                    type: "GET",
+                    success: (res) => 
+                    {
+                        for (let resume of res.data)
+                        {
+                            $("#ddlResume").append(
+                                new Option(resume.resumeName, resume.id, 
+                                    false, 
+                                    resumes === undefined ? false : resumes.find(r => r.id === resume.id) !== undefined)
+                                );
+                        }
+                    },
+                    error: (_, status) => console.error(status)
+                }
+            )
+        }
+
+        function clearModal()
+        {
+            $("#ddlResume").empty();
+            $("#mdlAddAndUpdate input").val("");
+
+            resetFormValidate();
+        }
+
+        function resetFormValidate()
+        {
+          $("#frm").parsley().reset();
+          $("#frm").removeClass("was-validated");
+        }
+
+        function toggleModal()
+        {
+            const mdlAddAndUpdate = $("#mdlAddAndUpdate");
+            if (mdlAddAndUpdate.hasClass("show"))
+                mdlAddAndUpdate.modal("hide");
+            else
+                mdlAddAndUpdate.modal("show");
+        }
+    </script>
+}
