@@ -19,7 +19,7 @@ namespace KaganKuscu.Model.Models
         public string AppUserId { get; set; } = string.Empty;
 
         public AppUser? AppUser { get; set; }
-        public virtual ICollection<SocialMedia> SocialMedias { get; set; } = new List<SocialMedia>();
+        public virtual ICollection<ResumesSocialMedias> ResumesSocialMedias { get; set; } = [];
         public virtual ICollection<ResumesWorkExperiences> ResumesWorkExperiences { get; set; } = new List<ResumesWorkExperiences>();
         public virtual ICollection<ResumesEducations> ResumesEducations { get; set; } = new List<ResumesEducations>();
         public virtual ICollection<ResumesReferences> ResumesReferences { get; set; } = new List<ResumesReferences>();

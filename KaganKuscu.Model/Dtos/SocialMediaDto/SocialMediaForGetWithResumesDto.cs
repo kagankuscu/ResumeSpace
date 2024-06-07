@@ -9,5 +9,5 @@ public record SocialMediaForGetWithResumesDto
     public string Url { get; init; } = string.Empty;
     public string IconCssClass { get; init; } = string.Empty;
     public bool IsActive { get; init; }
-    public List<ResumeForGetDto> ResumesSocialMedias { get; set; } = [];
+    public List<ResumeForGetDto> Resumes { get; set; } = [];
 }
