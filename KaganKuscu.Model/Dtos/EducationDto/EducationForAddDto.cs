@@ -4,7 +4,7 @@ namespace KaganKuscu.Model.Dtos.EducationDto
 {
     public record EducationForAddDto 
     {
-        public Guid AppUserId { get; set; }
+        public Guid Guid { get; set; }
         public string Name { get; init; } = string.Empty;
         public string StartDate { get; init; } = string.Empty;
         public string? EndDate { get; init; } = "01/01/0001";
