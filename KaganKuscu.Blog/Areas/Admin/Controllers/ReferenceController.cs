@@ -27,17 +27,17 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
     }
 
     [HttpPost]
-    public IActionResult AddReference([FromBody] ReferenceForAddDto workExperienceDto)
+    public IActionResult AddReference([FromBody] ReferenceForAddDto referenceDto)
     {
       string? appUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
       if (appUserId is null)
         return BadRequest("User not found.");
 
-      workExperienceDto.AppUserId = Guid.Parse(appUserId);
-      if (workExperienceDto is null)
+      referenceDto.AppUserId = Guid.Parse(appUserId);
+      if (referenceDto is null)
         return BadRequest("Given is null");
 
-      return Json(_referenceService.AddReference(workExperienceDto));
+      return Json(_referenceService.AddReference(referenceDto));
     }
 
     public IActionResult RemoveReference([FromQuery] Guid guid)
@@ -48,12 +48,12 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
     }
 
     [HttpPost]
-    public IActionResult UpdateReference([FromBody] ReferenceForUpdateDto workExperienceDto)
+    public IActionResult UpdateReference([FromBody] ReferenceForUpdateDto referenceDto)
     {
-      if (workExperienceDto is null)
+      if (referenceDto is null)
         return BadRequest("Given is null");
 
-      return Json(_referenceService.UpdateReference(workExperienceDto));
+      return Json(_referenceService.UpdateReference(referenceDto));
     }
 
     [HttpPost]
