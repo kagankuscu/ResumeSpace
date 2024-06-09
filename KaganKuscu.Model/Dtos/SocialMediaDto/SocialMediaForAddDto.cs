@@ -5,9 +5,8 @@ namespace KaganKuscu.Model.SocialMediaDto;
 public record SocialMediaForAddDto
 {
     public Guid AppUserId { get; set; }
-    public string? Name { get; init; }
     public string Url { get; init; } = string.Empty;
-    public string IconCssClass { get; init; } = string.Empty;
-    public bool IsActive { get; init; }
+    public int SocialMediaIconId { get; init; }
+    public bool IsActive { get; init; } = true;
     public List<ResumesSocialMedias> ResumesSocialMedias { get; set; } = [];
 }
