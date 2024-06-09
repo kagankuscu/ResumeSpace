@@ -12,10 +12,12 @@ namespace KaganKuscu.Business.Concrete
     public class ResumeService : IResumeService
     {
         private readonly IRepository<Resume> _repository;
+        private readonly ISocialMediaIconService _socialMediaIconService;
 
-        public ResumeService(IRepository<Resume> repository)
+        public ResumeService(IRepository<Resume> repository, ISocialMediaIconService socialMediaIconService)
         {
             _repository = repository;
+            _socialMediaIconService = socialMediaIconService;
         }
 
         public void Add(Resume entity)
@@ -143,7 +145,17 @@ namespace KaganKuscu.Business.Concrete
                     Description = p.About ?? string.Empty,
                     References = p.ResumesReferences.Select(rr => rr.Reference!).Where(r => r.IsActive).ToList(),
                     Skills = p.ResumesSkills!.Select(s => s.Skill!).Where(s => s.IsActive).ToList(),
-                    SocialMedias = p.ResumesSocialMedias.Select(rsm => rsm.SocialMedia!).Where(rsm => rsm.IsActive).ToList(),
+                    SocialMedias = p.ResumesSocialMedias
+                        .Select(rsm => rsm.SocialMedia!)
+                        .Where(rsm => rsm.IsActive)
+                        .Join(_socialMediaIconService.GetAll(), sm => sm.SocialMediaIconId, smi => smi.Id, (sm, smi) =>
+                            new SocialMedia 
+                            {
+                                Url = sm.Url,
+                                SocialMediaIcon = smi,
+                            }
+                        )
+                        .ToList(),
                     Educations = p.ResumesEducations!.Select(rs => rs.Education!).Where(e => e.IsActive).OrderByDescending(e => e.StartDate).ToList(),
                     WorkExperiences = p.ResumesWorkExperiences.Select(rwe => rwe.WorkExperience!).Where(rwe => rwe.IsActive).OrderByDescending(e => e.StartDate).ToList()
                 });
