@@ -6,6 +6,7 @@ using KaganKuscu.Model.Dtos.SkillsDto;
 using KaganKuscu.Model.Dtos.WorkExperienceDto;
 using KaganKuscu.Model.Models;
 using KaganKuscu.Model.Rel;
+using KaganKuscu.Model.SocialMediaDto;
 
 namespace KaganKuscu.Business.Configurations
 {
@@ -39,6 +40,14 @@ namespace KaganKuscu.Business.Configurations
       CreateMap<Reference, ReferenceForGetWithResumesDto>().ReverseMap();
       CreateMap<Reference, ReferenceForAddDto>().ReverseMap();
       CreateMap<Reference, ReferenceForUpdateDto>().ReverseMap();
+
+      CreateMap<SocialMediaIcon, SocialMediaIconForGetDto>().ReverseMap();
+
+      CreateMap<SocialMedia, SocialMediaForGetDto>().ReverseMap();
+      CreateMap<SocialMedia, SocialMediaForGetWithResumesDto>().ReverseMap();
+      CreateMap<SocialMedia, SocialMediaForAddDto>().ReverseMap();
+      CreateMap<SocialMedia, SocialMediaForUpdateDto>().ReverseMap();
+      CreateMap<SocialMediaForUpdateDto, SocialMediaForGetWithResumesDto>().ReverseMap();
     }
   }
 }
