@@ -4,29 +4,21 @@
         <div class="modal-content">
             <form id="frm" class="needs-validation">
                 <div class="modal-header">
-                    <h5 id="mdlTitle" class="modal-title">Eğitim Bilgileri</h5>
+                    <h5 id="mdlTitle" class="modal-title">Sosyal Medya Bilgileri</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     </button>
                 </div>
                 <div class="modal-body">
                         <div class="row mb-2">
-                            <label for="txtEducationName">Eğieitimin Adı :</label>
-                            <input class="form-control" type="text" id="txtEducationName" placeholder="Lütfen eğitimin adını giriniz." required/>
+                            <label for="ddlSocialMediaIcon">Sosyal Medya :</label>
+                            <select id="ddlSocialMediaIcon" class="form-select">
+                              <option selected>Lütfen seçim yapınız.</option>
+                            </select>
                         </div>
 
                         <div class="row mb-2">
-                            <label for="txtStartDate">Başlama Tarihi :</label>
-                            <input class="form-control input-mask" id="txtStartDate" placeholder="Lütfen başlama tarihini giriniz." data-inputmask="'alias': 'datetime'" data-inputmask-inputformat="mm/dd/yyyy" im-insert="false" required/>
-                        </div>
-
-                        <div class="row mb-2">
-                            <label for="txtEndDate">Bitiş Tarihi :</label>
-                            <input class="form-control input-mask" id="txtEndDate" placeholder="Lütfen bitiş tarihini giriniz." data-inputmask="'alias': 'datetime'" data-inputmask-inputformat="mm/dd/yyyy" im-insert="false" />
-                        </div>
-
-                        <div class="row mb-2">
-                            <label for="txtRole">Kazanılan Ünvan :</label>
-                            <input class="form-control" type="text" id="txtRole" placeholder="Lütfen kazanılan ünvanı giriniz." required/>
+                            <label for="txtUrl">Url :</label>
+                            <input class="form-control" type="text" id="txtUrl" placeholder="Lütfen linki giriniz." />
                         </div>
 
                         <div class="row mb-2">
@@ -91,21 +83,11 @@
                 ({
                     paging: false,
                     pageLenght: 100,
-                    ajax: "/Admin/Education/GetAllEducation",
+                    ajax: "/Admin/SocialMedia/GetAllSocialMedia",
                     columns: 
                     [
-                        { data: "name", title: "Eğitim Adı" },
-                        { 
-                          data: "startDate", 
-                          title: "Başlangıç Tarihi",
-                          render: (data) => moment(data).format("DD/MM/YYYY")
-                        },
-                        { 
-                          data: "endDate", 
-                          title: "Bitiş Tarihi", 
-                          render: (data) => data.split("-")[0] === "0001" ? "Devam Ediyor" : moment(data).format("DD/MM/YYYY")
-                        },
-                        { data: "role", title: "Kazanılan Ünvan" },
+                        { data: "socialMediaIcon.name", title: "Ad" },
+                        { data: "url", title: "Url" },
                         { 
                           data: "resumes", 
                           title: "Ekli olan Özgeçmişler", 
@@ -153,13 +135,12 @@
                     columnDefs:
                     [
                         {
-                            targets: [5, 6],
+                            targets: [3, 4],
                             visible: true,
                             className: "text-center",
                             width: "5px"
                         },
                     ],
-                    order: [[2, "desc"]],
                     language: {
                         url: "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Turkish.json"
                     }
@@ -170,6 +151,7 @@
         {
           toggleModal();
           fillDdlResume();
+          fillDdlSocialMediaIcon();
           clearModal();
 
           $("#btnSave").off().text("Kaydet").removeClass("btn-warning").addClass("btn-success").click(() => 
@@ -180,20 +162,17 @@
 
               let data =
                 {
-                  name: $("#txtEducationName").val(),
-                  startDate: $("#txtStartDate").val(),
-                  role: $("#txtRole").val(),
-                  resumesEducations: [],
+                  socialMediaIconId: $("#ddlSocialMediaIcon").val(),
+                  url: $("#txtUrl").val(),
+                  resumesSocialMedias: [],
                 }
-              if ($("#txtEndDate").val() !== "")
-                data.endDate = $("#txtEndDate").val();
 
               for (let resumeId of $("#ddlResume").val())
-                data.resumesEducations.push({ resumeId: resumeId });
+                data.resumesSocialMedias.push({ resumeId: resumeId });
 
               $.ajax(
                 {
-                  url: "/Admin/Education/AddEducation",
+                  url: "/Admin/SocialMedia/AddSocialMedia",
                   type: "POST",
                   contentType: "application/json",
                   data: JSON.stringify(data),
@@ -219,7 +198,7 @@
 
             $.ajax(
                 {
-                    url: "/Admin/Education/ToggleStatus",
+                    url: "/Admin/SocialMedia/ToggleStatus",
                     type: "POST",
                     contentType: "application/json",
                     data: JSON.stringify(data.guid),
@@ -256,7 +235,7 @@
                     {
                         $.ajax
                         ({
-                            url: "/Admin/Education/RemoveEducation",
+                            url: "/Admin/SocialMedia/RemoveSocialMedia",
                             type: "GET",
                             contentType: "application/json",
                             data: { guid: guid },
@@ -293,14 +272,9 @@
           let oldData = datatable.row(row).data();
           oldData.resumes = oldData.resumes;
 
-          $("#txtEducationName").val(oldData.name);
-          $("#txtStartDate").val(moment(oldData.startDate).format("MM/DD/YYYY"));
-          $("#txtRole").val(oldData.role);
-          
-          if (oldData.endDate.split("-")[0] !== "0001")
-            $("#txtEndDate").val(moment(oldData.endDate).format("MM/DD/YYYY"));
+          $("#txtUrl").val(oldData.url);
 
-
+          fillDdlSocialMediaIcon(oldData.socialMediaIcon);
           fillDdlResume(oldData.resumes);
 
           $("#btnSave").off().text("Güncelle").removeClass("btn-success").addClass("btn-warning").click(() =>
@@ -312,21 +286,18 @@
               let data =
                 {
                   guid: oldData.guid,
-                  name: $("#txtEducationName").val(),
-                  startDate: moment($("#txtStartDate").val()).format("YYYY-MM-DD"),
-                  role: $("#txtRole").val(),
+                  socialMediaIconId: $("#ddlSocialMediaIcon").val(),
+                  url: $("#txtUrl").val(),
                   isActive: oldData.isActive,
-                  resumesEducations: [],
+                  resumesSocialMedias: [],
                 }
-              if ($("#txtEndDate").val() !== "")
-                data.endDate = moment($("#txtEndDate").val()).format("YYYY-MM-DD");
 
               for (let resumeId of $("#ddlResume").val())
-                data.resumesEducations.push({ resumeId: resumeId });
+                data.resumesSocialMedias.push({ resumeId: resumeId });
 
               $.ajax(
                 {
-                  url: "/Admin/Education/UpdateEducation",
+                  url: "/Admin/SocialMedia/UpdateSocialMedia",
                   type: "POST",
                   contentType: "application/json",
                   data: JSON.stringify(data),
@@ -357,6 +328,22 @@
           return true;
         }
 
+        function fillDdlSocialMediaIcon(selectedIcon)
+        {
+          $.ajax({
+            url: "/Admin/SocialMediaIcon/GetAllSocialMediaIcon",
+            type: "GET",
+            success: (res) => {
+              for (let icon of res.data)
+              {
+                $("#ddlSocialMediaIcon").append(
+                  new Option(icon.name, icon.id, false, selectedIcon === undefined ? false : icon.id === selectedIcon.id)
+                )
+              }
+            }
+          });
+        }
+
         function fillDdlResume(resumes)
         {
             $.ajax(
@@ -382,6 +369,7 @@
         function clearModal()
         {
             $("#ddlResume").empty();
+            $("#ddlSocialMediaIcon").empty();
             $("#mdlAddAndUpdate input").val("");
 
             resetFormValidate();

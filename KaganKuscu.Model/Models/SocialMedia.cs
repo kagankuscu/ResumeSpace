@@ -4,7 +4,6 @@ namespace KaganKuscu.Model.Models
 {
     public class SocialMedia : BaseModel
     {
-        public string Name { get; set; } = string.Empty;
         public string Url { get; set; } = string.Empty;
         public int SocialMediaIconId { get; set; }
 
