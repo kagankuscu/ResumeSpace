@@ -12,13 +12,15 @@ namespace KaganKuscu.Business.Concrete
     {
         public readonly IRepository<SocialMedia> _repository;
         private readonly IResumeService _resumeService;
+        private readonly ISocialMediaIconService _socialMediaIconService;
         public readonly IMapper _mapper;
 
-        public SocialMediaService(IRepository<SocialMedia> repository, IMapper mapper, IResumeService resumeService)
+        public SocialMediaService(IRepository<SocialMedia> repository, IMapper mapper, IResumeService resumeService, ISocialMediaIconService socialMediaIconService)
         {
             _repository = repository;
             _mapper = mapper;
             _resumeService = resumeService;
+            _socialMediaIconService = socialMediaIconService;
         }
 
         public void Add(SocialMedia entity)
@@ -35,6 +37,7 @@ namespace KaganKuscu.Business.Concrete
             SocialMedia reference = _mapper.Map<SocialMedia>(socialMediaDto);
             _repository.Add(reference);
             SocialMediaForGetWithResumesDto returnData = _mapper.Map<SocialMediaForGetWithResumesDto>(reference);
+            returnData.SocialMediaIcon = _mapper.Map<SocialMediaIconForGetDto>(_socialMediaIconService.GetById(reference.SocialMediaIconId));
             returnData.Resumes = _mapper.Map<List<ResumeForGetDto>>(_resumeService.GetAll().Where(r => r.ResumesSocialMedias.Any(re => re.SocialMediaId == reference.Id)).ToList());
             return returnData;
         }
@@ -57,9 +60,8 @@ namespace KaganKuscu.Business.Concrete
               .Select(e => new SocialMediaForGetWithResumesDto
               {
                   Guid = e.Guid,
-                  Name = e.Name,
                   Url = e.Url,
-                  SocialMediaIcon = e.SocialMediaIcon,
+                  SocialMediaIcon = _mapper.Map<SocialMediaIconForGetDto>(e.SocialMediaIcon),
                   IsActive = e.IsActive,
                   Resumes = _mapper.Map<List<ResumeForGetDto>>(e.ResumesSocialMedias.Select(re => re.Resume).ToList())
               }).ToList();
@@ -74,9 +76,8 @@ namespace KaganKuscu.Business.Concrete
               .Select(e => new SocialMediaForGetWithResumesDto
               {
                   Guid = e.Guid,
-                  Name = e.Name,
                   Url = e.Url,
-                  SocialMediaIcon = e.SocialMediaIcon,
+                  SocialMediaIcon = _mapper.Map<SocialMediaIconForGetDto>(e.SocialMediaIcon),
                   IsActive = e.IsActive,
                   Resumes = _mapper.Map<List<ResumeForGetDto>>(e.ResumesSocialMedias.Select(re => re.Resume).ToList())
               }).ToList();
@@ -158,14 +159,14 @@ namespace KaganKuscu.Business.Concrete
                     socialMedia.ResumesSocialMedias.Add(item);
             }
 
-            socialMedia.Name = socialMediaDto.Name;
             socialMedia.Url = socialMediaDto.Url;
-            socialMedia.SocialMediaIcon = socialMediaDto.SocialMediaIcon;
+            socialMedia.SocialMediaIconId = socialMediaDto.SocialMediaIconId;
             socialMedia.IsActive = socialMediaDto.IsActive;
             Update(socialMedia);
 
             var returnDto = _mapper.Map<SocialMediaForGetWithResumesDto>(socialMediaDto);
             returnDto.Resumes = _mapper.Map<List<ResumeForGetDto>>(_resumeService.GetAll().Where(r => r.ResumesSocialMedias.Any(re => re.SocialMediaId == socialMedia.Id)).ToList());
+            returnDto.SocialMediaIcon = _mapper.Map<SocialMediaIconForGetDto>(_socialMediaIconService.GetById(socialMedia.SocialMediaIconId));
             return returnDto;
         }
     }

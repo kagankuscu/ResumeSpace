@@ -22,20 +22,11 @@ public class SocialMediaIconService : ISocialMediaIconService
         throw new NotImplementedException();
     }
 
-    public IQueryable<SocialMediaIcon> GetAll()
-    {
-        return _repository.GetAll();        
-    }
+    public IQueryable<SocialMediaIcon> GetAll() => _repository.GetAll();        
 
-    public SocialMediaIcon? GetById(int id)
-    {
-        throw new NotImplementedException();
-    }
+    public SocialMediaIcon? GetById(int id) => _repository.GetById(id);
 
-    public SocialMediaIcon? GetById(Guid guid)
-    {
-        throw new NotImplementedException();
-    }
+    public SocialMediaIcon? GetById(Guid guid) => _repository.GetById(guid);
 
     public void Remove(SocialMediaIcon entity)
     {
