@@ -138,13 +138,15 @@
                                 </a>
                             </li>
 
-                            <li>
-                                <a href="/Admin/Utility/Upcoming" class=" waves-effect">
-                                    <i class="uil-folder"></i>
-                                    <span>Dosyalar</span>
-                                </a>
-                            </li>
-
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li>
+                                    <a href="/Admin/Utility/Upcoming" class=" waves-effect">
+                                        <i class="uil-folder"></i>
+                                        <span>Dosyalar</span>
+                                    </a>
+                                </li>
+                                }
                             <li>
                                 <a href="/Admin/Dashboard/Educations" class="waves-effect">
                                     <i class="uil-book-alt"></i>
