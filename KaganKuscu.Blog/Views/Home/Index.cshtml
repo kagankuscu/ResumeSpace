@@ -1,9 +1,10 @@
 ﻿@using KaganKuscu.Model.ViewModels
 @using KaganKuscu.Model.Dtos.ResumesDto
+@using KaganKuscu.Model.Dtos.QuoteDto
 @model HomePageVm
 @{
     ResumeForGetWithDetailsDto? resume = Model.Resume;
-    Quote? quote = Model.Quote;
+    QuoteForGetDto? quote = Model.Quote;
     List<Blog> blogs = Model.Blogs;
 }
 <!-- START: PAGE CONTENT -->

@@ -1,0 +1,278 @@
+<!-- Center Modal example -->
+<div id="mdlAddAndUpdate" class="modal fade bs-example-modal-center modal-lg" tabindex="-1" role="dialog"
+    aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="frm" class="needs-validation">
+                <div class="modal-header">
+                    <h5 id="mdlTitle" class="modal-title">Özlü Sözler</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-2">
+                        <label for="txtOwner">Sözün Sahibi :</label>
+                        <input class="form-control" type="text" id="txtOwner"
+                            placeholder="Lütfen sözün sahibini adını giriniz." required />
+                    </div>
+
+                    <div class="row mb-2">
+                        <label for="txtQuote">Söz :</label>
+                        <input class="form-control" type="text" id="txtQuote"
+                            placeholder="Lütfen sözü giriniz." required />
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
+                    <button id="btnSave" type="submit" class="btn btn-success">Kaydet</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <a onclick="add()" class="btn btn-success waves-effect waves-light"><i
+                                    class="mdi mdi-plus me-2"></i> Yeni Ekle</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+
+                <div class="row">
+                    <table id="datatable" class="table table-centered table-nowrap table-hover mb-0">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/customSwalButton.js"></script>
+    <script src="~/admin/libs/select2/js/select2.min.js"></script>
+    <script>
+        let datatable;
+
+        $(document).ready(() => {
+            $("#ddlResume").select2(
+                {
+                    dropdownParent: $('#mdlSkill'),
+                    width: "resolve",
+                    theme: "kagan"
+                }
+            )
+            fillDatatable();
+        });
+
+        async function fillDatatable() {
+            datatable = $("#datatable").DataTable
+                ({
+                    paging: false,
+                    pageLenght: 100,
+                    ajax: "/Admin/Quote/GetAllQuote",
+                    columns:
+                        [
+                            { data: "owner", title: "Sözün Sahibi" },
+                            { data: "content", title: "Söz" },
+                            {
+                                data: "guid",
+                                title: "İşlemler",
+                                render: (guid, type, row) => {
+                                    return `<ul class="list-inline mb-0">
+                                            <li class="list-inline-item">
+                                                <a onclick="update('${guid}', this)" class="px-2 text-primary"><i class="uil uil-pen font-size-18"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a onclick="remove('${guid}', this)" class="px-2 text-danger"><i class="uil uil-trash-alt font-size-18"></i></a>
+                                            </li>
+                                            <li class="list-inline-item dropdown">
+                                                <a class="text-muted dropdown-toggle font-size-18 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
+                                                    <i class="uil uil-ellipsis-v"></i>
+                                                </a>
+
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a class="dropdown-item" onclick="toggleStatus(this)">
+                                                        <i class="${row.isActive ? "uil-check-circle" : "uil-times-circle"} me-2 
+                                                        text-${row.isActive ? "success" : "danger"}" style="font-size: 19px"></i>${row.isActive ? "Pasif yap" : "Aktif yap"}
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        </ul>`
+                                }
+                            },
+                        ],
+                    columnDefs:
+                        [
+                            {
+                                targets: [0],
+                                width: "5px",
+                            },
+                            {
+                                targets: [2],
+                                visible: true,
+                                className: "text-center",
+                                width: "5px"
+                            },
+                            {
+                                targets: 1,
+                                className: "text-center",
+                            },
+                        ],
+                    language: {
+                        url: "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Turkish.json"
+                    },
+                    order: [0, "asc"]
+
+                });
+        }
+
+        function add() {
+            modalToggle();
+            clearModal();
+
+            $("#btnSave").off().text("Kaydet").removeClass("btn-warning").addClass("btn-success").click(() => {
+                event.preventDefault();
+                checkValidateForm();
+                SwalToast.fire
+                    ({
+                        icon: "success",
+                        title: "Kaydedildi"
+                    });
+
+                let data =
+                {
+                    owner: $("#txtOwner").val(),
+                    content: $("#txtQuote").val(),
+                }
+
+                $.ajax
+                    ({
+                        url: "/Admin/Quote/AddQuote",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(data),
+                        success: (res) => {
+                            datatable.row.add(res).draw();
+                            modalToggle();
+                        }
+                    });
+            });
+        }
+
+        function remove(guid, element) {
+            SwalRemove
+                .fire()
+                .then(result => {
+                    if (result.isConfirmed) {
+                        $.ajax
+                            ({
+                                url: "/Admin/Quote/RemoveQuote",
+                                contentType: "application/json",
+                                type: "POST",
+                                data: JSON.stringify(guid),
+                                success: res => {
+                                    datatable.row($(element).parents("tr")).remove().draw();
+
+                                    SwalToast.fire
+                                        ({
+                                            icon: "success",
+                                            title: "Silindi"
+                                        });
+
+                                },
+                                error: (err) => {
+                                    SwalToast.fire
+                                        ({
+                                            icon: "error",
+                                            title: "error: " + err.responseText
+                                        });
+                                }
+                            })
+                    }
+                });
+        }
+
+        async function update(guid, element) {
+            modalToggle();
+            clearModal();
+
+            let row = $(element).parents("tr");
+            let oldData = datatable.row(row).data();
+
+            $("#txtOwner").val(oldData.owner);
+            $("#txtQuote").val(oldData.content);
+
+            $("#btnSave").off().text("Güncelle").removeClass("btn-success").addClass("btn-warning").click(() => {
+                event.preventDefault();
+                checkValidateForm();
+                SwalSave
+                    .fire()
+                    .then(result => {
+                        if (result.isConfirmed) {
+                            let data =
+                            {
+                                guid: guid,
+                                owner: $("#txtOwner").val(),
+                                content: $("#txtQuote").val(),
+                            }
+                            $.ajax({
+                                type: "POST",
+                                url: "/Admin/Quote/UpdateQuote",
+                                contentType: "application/json",
+                                data: JSON.stringify(data),
+                                success: (res) => {
+                                    datatable.row(row).data(res).draw();
+                                    modalToggle();
+                                    SwalToast.fire(
+                                        {
+                                            icon: "success",
+                                            title: "Güncellendi"
+                                        }
+                                    );
+                                }
+                            });
+                        }
+                    });
+            });
+        }
+
+        function checkValidateForm() {
+            if ($("#frm").parsley().isValid() === false) {
+                $("#frm").parsley().validate();
+                $("#frm").addClass("was-validated");
+                return false;
+            }
+            return true;
+        }
+
+        function modalToggle() {
+            const mdlAddAndUpdate = $("#mdlAddAndUpdate");
+            if (mdlAddAndUpdate.hasClass("show"))
+                mdlAddAndUpdate.modal("hide");
+            else
+                mdlAddAndUpdate.modal("show");
+        }
+
+        function clearModal() {
+            $("#ddlResume").empty();
+            $("#mdlAddAndUpdate input").val("");
+
+            resetFormValidate();
+        }
+
+        function resetFormValidate() {
+            $("#frm").parsley().reset();
+            $("#frm").removeClass("was-validated");
+        }
+
+    </script>
+}

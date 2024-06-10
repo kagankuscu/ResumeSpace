@@ -1,5 +1,6 @@
 using AutoMapper;
 using KaganKuscu.Model.Dtos.EducationDto;
+using KaganKuscu.Model.Dtos.QuoteDto;
 using KaganKuscu.Model.Dtos.ReferenceDto;
 using KaganKuscu.Model.Dtos.ResumesDto;
 using KaganKuscu.Model.Dtos.SkillsDto;
@@ -48,6 +49,10 @@ namespace KaganKuscu.Business.Configurations
       CreateMap<SocialMedia, SocialMediaForAddDto>().ReverseMap();
       CreateMap<SocialMedia, SocialMediaForUpdateDto>().ReverseMap();
       CreateMap<SocialMediaForUpdateDto, SocialMediaForGetWithResumesDto>().ReverseMap();
+
+      CreateMap<Quote, QuoteForAddDto>().ReverseMap();
+      CreateMap<Quote, QuoteForGetDto>().ReverseMap();
+      CreateMap<Quote, QuoteForUpdateDto>().ReverseMap();
     }
   }
 }
