@@ -2,12 +2,7 @@
 using KaganKuscu.Model.Models;
 using KaganKuscu.Repository.Abstract;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KaganKuscu.Repository.Concrete
 {
@@ -80,13 +75,17 @@ namespace KaganKuscu.Repository.Concrete
 
         public void Remove(Guid guid)
         {
-            T entity = GetById(guid);
+            T? entity = GetById(guid);
+            if (entity is null) 
+                return;
             Remove(entity);
         }
 
         public void Remove(int id)
         {
-            T entity = GetById(id);
+            T? entity = GetById(id);
+            if (entity is null) 
+                return;
             Remove(entity);
         }
 
