@@ -1,15 +1,13 @@
-﻿using KaganKuscu.Model;
-using KaganKuscu.Model.Dtos.QuoteDto;
-using KaganKuscu.Model.Models;
+﻿using KaganKuscu.Model.Dtos.QuoteDto;
 
 namespace KaganKuscu.Business.Abstract
 {
-    public interface IQuoteService : IBaseService<Quote>
+    public interface IQuoteService
     {
-        QuoteForGetDto GetRandomQuote();
-        ICollection<QuoteForGetDto> GetAllQuote();
-        ICollection<QuoteForGetDto> GetRandomQuotes(int limit);
         QuoteForGetDto AddQuote(QuoteForAddDto quoteDto);
+        ICollection<QuoteForGetDto> GetAllQuote();
+        QuoteForGetDto GetRandomQuote();
         QuoteForGetDto UpdateQuote(QuoteForUpdateDto quoteDto);
+        void RemoveQuote(Guid guid);
     }
 }
