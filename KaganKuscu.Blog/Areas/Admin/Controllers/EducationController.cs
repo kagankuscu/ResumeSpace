@@ -42,7 +42,7 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
 
         public IActionResult RemoveEducation([FromQuery] Guid guid)
         {
-          _educationService.Remove(guid);
+          _educationService.RemoveEducation(guid);
 
           return Ok();
         }

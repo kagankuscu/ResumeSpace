@@ -1,15 +1,15 @@
 using KaganKuscu.Model.Dtos.EducationDto;
-using KaganKuscu.Model.Models;
 
 namespace KaganKuscu.Business.Abstract
 {
-  public interface IEducationService : IBaseService<Education>
+  public interface IEducationService
   {
+    EducationForGetWithResumesDto AddEducation(EducationForAddDto educationDto);
     List<EducationForGetDto> GetAllEducation();
     List<EducationForGetWithResumesDto> GetAllEducationWithResumes();
     List<EducationForGetWithResumesDto> GetAllEducationWithResumes(Guid userId);
-    EducationForGetWithResumesDto AddEducation(EducationForAddDto educationDto);
-    EducationForGetWithResumesDto UpdateEducation(EducationForUpdateDto educationDto);
     bool ToggleStatus(Guid guid); 
+    EducationForGetWithResumesDto UpdateEducation(EducationForUpdateDto educationDto);
+    void RemoveEducation(Guid guid);
   }
 }
