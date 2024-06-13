@@ -19,7 +19,7 @@ namespace KaganKuscu.Business.Concrete
 
     public EducationForGetWithResumesDto AddEducation(EducationForAddDto educationDto)
     {
-        Education education = _mapper.Map<Education>(educationDto);
+        Education? education = _mapper.Map<Education>(educationDto);
         education = _repository.AddEducation(education);
         return _mapper.Map<EducationForGetWithResumesDto>(education);
     }

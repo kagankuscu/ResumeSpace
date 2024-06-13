@@ -11,19 +11,16 @@ public class EducationRepository : Repository<Education>, IEducationRepository
     {
     }
 
-    public Education AddEducation(Education education)
+    public Education? AddEducation(Education education)
     {
         Add(education);
-        Education? edu = GetAll().Where(x => x.Id == education.Id).Include(x => x.ResumesEducations).ThenInclude(x => x.Resume).FirstOrDefault();
+        Education? edu = GetAllEducationWithResumes().Where(x => x.Id == education.Id).FirstOrDefault();
 
         if (edu is null)
-            return new Education();
+            return null; 
 
-        education = edu;
-        return education;
+        return edu;
     }
-
-    public IQueryable<Education> GetAllEducation() => GetAll();
 
     public IQueryable<Education> GetAllEducationWithResumes()
     {
@@ -69,6 +66,6 @@ public class EducationRepository : Repository<Education>, IEducationRepository
       real.IsActive = education.IsActive;
       Update(education);
 
-      return GetAll().Where(x => x.Id == education.Id).Include(x => x.ResumesEducations).ThenInclude(x => x.Resume).FirstOrDefault();
+      return GetAllEducationWithResumes().Where(x => x.Id == education.Id).FirstOrDefault();
     }
 }
