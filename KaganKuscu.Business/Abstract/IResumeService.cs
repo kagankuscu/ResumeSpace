@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace KaganKuscu.Business.Abstract
 {
-    public interface IResumeService : IBaseService<Resume>
+    public interface IResumeService
     {
         IQueryable<ResumeForGetWithDetailsDto> GetAllResumeDto();
         IQueryable<ResumeForAppUserDto> GetAllByAppUserGuid(Guid guid);
