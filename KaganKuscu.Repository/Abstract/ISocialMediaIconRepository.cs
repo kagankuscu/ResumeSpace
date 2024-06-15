@@ -2,7 +2,7 @@
 
 namespace KaganKuscu.Repository.Abstract;
 
-public interface ISocialMediaIconRepository
+public interface ISocialMediaIconRepository : IRepository<SocialMediaIcon>
 {
     IQueryable<SocialMediaIcon> GetAllSocialMediaIcon();
 }
