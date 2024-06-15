@@ -10,8 +10,5 @@ public class SocialMediaIconRepository : Repository<SocialMediaIcon>, ISocialMed
     {
     }
 
-    public IQueryable<SocialMediaIcon> GetAllSocialMediaIcon()
-    {
-        throw new NotImplementedException();
-    }
+    public IQueryable<SocialMediaIcon> GetAllSocialMediaIcon() => GetAll();
 }
