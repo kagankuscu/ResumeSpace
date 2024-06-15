@@ -1,13 +1,14 @@
 using KaganKuscu.Model.Dtos.SkillsDto;
-using KaganKuscu.Model.Models;
 
 namespace KaganKuscu.Business.Abstract
 {
-    public interface ISkillService : IBaseService<Skill>
+    public interface ISkillService
     {
-        IQueryable<SkillForGetDto> GetAllByUserId(Guid userId);
-        SkillForAddDto Add(SkillForAddDto skillDto);
-        SkillForGetDto Update(SkillForUpdateDto skillDto);
+        SkillForGetWithResumesDto AddSkill(SkillForAddDto skillDto);
+        List<SkillForGetWithResumesDto> GetAllSkillWithResumes();
+        List<SkillForGetWithResumesDto> GetAllSkillWithResumes(Guid userId);
         bool ToggleStatus(Guid guid);
+        void RemoveSkill(Guid guid);
+        SkillForGetWithResumesDto UpdateSkill(SkillForUpdateDto skillDto);
     }
 }
