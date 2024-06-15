@@ -184,11 +184,11 @@
                         "name": $("#txtSkill").val(),
                         "percent": $("#txtPercent").val(),
                         "isActive": true,
-                        "resumes": [] 
+                        "resumesSkills": [] 
                     }
                   
                     for (let resumeId of $("#ddlResume").val())
-                      data.resumes.push({ id: resumeId });
+                      data.resumesSkills.push({ id: resumeId });
 
                     $.ajax
                     ({
@@ -301,12 +301,12 @@
 
             let row = $(element).parents("tr");
             let oldData = datatable.row(row).data();
-            oldData.resumes = oldData.resumes;
+            oldData.resumesSkills = oldData.resumesSkills;
 
             $("#txtSkill").val(oldData.name);
             $("#txtPercent").val(oldData.percent);
 
-            fillDdlResume(oldData.resumes);
+            fillDdlResume(oldData.resumesSkills);
 
             $("#btnSave").off().text("Güncelle").removeClass("btn-success").addClass("btn-warning").click(() => {
                 event.preventDefault();
