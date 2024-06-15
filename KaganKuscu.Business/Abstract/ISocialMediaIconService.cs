@@ -1,9 +1,8 @@
-﻿using KaganKuscu.Business.Abstract;
-using KaganKuscu.Model.Models;
+﻿using KaganKuscu.Model.SocialMediaDto;
 
-namespace KaganKuscu.Business;
+namespace KaganKuscu.Business.Abstract;
 
-public interface ISocialMediaIconService : IBaseService<SocialMediaIcon>
+public interface ISocialMediaIconService
 {
-
+    List<SocialMediaIconForGetDto> GetAllSocialMediaIcon();
 }
