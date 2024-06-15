@@ -1,5 +1,4 @@
 ﻿using KaganKuscu.Model.Models;
-using KaganKuscu.Model.SocialMediaDto;
 
 namespace KaganKuscu.Repository.Abstract;
 

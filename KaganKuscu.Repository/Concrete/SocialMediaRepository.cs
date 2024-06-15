@@ -1,6 +1,5 @@
 ﻿using KaganKuscu.DataAccess;
 using KaganKuscu.Model.Models;
-using KaganKuscu.Model.SocialMediaDto;
 using KaganKuscu.Repository.Abstract;
 using Microsoft.EntityFrameworkCore;
 
