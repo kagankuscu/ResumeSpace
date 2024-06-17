@@ -1,6 +1,7 @@
 ﻿using KaganKuscu.Business.Abstract;
 using KaganKuscu.Model.Dtos.ResumesDto;
 using KaganKuscu.Model.Models;
+using KaganKuscu.Model.SocialMediaDto;
 using KaganKuscu.Repository.Abstract;
 using KaganKuscu.Utilities;
 using Microsoft.AspNetCore.Http;
@@ -148,8 +149,8 @@ namespace KaganKuscu.Business.Concrete
                     SocialMedias = p.ResumesSocialMedias
                         .Select(rsm => rsm.SocialMedia!)
                         .Where(rsm => rsm.IsActive)
-                        .Join(_socialMediaIconService.GetAll(), sm => sm.SocialMediaIconId, smi => smi.Id, (sm, smi) =>
-                            new SocialMedia 
+                        .Join(_socialMediaIconService.GetAllSocialMediaIcon(), sm => sm.SocialMediaIconId, smi => smi.Id, (sm, smi) =>
+                            new SocialMediaForGetDto
                             {
                                 Url = sm.Url,
                                 SocialMediaIcon = smi,

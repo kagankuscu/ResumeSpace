@@ -1,4 +1,5 @@
 ﻿using KaganKuscu.Model.Models;
+using KaganKuscu.Model.SocialMediaDto;
 
 namespace KaganKuscu.Model.Dtos.ResumesDto
 {
@@ -15,7 +16,7 @@ namespace KaganKuscu.Model.Dtos.ResumesDto
         public string ImagePath { get; set; } = string.Empty;
         public string ResumePath { get; set; } = string.Empty;
 
-        public virtual List<SocialMedia> SocialMedias { get; set; } = new List<SocialMedia>();
+        public virtual List<SocialMediaForGetDto> SocialMedias { get; set; } = new List<SocialMediaForGetDto>();
         public virtual List<WorkExperience> WorkExperiences { get; set; } = new List<WorkExperience>();
         public virtual List<Education> Educations { get; set; } = new List<Education>();
         public virtual List<Reference> References { get; set; } = new List<Reference>();
