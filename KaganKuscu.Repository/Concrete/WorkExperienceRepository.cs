@@ -21,6 +21,8 @@ public class WorkExperienceRepository : Repository<WorkExperience>, IWorkExperie
 
     public IQueryable<WorkExperience> GetAllWorkExperienceWithResumes(Guid userId) => GetAll().Where(x => x.AppUserId == userId).Include(x => x.ResumesWorkExperiences).ThenInclude(x => x.Resume);
 
+    public void RemoveWorkExperience(Guid guid) => Remove(guid);
+
     public bool ToggleStatus(Guid guid)
     {
         WorkExperience? workExperience = GetById(guid);

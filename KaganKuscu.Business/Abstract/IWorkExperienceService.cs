@@ -7,7 +7,8 @@ namespace KaganKuscu.Business.Abstract
     List<WorkExperienceForGetWithResumesDto> GetAllWorkExperienceWithResumes();
     List<WorkExperienceForGetWithResumesDto> GetAllWorkExperienceWithResumes(Guid userId);
     WorkExperienceForGetWithResumesDto AddWorkExperience(WorkExperienceForAddDto workExperienceDto);
-    WorkExperienceForGetWithResumesDto UpdateWorkExperience(WorkExperienceForUpdateDto workExperienceDto);
+    void RemoveWorkExperience(Guid guid);
     bool ToggleStatus(Guid guid); 
+    WorkExperienceForGetWithResumesDto UpdateWorkExperience(WorkExperienceForUpdateDto workExperienceDto);
  }    
 }

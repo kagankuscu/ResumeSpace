@@ -1,10 +1,8 @@
 using AutoMapper;
 using KaganKuscu.Business.Abstract;
-using KaganKuscu.Model.Dtos.ResumesDto;
 using KaganKuscu.Model.Dtos.WorkExperienceDto;
 using KaganKuscu.Model.Models;
 using KaganKuscu.Repository.Abstract;
-using Microsoft.EntityFrameworkCore;
 
 public class WorkExperienceService : IWorkExperienceService
 {
@@ -28,6 +26,8 @@ public class WorkExperienceService : IWorkExperienceService
     public List<WorkExperienceForGetWithResumesDto> GetAllWorkExperienceWithResumes() => _mapper.Map<List<WorkExperienceForGetWithResumesDto>>(_repository.GetAllWorkExperienceWithResumes());
 
     public List<WorkExperienceForGetWithResumesDto> GetAllWorkExperienceWithResumes(Guid userId) => _mapper.Map<List<WorkExperienceForGetWithResumesDto>>(_repository.GetAllWorkExperienceWithResumes(userId));
+
+    public void RemoveWorkExperience(Guid guid) => _repository.RemoveWorkExperience(guid);
 
     public bool ToggleStatus(Guid guid) => _repository.ToggleStatus(guid);
 

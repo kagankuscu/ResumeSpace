@@ -42,7 +42,7 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
 
       public IActionResult RemoveWorkExperience([FromQuery] Guid guid)
       {
-        _workExperienceService.Remove(guid);
+        _workExperienceService.RemoveWorkExperience(guid);
 
         return Ok();
       }
