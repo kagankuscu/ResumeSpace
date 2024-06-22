@@ -36,7 +36,7 @@ namespace KaganKuscu.Repository.Concrete
 
         public IQueryable<T> GetAll(Expression<Func<T, bool>> predicate)
         {
-            return _dbSet.Where(predicate);
+            return _dbSet.Where(predicate).Where(x => !x.IsDeleted);
         }
 
         public IQueryable<T> GetAllDeleted()
