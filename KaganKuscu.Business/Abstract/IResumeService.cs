@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using KaganKuscu.Model.Dtos.ResumesDto;
+﻿using KaganKuscu.Model.Dtos.ResumesDto;
 using KaganKuscu.Model.Models;
 using Microsoft.AspNetCore.Http;
 
@@ -7,12 +6,12 @@ namespace KaganKuscu.Business.Abstract
 {
     public interface IResumeService
     {
-        IQueryable<ResumeForGetWithDetailsDto> GetAllResumeDto();
+        ResumeForGetWithDetailsDto AddResume(ResumeForAddDto resumeDto);
         IQueryable<ResumeForAppUserDto> GetAllByAppUserGuid(Guid guid);
+        bool ToggleStatus(Guid guid);
+        void RemoveResume(Guid guid);
         Task<bool> UploadFiles(IFormCollection form, string username, Resume resume);
-        bool UpdateIsActiveForUser(Guid guid);
-        IQueryable<ResumeForGetDto> GetAllResume();
-        IQueryable<ResumeForGetDto> GetAllResume(Expression<Func<ResumeForGetDto, bool>> predicate);
-        IQueryable<ResumeForGetDto> GetAllResumeBySkillId(int id);
+        bool UpdateStatusForUserGuid(Guid guid);
+        ResumeForGetWithDetailsDto UpdateResume(ResumeForUpdateDto resumeDto);
     }
 }

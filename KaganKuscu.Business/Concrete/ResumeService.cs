@@ -1,242 +1,30 @@
-﻿using KaganKuscu.Business.Abstract;
+﻿using AutoMapper;
+using KaganKuscu.Business.Abstract;
 using KaganKuscu.Model.Dtos.ResumesDto;
 using KaganKuscu.Model.Models;
-using KaganKuscu.Model.SocialMediaDto;
 using KaganKuscu.Repository.Abstract;
 using KaganKuscu.Utilities;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace KaganKuscu.Business.Concrete
 {
     public class ResumeService : IResumeService
     {
-        private readonly IRepository<Resume> _repository;
-        private readonly ISocialMediaIconService _socialMediaIconService;
+        private readonly IResumeRepository _repository;
+        private readonly IMapper _mapper;
 
-        public ResumeService(IRepository<Resume> repository, ISocialMediaIconService socialMediaIconService)
+        public ResumeService(IResumeRepository repository, IMapper mapper)
         {
             _repository = repository;
-            _socialMediaIconService = socialMediaIconService;
-        }
-
-        public void Add(Resume entity)
-        {
-            _repository.Add(entity);
-        }
-
-        public void AddRange(IEnumerable<Resume> entities)
-        {
-            _repository.AddRange(entities);
-        }
-
-        public IQueryable<ResumeForGetDto> GetAllResume()
-        {
-          return _repository.GetAll().Select(r => new ResumeForGetDto
-              {
-                ResumeName = r.ResumeName,
-                FullName = r.FullName,
-                BirthDate = r.BirthDate,
-                Address = r.Address,
-                Email = r.Email,
-                Phone = r.Phone,
-                SecondPhone = r.SecondPhone,
-                About = r.About,
-                Title = r.Title,
-                ImagePath = r.ImagePath,
-                ResumePath = r.ResumePath,
-                Interest = r.Interest,
-                AppUserId = r.AppUserId
-              });
-        }
-
-        public IQueryable<ResumeForGetDto> GetAllResume(Expression<Func<ResumeForGetDto, bool>> predicate)
-        {
-          return _repository.GetAll().Select(r => new ResumeForGetDto 
-              {
-                ResumeName = r.ResumeName,
-                FullName = r.FullName,
-                BirthDate = r.BirthDate,
-                Address = r.Address,
-                Email = r.Email,
-                Phone = r.Phone,
-                SecondPhone = r.SecondPhone,
-                About = r.About,
-                Title = r.Title,
-                ImagePath = r.ImagePath,
-                ResumePath = r.ResumePath,
-                Interest = r.Interest,
-                AppUserId = r.AppUserId
-              });
-        }
-
-        public IQueryable<ResumeForGetDto> GetAllResumeBySkillId(int id)
-        {
-          return _repository
-            .GetAll()
-            .Include(r => r.ResumesSkills)
-            .Select(r => new ResumeForGetDto 
-              {
-                ResumeName = r.ResumeName,
-                FullName = r.FullName,
-                BirthDate = r.BirthDate,
-                Address = r.Address,
-                Email = r.Email,
-                Phone = r.Phone,
-                SecondPhone = r.SecondPhone,
-                About = r.About,
-                Title = r.Title,
-                ImagePath = r.ImagePath,
-                ResumePath = r.ResumePath,
-                Interest = r.Interest,
-                AppUserId = r.AppUserId
-              });
-
-        }
-
-        public IQueryable<Resume> GetAll()
-        {
-            return _repository.GetAll()
-                .Include(p => p.Interests);
+            _mapper = mapper;
         }
 
         public IQueryable<ResumeForAppUserDto> GetAllByAppUserGuid(Guid guid)
         {
-            return _repository
-                .GetAll(p => p.AppUserId == guid.ToString())
-                .Where(p => !p.IsDeleted)
-                .Select(p => new ResumeForAppUserDto
-                {
-                    Id = p.Id,
-                    Guid = p.Guid,
-                    ResumeName = p.ResumeName,
-                    FullName = p.FullName,
-                    BirthDate = p.BirthDate,
-                    Address = p.Address,
-                    Email = p.Email,
-                    Phone = p.Phone,
-                    SecondPhone = p.SecondPhone,
-                    About = p.About ?? string.Empty,
-                    Title = p.Title,
-                    ImagePath = p.ImagePath,
-                    ResumePath = p.ResumePath,
-                    Interest = p.Interest,
-                    IsActive = p.IsActive,
-                    AppUserId = p.AppUserId
-                });
+            return _mapper.Map<IQueryable<ResumeForAppUserDto>>(_repository.GetAllByAppUserGuid(guid));
         }
 
-        public IQueryable<ResumeForGetWithDetailsDto> GetAllResumeDto()
-        {
-            return _repository.GetAll()
-                .Include(p => p.Interests)
-                .Select(p => new ResumeForGetWithDetailsDto
-                {
-                    Name = p.FullName,
-                    Age = Convert.ToInt32((DateTime.Now - p.BirthDate).TotalDays / 365.2465),
-                    Address = p.Address ?? string.Empty,
-                    Title = p.Title,
-                    Phone = p.Phone,
-                    Email = p.Email,
-                    Interest = p.Interest ?? string.Empty,
-                    Interests = p.Interests.ToList(),
-                    ImagePath = p.ImagePath ?? string.Empty,
-                    ResumePath = p.ResumePath ?? string.Empty,
-                    Description = p.About ?? string.Empty,
-                    References = p.ResumesReferences.Select(rr => rr.Reference!).Where(r => r.IsActive).ToList(),
-                    Skills = p.ResumesSkills!.Select(s => s.Skill!).Where(s => s.IsActive).ToList(),
-                    SocialMedias = p.ResumesSocialMedias
-                        .Select(rsm => rsm.SocialMedia!)
-                        .Where(rsm => rsm.IsActive)
-                        .Join(_socialMediaIconService.GetAllSocialMediaIcon(), sm => sm.SocialMediaIconId, smi => smi.Id, (sm, smi) =>
-                            new SocialMediaForGetDto
-                            {
-                                Url = sm.Url,
-                                SocialMediaIcon = smi,
-                            }
-                        )
-                        .ToList(),
-                    Educations = p.ResumesEducations!.Select(rs => rs.Education!).Where(e => e.IsActive).OrderByDescending(e => e.StartDate).ToList(),
-                    WorkExperiences = p.ResumesWorkExperiences.Select(rwe => rwe.WorkExperience!).Where(rwe => rwe.IsActive).OrderByDescending(e => e.StartDate).ToList()
-                });
-        }
-        public Resume? GetById(int id)
-        {
-            return _repository.GetById(id);
-        }
-
-        public Resume? GetById(Guid guid)
-        {
-            return _repository.GetById(guid);
-        }
-
-        public void Remove(Resume entity)
-        {
-            _repository.Remove(entity);
-        }
-
-        public void Remove(int id)
-        {
-            _repository.Remove(id);
-        }
-
-        public void Remove(Guid guid)
-        {
-            _repository.Remove(guid);
-        }
-
-        public void Update(Resume entity)
-        {
-            Resume? real = GetById(entity.Guid);
-            if (real is not null)
-            {
-                // TODO: Use AutoMapper
-                real.Email = entity.Email;
-                real.ResumeName = entity.ResumeName;
-                real.FullName = entity.FullName;
-                real.Title = entity.Title;
-                real.Phone = entity.Phone;
-                real.SecondPhone = entity.SecondPhone;
-                real.Address = entity.Address;
-                real.BirthDate = entity.BirthDate;
-                real.About = entity.About;
-
-                _repository.Update(real);
-            }
-        }
-
-        public void Update(Guid guid)
-        {
-            Resume? real = GetById(guid);
-            if (real is not null)
-                Update(real);
-        }
-
-        public void Update(int id)
-        {
-            Resume? real = GetById(id);
-            if (real is not null)
-                Update(real);
-        }
-
-        public bool UpdateIsActiveForUser(Guid guid)
-        {
-            try
-            {
-                var resumes = _repository.GetAll(p => p.AppUserId == guid.ToString() && p.IsActive).ToList();
-                foreach (Resume resume in resumes)
-                {
-                    resume.IsActive = false;
-                    _repository.Update(resume);
-                }
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
+        public bool UpdateStatusForUserGuid(Guid guid) => _repository.UpdateStatusForUserGuid(guid);
 
         public async Task<bool> UploadFiles(IFormCollection form, string username, Resume resume)
         {
@@ -247,7 +35,7 @@ namespace KaganKuscu.Business.Concrete
 
             string imageFilename;
             string resumeFilename;
-            Resume? real = GetById(resume.Guid);
+            Resume? real = _repository.GetById(resume.Guid);
             if (real is null)
                 return false;
 
@@ -304,5 +92,25 @@ namespace KaganKuscu.Business.Concrete
             }
         }
 
+        public ResumeForGetWithDetailsDto AddResume(ResumeForGetWithDetailsDto resumeForAddDto)
+        {
+            Resume resume = _mapper.Map<Resume>(resumeForAddDto);
+            return _mapper.Map<ResumeForGetWithDetailsDto>(_repository.AddResume(resume));
+        }
+
+        public ResumeForGetWithDetailsDto UpdateResume(ResumeForUpdateDto resumeDto)
+        {
+            Resume resume = _mapper.Map<Resume>(resumeDto);
+            return _mapper.Map<ResumeForGetWithDetailsDto>(_repository.UpdateResume(resume));
+        }
+
+        public bool ToggleStatus(Guid guid) => _repository.ToggleStatus(guid);
+
+        public ResumeForGetWithDetailsDto AddResume(ResumeForAddDto resumeDto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveResume(Guid guid) => RemoveResume(guid);
     }
 }

@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using KaganKuscu.Business.Abstract;
+using KaganKuscu.Model.Dtos.ResumesDto;
 using KaganKuscu.Model.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,8 +20,8 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
 
         public IActionResult GetAll()
         {
-            if(User.FindFirstValue(ClaimTypes.Role) is "Admin")
-                return Json(new {Data = _resumeService.GetAll() });
+            // if(User.FindFirstValue(ClaimTypes.Role) is "Admin")
+            //     return Json(new {Data = _resumeService.GetAllByAppUserGuid() });
             
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             Guid guid = Guid.Parse(userId ?? string.Empty);
@@ -32,28 +33,28 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(Resume resume)
+        public IActionResult Add(ResumeForAddDto resumeDto)
         {
-            resume.AppUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+            resumeDto.AppUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
 
-            _resumeService.UpdateIsActiveForUser(Guid.Parse(resume.AppUserId));
-            _resumeService.Add(resume);
+            _resumeService.UpdateStatusForUserGuid(Guid.Parse(resumeDto.AppUserId));
+            _resumeService.AddResume(resumeDto);
 
-            return StatusCode(201, resume.Guid);
+            return StatusCode(201, resumeDto.Guid);
         }
 
         [HttpPost]
         public IActionResult Remove(Guid guid)
         {
-            _resumeService.Remove(guid);
+            _resumeService.RemoveResume(guid);
 
             return Ok();
         }
 
         [HttpPost]
-        public IActionResult Update(Resume resume)
+        public IActionResult Update(ResumeForUpdateDto resumeDto)
         {
-            _resumeService.Update(resume);
+            _resumeService.UpdateResume(resumeDto);
 
             return Ok();
         }
@@ -75,14 +76,7 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult ToggleStatus(Guid guid)
         {
-            Resume? resume = _resumeService.GetById(guid);
-            if (resume is null)
-                return BadRequest();
-            
-            resume.IsActive = !resume.IsActive;
-            if (_resumeService.UpdateIsActiveForUser(Guid.Parse(resume.AppUserId)))
-                _resumeService.Update(resume);
-            return Ok();
+            return Ok(_resumeService.ToggleStatus(guid));
         }
     }
 }
