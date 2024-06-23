@@ -18,6 +18,8 @@ public class ResumeRepository : Repository<Resume>, IResumeRepository
 
     public IQueryable<Resume> GetAllByAppUserGuid(Guid guid) => GetAll(x => x.AppUserId == guid.ToString());
 
+    public IQueryable<Resume> GetAllResume() => GetAll();
+
     public void RemoveResume(Guid guid) => Remove(guid);
 
     public bool ToggleStatus(Guid guid)

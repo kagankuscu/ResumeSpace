@@ -108,9 +108,15 @@ namespace KaganKuscu.Business.Concrete
 
         public ResumeForGetWithDetailsDto AddResume(ResumeForAddDto resumeDto)
         {
-            throw new NotImplementedException();
+            Resume resume = _mapper.Map<Resume>(resumeDto);
+            return _mapper.Map<ResumeForGetWithDetailsDto>(_repository.AddResume(resume));
         }
 
         public void RemoveResume(Guid guid) => RemoveResume(guid);
+
+        public IQueryable<ResumeForGetWithDetailsDto> GetAllResumeDto()
+        {
+            return _mapper.Map<IQueryable<ResumeForGetWithDetailsDto>>(_repository.GetAllResume());
+        }
     }
 }

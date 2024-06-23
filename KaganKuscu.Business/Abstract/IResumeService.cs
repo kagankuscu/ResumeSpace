@@ -8,6 +8,7 @@ namespace KaganKuscu.Business.Abstract
     {
         ResumeForGetWithDetailsDto AddResume(ResumeForAddDto resumeDto);
         IQueryable<ResumeForAppUserDto> GetAllByAppUserGuid(Guid guid);
+        IQueryable<ResumeForGetWithDetailsDto> GetAllResumeDto();
         bool ToggleStatus(Guid guid);
         void RemoveResume(Guid guid);
         Task<bool> UploadFiles(IFormCollection form, string username, Resume resume);
