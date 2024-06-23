@@ -42,7 +42,7 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
 
     public IActionResult RemoveReference([FromQuery] Guid guid)
     {
-      _referenceService.Remove(guid);
+      _referenceService.RemoveReference(guid);
 
       return Ok();
     }

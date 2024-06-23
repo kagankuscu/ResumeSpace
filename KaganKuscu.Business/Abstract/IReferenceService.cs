@@ -9,6 +9,7 @@ namespace KaganKuscu.Business.Abstract
         List<ReferenceForGetWithResumesDto> GetAllReferenceWithResumes(Guid userId);
         ReferenceForGetWithResumesDto AddReference(ReferenceForAddDto workExperienceDto);
         Task<bool> AddImage(IFormCollection form);
+        void RemoveReference(Guid guid);
         ReferenceForGetWithResumesDto UpdateReference(ReferenceForUpdateDto workExperienceDto);
         bool ToggleStatus(Guid guid);
     }

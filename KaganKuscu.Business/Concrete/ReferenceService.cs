@@ -82,11 +82,13 @@ namespace KaganKuscu.Business.Concrete
     {
       IQueryable<Reference> references = _repository.GetAllReferenceWithResumes();
       return _mapper.Map<List<ReferenceForGetWithResumesDto>>(references);
-    } 
+    }
 
     public List<ReferenceForGetWithResumesDto> GetAllReferenceWithResumes(Guid userId)
     {
-      throw new NotImplementedException();
+      return _mapper.Map<List<ReferenceForGetWithResumesDto>>(_repository.GetAllReferenceWithResumes(userId));
     }
+
+    public void RemoveReference(Guid guid) => _repository.RemoveReference(guid);
   }
 }
