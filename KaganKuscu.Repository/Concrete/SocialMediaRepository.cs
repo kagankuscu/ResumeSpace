@@ -21,6 +21,8 @@ public class SocialMediaRepository : Repository<SocialMedia>, ISocialMediaReposi
 
     public IQueryable<SocialMedia> GetAllSocialMediaWithResumes(Guid userId) => GetAll().Where(x => x.AppUserId == userId).Include(x => x.ResumesSocialMedias).ThenInclude(x => x.Resume).Include(x => x.SocialMediaIcon);
 
+    public void RemoveSocialMedia(Guid guid) => Remove(guid);
+
     public bool ToggleStatus(Guid guid)
     {
         SocialMedia? socialMedia = GetById(guid);

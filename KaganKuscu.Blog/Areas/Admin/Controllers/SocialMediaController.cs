@@ -42,7 +42,7 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
 
         public IActionResult RemoveSocialMedia([FromQuery] Guid guid)
         {
-            _socialMediaService.Remove(guid);
+            _socialMediaService.RemoveSocialMedia(guid);
 
             return Ok();
         }

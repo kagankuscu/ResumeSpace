@@ -38,6 +38,11 @@ namespace KaganKuscu.Business.Concrete
             return _mapper.Map<List<SocialMediaForGetWithResumesDto>>(socialMedias);
         }
 
+        public void RemoveSocialMedia(Guid guid)
+        {
+            _repository.RemoveSocialMedia(guid);
+        }
+
         public bool ToggleStatus(Guid guid) => _repository.ToggleStatus(guid);
 
         public SocialMediaForGetWithResumesDto UpdateSocialMedia(SocialMediaForUpdateDto socialMediaDto)
