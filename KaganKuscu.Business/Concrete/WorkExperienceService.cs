@@ -4,6 +4,7 @@ using KaganKuscu.Model.Dtos.WorkExperienceDto;
 using KaganKuscu.Model.Models;
 using KaganKuscu.Repository.Abstract;
 
+namespace KaganKuscu.Business.Concrete;
 public class WorkExperienceService : IWorkExperienceService
 {
     private readonly IWorkExperienceRepository _repository;

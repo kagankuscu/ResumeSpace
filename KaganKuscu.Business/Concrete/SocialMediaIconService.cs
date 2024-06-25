@@ -3,7 +3,7 @@ using KaganKuscu.Business.Abstract;
 using KaganKuscu.Model.SocialMediaDto;
 using KaganKuscu.Repository.Abstract;
 
-namespace KaganKuscu.Business;
+namespace KaganKuscu.Business.Concrete;
 
 public class SocialMediaIconService : ISocialMediaIconService
 {
