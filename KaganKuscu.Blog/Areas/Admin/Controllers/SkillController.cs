@@ -51,7 +51,7 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
             _skillService.RemoveSkill(guid);
             return Json(new { guid });
        }
-       
+
        [HttpPost]
        public IActionResult Update([FromBody] SkillForUpdateDto skillDto)
        {
