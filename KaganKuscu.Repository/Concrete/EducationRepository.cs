@@ -47,23 +47,6 @@ public class EducationRepository : Repository<Education>, IEducationRepository
 
     public Education? UpdateEducation(Education education)
     {
-      Education? real = GetById(education.Id);
-      if (real is null)
-        return null;
-
-      education.ResumesEducations.Clear();
-
-      foreach (var item in education.ResumesEducations)
-      {
-        if (!education.ResumesEducations.Select(re => re.ResumeId).Contains(item.ResumeId))
-          education.ResumesEducations.Add(item);
-      }
-
-      real.Name = education.Name;
-      real.StartDate = education.StartDate;
-      real.EndDate = education.EndDate;
-      real.Role = education.Role;
-      real.IsActive = education.IsActive;
       Update(education);
 
       return GetAllEducationWithResumes().Where(x => x.Id == education.Id).FirstOrDefault();

@@ -30,10 +30,10 @@ namespace KaganKuscu.Business.Configurations
       CreateMap<Skill, SkillForUpdateDto>().ReverseMap();
 
       CreateMap<Education, EducationForGetDto>().ReverseMap();
-      CreateMap<Education, EducationForGetWithResumesDto>().ReverseMap();
+      CreateMap<Education, EducationForGetWithResumesDto>()
+        .ForMember(er => er.Resumes, opt => opt.MapFrom(e => e.ResumesEducations.Select(x => x.Resume)));
       CreateMap<Education, EducationForAddDto>().ReverseMap();
       CreateMap<Education, ResumesEducations>().ReverseMap();
-      CreateMap<Education, EducationForGetWithResumesDto>().ReverseMap();
       CreateMap<Education, EducationForUpdateDto>().ReverseMap();
 
       CreateMap<WorkExperience, WorkExperienceForGetDto>().ReverseMap();

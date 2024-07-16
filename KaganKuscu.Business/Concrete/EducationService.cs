@@ -3,6 +3,7 @@ using KaganKuscu.Business.Abstract;
 using KaganKuscu.Model.Dtos.EducationDto;
 using KaganKuscu.Model.Models;
 using KaganKuscu.Repository.Abstract;
+using Microsoft.EntityFrameworkCore;
 
 namespace KaganKuscu.Business.Concrete
 {
@@ -33,13 +34,13 @@ namespace KaganKuscu.Business.Concrete
     public List<EducationForGetWithResumesDto> GetAllEducationWithResumes()
     {
       IQueryable<Education> educations = _repository.GetAllEducationWithResumes();
-      return _mapper.Map<List<EducationForGetWithResumesDto>>(educations); 
+      return _mapper.Map<List<EducationForGetWithResumesDto>>(educations);
     }
 
     public List<EducationForGetWithResumesDto> GetAllEducationWithResumes(Guid userId)
     {
       IQueryable<Education> educations = _repository.GetAllEducationWithResumes(userId);
-      return _mapper.Map<List<EducationForGetWithResumesDto>>(educations); 
+      return _mapper.Map<List<EducationForGetWithResumesDto>>(educations);;
     }
 
     public void RemoveEducation(Guid guid)
@@ -51,9 +52,15 @@ namespace KaganKuscu.Business.Concrete
 
     public EducationForGetWithResumesDto UpdateEducation(EducationForUpdateDto educationDto)
     {
-      Education? education = _repository.UpdateEducation(_mapper.Map<Education>(educationDto));
+      Education real = _repository.GetAll(x => x.Guid == educationDto.Guid).Include(x => x.ResumesEducations).FirstOrDefault();
 
-      return _mapper.Map<EducationForGetWithResumesDto>(education);
+       foreach (var item in real.ResumesEducations)
+       {
+         if (educationDto.ResumesEducations.Select(re => re.ResumeId).Contains(item.ResumeId))
+          educationDto.ResumesEducations.Remove(item);
+       }
+      Education education = _mapper.Map<EducationForUpdateDto, Education>(educationDto, real);
+      return _mapper.Map<EducationForGetWithResumesDto>(_repository.UpdateEducation(education));
     }
   }
 }
