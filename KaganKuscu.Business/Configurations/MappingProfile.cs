@@ -47,7 +47,9 @@ namespace KaganKuscu.Business.Configurations
       CreateMap<WorkExperience, WorkExperienceForUpdateDto>().ReverseMap();
 
       CreateMap<Reference, ReferenceForGetDto>().ReverseMap();
-      CreateMap<Reference, ReferenceForGetWithResumesDto>().ReverseMap();
+      CreateMap<Reference, ReferenceForGetWithResumesDto>()
+        .ForMember(r => r.Resumes, opt => opt.MapFrom(x => x.ResumesReferences.Select(x => x.Resume)))
+        .ReverseMap();
       CreateMap<Reference, ReferenceForAddDto>().ReverseMap();
       CreateMap<Reference, ReferenceForUpdateDto>().ReverseMap();
 

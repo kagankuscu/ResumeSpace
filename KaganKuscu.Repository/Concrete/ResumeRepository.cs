@@ -1,6 +1,8 @@
 ﻿using KaganKuscu.DataAccess;
+using KaganKuscu.Model.Dtos.ResumesDto;
 using KaganKuscu.Model.Models;
 using KaganKuscu.Repository.Abstract;
+using Microsoft.EntityFrameworkCore;
 
 namespace KaganKuscu.Repository.Concrete;
 
@@ -19,6 +21,11 @@ public class ResumeRepository : Repository<Resume>, IResumeRepository
     public IQueryable<Resume> GetAllByAppUserGuid(Guid guid) => GetAll(x => x.AppUserId == guid.ToString());
 
     public IQueryable<Resume> GetAllResume() => GetAll();
+
+    public IQueryable<Resume> GetAllResumeWithDetail()
+    {
+        return GetAll();
+    }
 
     public void RemoveResume(Guid guid) => Remove(guid);
 

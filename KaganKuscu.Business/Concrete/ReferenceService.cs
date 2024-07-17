@@ -5,6 +5,8 @@ using KaganKuscu.Model.Models;
 using KaganKuscu.Repository.Concrete;
 using KaganKuscu.Utilities;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace KaganKuscu.Business.Concrete
 {
@@ -30,15 +32,14 @@ namespace KaganKuscu.Business.Concrete
 
     public ReferenceForGetWithResumesDto UpdateReference(ReferenceForUpdateDto referenceDto)
     {
-      Reference? real = _repository.GetById(referenceDto.Guid);
-
-      if (real is null)
-        return new ReferenceForGetWithResumesDto();
-
-      Reference? reference = _mapper.Map<Reference>(referenceDto);
-      reference.Id = real.Id;
-
-    return _mapper.Map<ReferenceForGetWithResumesDto>(_repository.UpdateReference(reference));
+      Reference? real = _repository.GetAll(x => x.Guid == referenceDto.Guid).Include(x => x.ResumesReferences).FirstOrDefault();
+      foreach (var item in real.ResumesReferences)
+      {
+          if (referenceDto.ResumesReferences.Select(re => re.ResumeId).Contains(item.ResumeId))
+              referenceDto.ResumesReferences.Remove(item);
+      }
+      var f = _mapper.Map(referenceDto, real);
+      return _mapper.Map<ReferenceForGetWithResumesDto>(_repository.UpdateReference(f));
     }
 
     public async Task<bool> AddImage(IFormCollection form)
@@ -50,7 +51,7 @@ namespace KaganKuscu.Business.Concrete
       if (formGuid is null)
         return false;
 
-      Reference? real = _repository.GetById(Guid.Parse(formGuid));
+      Reference? real = _repository.GetAll(x => x.Guid == Guid.Parse(formGuid)).Include(x => x.ResumesReferences).ThenInclude(x => x.Resume).ThenInclude(x => x.AppUser).FirstOrDefault();
 
       if (real is null)
         return false;
@@ -58,8 +59,8 @@ namespace KaganKuscu.Business.Concrete
       if (image is null)
         return false;
 
-
-      string serverImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "Reference");
+      string username = real.ResumesReferences.Select(x => x.Resume).Select(x => x.AppUser).FirstOrDefault().UserName;
+      string serverImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", "Reference", username);
 
       if (!Directory.Exists(serverImagePath))
         Directory.CreateDirectory(serverImagePath);
@@ -73,7 +74,7 @@ namespace KaganKuscu.Business.Concrete
         await image.CopyToAsync(stream);
       }
 
-      real.ImagePath = $"/img/Reference/{imageFilename}";
+      real.ImagePath = $"/img/Reference/{username}/{imageFilename}";
       _repository.UpdateReference(real);
       return true;
     }

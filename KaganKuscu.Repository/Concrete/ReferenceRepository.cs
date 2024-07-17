@@ -46,19 +46,7 @@ public class ReferenceRepository : Repository<Reference>, IReferenceRepository
 
     public Reference? UpdateReference(Reference reference)
     {
-        Reference? real = GetAllReferenceWithResumes().Where(x => x.Guid == reference.Guid).FirstOrDefault();
-
-        if (real is null)
-            return null;
-
-        real.ResumesReferences.Clear();
-
-        foreach (var item in reference.ResumesReferences)
-        {
-            if (!real.ResumesReferences.Select(re => re.ResumeId).Contains(item.ResumeId))
-                real.ResumesReferences.Add(item);
-        }
-        Update(real);
-        return  GetAllReferenceWithResumes().Where(x => x.Guid == reference.Guid).FirstOrDefault();
+        Update(reference);
+        return  GetAllReferenceWithResumes().Where(x => x.Guid == reference.Guid).Include(x => x.ResumesReferences).FirstOrDefault();
     }
 }
