@@ -3,6 +3,7 @@ using KaganKuscu.Business.Abstract;
 using KaganKuscu.Model.Dtos.WorkExperienceDto;
 using KaganKuscu.Model.Models;
 using KaganKuscu.Repository.Abstract;
+using Microsoft.EntityFrameworkCore;
 
 namespace KaganKuscu.Business.Concrete;
 public class WorkExperienceService : IWorkExperienceService
@@ -19,9 +20,8 @@ public class WorkExperienceService : IWorkExperienceService
     public WorkExperienceForGetWithResumesDto AddWorkExperience(WorkExperienceForAddDto workExperienceDto)
     {
       WorkExperience workExperience = _mapper.Map<WorkExperience>(workExperienceDto);
-      _repository.Add(workExperience);
 
-      return _mapper.Map<WorkExperienceForGetWithResumesDto>(workExperience);
+      return _mapper.Map<WorkExperienceForGetWithResumesDto>(_repository.AddWorkExperience(workExperience));
    }
 
     public List<WorkExperienceForGetWithResumesDto> GetAllWorkExperienceWithResumes() => _mapper.Map<List<WorkExperienceForGetWithResumesDto>>(_repository.GetAllWorkExperienceWithResumes());
@@ -34,7 +34,12 @@ public class WorkExperienceService : IWorkExperienceService
 
     public WorkExperienceForGetWithResumesDto UpdateWorkExperience(WorkExperienceForUpdateDto workExperienceDto)
     {
-      WorkExperience? workExperience = _mapper.Map<WorkExperience>(workExperienceDto);
-      return _mapper.Map<WorkExperienceForGetWithResumesDto>(_repository.UpdateWorkExperience(workExperience));
+      WorkExperience? real = _repository.GetAll(x => x.Guid == workExperienceDto.Guid).Include(x => x.ResumesWorkExperiences).FirstOrDefault();
+      foreach (var item in real.ResumesWorkExperiences)
+      {
+          if (workExperienceDto.ResumesWorkExperiences.Select(x => x.ResumeId).Contains(item.ResumeId))
+              workExperienceDto.ResumesWorkExperiences.Remove(item);
+      }
+      return _mapper.Map<WorkExperienceForGetWithResumesDto>(_repository.UpdateWorkExperience(_mapper.Map(workExperienceDto, real)));
     }
 }

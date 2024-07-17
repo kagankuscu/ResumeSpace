@@ -36,26 +36,7 @@ public class WorkExperienceRepository : Repository<WorkExperience>, IWorkExperie
 
     public WorkExperience? UpdateWorkExperience(WorkExperience workExperience)
     {
-       WorkExperience? real = GetAllWorkExperienceWithResumes().Where(x => x.Guid == workExperience.Guid).FirstOrDefault();
-
-        if (real is null)
-            return null;
-
-        real.ResumesWorkExperiences.Clear();
-
-        foreach (var item in workExperience.ResumesWorkExperiences)
-        {
-            if (!real.ResumesWorkExperiences.Select(x => x.ResumeId).Contains(item.ResumeId))
-                real.ResumesWorkExperiences.Add(item);
-        }
-
-        real.Name = workExperience.Name;
-        real.StartDate = workExperience.StartDate;
-        real.EndDate = workExperience.EndDate;
-        real.Description = workExperience.Description;
-        real.Role = workExperience.Role;
-        real.IsActive = workExperience.IsActive;
-        Update(real);
+        Update(workExperience);
 
         return GetAllWorkExperienceWithResumes().Where(x => x.Guid == workExperience.Guid).FirstOrDefault();
     }
