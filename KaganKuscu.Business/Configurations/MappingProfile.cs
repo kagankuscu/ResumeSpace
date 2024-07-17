@@ -11,7 +11,7 @@ using KaganKuscu.Model.SocialMediaDto;
 
 namespace KaganKuscu.Business.Configurations
 {
-  public class MappingProfile : Profile    
+  public class MappingProfile : Profile
   {
     public MappingProfile()
     {
@@ -25,6 +25,9 @@ namespace KaganKuscu.Business.Configurations
       CreateMap<ResumeSkill, Resume>().ReverseMap();
       CreateMap<ResumeSkill, Skill>().ReverseMap();
 
+      CreateMap<Skill, SkillForGetWithResumesDto>()
+        .ForMember(s => s.Resumes, opt => opt.MapFrom(x => x.ResumesSkills.Select(x => x.Resume)))
+        .ReverseMap();
       CreateMap<Skill, SkillForAddDto>().ReverseMap();
       CreateMap<Skill, SkillForGetDto>().ReverseMap();
       CreateMap<Skill, SkillForUpdateDto>().ReverseMap();

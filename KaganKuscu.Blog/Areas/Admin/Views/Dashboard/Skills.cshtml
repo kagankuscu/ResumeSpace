@@ -186,9 +186,9 @@
                         "isActive": true,
                         "resumesSkills": [] 
                     }
-                  
+
                     for (let resumeId of $("#ddlResume").val())
-                      data.resumesSkills.push({ id: resumeId });
+                      data.resumesSkills.push({ resumeId: resumeId });
 
                     $.ajax
                     ({
@@ -204,7 +204,7 @@
                 }
             });
         }
-        
+
         function fillDdlResume(resumes)
         {
             $.ajax(
@@ -301,12 +301,11 @@
 
             let row = $(element).parents("tr");
             let oldData = datatable.row(row).data();
-            oldData.resumesSkills = oldData.resumesSkills;
 
             $("#txtSkill").val(oldData.name);
             $("#txtPercent").val(oldData.percent);
 
-            fillDdlResume(oldData.resumesSkills);
+            fillDdlResume(oldData.resumes);
 
             $("#btnSave").off().text("Güncelle").removeClass("btn-success").addClass("btn-warning").click(() => {
                 event.preventDefault();
@@ -354,7 +353,7 @@
                 }
             });
         }
-        
+
         function modalToggle()
         {
             const mdlSkill = $("#mdlSkill");
@@ -364,7 +363,7 @@
                 mdlSkill.modal("show");
         }
 
-        function clearModal() 
+        function clearModal()
         {
             $("#ddlResume").empty();
             $("#mdlSkill input").val("");

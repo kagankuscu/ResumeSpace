@@ -30,14 +30,22 @@ namespace KaganKuscu.Business.Concrete
 
         public void RemoveSkill(Guid guid)
         {
-            throw new NotImplementedException();
+            _repository.RemoveSkill(guid);
         }
 
         public bool ToggleStatus(Guid guid) => _repository.ToggleStatus(guid);
 
         public SkillForGetWithResumesDto UpdateSkill(SkillForUpdateDto skillDto)
         {
-            Skill? skill = _mapper.Map<Skill>(skillDto);
+            Skill? real = _repository.GetAll(x => x.Guid ==skillDto.Guid).FirstOrDefault();
+            foreach (var item in real.ResumesSkills)
+            {
+                if (real.ResumesSkills.Select(rs => rs.ResumeId).Contains(item.ResumeId))
+                {
+                    real.ResumesSkills.Remove(item);
+                }
+            }
+            Skill? skill = _mapper.Map<SkillForUpdateDto, Skill>(skillDto, real!);
 
             return _mapper.Map<SkillForGetWithResumesDto>(_repository.UpdateSkill(skill));
         }

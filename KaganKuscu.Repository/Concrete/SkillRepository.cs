@@ -1,6 +1,7 @@
 ﻿using KaganKuscu.DataAccess;
 using KaganKuscu.Model.Models;
 using KaganKuscu.Repository.Abstract;
+using Microsoft.EntityFrameworkCore;
 
 namespace KaganKuscu.Repository.Concrete;
 
@@ -19,17 +20,12 @@ public class SkillRepository : Repository<Skill>, ISkillRepository
 
     public IQueryable<Skill> GetAllSkillWithResumes()
     {
-        throw new NotImplementedException();
+        return GetAll().Include(x => x.ResumesSkills).ThenInclude(x => x.Resume);
     }
 
     public IQueryable<Skill> GetAllSkillWithResumes(Guid userId)
     {
-        throw new NotImplementedException();
-    }
-
-    public void RemoveSkill(Guid guid)
-    {
-        throw new NotImplementedException();
+        return GetAll(x => x.AppUserId == userId).Include(x => x.ResumesSkills).ThenInclude(x => x.Resume);
     }
 
     public bool ToggleStatus(Guid guid)
@@ -45,23 +41,7 @@ public class SkillRepository : Repository<Skill>, ISkillRepository
 
     public Skill? UpdateSkill(Skill skill)
     {
-        Skill? real = GetAllSkillWithResumes().Where(x => x.Guid == skill.Guid).FirstOrDefault();
-
-        if (real is null)
-            return null; 
-
-        real.ResumesSkills.Clear();
-
-        foreach (var item in skill.ResumesSkills)
-        {
-            if (!real.ResumesSkills.Select(rs => rs.ResumeId).Contains(item.ResumeId))
-            {
-                real.ResumesSkills.Add(item);
-            }
-        }
-
-        Update(real);
-
-        return GetAllSkillWithResumes().Where(x => x.Guid == real.Guid).FirstOrDefault();
+        Update(skill);
+        return GetAllSkillWithResumes().Where(x => x.Guid == skill.Guid).FirstOrDefault();
     }
 }
