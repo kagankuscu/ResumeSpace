@@ -112,5 +112,10 @@ namespace KaganKuscu.Repository.Concrete
             _dbSet.Update(entity);
             Save();
         }
+        public void UpdateRange(IEnumerable<T> entities)
+        {
+            _dbSet.UpdateRange(entities);
+            Save();
+        }
     }
 }
