@@ -56,7 +56,9 @@ namespace KaganKuscu.Business.Configurations
       CreateMap<SocialMediaIcon, SocialMediaIconForGetDto>().ReverseMap();
 
       CreateMap<SocialMedia, SocialMediaForGetDto>().ReverseMap();
-      CreateMap<SocialMedia, SocialMediaForGetWithResumesDto>().ReverseMap();
+      CreateMap<SocialMedia, SocialMediaForGetWithResumesDto>()
+        .ForMember(sm => sm.Resumes, opt => opt.MapFrom(x => x.ResumesSocialMedias.Select(x => x.Resume)))
+        .ReverseMap();
       CreateMap<SocialMedia, SocialMediaForAddDto>().ReverseMap();
       CreateMap<SocialMedia, SocialMediaForUpdateDto>().ReverseMap();
       CreateMap<SocialMediaForUpdateDto, SocialMediaForGetWithResumesDto>().ReverseMap();

@@ -36,25 +36,8 @@ public class SocialMediaRepository : Repository<SocialMedia>, ISocialMediaReposi
 
     public SocialMedia? UpdateSocialMedia(SocialMedia socialMedia)
     {
-        SocialMedia? real = GetAllSocialMediaWithResumes().Where(x => x.Guid == socialMedia.Guid).FirstOrDefault(); 
-
-        if (real is null)
-            return null;
-
-        real.ResumesSocialMedias.Clear();
-
-        foreach (var item in socialMedia.ResumesSocialMedias)
-        {
-            if (!real.ResumesSocialMedias.Select(re => re.ResumeId).Contains(item.ResumeId))
-                real.ResumesSocialMedias.Add(item);
-        }
-
-        real.Url = socialMedia.Url;
-        real.SocialMediaIconId = socialMedia.SocialMediaIconId;
-        real.IsActive = socialMedia.IsActive;
-        Update(real);
-
-        return GetAllSocialMediaWithResumes().Where(x => x.Guid == real.Guid).FirstOrDefault();
+        Update(socialMedia);
+        return GetAllSocialMediaWithResumes().Where(x => x.Guid == socialMedia.Guid).FirstOrDefault();
 
     }
 }

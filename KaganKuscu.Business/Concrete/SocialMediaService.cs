@@ -1,8 +1,10 @@
 using AutoMapper;
 using KaganKuscu.Business.Abstract;
+using KaganKuscu.Model.Dtos.ResumesDto;
 using KaganKuscu.Model.Models;
 using KaganKuscu.Model.SocialMediaDto;
 using KaganKuscu.Repository.Abstract;
+using Microsoft.EntityFrameworkCore;
 
 namespace KaganKuscu.Business.Concrete
 {
@@ -11,7 +13,7 @@ namespace KaganKuscu.Business.Concrete
         public readonly ISocialMediaRepository _repository;
         public readonly IMapper _mapper;
 
-        public SocialMediaService(ISocialMediaRepository repository, IMapper mapper) 
+        public SocialMediaService(ISocialMediaRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -20,21 +22,18 @@ namespace KaganKuscu.Business.Concrete
         public SocialMediaForGetWithResumesDto AddSocialMedia(SocialMediaForAddDto socialMediaDto)
         {
             SocialMedia socialMedia = _mapper.Map<SocialMedia>(socialMediaDto);
-            
             return _mapper.Map<SocialMediaForGetWithResumesDto>(_repository.AddSocialMedia(socialMedia));
         }
 
         public List<SocialMediaForGetWithResumesDto> GetAllSocialMediaWithResumes()
         {
             IQueryable<SocialMedia> socialMedias = _repository.GetAllSocialMediaWithResumes();
-            
             return _mapper.Map<List<SocialMediaForGetWithResumesDto>>(socialMedias);
         }
 
         public List<SocialMediaForGetWithResumesDto> GetAllSocialMediaWithResumes(Guid userId)
         {
             IQueryable<SocialMedia> socialMedias = _repository.GetAllSocialMediaWithResumes(userId);
-
             return _mapper.Map<List<SocialMediaForGetWithResumesDto>>(socialMedias);
         }
 
@@ -47,8 +46,13 @@ namespace KaganKuscu.Business.Concrete
 
         public SocialMediaForGetWithResumesDto UpdateSocialMedia(SocialMediaForUpdateDto socialMediaDto)
         {
-            SocialMedia socialMedia = _mapper.Map<SocialMedia>(socialMediaDto);
-            return _mapper.Map<SocialMediaForGetWithResumesDto>(_repository.UpdateSocialMedia(socialMedia));
+            SocialMedia real = _repository.GetAll(x => x.Guid == socialMediaDto.Guid).Include(x => x.ResumesSocialMedias).FirstOrDefault();
+            foreach (var item in real.ResumesSocialMedias)
+            {
+                if (socialMediaDto.ResumesSocialMedias.Select(re => re.ResumeId).Contains(item.ResumeId))
+                    socialMediaDto.ResumesSocialMedias.Remove(item);
+            }
+            return _mapper.Map<SocialMediaForGetWithResumesDto>(_repository.UpdateSocialMedia(_mapper.Map(socialMediaDto, real)));
         }
     }
 }
