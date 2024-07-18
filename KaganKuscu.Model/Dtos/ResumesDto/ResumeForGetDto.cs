@@ -1,8 +1,7 @@
 namespace KaganKuscu.Model.Dtos.ResumesDto
 {
-  public record ResumeForGetDto 
+  public record ResumeForGetDto
   {
-    public int Id { get; init; }
     public Guid Guid { get; init; }
     public string ResumeName { get; init; } = string.Empty;
     public string FullName { get; init; } = string.Empty;
@@ -17,5 +16,6 @@ namespace KaganKuscu.Model.Dtos.ResumesDto
     public string? ResumePath { get; init; }
     public string? Interest { get; init; }
     public string AppUserId { get; init; } = string.Empty;
+    public bool IsActive { get; init; }
   }
 }

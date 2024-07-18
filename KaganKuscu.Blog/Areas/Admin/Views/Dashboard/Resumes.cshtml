@@ -233,7 +233,7 @@
                                                 <a class="text-muted dropdown-toggle font-size-18 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
                                                     <i class="uil uil-ellipsis-v"></i>
                                                 </a>
-                                            
+
                                                 <div class="dropdown-menu dropdown-menu-end">
                                                     <a class="dropdown-item" onclick="toggleStatus(this)">
                                                         <i class="${row.isActive ? "uil-check-circle" : "uil-times-circle" } me-2 
@@ -245,7 +245,7 @@
                                         </ul>`
                             }
                         },
-                        { 
+                        {
                             data: "isActive",
                             title: "Durum",
                             render: (data) => `<i style="font-size: 25px" class="${data ? "uil-check-circle text-success" : "uil-times-circle text-danger"}"></i>`
@@ -282,41 +282,30 @@
                     icon: "success",
                     title: "Kaydedildi"
                 });
-                
+
                 let data =
                 {
-                    "resumeName": $("#txtResumeName").val(),
-                    "fullName": $("#txtName").val(),
-                    "title": $("#txtTitle").val(),
-                    "phone": $("#txtPhone").val(),
-                    "address": $("#txtAddress").val(),
-                    "email": $("#txtEmail").val(),
-                    "birthdate": $("#txtBirthdate").val(),
-                    "about": tinymce.get("txtareaAbout").getContent(),
-                    // "appUserId": "b8aa7057-ed44-468e-a76d-0e7f362f16d0"
+                    resumeName: $("#txtResumeName").val(),
+                    fullName: $("#txtName").val(),
+                    title: $("#txtTitle").val(),
+                    phone: $("#txtPhone").val(),
+                    address: $("#txtAddress").val(),
+                    email: $("#txtEmail").val(),
+                    birthDate: $("#txtBirthdate").val(),
+                    about: tinymce.get("txtareaAbout").getContent(),
                 }
 
                 $.ajax(
                     {
                         url: "/Admin/Resume/Add",
-                        data: data,
+                        contentType: "application/json",
                         type: "POST",
+                        data: JSON.stringify(data),
                         success: (res) =>
                         {
                             updateAllRow();
-                            datatable.row.add(
-                            {
-                               "resumeName": data.resumeName,
-                                "fullName": data.fullName,
-                                "title": data.title,
-                                "email": data.email,
-                                "phone": data.phone,
-                                "secondPhone": "",
-                                "address": data.address,
-                                "isActive": true,
-                                "guid": res
-                            }).draw();
-                            
+                            datatable.row.add(res).draw();
+
                             data["guid"] = res;
                             resume.push(data);
 
@@ -333,7 +322,7 @@
             {
                 // Get the data
                 let data = datatable.row(x).data();
-                
+
                 if (guid === data.guid)
                     continue;
 
@@ -354,14 +343,14 @@
                     url: "/Admin/Resume/ToggleStatus",
                     type: "POST",
                     data: { guid: data.guid },
-                    success: () => 
+                    success: () =>
                     {
                         SwalToast.fire(
                             {
                                 icon: "success",
                                 title: !data.isActive ? "Aktif edildi." : "Pasif yapıldı"
                             });
-                        
+
                         data.isActive = !data.isActive;
                         datatable.row(row).data(data).draw();
 
@@ -383,7 +372,7 @@
         {
             SwalRemove
                 .fire()
-                .then(result => 
+                .then(result =>
                 {
                     if(result.isConfirmed)
                     {
@@ -421,37 +410,18 @@
             toggleModal();
             clearModal();
 
-            // Find the table head values
-            // split with tab (\t) and remove for last object.
-            let keys = $("thead")[0].innerText.split("\t");
-            keys.pop();
-
-            // Find the given element parents until tr element
-            // split with tab (\t) and remove for last object.
             let row = $(element).parents("tr");
-            let values = row[0].innerText.split("\t")
-            values.pop();
+            let oldData = datatable.row(row).data();
 
-            // create empty object
-            let obj = {};
-
-            // creating new object table head keys, given element is values
-            for(let i = 0; i < keys.length; i++)
-            {
-                obj[keys[i]] = values[i];
-            }
-
-            $("#txtResumeName").val(obj["Öz Geçmiş Adı"])
-            $("#txtName").val(obj["Ad"]);
-            $("#txtTitle").val(obj["Ünvan"])
-            $("#txtPhone").val(obj["Gsm"])
-            $("#txtBirthdate").val(moment(obj["Doğum Tarihi"]).format("DD/MM/YYYY"))
-            $("#txtSecondPhone").val(obj["Ikinci Gsm"])
-            $("#txtAddress").val(obj["Adres"])
-            $("#txtEmail").val(obj["Email"])
-
-            let resumeIndex = resume.findIndex(p => p.guid === guid);
-            tinymce.get("txtareaAbout").setContent(resume[resumeIndex].about ?? "")
+            $("#txtResumeName").val(oldData.resumeName);
+            $("#txtName").val(oldData.fullName);
+            $("#txtTitle").val(oldData.title);
+            $("#txtPhone").val(oldData.phone);
+            $("#txtBirthdate").val(moment(oldData.birthDate).format("DD/MM/YYYY"))
+            $("#txtSecondPhone").val(oldData.secondPhone)
+            $("#txtAddress").val(oldData.address);
+            $("#txtEmail").val(oldData.email);
+            tinymce.get("txtareaAbout").setContent(oldData.about);
 
             $("#btnSave").off().text("Güncelle").removeClass("btn-success").addClass("btn-warning").click(() => 
             {
@@ -463,26 +433,25 @@
                         {
                             let data =
                             {
-                                "guid": guid,
-                                "resumeName": $("#txtResumeName").val(),
-                                "fullName": $("#txtName").val(),
-                                "title": $("#txtTitle").val(),
-                                "phone": $("#txtPhone").val(),
-                                "secondPhone": obj["Ikinci Gsm"],
-                                "address": $("#txtAddress").val(),
-                                "email": $("#txtEmail").val(),
-                                "birthDate": $("#txtBirthdate").val(),
-                                "about": tinymce.get("txtareaAbout").getContent(),
-                                "isActive": datatable.row(row).data().isActive,
+                                guid: guid,
+                                resumeName: $("#txtResumeName").val(),
+                                fullName: $("#txtName").val(),
+                                title: $("#txtTitle").val(),
+                                phone: $("#txtPhone").val(),
+                                secondPhone: oldData.secondPhone,
+                                address: $("#txtAddress").val(),
+                                email: $("#txtEmail").val(),
+                                birthDate: $("#txtBirthdate").val(),
+                                about: tinymce.get("txtareaAbout").getContent(),
+                                isActive: datatable.row(row).data().isActive,
                             }
-
-                            resume[resumeIndex] = data;
 
                             $.ajax(
                             {
                                 url: "/Admin/Resume/Update",
-                                data: data,
                                 type: "POST",
+                                contentType: "application/json",
+                                data: JSON.stringify(data),
                                 success: (res) =>
                                 {
                                     toggleModal();
@@ -612,7 +581,6 @@
                         icon: "error",
                         title: err.responseText === '' ? "HATA!" : err.responseText
                     })
-                        
                 }
             });
         }

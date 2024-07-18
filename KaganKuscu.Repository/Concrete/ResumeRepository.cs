@@ -43,23 +43,9 @@ public class ResumeRepository : Repository<Resume>, IResumeRepository
 
     public Resume? UpdateResume(Resume resume)
     {
-        Resume? real = GetById(resume.Guid);
-        if (real is null)
-            return null;
+        Update(resume);
 
-        real.Email = resume.Email;
-        real.ResumeName = resume.ResumeName;
-        real.FullName = resume.FullName;
-        real.Title = resume.Title;
-        real.Phone = resume.Phone;
-        real.SecondPhone = resume.SecondPhone;
-        real.Address = resume.Address;
-        real.BirthDate = resume.BirthDate;
-        real.About = resume.About;
-
-        Update(real);
-
-        return real;
+        return resume;
     }
 
     public bool UpdateStatusForUserGuid(Guid guid)
@@ -70,8 +56,8 @@ public class ResumeRepository : Repository<Resume>, IResumeRepository
             foreach (Resume resume in resumes)
             {
                 resume.IsActive = false;
-                Update(resume);
             }
+            UpdateRange(resumes);
             return true;
         }
         catch

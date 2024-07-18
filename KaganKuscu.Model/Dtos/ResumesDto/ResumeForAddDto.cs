@@ -2,10 +2,10 @@
 
 public record ResumeForAddDto
 {
-    public Guid Guid { get; init; }
+    public string ResumeName { get; init; } = string.Empty;
     public string AppUserId { get; set; } = string.Empty;
-    public string Name { get; init; } = string.Empty;
-    public int Age { get; init; }
+    public string FullName { get; init; } = string.Empty;
+    public string BirthDate { get; init; } = string.Empty;
     public string Address { get; init; } = string.Empty;
     public string Phone { get; init; } = string.Empty;
     public string Email { get; init; } = string.Empty;
