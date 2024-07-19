@@ -421,7 +421,7 @@
             $("#txtSecondPhone").val(oldData.secondPhone)
             $("#txtAddress").val(oldData.address);
             $("#txtEmail").val(oldData.email);
-            tinymce.get("txtareaAbout").setContent(oldData.about);
+            tinymce.get("txtareaAbout").setContent(oldData.about === null ? "" : oldData.about);
 
             $("#btnSave").off().text("Güncelle").removeClass("btn-success").addClass("btn-warning").click(() => 
             {
@@ -455,7 +455,7 @@
                                 success: (res) =>
                                 {
                                     toggleModal();
-                                    datatable.row(row).data(data).draw();
+                                    datatable.row(row).data(res).draw();
                                     SwalToast.fire(
                                         {
                                             icon: "success",

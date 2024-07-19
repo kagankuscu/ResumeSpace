@@ -6,6 +6,8 @@ namespace KaganKuscu.Model.Dtos.ResumesDto
 {
     public class ResumeForGetWithDetailsDto
     {
+        public Guid Guid { get; init; }
+        public string ResumeName { get; init; } = string.Empty;
         public string FullName { get; set; } = string.Empty;
         public int Age { get; set; }
         public string Address { get; set; } = string.Empty;
@@ -16,6 +18,7 @@ namespace KaganKuscu.Model.Dtos.ResumesDto
         public string Title { get; set; } = string.Empty;
         public string ImagePath { get; set; } = string.Empty;
         public string ResumePath { get; set; } = string.Empty;
+        public string? About { get; init; }
 
         public virtual List<ResumesEducations> ResumesEducations { get; set; } = [];
         public virtual List<SocialMediaForGetDto> SocialMedia { get; set; } = new List<SocialMediaForGetDto>();

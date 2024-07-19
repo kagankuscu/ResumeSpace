@@ -14,4 +14,5 @@ public record ResumeForAddDto
     public string Title { get; init; } = string.Empty;
     public string ImagePath { get; init; } = string.Empty;
     public string ResumePath { get; init; } = string.Empty;
+    public string? About { get; init; }
 }

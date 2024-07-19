@@ -1,27 +1,32 @@
-﻿using AutoMapper;
+﻿using System.ComponentModel.DataAnnotations;
+using AutoMapper;
 using KaganKuscu.Business.Abstract;
 using KaganKuscu.Model.Dtos.ResumesDto;
 using KaganKuscu.Model.Models;
+using KaganKuscu.Model.SocialMediaDto;
 using KaganKuscu.Repository.Abstract;
 using KaganKuscu.Utilities;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace KaganKuscu.Business.Concrete
 {
     public class ResumeService : IResumeService
     {
         private readonly IResumeRepository _repository;
+        private readonly ISocialMediaService _socialMediaService;
         private readonly IMapper _mapper;
 
-        public ResumeService(IResumeRepository repository, IMapper mapper)
+        public ResumeService(IResumeRepository repository, IMapper mapper, ISocialMediaService socialMediaService)
         {
             _repository = repository;
             _mapper = mapper;
+            _socialMediaService = socialMediaService;
         }
 
-        public IQueryable<ResumeForAppUserDto> GetAllByAppUserGuid(Guid guid)
+        public ICollection<ResumeForAppUserDto> GetAllByAppUserGuid(Guid guid)
         {
-            return _mapper.Map<IQueryable<ResumeForAppUserDto>>(_repository.GetAllByAppUserGuid(guid));
+            return _mapper.Map<List<ResumeForAppUserDto>>(_repository.GetAllByAppUserGuid(guid));
         }
 
         public bool UpdateStatusForUserGuid(Guid guid) => _repository.UpdateStatusForUserGuid(guid);
@@ -92,31 +97,27 @@ namespace KaganKuscu.Business.Concrete
             }
         }
 
-        public ResumeForGetWithDetailsDto AddResume(ResumeForGetWithDetailsDto resumeForAddDto)
+        public ResumeForGetDto UpdateResume(ResumeForUpdateDto resumeDto)
         {
-            Resume resume = _mapper.Map<Resume>(resumeForAddDto);
-            return _mapper.Map<ResumeForGetWithDetailsDto>(_repository.AddResume(resume));
-        }
-
-        public ResumeForGetWithDetailsDto UpdateResume(ResumeForUpdateDto resumeDto)
-        {
-            Resume resume = _mapper.Map<Resume>(resumeDto);
-            return _mapper.Map<ResumeForGetWithDetailsDto>(_repository.UpdateResume(resume));
+            Resume? real = _repository.GetAll(x => x.Guid == resumeDto.Guid).FirstOrDefault();
+            return _mapper.Map<ResumeForGetDto>(_repository.UpdateResume(_mapper.Map(resumeDto, real)));
         }
 
         public bool ToggleStatus(Guid guid) => _repository.ToggleStatus(guid);
 
-        public ResumeForGetWithDetailsDto AddResume(ResumeForAddDto resumeDto)
+        public ResumeForGetDto AddResume(ResumeForAddDto resumeDto)
         {
             Resume resume = _mapper.Map<Resume>(resumeDto);
-            return _mapper.Map<ResumeForGetWithDetailsDto>(_repository.AddResume(resume));
+            return _mapper.Map<ResumeForGetDto>(_repository.AddResume(resume));
         }
 
         public void RemoveResume(Guid guid) => RemoveResume(guid);
 
-        public IQueryable<ResumeForGetWithDetailsDto> GetAllResumeDto()
+        public ICollection<ResumeForGetWithDetailsDto> GetAllResumeDto()
         {
-            return _mapper.Map<IQueryable<ResumeForGetWithDetailsDto>>(_repository.GetAllResume());
+            var resumes = _repository.GetAllResumeWithDetail();
+
+            return _mapper.Map<List<ResumeForGetWithDetailsDto>>(resumes);
         }
     }
 }

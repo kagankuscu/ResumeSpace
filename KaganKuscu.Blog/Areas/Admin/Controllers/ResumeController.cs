@@ -22,7 +22,7 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
         {
             // if(User.FindFirstValue(ClaimTypes.Role) is "Admin")
             //     return Json(new {Data = _resumeService.GetAllByAppUserGuid() });
-            
+
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             Guid guid = Guid.Parse(userId ?? string.Empty);
 
@@ -33,14 +33,11 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(ResumeForAddDto resumeDto)
+        public IActionResult Add([FromBody] ResumeForAddDto resumeDto)
         {
             resumeDto.AppUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
-
             _resumeService.UpdateStatusForUserGuid(Guid.Parse(resumeDto.AppUserId));
-            _resumeService.AddResume(resumeDto);
-
-            return StatusCode(201, resumeDto.Guid);
+            return StatusCode(201, _resumeService.AddResume(resumeDto));
         }
 
         [HttpPost]
@@ -52,18 +49,16 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(ResumeForUpdateDto resumeDto)
+        public IActionResult Update([FromBody] ResumeForUpdateDto resumeDto)
         {
-            _resumeService.UpdateResume(resumeDto);
-
-            return Ok();
+            return Ok(_resumeService.UpdateResume(resumeDto));
         }
-    
+
         [HttpPost]
         public async Task<IActionResult> UploadFiles(IFormCollection form, Resume resume)
         {
             string? username = User.FindFirstValue(ClaimTypes.Name);
-            
+
             if (username is null)
                 return BadRequest();
 
