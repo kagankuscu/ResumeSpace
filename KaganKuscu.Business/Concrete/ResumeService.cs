@@ -111,7 +111,7 @@ namespace KaganKuscu.Business.Concrete
             return _mapper.Map<ResumeForGetDto>(_repository.AddResume(resume));
         }
 
-        public void RemoveResume(Guid guid) => RemoveResume(guid);
+        public void RemoveResume(Guid guid) => _repository.RemoveResume(guid);
 
         public ICollection<ResumeForGetWithDetailsDto> GetAllResumeDto()
         {

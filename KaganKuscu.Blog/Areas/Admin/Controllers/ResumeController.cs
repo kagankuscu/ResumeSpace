@@ -41,7 +41,7 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Remove(Guid guid)
+        public IActionResult Remove([FromBody] Guid guid)
         {
             _resumeService.RemoveResume(guid);
 

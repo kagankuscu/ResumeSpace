@@ -380,8 +380,9 @@
                         ({
                             url: "/Admin/Resume/Remove",
                             type: "POST",
-                            data: { guid: guid } ,
-                            success: res => 
+                            contentType: "application/json",
+                            data: JSON.stringify(guid) ,
+                            success: res =>
                             {
                                 datatable.row($(element).parents("tr")).remove().draw();
 
