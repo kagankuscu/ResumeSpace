@@ -31,7 +31,7 @@ namespace KaganKuscu.Business.Concrete
 
         public bool UpdateStatusForUserGuid(Guid guid) => _repository.UpdateStatusForUserGuid(guid);
 
-        public async Task<bool> UploadFiles(IFormCollection form, string username, Resume resume)
+        public async Task<ResumeForGetDto> UploadFiles(IFormCollection form, string username)
         {
             // wwwroot/img/resumes/<username>/<imagename>
             // wwwroot/Files/Resume/<username>/<resumename>
@@ -40,9 +40,9 @@ namespace KaganKuscu.Business.Concrete
 
             string imageFilename;
             string resumeFilename;
-            Resume? real = _repository.GetById(resume.Guid);
+            Resume? real = _repository.GetById(Guid.Parse(form["guid"]!));
             if (real is null)
-                return false;
+                throw new Exception($"Resume cannot found. {form["guid"]}");
 
             if (image is not null)
             {
@@ -84,16 +84,16 @@ namespace KaganKuscu.Business.Concrete
 
             try
             {
-                real.SecondPhone = resume.SecondPhone;
-                real.Interest = resume.Interest;
+                real.SecondPhone = form["secondPhone"];
+                real.Interest = form["interest"];
 
                 _repository.Update(real);
                 _repository.Save();
-                return true;
+                return _mapper.Map<ResumeForGetDto>(real);
             }
             catch
             {
-                return false;
+                throw new Exception("Something went wrong saving");
             }
         }
 

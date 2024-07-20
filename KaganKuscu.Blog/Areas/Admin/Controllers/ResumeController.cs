@@ -55,17 +55,14 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadFiles(IFormCollection form, Resume resume)
+        public async Task<IActionResult> UploadFiles(IFormCollection form)
         {
             string? username = User.FindFirstValue(ClaimTypes.Name);
 
             if (username is null)
                 return BadRequest();
 
-            bool result = await _resumeService.UploadFiles(form, username, resume);
-            if (result)
-                return Ok();
-            return BadRequest("Hataaaa :)");
+            return Ok(await _resumeService.UploadFiles(form, username));
         }
 
         [HttpPost]

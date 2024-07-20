@@ -419,7 +419,6 @@
             $("#txtTitle").val(oldData.title);
             $("#txtPhone").val(oldData.phone);
             $("#txtBirthdate").val(moment(oldData.birthDate).format("DD/MM/YYYY"))
-            $("#txtSecondPhone").val(oldData.secondPhone)
             $("#txtAddress").val(oldData.address);
             $("#txtEmail").val(oldData.email);
             tinymce.get("txtareaAbout").setContent(oldData.about === null ? "" : oldData.about);
@@ -439,7 +438,6 @@
                                 fullName: $("#txtName").val(),
                                 title: $("#txtTitle").val(),
                                 phone: $("#txtPhone").val(),
-                                secondPhone: oldData.secondPhone,
                                 address: $("#txtAddress").val(),
                                 email: $("#txtEmail").val(),
                                 birthDate: $("#txtBirthdate").val(),
@@ -544,19 +542,6 @@
             resume[resumeIndex].interest = tinymce.get("txtareaExtras").getContent();
 
             let row = $(element).parents("tr");
-            let data =
-            {
-                "guid": guid,
-                "resumeName": $("#txtResumeName").val(),
-                "fullName": resume[resumeIndex].fullName,
-                "title": resume[resumeIndex].title,
-                "phone": resume[resumeIndex].phone,
-                "secondPhone": $("#txtSecondPhone").val(),
-                "address": resume[resumeIndex].address,
-                "email": resume[resumeIndex].email,
-                "birthdate": resume[resumeIndex].birthdate,
-                "about": tinymce.get("txtareaAbout").getContent(),
-            }
 
             $.ajax
             ({
@@ -568,7 +553,7 @@
                 success: (res) =>
                 {
                     toggleModalExtras();
-                    datatable.row(row).data(data).draw();
+                    datatable.row(row).data(res).draw();
                     SwalToast.fire
                     ({
                         icon: "success",
