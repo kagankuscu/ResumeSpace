@@ -1,7 +1,6 @@
 using System.Security.Claims;
 using KaganKuscu.Business.Abstract;
 using KaganKuscu.Model.Dtos.ResumesDto;
-using KaganKuscu.Model.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,8 +35,9 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
         public IActionResult Add([FromBody] ResumeForAddDto resumeDto)
         {
             resumeDto.AppUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
-            _resumeService.UpdateStatusForUserGuid(Guid.Parse(resumeDto.AppUserId));
-            return StatusCode(201, _resumeService.AddResume(resumeDto));
+            var resumeGetDto = _resumeService.AddResume(resumeDto);
+            _resumeService.UpdateStatusForUserGuid(Guid.Parse(resumeDto.AppUserId), resumeGetDto.Guid);
+            return StatusCode(201, resumeGetDto);
         }
 
         [HttpPost]

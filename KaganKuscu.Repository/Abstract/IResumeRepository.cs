@@ -8,8 +8,8 @@ public interface IResumeRepository: IRepository<Resume>
     IQueryable<Resume> GetAllByAppUserGuid(Guid guid);
     IQueryable<Resume> GetAllResume();
     IQueryable<Resume> GetAllResumeWithDetail();
-    bool ToggleStatus(Guid guid); 
+    bool ToggleStatus(Guid guid);
     void RemoveResume(Guid guid);
     Resume? UpdateResume(Resume resume);
-    bool UpdateStatusForUserGuid(Guid guid);
+    bool UpdateStatusForUserGuid(Guid guid, Guid resumeGuid);
 }

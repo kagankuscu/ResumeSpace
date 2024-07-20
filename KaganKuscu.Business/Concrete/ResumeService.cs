@@ -1,13 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using AutoMapper;
+﻿using AutoMapper;
 using KaganKuscu.Business.Abstract;
 using KaganKuscu.Model.Dtos.ResumesDto;
 using KaganKuscu.Model.Models;
-using KaganKuscu.Model.SocialMediaDto;
 using KaganKuscu.Repository.Abstract;
 using KaganKuscu.Utilities;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 
 namespace KaganKuscu.Business.Concrete
 {
@@ -28,8 +25,6 @@ namespace KaganKuscu.Business.Concrete
         {
             return _mapper.Map<List<ResumeForAppUserDto>>(_repository.GetAllByAppUserGuid(guid));
         }
-
-        public bool UpdateStatusForUserGuid(Guid guid) => _repository.UpdateStatusForUserGuid(guid);
 
         public async Task<ResumeForGetDto> UploadFiles(IFormCollection form, string username)
         {
@@ -119,5 +114,7 @@ namespace KaganKuscu.Business.Concrete
 
             return _mapper.Map<List<ResumeForGetWithDetailsDto>>(resumes);
         }
+
+        public bool UpdateStatusForUserGuid(Guid guid, Guid resumeGuid) => _repository.UpdateStatusForUserGuid(guid, resumeGuid);
     }
 }

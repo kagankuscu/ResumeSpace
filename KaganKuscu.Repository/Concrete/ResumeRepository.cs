@@ -36,7 +36,7 @@ public class ResumeRepository : Repository<Resume>, IResumeRepository
             return false;
 
         resume.IsActive = !resume.IsActive;
-        if (UpdateStatusForUserGuid(Guid.Parse(resume.AppUserId)))
+        if (UpdateStatusForUserGuid(Guid.Parse(resume.AppUserId), resume.Guid))
             Update(resume);
         return true;
     }
@@ -48,11 +48,15 @@ public class ResumeRepository : Repository<Resume>, IResumeRepository
         return resume;
     }
 
-    public bool UpdateStatusForUserGuid(Guid guid)
+    public bool UpdateStatusForUserGuid(Guid guid, Guid resumeGuid)
     {
         try
         {
-            IQueryable<Resume> resumes = GetAllByAppUserGuid(guid);
+            IQueryable<Resume> resumes = GetAllByAppUserGuid(guid)
+                .Where(x => x.Guid != resumeGuid)
+                .Where(x => x.IsActive);
+
+            var resumss = resumes.ToList();
             foreach (Resume resume in resumes)
             {
                 resume.IsActive = false;

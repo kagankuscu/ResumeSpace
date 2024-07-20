@@ -12,7 +12,7 @@ namespace KaganKuscu.Business.Abstract
         bool ToggleStatus(Guid guid);
         void RemoveResume(Guid guid);
         Task<ResumeForGetDto> UploadFiles(IFormCollection form, string username);
-        bool UpdateStatusForUserGuid(Guid guid);
         ResumeForGetDto UpdateResume(ResumeForUpdateDto resumeDto);
+        bool UpdateStatusForUserGuid(Guid guid, Guid resumeGuid);
     }
 }
