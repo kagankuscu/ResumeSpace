@@ -10,164 +10,49 @@ namespace KaganKuscu.Business.Concrete
 {
     public class SocialMediaService : ISocialMediaService
     {
-        public readonly IRepository<SocialMedia> _repository;
-        private readonly IResumeService _resumeService;
-        private readonly ISocialMediaIconService _socialMediaIconService;
+        public readonly ISocialMediaRepository _repository;
         public readonly IMapper _mapper;
 
-        public SocialMediaService(IRepository<SocialMedia> repository, IMapper mapper, IResumeService resumeService, ISocialMediaIconService socialMediaIconService)
+        public SocialMediaService(ISocialMediaRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _resumeService = resumeService;
-            _socialMediaIconService = socialMediaIconService;
-        }
-
-        public void Add(SocialMedia entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddRange(IEnumerable<SocialMedia> entities)
-        {
         }
 
         public SocialMediaForGetWithResumesDto AddSocialMedia(SocialMediaForAddDto socialMediaDto)
         {
-            SocialMedia reference = _mapper.Map<SocialMedia>(socialMediaDto);
-            _repository.Add(reference);
-            SocialMediaForGetWithResumesDto returnData = _mapper.Map<SocialMediaForGetWithResumesDto>(reference);
-            returnData.SocialMediaIcon = _mapper.Map<SocialMediaIconForGetDto>(_socialMediaIconService.GetById(reference.SocialMediaIconId));
-            returnData.Resumes = _mapper.Map<List<ResumeForGetDto>>(_resumeService.GetAll().Where(r => r.ResumesSocialMedias.Any(re => re.SocialMediaId == reference.Id)).ToList());
-            return returnData;
-        }
-
-        public IQueryable<SocialMedia> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<SocialMediaForGetDto> GetAllSocialMedia()
-        {
-            List<SocialMedia> socialMedias = _repository.GetAll().ToList();
-
-            return _mapper.Map<List<SocialMediaForGetDto>>(socialMedias);
+            SocialMedia socialMedia = _mapper.Map<SocialMedia>(socialMediaDto);
+            return _mapper.Map<SocialMediaForGetWithResumesDto>(_repository.AddSocialMedia(socialMedia));
         }
 
         public List<SocialMediaForGetWithResumesDto> GetAllSocialMediaWithResumes()
         {
-            List<SocialMediaForGetWithResumesDto> socialMedias = _repository.GetAll()
-              .Select(e => new SocialMediaForGetWithResumesDto
-              {
-                  Guid = e.Guid,
-                  Url = e.Url,
-                  SocialMediaIcon = _mapper.Map<SocialMediaIconForGetDto>(e.SocialMediaIcon),
-                  IsActive = e.IsActive,
-                  Resumes = _mapper.Map<List<ResumeForGetDto>>(e.ResumesSocialMedias.Select(re => re.Resume).ToList())
-              }).ToList();
-
-            return socialMedias;
+            IQueryable<SocialMedia> socialMedias = _repository.GetAllSocialMediaWithResumes();
+            return _mapper.Map<List<SocialMediaForGetWithResumesDto>>(socialMedias);
         }
 
         public List<SocialMediaForGetWithResumesDto> GetAllSocialMediaWithResumes(Guid userId)
         {
-            List<SocialMediaForGetWithResumesDto> socialMedias = _repository.GetAll()
-              .Where(e => e.AppUserId == userId)
-              .Select(e => new SocialMediaForGetWithResumesDto
-              {
-                  Guid = e.Guid,
-                  Url = e.Url,
-                  SocialMediaIcon = _mapper.Map<SocialMediaIconForGetDto>(e.SocialMediaIcon),
-                  IsActive = e.IsActive,
-                  Resumes = _mapper.Map<List<ResumeForGetDto>>(e.ResumesSocialMedias.Select(re => re.Resume).ToList())
-              }).ToList();
-
-            return socialMedias;
+            IQueryable<SocialMedia> socialMedias = _repository.GetAllSocialMediaWithResumes(userId);
+            return _mapper.Map<List<SocialMediaForGetWithResumesDto>>(socialMedias);
         }
 
-        public SocialMedia? GetById(int id)
+        public void RemoveSocialMedia(Guid guid)
         {
-            return _repository.GetById(id);
+            _repository.RemoveSocialMedia(guid);
         }
 
-        public SocialMedia? GetById(Guid guid)
-        {
-            return _repository.GetAll(r => r.Guid == guid).FirstOrDefault();
-        }
-
-        public void Remove(SocialMedia entity)
-        {
-            _repository.Remove(entity);
-        }
-
-        public void Remove(int id)
-        {
-            SocialMedia? socialMedia = _repository.GetAll(e => e.Id == id).SingleOrDefault();
-            if (socialMedia is null)
-                return;
-
-            Remove(socialMedia);
-        }
-
-        public void Remove(Guid guid)
-        {
-            SocialMedia? socialMedia = _repository.GetAll(e => e.Guid == guid).SingleOrDefault();
-            if (socialMedia is null)
-                return;
-
-            Remove(socialMedia);
-        }
-
-        public bool ToggleStatus(Guid guid)
-        {
-            SocialMedia? socialMedia = _repository.GetById(guid);
-            if (socialMedia is null)
-                return false;
-
-            socialMedia.IsActive = !socialMedia.IsActive;
-            _repository.Update(socialMedia);
-            return true;
-        }
-
-        public void Update(SocialMedia entity)
-        {
-            _repository.Update(entity);
-        }
-
-        public void Update(Guid guid)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public bool ToggleStatus(Guid guid) => _repository.ToggleStatus(guid);
 
         public SocialMediaForGetWithResumesDto UpdateSocialMedia(SocialMediaForUpdateDto socialMediaDto)
         {
-            SocialMedia? socialMedia = _repository.GetAll(e => e.Guid == socialMediaDto.Guid).Include(e => e.ResumesSocialMedias).FirstOrDefault();
-
-            if (socialMedia is null)
-                return new SocialMediaForGetWithResumesDto();
-
-            socialMedia.ResumesSocialMedias.Clear();
-
-            foreach (var item in socialMediaDto.ResumesSocialMedias)
+            SocialMedia real = _repository.GetAll(x => x.Guid == socialMediaDto.Guid).Include(x => x.ResumesSocialMedias).FirstOrDefault();
+            foreach (var item in real.ResumesSocialMedias)
             {
-                if (!socialMedia.ResumesSocialMedias.Select(re => re.ResumeId).Contains(item.ResumeId))
-                    socialMedia.ResumesSocialMedias.Add(item);
+                if (socialMediaDto.ResumesSocialMedias.Select(re => re.ResumeId).Contains(item.ResumeId))
+                    socialMediaDto.ResumesSocialMedias.Remove(item);
             }
-
-            socialMedia.Url = socialMediaDto.Url;
-            socialMedia.SocialMediaIconId = socialMediaDto.SocialMediaIconId;
-            socialMedia.IsActive = socialMediaDto.IsActive;
-            Update(socialMedia);
-
-            var returnDto = _mapper.Map<SocialMediaForGetWithResumesDto>(socialMediaDto);
-            returnDto.Resumes = _mapper.Map<List<ResumeForGetDto>>(_resumeService.GetAll().Where(r => r.ResumesSocialMedias.Any(re => re.SocialMediaId == socialMedia.Id)).ToList());
-            returnDto.SocialMediaIcon = _mapper.Map<SocialMediaIconForGetDto>(_socialMediaIconService.GetById(socialMedia.SocialMediaIconId));
-            return returnDto;
+            return _mapper.Map<SocialMediaForGetWithResumesDto>(_repository.UpdateSocialMedia(_mapper.Map(socialMediaDto, real)));
         }
     }
 }

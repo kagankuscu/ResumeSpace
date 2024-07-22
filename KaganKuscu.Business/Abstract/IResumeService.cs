@@ -1,18 +1,18 @@
-﻿using System.Linq.Expressions;
-using KaganKuscu.Model.Dtos.ResumesDto;
+﻿using KaganKuscu.Model.Dtos.ResumesDto;
 using KaganKuscu.Model.Models;
 using Microsoft.AspNetCore.Http;
 
 namespace KaganKuscu.Business.Abstract
 {
-    public interface IResumeService : IBaseService<Resume>
+    public interface IResumeService
     {
-        IQueryable<ResumeForGetWithDetailsDto> GetAllResumeDto();
-        IQueryable<ResumeForAppUserDto> GetAllByAppUserGuid(Guid guid);
-        Task<bool> UploadFiles(IFormCollection form, string username, Resume resume);
-        bool UpdateIsActiveForUser(Guid guid);
-        IQueryable<ResumeForGetDto> GetAllResume();
-        IQueryable<ResumeForGetDto> GetAllResume(Expression<Func<ResumeForGetDto, bool>> predicate);
-        IQueryable<ResumeForGetDto> GetAllResumeBySkillId(int id);
+        ResumeForGetDto AddResume(ResumeForAddDto resumeDto);
+        ICollection<ResumeForAppUserDto> GetAllByAppUserGuid(Guid guid);
+        ICollection<ResumeForGetWithDetailsDto> GetAllResumeDto();
+        bool ToggleStatus(Guid guid);
+        void RemoveResume(Guid guid);
+        Task<ResumeForGetDto> UploadFiles(IFormCollection form, string username);
+        ResumeForGetDto UpdateResume(ResumeForUpdateDto resumeDto);
+        bool UpdateStatusForUserGuid(Guid guid, Guid resumeGuid);
     }
 }

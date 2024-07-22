@@ -24,7 +24,7 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
                 return NotFound();
 
             Guid guid = Guid.Parse(userId);
-            return Json(new { Data = _skillService.GetAllByUserId(guid)});
+            return Json(new { Data = _skillService.GetAllSkillWithResumes(guid)});
         }
 
         [HttpPost]
@@ -35,7 +35,7 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
             return BadRequest("User Not Found");
 
           skillDto.AppUserId = Guid.Parse(guid);
-          return Json(_skillService.Add(skillDto));
+          return Json(_skillService.AddSkill(skillDto));
         }
 
        public IActionResult ToggleStatus(Guid guid)
@@ -48,14 +48,14 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
        [HttpPost]
        public IActionResult Remove([FromBody] Guid guid)
        {
-            _skillService.Remove(guid);
+            _skillService.RemoveSkill(guid);
             return Json(new { guid });
        }
-       
+
        [HttpPost]
        public IActionResult Update([FromBody] SkillForUpdateDto skillDto)
        {
-            return Json(_skillService.Update(skillDto));
+            return Json(_skillService.UpdateSkill(skillDto));
        }
     }
 }

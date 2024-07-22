@@ -1,15 +1,14 @@
 using KaganKuscu.Model.Dtos.WorkExperienceDto;
-using KaganKuscu.Model.Models;
 
 namespace KaganKuscu.Business.Abstract
 {
- public interface IWorkExperienceService : IBaseService<WorkExperience>
+ public interface IWorkExperienceService
  {
-    List<WorkExperienceForGetDto> GetAllWorkExperience();
     List<WorkExperienceForGetWithResumesDto> GetAllWorkExperienceWithResumes();
     List<WorkExperienceForGetWithResumesDto> GetAllWorkExperienceWithResumes(Guid userId);
     WorkExperienceForGetWithResumesDto AddWorkExperience(WorkExperienceForAddDto workExperienceDto);
-    WorkExperienceForGetWithResumesDto UpdateWorkExperience(WorkExperienceForUpdateDto workExperienceDto);
+    void RemoveWorkExperience(Guid guid);
     bool ToggleStatus(Guid guid); 
+    WorkExperienceForGetWithResumesDto UpdateWorkExperience(WorkExperienceForUpdateDto workExperienceDto);
  }    
 }

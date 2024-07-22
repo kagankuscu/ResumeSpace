@@ -1,4 +1,4 @@
-using KaganKuscu.Business;
+using KaganKuscu.Business.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +15,6 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
             _socialMediaIconService = socialMediaIconService;
         }
 
-        public IActionResult GetAllSocialMediaIcon() => Json(new { Data = _socialMediaIconService.GetAll() });
+        public IActionResult GetAllSocialMediaIcon() => Json(new { Data = _socialMediaIconService.GetAllSocialMediaIcon() });
     }
 }

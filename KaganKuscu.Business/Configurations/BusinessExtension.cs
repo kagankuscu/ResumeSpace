@@ -1,5 +1,5 @@
-﻿using KaganKuscu.Business.Abstract;
-using KaganKuscu.Model;
+﻿using KaganKuscu.Model;
+using KaganKuscu.Repository;
 using KaganKuscu.Repository.Abstract;
 using KaganKuscu.Repository.Concrete;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,8 +20,8 @@ namespace KaganKuscu.Business.Configurations
             // we dont need to register IBaseService<>
             var types = Assembly.GetExecutingAssembly()
                 .GetTypes()
-                .Where(x => !x.IsAbstract && !x.IsInterface && x.GetInterfaces()
-                    .Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IBaseService<>)));
+                .Where(x => !x.IsAbstract && !x.IsInterface)
+                .Where(x => !x.FullName!.Contains("Configuration"));
                 
             foreach(var type in types)
             {
@@ -59,6 +59,22 @@ namespace KaganKuscu.Business.Configurations
                 Type repositoryType = typeof(Repository<>).MakeGenericType(t);
 
                 service.AddScoped(interfaceRepositoryType, repositoryType);
+            }
+
+            var modelRepositories = Assembly.GetAssembly(typeof(RepositoryAssembly))!
+                .GetTypes()
+                .Where(x => !x.IsAbstract && !x.IsInterface)
+                .Where(x => !x.IsGenericType && !x.IsNested)
+                .Where(x => !x.FullName!.Contains("RepositoryAssembly"));
+
+            foreach(var modelRepository in modelRepositories)
+            {
+                var modelInterface = modelRepository
+                    .GetInterfaces()
+                    .Where(x => !x.FullName!.Contains("IRepository"))
+                    .FirstOrDefault();
+
+                service.AddScoped(modelInterface!, modelRepository);
             }
 
             // This is old vesion we should write every model repository for register

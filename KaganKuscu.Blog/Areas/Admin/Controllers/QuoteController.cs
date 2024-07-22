@@ -30,7 +30,7 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult RemoveQuote([FromBody] Guid guid)
         {
-            _quoteService.Remove(guid);
+            _quoteService.RemoveQuote(guid);
 
             return Ok();
         }

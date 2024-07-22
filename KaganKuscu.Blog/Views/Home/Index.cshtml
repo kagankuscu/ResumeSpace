@@ -1,4 +1,5 @@
-﻿@using KaganKuscu.Model.ViewModels
+﻿@using KaganKuscu.Model.SocialMediaDto
+@using KaganKuscu.Model.ViewModels
 @using KaganKuscu.Model.Dtos.ResumesDto
 @using KaganKuscu.Model.Dtos.QuoteDto
 @model HomePageVm
@@ -34,6 +35,7 @@
                             </li>
                             <li class="clearfix">
                                 <strong class="title">E-mail</strong>
+    using KaganKuscu.Model.SocialMediaDto;
                                 <span class="cont"><a href="mailto:@resume.Email">@resume.Email</a></span>
                             </li>
                             <li class="clearfix">
@@ -46,11 +48,11 @@
             </div>
             <div class="profile-social">
                 <ul class="social">
-                    @foreach(SocialMedia socialMedia in resume.SocialMedias)
+                    @foreach(SocialMediaForGetDto socialMediaDto in resume.SocialMedias)
                     {
                         <li>
-                            <a class="ripple-centered" href="@socialMedia.Url" target="_blank">
-                                <i class="@socialMedia.SocialMediaIcon!.CssClass" style="font-size: 24px;"></i>
+                            <a class="ripple-centered" href="@socialMediaDto.Url" target="_blank">
+                                <i class="@socialMediaDto.SocialMediaIcon!.Name" style="font-size: 24px;"></i>
                             </a>
                         </li>
                     }

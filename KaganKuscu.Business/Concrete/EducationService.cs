@@ -1,7 +1,6 @@
 using AutoMapper;
 using KaganKuscu.Business.Abstract;
 using KaganKuscu.Model.Dtos.EducationDto;
-using KaganKuscu.Model.Dtos.ResumesDto;
 using KaganKuscu.Model.Models;
 using KaganKuscu.Repository.Abstract;
 using Microsoft.EntityFrameworkCore;
@@ -10,167 +9,58 @@ namespace KaganKuscu.Business.Concrete
 {
   class EducationService : IEducationService
   {
-    private readonly IRepository<Education> _repository;
-    private readonly IResumeService _resumeService;
+    private readonly IEducationRepository _repository;
     private readonly IMapper _mapper;
 
-    public EducationService(IRepository<Education> repository, IMapper mapper, IResumeService resumeService)
+    public EducationService(IMapper mapper, IEducationRepository repository)
     {
-      _repository = repository;
       _mapper = mapper;
-      _resumeService = resumeService;
-    }
-
-    public void Add(Education entity)
-    {
-      throw new NotImplementedException();
+      _repository = repository;
     }
 
     public EducationForGetWithResumesDto AddEducation(EducationForAddDto educationDto)
     {
-      Education education = _mapper.Map<Education>(educationDto);
-      _repository.Add(education);
-      EducationForGetWithResumesDto returnData = _mapper.Map<EducationForGetWithResumesDto>(education);
-      returnData.Resumes = _mapper.Map<List<ResumeForGetDto>>(_resumeService.GetAll().Where(r => r.ResumesEducations.Any(re => re.EducationId == education.Id)).ToList());
-      return returnData;
-    }
-
-    public void AddRange(IEnumerable<Education> entities)
-    {
-      throw new NotImplementedException();
-    }
-
-    public IQueryable<Education> GetAll()
-    {
-      throw new NotImplementedException();
+        Education? education = _mapper.Map<Education>(educationDto);
+        education = _repository.AddEducation(education);
+        return _mapper.Map<EducationForGetWithResumesDto>(education);
     }
 
     public List<EducationForGetDto> GetAllEducation()
     {
-      List<Education> educations = _repository.GetAll().ToList();
-
+      IQueryable<Education> educations = _repository.GetAll();
       return _mapper.Map<List<EducationForGetDto>>(educations);
     }
 
     public List<EducationForGetWithResumesDto> GetAllEducationWithResumes()
     {
-      List<EducationForGetWithResumesDto> educations = _repository.GetAll()
-        .Select(e => new EducationForGetWithResumesDto
-            {
-            Guid = e.Guid,
-            Name = e.Name, 
-            StartDate = e.StartDate,
-            EndDate = e.EndDate,
-            Role = e.Role,
-            IsActive = e.IsActive,
-            Resumes = _mapper.Map<List<ResumeForGetDto>>(e.ResumesEducations.Select(re => re.Resume).ToList()) 
-            }).ToList();
-
-      return educations; 
+      IQueryable<Education> educations = _repository.GetAllEducationWithResumes();
+      return _mapper.Map<List<EducationForGetWithResumesDto>>(educations);
     }
 
     public List<EducationForGetWithResumesDto> GetAllEducationWithResumes(Guid userId)
     {
-      List<EducationForGetWithResumesDto> educations = _repository.GetAll().Where(e => e.AppUserId == userId)
-        .OrderByDescending(e => e.EndDate)
-        .Select(e => new EducationForGetWithResumesDto
-            {
-            Guid = e.Guid,
-            Name = e.Name, 
-            StartDate = e.StartDate,
-            EndDate = e.EndDate,
-            Role = e.Role,
-            IsActive = e.IsActive,
-            Resumes = _mapper.Map<List<ResumeForGetDto>>(e.ResumesEducations.Select(re => re.Resume).ToList()) 
-            }).ToList();
-
-      return educations; 
+      IQueryable<Education> educations = _repository.GetAllEducationWithResumes(userId);
+      return _mapper.Map<List<EducationForGetWithResumesDto>>(educations);;
     }
 
-    public Education? GetById(int id)
+    public void RemoveEducation(Guid guid)
     {
-      throw new NotImplementedException();
+      _repository.RemoveEducation(guid);
     }
 
-    public Education? GetById(Guid guid)
-    {
-      throw new NotImplementedException();
-    }
-
-    public void Remove(Education entity)
-    {
-      _repository.Remove(entity);
-    }
-
-    public void Remove(int id)
-    {
-      Education? education = _repository.GetAll(e => e.Id == id).SingleOrDefault(); 
-      if (education is null)
-        return;
-
-      Remove(education);
-    }
-
-    public void Remove(Guid guid)
-    {
-      Education? education = _repository.GetAll(e => e.Guid == guid).SingleOrDefault(); 
-      if (education is null)
-        return;
-
-      Remove(education);
-    }
-
-    public bool ToggleStatus(Guid guid)
-    {
-      Education? eduction = _repository.GetById(guid);
-      if (eduction is null)
-        return false;
-
-      eduction.IsActive = !eduction.IsActive;
-      _repository.Update(eduction);
-      return true;
-    }
-
-    public void Update(Education entity)
-    {
-      _repository.Update(entity);
-    }
-
-    public void Update(Guid guid)
-    {
-      throw new NotImplementedException();
-    }
-
-    public void Update(int id)
-    {
-      throw new NotImplementedException();
-    }
+    public bool ToggleStatus(Guid guid) => _repository.ToggleStatus(guid);
 
     public EducationForGetWithResumesDto UpdateEducation(EducationForUpdateDto educationDto)
     {
-      Education? education = _repository.GetAll(e => e.Guid == educationDto.Guid).Include(e => e.ResumesEducations).FirstOrDefault();
+      Education real = _repository.GetAll(x => x.Guid == educationDto.Guid).Include(x => x.ResumesEducations).FirstOrDefault();
 
-      if (education is null)
-        return new EducationForGetWithResumesDto();
-
-      education.ResumesEducations.Clear();
-
-      foreach (var item in educationDto.ResumesEducations)
-      {
-        if (!education.ResumesEducations.Select(re => re.ResumeId).Contains(item.ResumeId))
-          education.ResumesEducations.Add(item);
-      }
-
-      education.Name = educationDto.Name;
-      education.StartDate = DateTime.Parse(educationDto.StartDate);
-      education.EndDate = DateTime.Parse(educationDto.EndDate);
-      education.Role = educationDto.Role;
-      education.IsActive = educationDto.IsActive;
-      Update(education);
-
-      var returnDto = _mapper.Map<EducationForGetWithResumesDto>(education);
-      returnDto.Resumes = _mapper.Map<List<ResumeForGetDto>>(_resumeService.GetAll().Where(r => r.ResumesEducations.Any(re => re.EducationId == education.Id)).ToList());
-      return returnDto;
+       foreach (var item in real.ResumesEducations)
+       {
+         if (educationDto.ResumesEducations.Select(re => re.ResumeId).Contains(item.ResumeId))
+          educationDto.ResumesEducations.Remove(item);
+       }
+      Education education = _mapper.Map<EducationForUpdateDto, Education>(educationDto, real);
+      return _mapper.Map<EducationForGetWithResumesDto>(_repository.UpdateEducation(education));
     }
   }
 }

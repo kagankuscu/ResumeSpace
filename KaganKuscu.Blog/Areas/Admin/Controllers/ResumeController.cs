@@ -1,6 +1,6 @@
 using System.Security.Claims;
 using KaganKuscu.Business.Abstract;
-using KaganKuscu.Model.Models;
+using KaganKuscu.Model.Dtos.ResumesDto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,9 +19,9 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
 
         public IActionResult GetAll()
         {
-            if(User.FindFirstValue(ClaimTypes.Role) is "Admin")
-                return Json(new {Data = _resumeService.GetAll() });
-            
+            // if(User.FindFirstValue(ClaimTypes.Role) is "Admin")
+            //     return Json(new {Data = _resumeService.GetAllByAppUserGuid() });
+
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             Guid guid = Guid.Parse(userId ?? string.Empty);
 
@@ -32,57 +32,43 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(Resume resume)
+        public IActionResult Add([FromBody] ResumeForAddDto resumeDto)
         {
-            resume.AppUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
-
-            _resumeService.UpdateIsActiveForUser(Guid.Parse(resume.AppUserId));
-            _resumeService.Add(resume);
-
-            return StatusCode(201, resume.Guid);
+            resumeDto.AppUserId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
+            var resumeGetDto = _resumeService.AddResume(resumeDto);
+            _resumeService.UpdateStatusForUserGuid(Guid.Parse(resumeDto.AppUserId), resumeGetDto.Guid);
+            return StatusCode(201, resumeGetDto);
         }
 
         [HttpPost]
-        public IActionResult Remove(Guid guid)
+        public IActionResult Remove([FromBody] Guid guid)
         {
-            _resumeService.Remove(guid);
+            _resumeService.RemoveResume(guid);
 
             return Ok();
         }
 
         [HttpPost]
-        public IActionResult Update(Resume resume)
+        public IActionResult Update([FromBody] ResumeForUpdateDto resumeDto)
         {
-            _resumeService.Update(resume);
-
-            return Ok();
+            return Ok(_resumeService.UpdateResume(resumeDto));
         }
-    
+
         [HttpPost]
-        public async Task<IActionResult> UploadFiles(IFormCollection form, Resume resume)
+        public async Task<IActionResult> UploadFiles(IFormCollection form)
         {
             string? username = User.FindFirstValue(ClaimTypes.Name);
-            
+
             if (username is null)
                 return BadRequest();
 
-            bool result = await _resumeService.UploadFiles(form, username, resume);
-            if (result)
-                return Ok();
-            return BadRequest("Hataaaa :)");
+            return Ok(await _resumeService.UploadFiles(form, username));
         }
 
         [HttpPost]
         public IActionResult ToggleStatus(Guid guid)
         {
-            Resume? resume = _resumeService.GetById(guid);
-            if (resume is null)
-                return BadRequest();
-            
-            resume.IsActive = !resume.IsActive;
-            if (_resumeService.UpdateIsActiveForUser(Guid.Parse(resume.AppUserId)))
-                _resumeService.Update(resume);
-            return Ok();
+            return Ok(_resumeService.ToggleStatus(guid));
         }
     }
 }

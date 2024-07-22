@@ -370,7 +370,7 @@
                             $("#ddlResume").append(
                                 new Option(resume.resumeName, resume.id, 
                                     false, 
-                                    resumes === undefined ? false : resumes.find(r => r.id === resume.id) !== undefined)
+                                    resumes === undefined ? false : resumes.find(r => r.guid === resume.guid) !== undefined)
                                 );
                         }
                     },

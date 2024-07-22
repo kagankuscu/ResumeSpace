@@ -2,12 +2,7 @@
 using KaganKuscu.Model.Models;
 using KaganKuscu.Repository.Abstract;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KaganKuscu.Repository.Concrete
 {
@@ -41,7 +36,7 @@ namespace KaganKuscu.Repository.Concrete
 
         public IQueryable<T> GetAll(Expression<Func<T, bool>> predicate)
         {
-            return _dbSet.Where(predicate);
+            return _dbSet.Where(predicate).Where(x => !x.IsDeleted);
         }
 
         public IQueryable<T> GetAllDeleted()
@@ -80,13 +75,17 @@ namespace KaganKuscu.Repository.Concrete
 
         public void Remove(Guid guid)
         {
-            T entity = GetById(guid);
+            T? entity = GetById(guid);
+            if (entity is null) 
+                return;
             Remove(entity);
         }
 
         public void Remove(int id)
         {
-            T entity = GetById(id);
+            T? entity = GetById(id);
+            if (entity is null) 
+                return;
             Remove(entity);
         }
 
@@ -111,6 +110,11 @@ namespace KaganKuscu.Repository.Concrete
         {
             entity.DateModified = DateTime.Now;
             _dbSet.Update(entity);
+            Save();
+        }
+        public void UpdateRange(IEnumerable<T> entities)
+        {
+            _dbSet.UpdateRange(entities);
             Save();
         }
     }

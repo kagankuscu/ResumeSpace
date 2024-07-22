@@ -1,60 +1,20 @@
-﻿using KaganKuscu.Model.Models;
+﻿using AutoMapper;
+using KaganKuscu.Business.Abstract;
+using KaganKuscu.Model.SocialMediaDto;
 using KaganKuscu.Repository.Abstract;
 
-namespace KaganKuscu.Business;
+namespace KaganKuscu.Business.Concrete;
 
 public class SocialMediaIconService : ISocialMediaIconService
 {
-    private readonly IRepository<SocialMediaIcon> _repository;
+    private readonly ISocialMediaIconRepository _repository;
+    private readonly IMapper _mapper;
 
-    public SocialMediaIconService(IRepository<SocialMediaIcon> repository)
+    public SocialMediaIconService(ISocialMediaIconRepository repository, IMapper mapper)
     {
         _repository = repository;
+        _mapper = mapper;
     }
 
-    public void Add(SocialMediaIcon entity)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void AddRange(IEnumerable<SocialMediaIcon> entities)
-    {
-        throw new NotImplementedException();
-    }
-
-    public IQueryable<SocialMediaIcon> GetAll() => _repository.GetAll();        
-
-    public SocialMediaIcon? GetById(int id) => _repository.GetById(id);
-
-    public SocialMediaIcon? GetById(Guid guid) => _repository.GetById(guid);
-
-    public void Remove(SocialMediaIcon entity)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Remove(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Remove(Guid guid)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Update(SocialMediaIcon entity)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Update(Guid guid)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Update(int id)
-    {
-        throw new NotImplementedException();
-    }
+    public List<SocialMediaIconForGetDto> GetAllSocialMediaIcon() => _mapper.Map<List<SocialMediaIconForGetDto>>(_repository.GetAllSocialMediaIcon());
 }

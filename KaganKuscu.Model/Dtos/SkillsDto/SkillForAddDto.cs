@@ -1,4 +1,4 @@
-using KaganKuscu.Model.Dtos.ResumesDto;
+using KaganKuscu.Model.Rel;
 
 namespace KaganKuscu.Model.Dtos.SkillsDto
 {
@@ -8,6 +8,6 @@ namespace KaganKuscu.Model.Dtos.SkillsDto
         public string Name { get; init; } = string.Empty; 
         public int Percent { get; init; }
         public bool IsActive { get; set; }
-        public ICollection<ResumeForGetDto> Resumes { get; set; } = [];
+        public ICollection<ResumeSkill> ResumesSkills { get; set; } = [];
     }
 }

@@ -184,11 +184,11 @@
                         "name": $("#txtSkill").val(),
                         "percent": $("#txtPercent").val(),
                         "isActive": true,
-                        "resumes": [] 
+                        "resumesSkills": [] 
                     }
-                  
+
                     for (let resumeId of $("#ddlResume").val())
-                      data.resumes.push({ id: resumeId });
+                      data.resumesSkills.push({ resumeId: resumeId });
 
                     $.ajax
                     ({
@@ -204,7 +204,7 @@
                 }
             });
         }
-        
+
         function fillDdlResume(resumes)
         {
             $.ajax(
@@ -218,7 +218,7 @@
                             $("#ddlResume").append(
                                 new Option(resume.resumeName, resume.id, 
                                     false, 
-                                    resumes === undefined ? false : resumes.find(r => r.id === resume.id) !== undefined)
+                                    resumes === undefined ? false : resumes.find(r => r.guid === resume.guid) !== undefined)
                                 );
                         }
                     },
@@ -301,7 +301,6 @@
 
             let row = $(element).parents("tr");
             let oldData = datatable.row(row).data();
-            oldData.resumes = oldData.resumes;
 
             $("#txtSkill").val(oldData.name);
             $("#txtPercent").val(oldData.percent);
@@ -354,7 +353,7 @@
                 }
             });
         }
-        
+
         function modalToggle()
         {
             const mdlSkill = $("#mdlSkill");
@@ -364,7 +363,7 @@
                 mdlSkill.modal("show");
         }
 
-        function clearModal() 
+        function clearModal()
         {
             $("#ddlResume").empty();
             $("#mdlSkill input").val("");
