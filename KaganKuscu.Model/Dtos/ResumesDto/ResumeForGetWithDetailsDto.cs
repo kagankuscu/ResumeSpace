@@ -1,4 +1,5 @@
-﻿using KaganKuscu.Model.Models;
+﻿using KaganKuscu.Model.Dtos.EducationDto;
+using KaganKuscu.Model.Models;
 using KaganKuscu.Model.Rel;
 using KaganKuscu.Model.SocialMediaDto;
 
@@ -6,7 +7,6 @@ namespace KaganKuscu.Model.Dtos.ResumesDto
 {
     public class ResumeForGetWithDetailsDto
     {
-        public Guid Guid { get; init; }
         public string ResumeName { get; init; } = string.Empty;
         public string FullName { get; set; } = string.Empty;
         public int Age { get; set; }
@@ -20,11 +20,11 @@ namespace KaganKuscu.Model.Dtos.ResumesDto
         public string ResumePath { get; set; } = string.Empty;
         public string? About { get; init; }
 
-        public virtual List<ResumesEducations> ResumesEducations { get; set; } = [];
-        public virtual List<SocialMediaForGetDto> SocialMedia { get; set; } = new List<SocialMediaForGetDto>();
-        public virtual List<WorkExperience> WorkExperiences { get; set; } = new List<WorkExperience>();
-        public virtual List<Reference> References { get; set; } = new List<Reference>();
-        public virtual List<Skill> Skills { get; set; } = new List<Skill>();
-        public virtual List<Interest> Interests { get; set; } = new List<Interest>();
+        public virtual List<EducationForGetDto> Educations { get; set; } = [];
+        public virtual List<SocialMediaForGetDto> SocialMedias { get; set; } = [];
+        public virtual List<WorkExperience> WorkExperiences { get; set; } = [];
+        public virtual List<Reference> References { get; set; } = [];
+        public virtual List<Skill> Skills { get; set; } = [];
+        public virtual List<Interest> Interests { get; set; } = [];
     }
 }
