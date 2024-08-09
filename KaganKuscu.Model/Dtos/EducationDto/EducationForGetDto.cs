@@ -9,6 +9,5 @@ namespace KaganKuscu.Model.Dtos.EducationDto
       public DateTime EndDate { get; set; }
       public string Role { get; set; } = string.Empty;
       public string Description { get; set; } = string.Empty;
-      public List<ResumesEducations> ResumesEducations { get; set; } = [];
     }
 }
