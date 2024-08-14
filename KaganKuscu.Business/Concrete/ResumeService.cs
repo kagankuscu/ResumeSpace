@@ -5,6 +5,7 @@ using KaganKuscu.Model.Models;
 using KaganKuscu.Repository.Abstract;
 using KaganKuscu.Utilities;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace KaganKuscu.Business.Concrete
 {
@@ -116,5 +117,31 @@ namespace KaganKuscu.Business.Concrete
         }
 
         public bool UpdateStatusForUserGuid(Guid guid, Guid resumeGuid) => _repository.UpdateStatusForUserGuid(guid, resumeGuid);
+
+        public ResumeForGetWithDetailsDto GetResumeWithDetailslByUsername(string username)
+        {
+            Resume? resume = _repository.GetAllResume()
+                .Include(x => x.AppUser)
+                .Include(x => x.ResumesEducations.Where(x => x.Education!.IsActive).OrderByDescending(x => x.Education!.EndDate))
+                    .ThenInclude(e => e.Education)
+                .Include(x => x.ResumesSocialMedias.Where(x => x.SocialMedia!.IsActive))
+                    .ThenInclude(sm => sm.SocialMedia)
+                        .ThenInclude(sm => sm.SocialMediaIcon)
+                .Include(x => x.ResumesWorkExperiences.Where(x => x.WorkExperience!.IsActive))
+                    .ThenInclude(we => we.WorkExperience)
+                .Include(x => x.ResumesReferences.Where(x => x.Reference!.IsActive))
+                    .ThenInclude(r => r.Reference)
+                .Include(x => x.ResumesSkills.Where(x => x.Skill!.IsActive))
+                    .ThenInclude(rs => rs.Skill)
+                .Include(x => x.ResumesReferences.Where(x => x.Reference!.IsActive))
+                    .ThenInclude(rr => rr.Reference)
+                .Include(x => x.Interests)
+                .Where(x => x.AppUser!.UserName!.ToLower() == username)
+                .Where(x => x.IsActive)
+                .FirstOrDefault();
+
+            var t = _mapper.Map<ResumeForGetWithDetailsDto>(resume);
+            return t;
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace KaganKuscu.Business.Abstract
         ResumeForGetDto AddResume(ResumeForAddDto resumeDto);
         ICollection<ResumeForAppUserDto> GetAllByAppUserGuid(Guid guid);
         ICollection<ResumeForGetWithDetailsDto> GetAllResumeDto();
+        ResumeForGetWithDetailsDto GetResumeWithDetailslByUsername(string username);
         bool ToggleStatus(Guid guid);
         void RemoveResume(Guid guid);
         Task<ResumeForGetDto> UploadFiles(IFormCollection form, string username);
