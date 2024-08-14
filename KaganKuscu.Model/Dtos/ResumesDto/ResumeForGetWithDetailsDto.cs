@@ -1,4 +1,7 @@
 ﻿using KaganKuscu.Model.Dtos.EducationDto;
+using KaganKuscu.Model.Dtos.ReferenceDto;
+using KaganKuscu.Model.Dtos.SkillsDto;
+using KaganKuscu.Model.Dtos.WorkExperienceDto;
 using KaganKuscu.Model.Models;
 using KaganKuscu.Model.Rel;
 using KaganKuscu.Model.SocialMediaDto;
@@ -22,9 +25,9 @@ namespace KaganKuscu.Model.Dtos.ResumesDto
 
         public virtual List<EducationForGetDto> Educations { get; set; } = [];
         public virtual List<SocialMediaForGetDto> SocialMedias { get; set; } = [];
-        public virtual List<WorkExperience> WorkExperiences { get; set; } = [];
-        public virtual List<Reference> References { get; set; } = [];
-        public virtual List<Skill> Skills { get; set; } = [];
+        public virtual List<WorkExperienceForGetDto> WorkExperiences { get; set; } = [];
+        public virtual List<ReferenceForGetDto> References { get; set; } = [];
+        public virtual List<SkillForGetDto> Skills { get; set; } = [];
         public virtual List<Interest> Interests { get; set; } = [];
     }
 }
