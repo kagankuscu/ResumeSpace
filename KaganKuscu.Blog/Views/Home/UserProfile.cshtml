@@ -54,7 +54,7 @@
     <div class="animate-up">
         <h2 class="section-title">Professional Skills</h2>
 
-        <div class="section-box" id="skillsRow">
+        <div class="section-box" id="skillContainer">
 
         </div>
     </div>
@@ -306,24 +306,27 @@
           if (res.skills.length <= 0)
             return ;
           $("#skills").prop("style", "display:block");
-          for (let i = 0; i < res.skills.length; i++)
-          {
-            $("#skillsRow").append(`
-              <div class="row">
+
+          let row = 0;
+          res.skills.forEach((skill, index) => {
+            if (index % 2 === 0) {
+                row++;
+                $("#skillContainer").append(`<div id="skillsRow-${row}" class="row"></div>`);
+            }
+            $(`#skillsRow-${row}`).append(`
                 <div class="col-sm-6">
-                  <div class="progress-bar">
-                    <div class="bar-data">
-                      <span class="bar-title">${res.skills[i]}</span>
-                      <span class="bar-value"><${res.skills[i]}/span>
+                    <div class="progress-bar">
+                        <div class="bar-data">
+                            <span class="bar-title">${skill.name}</span>
+                            <span class="bar-value">${skill.percent}%</span>
+                        </div>
+                        <div class="bar-line">
+                            <span class="bar-fill" data-width="${skill.percent}%" style="width: ${skill.percent}%"></span>
+                        </div>
                     </div>
-                    <div class="bar-line">
-                      <span class="bar-fill" data-width="100%"></span>
-                    </div>
-                  </div>
                 </div>
-              </div>
               `);
-          }
+          });
         }
         function setEducation(res) {
           if (res.educations.length <= 0)
