@@ -17,7 +17,13 @@ namespace KaganKuscu.Business.Configurations
     {
       CreateMap<Resume, ResumeForAddDto>().ReverseMap();
       CreateMap<Resume, ResumeForAppUserDto>().ReverseMap();
-      CreateMap<Resume, ResumeForGetWithDetailsDto>().ReverseMap();
+      CreateMap<Resume, ResumeForGetWithDetailsDto>()
+        .ForMember(r => r.Educations, opt => opt.MapFrom(r => r.ResumesEducations.Select(re => re.Education)))
+        .ForMember(r => r.WorkExperiences, opt => opt.MapFrom(r => r.ResumesWorkExperiences.Select(rw => rw.WorkExperience)))
+        .ForMember(r => r.SocialMedias, opt => opt.MapFrom(r => r.ResumesSocialMedias.Select(rs => rs.SocialMedia)))
+        .ForMember(r => r.Skills, opt => opt.MapFrom(r => r.ResumesSkills.Select(rs => rs.Skill)))
+        .ForMember(r => r.References, opt => opt.MapFrom(r => r.ResumesReferences.Select(rs => rs.Reference)))
+        .ReverseMap();
       CreateMap<Resume, ResumeForUpdateDto>().ReverseMap();
       CreateMap<ResumeSkill, ResumeForGetDto>().ReverseMap();
       CreateMap<Resume, ResumeForGetDto>().ReverseMap();

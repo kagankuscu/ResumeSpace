@@ -14,16 +14,19 @@ namespace KaganKuscu.Blog.Controllers
             _resumeService = resumeService;
             _quoteService = quoteService;
         }
-
         public IActionResult Index()
         {
-            HomePageVm vm = new HomePageVm
-            {
-                Resume = _resumeService.GetAllResumeDto().Where(p => p.Name.Contains("Kağan Kuşcu")).FirstOrDefault()!,
-                Quote = _quoteService.GetRandomQuote(),
-                Blogs = [],
-            };
-            return View(vm);
+            return View();
+        }
+        [HttpGet("/Home/Profile/{username}")]
+        public IActionResult UserProfile()
+        {
+            return View();
+        }
+        [HttpGet]
+        public IActionResult GetResume(string username)
+        {
+            return Json(_resumeService.GetResumeWithDetailslByUsername(username));
         }
     }
 }
