@@ -61,7 +61,7 @@
 </section>
 <!-- #skills -->
 
-<section id="experience" class="section section-experience">
+<section id="experience" class="section section-experience" style="display: none;">
     <div class="animate-up">
         <h2 class="section-title">Work Experience</h2>
 
@@ -86,7 +86,7 @@
     </div>
 </section>
 <!-- #education -->
-<section id="references" class="section section-references">
+<section id="references" class="section section-references" style="display: none;">
     <div class="animate-up animated">
         <h2 class="section-title">References</h2>
 
@@ -115,7 +115,7 @@
     </div>
 </section>
 <!-- #references -->
-<section id="blog" class="section section-blog">
+<section id="blog" class="section section-blog" style="display: none;">
     <div class="animate-up">
         <h2 class="section-title">From The Blog</h2>
 
@@ -171,7 +171,7 @@
 </section>
 <!-- #text-section -->
 
-<section id="interests" class="section section-interests">
+<section id="interests" class="section section-interests" style="display: none;">
     <div class="animate-up">
         <h2 class="section-title">My Interests</h2>
 
@@ -248,10 +248,11 @@
 
         async function getResume() {
           try {
+            const username = location.pathname.split('/')[3];
             let res = await $.ajax({
               type: "GET",
               contentType: 'application/json',
-              data: { username: "Kagankuscu" },
+              data: { username: username },
               url: "/Home/GetResume"
             });
             setAbout(res);
