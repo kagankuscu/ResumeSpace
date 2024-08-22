@@ -92,20 +92,6 @@
 
         <div class="section-box">
             <ul class="ref-slider">
-                    <li>
-                        <div class="ref-box">
-                            <div class="person-speech">
-                            </div>
-                            <div class="person-info clearfix">
-                                <img class="person-img" src="" alt="Headshot">
-
-                                <div class="person-name-title">
-                                    <span class="person-name"></span>
-                                    <span class="person-title"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
             </ul>
             <div class="ref-slider-nav">
                 <span id="ref-slider-prev" class="slider-prev"></span>
@@ -258,6 +244,7 @@
             setEducation(res);
             setWorkExperience(res);
             setInterest(res);
+            await setReferences(res);
           } catch (e) {
             alert("Hata" + e.message);
             console.error(e.message);
@@ -373,6 +360,29 @@
                     </li>`);
           })
 
+        }
+        async function setReferences(res) {
+          if (res.references.length <= 0)
+            return ;
+          $("#references").prop("style", "display:block");
+          res.references.forEach((reference, index) => {
+                $('#references .section-box ul.ref-slider').append(`
+                <li style="float: left; list-style: none; position: relative; width: 810px;">
+                    <div class="ref-box">
+                        <div class="person-speech">
+                            ${reference.quote}
+                        </div>
+                        <div class="person-info clearfix">
+                            <img class="person-img" src="${reference.imagePath}" alt="${reference.name}">
+
+                            <div class="person-name-title">
+                                <span class="person-name">${reference.name}</span>
+                                <span class="person-title">${reference.title}, ${reference.companyName}</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>`);
+          })
         }
     </script>
 }
