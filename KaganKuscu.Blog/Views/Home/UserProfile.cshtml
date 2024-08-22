@@ -148,7 +148,7 @@
         <div class="section-box">
             <blockquote>
                 <p style="font-size: 24px">
-                    ""<br>
+                    <br>
                     <cite style="font-size: 16px"></cite>
                 </p>
             </blockquote>
@@ -226,6 +226,7 @@
         $(document).ready(() => {
             console.clear();
             getResume();
+            getRandomQuote();
         });
 
         async function getResume() {
@@ -383,6 +384,15 @@
                     </div>
                 </li>`);
           })
+        }
+        async function getRandomQuote() {
+            const res = await $.ajax({
+              type: "GET",
+              contentType: 'application/json',
+              url: "/Home/GetRandomQuote"
+            });
+            $('#text-section p').prepend(res.content);
+            $('#text-section cite').append(res.owner);
         }
     </script>
 }
