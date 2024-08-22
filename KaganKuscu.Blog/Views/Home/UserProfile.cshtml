@@ -244,7 +244,7 @@
             setEducation(res);
             setWorkExperience(res);
             setInterest(res);
-            await setReferences(res);
+            setReferences(res);
           } catch (e) {
             alert("Hata" + e.message);
             console.error(e.message);
@@ -361,7 +361,7 @@
           })
 
         }
-        async function setReferences(res) {
+        function setReferences(res) {
           if (res.references.length <= 0)
             return ;
           $("#references").prop("style", "display:block");
