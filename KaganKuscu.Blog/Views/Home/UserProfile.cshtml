@@ -177,10 +177,6 @@
 
         <div class="section-box">
             <ul class="interests-list">
-                <li>
-                    <i class=""></i>
-                    <span></span>
-                </li>
             </ul>
         </div>
     </div>
@@ -261,6 +257,7 @@
             setSkill(res);
             setEducation(res);
             setWorkExperience(res);
+            setInterest(res);
           } catch (e) {
             alert("Hata" + e.message);
             console.error(e.message);
@@ -362,6 +359,20 @@
                 </div>
               `);
           })
+        }
+        function setInterest(res) {
+          if (res.interests.length <= 0)
+            return ;
+          $("#interests").prop("style", "display:block");
+          $('#interests .section-box').prepend(res.interest);
+          res.interests.forEach((item, index) => {
+            $('#interests .section-box ul').append(`
+                    <li>
+                        <i class="${item.iconCssClass}"></i>
+                        <span>${item.name}</span>
+                    </li>`);
+          })
+
         }
     </script>
 }
