@@ -261,7 +261,7 @@
           }
         }
         function setAbout(res) {
-          $("#profileImage").prop("src", `/${res.imagePath}`);
+          $("#profileImage").prop("src", `/img/resumes/${res.imagePath}`);
           $("#fullName").html(`<span>I'm</span> ${res.fullName}`);
           $("#age").text(`${res.age}`);
           $("#address").text(`${res.address}`);
@@ -283,7 +283,7 @@
           }
         }
         function setResumeDownload(res) {
-          $("#resumeFile").prop("href", `/${res.resumePath}`);
+          $("#resumeFile").prop("href", `/Files/Resume/${res.resumePath}`);
         }
         function setSkill(res) {
           if (res.skills.length <= 0)
