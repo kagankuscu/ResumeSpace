@@ -141,8 +141,9 @@ namespace KaganKuscu.Business.Concrete
                 .Where(x => x.IsActive)
                 .FirstOrDefault();
 
-            var t = _mapper.Map<ResumeForGetWithDetailsDto>(resume);
-            return t;
+            ResumeForGetWithDetailsDto resumeDto = _mapper.Map<ResumeForGetWithDetailsDto>(resume);
+            resumeDto.Age = Utility.CalculateAge(resume!.BirthDate);
+            return resumeDto;
         }
 
         public ICollection<ResumeForGetList> GetAllUsers()
