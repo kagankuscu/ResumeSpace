@@ -222,11 +222,20 @@
 
 @section Scripts
 {
+    <script type="text/javascript" src="~/js/siteAsync.js"></script>
     <script>
         $(document).ready(() => {
             console.clear();
-            getResume();
-            getRandomQuote();
+            (async () => {
+                try {
+                    await getResume();
+                    await positioningTimelineElements();
+                    await setReferenceSlider();
+                    await getRandomQuote();
+                } catch (error) {
+                    console.error("An error occured:", error);
+                }
+            })();
         });
 
         async function getResume() {
