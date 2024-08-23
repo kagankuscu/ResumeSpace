@@ -257,14 +257,17 @@
                             <div class="nav-wrap">
                                 <nav id="nav" class="nav">
                                     <ul class="clearfix">
-                                        <li><a href="/Home/Index#about">About</a></li>
-                                        <li><a href="/Home/Index#skills">Skills</a></li>
-                                        <li><a href="/Home/Index#experience">Experience</a></li>
-                                        <li><a href="/Home/Index#references">References</a></li>
-                                        <li>
-                                            <a asp-controller="Blog" asp-action="Index">Blog</a>
-                                        </li>
-                                        <li><a href="/Home/Index#contact">Contact <span></span></a></li>
+                                        @if (Context.Request.Path != "/")
+                                        {
+                                            <li><a href="/Home/Index#about">About</a></li>
+                                            <li><a href="/Home/Index#skills">Skills</a></li>
+                                            <li><a href="/Home/Index#experience">Experience</a></li>
+                                            <li><a href="/Home/Index#references">References</a></li>
+                                            <li>
+                                                <a asp-controller="Blog" asp-action="Index">Blog</a>
+                                            </li>
+                                            <li><a href="/Home/Index#contact">Contact <span></span></a></li>
+                                        }
                                         <li><a href="/Admin/Dashboard/Index">Panel</a></li>
                                     </ul>
                                 </nav>

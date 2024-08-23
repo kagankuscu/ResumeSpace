@@ -1,1 +1,59 @@
-﻿Hello
+﻿@section Styles {
+    <style>
+        .header-title {
+            text-align: center;
+            font-size: 34px;
+        }
+        .card-hover:hover {
+            border-top: 8px solid #56c8d2;
+            border-bottom: 8px solid #56c8d2;
+        }
+    </style>
+}
+<div class="animate-up animated">
+    <h2 class="header-title">Users</h2>
+    <div class="timeline">
+        <div class="timeline-bar"></div>
+        <div class="timeline-inner clearfix" id="usersTimeline">
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript" src="~/js/siteAsync.js"></script>
+    <script>
+        $(document).ready(() => {
+            (async () => {
+                await getAllUsers();
+                await positioningTimelineElements();
+            })();
+        });
+
+        async function getAllUsers() {
+            const res = await $.ajax({
+                type: 'GET',
+                url: '/Home/GetAllUsers'
+            });
+            setUsers(res);
+        }
+
+        function setUsers(res) {
+            res.forEach((user, index) => {
+                $('#usersTimeline').append(`
+                    <a href="${user.userName}">
+                        <div class="timeline-box timeline-box-compact timeline-box-${index % 2 === 0 ? 'left' : 'right'}">
+                            <span class="dot"></span>
+                            <div class="timeline-box-inner animate-${index % 2 === 0 ? 'left' : 'right'} animated card-hover">
+                                <span class="arrow"></span>
+                                <div class="date">
+                                    <span>${user.title}</span>
+                                </div>
+                                <h3>${user.fullName}</h3>
+                                ${user.about.length >= 200 ? `${user.about.slice(0, 200)} ...` : user.about}
+                            </div>
+                        </div>
+                    </a>`);
+            });
+        }
+    </script>
+}

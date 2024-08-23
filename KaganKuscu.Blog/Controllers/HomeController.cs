@@ -33,5 +33,10 @@ namespace KaganKuscu.Blog.Controllers
         {
             return Json(_quoteService.GetRandomQuote());
         }
+        [HttpGet]
+        public IActionResult GetAllUsers()
+        {
+            return Json(_resumeService.GetAllUsers());
+        }
     }
 }

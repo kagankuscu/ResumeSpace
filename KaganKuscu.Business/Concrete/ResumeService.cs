@@ -2,6 +2,7 @@
 using KaganKuscu.Business.Abstract;
 using KaganKuscu.Model.Dtos.ResumesDto;
 using KaganKuscu.Model.Models;
+using KaganKuscu.Model.Rel;
 using KaganKuscu.Repository.Abstract;
 using KaganKuscu.Utilities;
 using Microsoft.AspNetCore.Http;
@@ -142,6 +143,16 @@ namespace KaganKuscu.Business.Concrete
 
             var t = _mapper.Map<ResumeForGetWithDetailsDto>(resume);
             return t;
+        }
+
+        public ICollection<ResumeForGetList> GetAllUsers()
+        {
+            var resumes = _repository.GetAllResume()
+                .Include(x => x.AppUser)
+                .Where(x => x.IsActive)
+                .OrderBy(x => Guid.NewGuid())
+                .ToList();
+            return _mapper.Map<List<ResumeForGetList>>(resumes);
         }
     }
 }
