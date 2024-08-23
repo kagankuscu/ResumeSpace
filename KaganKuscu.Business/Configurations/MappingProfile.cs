@@ -25,6 +25,9 @@ namespace KaganKuscu.Business.Configurations
         .ForMember(r => r.References, opt => opt.MapFrom(r => r.ResumesReferences.Select(rs => rs.Reference)))
         .ReverseMap();
       CreateMap<Resume, ResumeForUpdateDto>().ReverseMap();
+      CreateMap<Resume, ResumeForGetList>()
+        .ForMember(r => r.UserName, opt => opt.MapFrom(r => r.AppUser!.UserName))
+        .ReverseMap();
       CreateMap<ResumeSkill, ResumeForGetDto>().ReverseMap();
       CreateMap<Resume, ResumeForGetDto>().ReverseMap();
       CreateMap<ResumeSkill, SkillForGetDto>().ReverseMap();
