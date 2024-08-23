@@ -28,5 +28,10 @@ namespace KaganKuscu.Blog.Controllers
         {
             return Json(_resumeService.GetResumeWithDetailslByUsername(username));
         }
+        [HttpGet]
+        public IActionResult GetRandomQuote()
+        {
+            return Json(_quoteService.GetRandomQuote());
+        }
     }
 }

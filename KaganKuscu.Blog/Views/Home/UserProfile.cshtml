@@ -61,7 +61,7 @@
 </section>
 <!-- #skills -->
 
-<section id="experience" class="section section-experience">
+<section id="experience" class="section section-experience" style="display: none;">
     <div class="animate-up">
         <h2 class="section-title">Work Experience</h2>
 
@@ -86,26 +86,12 @@
     </div>
 </section>
 <!-- #education -->
-<section id="references" class="section section-references">
+<section id="references" class="section section-references" style="display: none;">
     <div class="animate-up animated">
         <h2 class="section-title">References</h2>
 
         <div class="section-box">
             <ul class="ref-slider">
-                    <li>
-                        <div class="ref-box">
-                            <div class="person-speech">
-                            </div>
-                            <div class="person-info clearfix">
-                                <img class="person-img" src="" alt="Headshot">
-
-                                <div class="person-name-title">
-                                    <span class="person-name"></span>
-                                    <span class="person-title"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
             </ul>
             <div class="ref-slider-nav">
                 <span id="ref-slider-prev" class="slider-prev"></span>
@@ -115,7 +101,7 @@
     </div>
 </section>
 <!-- #references -->
-<section id="blog" class="section section-blog">
+<section id="blog" class="section section-blog" style="display: none;">
     <div class="animate-up">
         <h2 class="section-title">From The Blog</h2>
 
@@ -162,7 +148,7 @@
         <div class="section-box">
             <blockquote>
                 <p style="font-size: 24px">
-                    ""<br>
+                    <br>
                     <cite style="font-size: 16px"></cite>
                 </p>
             </blockquote>
@@ -171,16 +157,12 @@
 </section>
 <!-- #text-section -->
 
-<section id="interests" class="section section-interests">
+<section id="interests" class="section section-interests" style="display: none;">
     <div class="animate-up">
         <h2 class="section-title">My Interests</h2>
 
         <div class="section-box">
             <ul class="interests-list">
-                <li>
-                    <i class=""></i>
-                    <span></span>
-                </li>
             </ul>
         </div>
     </div>
@@ -240,18 +222,29 @@
 
 @section Scripts
 {
+    <script type="text/javascript" src="~/js/siteAsync.js"></script>
     <script>
         $(document).ready(() => {
             console.clear();
-            getResume();
+            (async () => {
+                try {
+                    await getResume();
+                    await positioningTimelineElements();
+                    await setReferenceSlider();
+                    await getRandomQuote();
+                } catch (error) {
+                    console.error("An error occured:", error);
+                }
+            })();
         });
 
         async function getResume() {
           try {
+            const username = location.pathname.split('/')[3];
             let res = await $.ajax({
               type: "GET",
               contentType: 'application/json',
-              data: { username: "Kagankuscu" },
+              data: { username: username },
               url: "/Home/GetResume"
             });
             setAbout(res);
@@ -260,6 +253,8 @@
             setSkill(res);
             setEducation(res);
             setWorkExperience(res);
+            setInterest(res);
+            setReferences(res);
           } catch (e) {
             alert("Hata" + e.message);
             console.error(e.message);
@@ -361,6 +356,52 @@
                 </div>
               `);
           })
+        }
+        function setInterest(res) {
+          if (res.interests.length <= 0)
+            return ;
+          $("#interests").prop("style", "display:block");
+          $('#interests .section-box').prepend(res.interest);
+          res.interests.forEach((item, index) => {
+            $('#interests .section-box ul').append(`
+                    <li>
+                        <i class="${item.iconCssClass}"></i>
+                        <span>${item.name}</span>
+                    </li>`);
+          })
+
+        }
+        function setReferences(res) {
+          if (res.references.length <= 0)
+            return ;
+          $("#references").prop("style", "display:block");
+          res.references.forEach((reference, index) => {
+                $('#references .section-box ul.ref-slider').append(`
+                <li style="float: left; list-style: none; position: relative; width: 810px;">
+                    <div class="ref-box">
+                        <div class="person-speech">
+                            ${reference.quote}
+                        </div>
+                        <div class="person-info clearfix">
+                            <img class="person-img" src="${reference.imagePath}" alt="${reference.name}">
+
+                            <div class="person-name-title">
+                                <span class="person-name">${reference.name}</span>
+                                <span class="person-title">${reference.title}, ${reference.companyName}</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>`);
+          })
+        }
+        async function getRandomQuote() {
+            const res = await $.ajax({
+              type: "GET",
+              contentType: 'application/json',
+              url: "/Home/GetRandomQuote"
+            });
+            $('#text-section p').prepend(res.content);
+            $('#text-section cite').append(res.owner);
         }
     </script>
 }
