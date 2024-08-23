@@ -261,7 +261,7 @@
           }
         }
         function setAbout(res) {
-          $("#profileImage").prop("src", `/${res.imagePath}`);
+          $("#profileImage").prop("src", `/img/resumes/${res.imagePath}`);
           $("#fullName").html(`<span>I'm</span> ${res.fullName}`);
           $("#age").text(`${res.age}`);
           $("#address").text(`${res.address}`);
@@ -269,6 +269,7 @@
           $("#email").text(`${res.email}`);
           $("#phone").prop("href", `tel:${res.phone}`);
           $("#phone").text(`${res.phone}`);
+          $('#about div.section-txt-btn').append(`${res.about}`);
         }
         function setSocialMedia(res) {
           for (let item of res.socialMedias) {
@@ -282,7 +283,7 @@
           }
         }
         function setResumeDownload(res) {
-          $("#resumeFile").prop("href", `/${res.resumePath}`);
+          $("#resumeFile").prop("href", `/Files/Resume/${res.resumePath}`);
         }
         function setSkill(res) {
           if (res.skills.length <= 0)

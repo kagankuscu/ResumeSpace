@@ -40,7 +40,7 @@
         function setUsers(res) {
             res.forEach((user, index) => {
                 $('#usersTimeline').append(`
-                    <a href="${user.userName}">
+                    <a href="/Home/Profile/${user.userName}">
                         <div class="timeline-box timeline-box-compact timeline-box-${index % 2 === 0 ? 'left' : 'right'}">
                             <span class="dot"></span>
                             <div class="timeline-box-inner animate-${index % 2 === 0 ? 'left' : 'right'} animated card-hover">
