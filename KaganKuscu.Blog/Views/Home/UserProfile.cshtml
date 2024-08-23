@@ -269,6 +269,7 @@
           $("#email").text(`${res.email}`);
           $("#phone").prop("href", `tel:${res.phone}`);
           $("#phone").text(`${res.phone}`);
+          $('#about div.section-txt-btn').append(`${res.about}`);
         }
         function setSocialMedia(res) {
           for (let item of res.socialMedias) {
