@@ -1,0 +1,67 @@
+<div style="display: flex; justify-content: center;">
+    <div class="card" style="max-width: 50%; width: 100%;">
+        <div class="card-body">
+            <div class="text-center">
+                <div class="dropdown float-end">
+                    <a class="text-body dropdown-toggle font-size-18" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="uil uil-ellipsis-v"></i>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-end" style="">
+                        <a class="dropdown-item" href="#">Edit</a>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div>
+                    <img id="txtProfilePhoto" src="/admin/images/users/avatar-10.jpg" alt="" class="avatar-lg rounded-circle img-thumbnail">
+                </div>
+                <h5 class="mt-3 mb-1" id="txtFullname"></h5>
+            </div>
+
+            <hr class="my-4">
+
+            <div class="text-muted">
+                <div class="table-responsive mt-4">
+                    <div class="mt-4">
+                        <p class="mb-1">Mobile :</p>
+                        <h5 class="font-size-16" id="txtMobile"></h5>
+                    </div>
+                    <div class="mt-4">
+                        <p class="mb-1">Email :</p>
+                        <h5 class="font-size-16" id="txtEmail"></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(() => {
+            const main = async () => {
+                await getUser();
+            }
+            main();
+        });
+
+        async function getUser() {
+            try {
+                const res = await $.ajax({
+                    type: 'GET',
+                    url: '/Admin/User/GetUser'
+                });
+                setUser(res);
+            } catch (error) {
+                console.log('An error occured.', error);
+            }
+        }
+        function setUser(user) {
+            $('#txtProfilePhoto').prop('src', user.profilePhoto === null ? '/admin/images/users/avatar-10.jpg' : user.profilePhoto);
+            $('#txtProfilePhoto').prop('alt', user.profilePhoto === null ? '/admin/images/users/avatar-10.jpg' : user.profilePhoto);
+            $('#txtFullname').text(user.fullName === '' ? 'No Name' : user.fullName);
+            $('#txtMobile').text(user.phoneNumber === null ? 'No Mobile' : user.phoneNumber);
+            $('#txtEmail').text(user.email === '' ? 'No Email' : user.email);
+        }
+    </script>
+}
