@@ -4,6 +4,7 @@ using KaganKuscu.Model.Dtos.QuoteDto;
 using KaganKuscu.Model.Dtos.ReferenceDto;
 using KaganKuscu.Model.Dtos.ResumesDto;
 using KaganKuscu.Model.Dtos.SkillsDto;
+using KaganKuscu.Model.Dtos.UserDto;
 using KaganKuscu.Model.Dtos.WorkExperienceDto;
 using KaganKuscu.Model.Models;
 using KaganKuscu.Model.Rel;
@@ -75,6 +76,9 @@ namespace KaganKuscu.Business.Configurations
       CreateMap<Quote, QuoteForAddDto>().ReverseMap();
       CreateMap<Quote, QuoteForGetDto>().ReverseMap();
       CreateMap<Quote, QuoteForUpdateDto>().ReverseMap();
+
+      CreateMap<AppUser, UserForGetDto>().ReverseMap();
+      CreateMap<AppUser, UserForUpdateDto>().ReverseMap();
     }
   }
 }

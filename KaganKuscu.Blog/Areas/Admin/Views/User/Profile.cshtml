@@ -1,0 +1,153 @@
+<div id="mdl" class="modal fade bs-example-modal-center modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="frm" class="needs-validation">
+                <div class="modal-header">
+                    <h5 id="mdlTitle" class="modal-title">User Info</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                        <div class="row mb-2">
+                            <label for="txtFullname">Fullname :</label>
+                            <input class="form-control" type="text" id="txtFullname" placeholder="Please enter fullname" />
+                        </div>
+
+                        <div class="row mb-2">
+                            <label for="txtPhone">Phone :</label>
+                            <input class="form-control" type="text" id="txtPhone" placeholder="Please enter phone number" />
+                        </div>
+
+                        <div class="row mb-2">
+                            <label for="txtEmail">Email :</label>
+                            <input class="form-control" type="text" id="txtEmail" placeholder="Please enter email" />
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <button id="btnSave" type="submit" class="btn btn-success">Save</button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div style="display: flex; justify-content: center;">
+    <div class="card" style="max-width: 50%; width: 100%;">
+        <div class="card-body">
+            <div class="text-center">
+                <div class="dropdown float-end">
+                    <a class="text-body dropdown-toggle font-size-18" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="uil uil-ellipsis-v"></i>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-end" style="">
+                        <button id="btnEdit" class="dropdown-item" href="#">Edit</button>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div>
+                    <img id="profilePhoto" src="/admin/images/users/avatar-10.jpg" alt="" class="avatar-lg rounded-circle img-thumbnail">
+                </div>
+                <h5 class="mt-3 mb-1" id="fullname"></h5>
+            </div>
+
+            <hr class="my-4">
+
+            <div class="text-muted">
+                <div class="table-responsive mt-4">
+                    <div class="mt-4">
+                        <p class="mb-1">Username :</p>
+                        <h5 class="font-size-16" id="username"></h5>
+                    </div>
+                    <div class="mt-4">
+                        <p class="mb-1">Phone :</p>
+                        <h5 class="font-size-16" id="mobile"></h5>
+                    </div>
+                    <div class="mt-4">
+                        <p class="mb-1">Email :</p>
+                        <h5 class="font-size-16" id="email"></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(() => {
+            const main = async () => {
+                await getUser();
+            }
+            main();
+            $('#btnEdit').off().click(() => {
+                resetFormValidate();
+                $('#frm').trigger('reset');
+
+                $('#txtFullname').val($('#fullname').text());
+                $('#txtPhone').val($('#mobile').text());
+                $('#txtEmail').val($('#email').text());
+
+                $('#mdl').modal('show');
+            });
+            $('#btnSave').off().click(save);
+        });
+
+        async function save() {
+            event.preventDefault();
+            $('#mdl').modal('hide');
+            if (!checkValidateForm())
+                return;
+            const user = {
+                fullName: $('#txtFullname').val(),
+                phoneNumber: $('#txtPhone').val(),
+                email: $('#txtEmail').val()
+            }
+            const res = await $.ajax({
+                type: 'POST',
+                contentType: 'application/json',
+                url: '/Admin/User/Update',
+                data: JSON.stringify(user)
+            });
+            console.log(res);
+        }
+
+        async function getUser() {
+            try {
+                const res = await $.ajax({
+                    type: 'GET',
+                    url: '/Admin/User/GetUser'
+                });
+                setUser(res);
+            } catch (error) {
+                console.log('An error occured.', error);
+            }
+        }
+        function setUser(user) {
+            $('#profilePhoto').prop('src', user.profilePhoto === null ? '/admin/images/users/avatar-10.jpg' : user.profilePhoto);
+            $('#profilePhoto').prop('alt', user.profilePhoto === null ? '/admin/images/users/avatar-10.jpg' : user.profilePhoto);
+            $('#username').text(user.userName === '' ? 'No username' : user.userName);
+            $('#fullname').text(user.fullName === '' ? 'No Name' : user.fullName);
+            $('#mobile').text((user.phoneNumber === null || user.phoneNumber === '') ? 'No Mobile' : user.phoneNumber);
+            $('#email').text(user.email === '' ? 'No Email' : user.email);
+        }
+
+        function checkValidateForm()
+        {
+          if ($("#frm").parsley().isValid() === false)
+          {
+            $("#frm").parsley().validate();
+            $("#frm").addClass("was-validated");
+            return false;
+          }
+          return true;
+        }
+
+        function resetFormValidate()
+        {
+          $("#frm").parsley().reset();
+          $("#frm").removeClass("was-validated");
+        }
+    </script>
+}
