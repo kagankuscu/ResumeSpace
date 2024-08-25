@@ -32,7 +32,6 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Update([FromBody] UserForUpdateDto userDto)
         {
-            // AQAAAAIAAYagAAAAEMBU4qgKeI+wLkJXJTu1yOOnpmq66jLE4uxMiZeCUJwLkc2EI/NU0fARiTLw7QUosQ==
             return Json(await _userService.UpdateUser(userDto, User));
         }
     }
