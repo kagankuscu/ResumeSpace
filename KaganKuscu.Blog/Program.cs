@@ -25,7 +25,7 @@ namespace KaganKuscu.Blog
             builder.Services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
 
-            builder.Services.ConfigureApplicationCookie(options => 
+            builder.Services.ConfigureApplicationCookie(options =>
             {
                 options.AccessDeniedPath = "/admin/authentication/accessdenied";
                 options.LoginPath = "/admin/authentication/login";
@@ -46,6 +46,7 @@ namespace KaganKuscu.Blog
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

@@ -1,6 +1,5 @@
+using KaganKuscu.Business.Abstract;
 using KaganKuscu.Model.Dtos;
-using KaganKuscu.Model.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KaganKuscu.Blog.Areas.Admin.Controllers
@@ -8,60 +7,42 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
     [Area("Admin")]
     public class AuthenticationController : Controller
     {
-        private readonly SignInManager<AppUser> _signInManager;
-        private readonly UserManager<AppUser> _userManager;
+        private readonly IAuthenticationService _authService;
 
-        public AuthenticationController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
+        public AuthenticationController(IAuthenticationService authService)
         {
-            _signInManager = signInManager;
-            _userManager = userManager;
+            _authService = authService;
         }
 
         public IActionResult Login()
         {
             return View();
         }
-
-        [HttpPost]
-        public async Task<IActionResult> Login(UserForAuthentication userDto)
-        {
-            var result = await _signInManager.PasswordSignInAsync(userDto.Username!, userDto.Password!, userDto.RememberMe, false);
-
-            if (result.Succeeded)
-                return RedirectToAction(nameof(Index), nameof(DashboardController).Replace("Controller", ""));
-
-            return BadRequest(result.IsNotAllowed);
-        }
-
-        public IActionResult Register() 
+        public IActionResult Register()
         {
             return View();
         }
-
-        [HttpPost]
-        public async Task<IActionResult> Register(UserForRegistration userDto)
-        {
-            AppUser user = new AppUser 
-                {
-                    Email = userDto.Email,
-                    UserName = userDto.Username,
-                };
-            var result = await _userManager.CreateAsync(user, userDto.Password!);
-
-            if (result.Succeeded)
-                await _userManager.AddToRoleAsync(user, "User");
-
-            return RedirectToAction(nameof(Login));
-        }
-
         public IActionResult AccessDenied()
         {
             return View();
         }
 
-        public IActionResult Logout()
+        [HttpPost]
+        public async Task<bool> Login([FromBody] UserForAuthentication userDto)
         {
-            _signInManager.SignOutAsync();
+            return await _authService.Login(userDto);
+        }
+
+        [HttpPost]
+        public async Task<bool> Register(UserForRegistration userDto)
+        {
+            return await _authService.Register(userDto);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            if (!await _authService.Logout())
+                return BadRequest();
             return RedirectToAction(nameof(Login));
         }
     }
