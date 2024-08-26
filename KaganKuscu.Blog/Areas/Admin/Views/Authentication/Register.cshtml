@@ -1,32 +1,41 @@
 @{
     Layout = "_LoginLayout";
 }
-@model UserForRegistration
 <div class="card-body p-4">
 
     <div class="text-center mt-2">
         <h5 class="text-primary">Register Account</h5>
     </div>
     <div class="p-2 mt-4">
-        <form action="Register" method="POST">
-
+        <form id="frm">
             <div class="mb-3">
-                <label class="form-label" for="useremail">Email</label>
-                <input type="email" class="form-control" asp-for="Email" placeholder="Enter email">
+                <label class="form-label" for="txtFullname">Fullname</label>
+                <input type="text" class="form-control" id="txtFullname" placeholder="Enter fullname" required>
             </div>
 
             <div class="mb-3">
-                <label class="form-label" for="username">Username</label>
-                <input type="text" class="form-control" asp-for="Username" placeholder="Enter username">
+                <label class="form-label" for="txtPhoneNumber">Phone</label>
+                <input type="text" class="form-control" id="txtPhoneNumber" placeholder="Enter phone number">
             </div>
 
             <div class="mb-3">
-                <label class="form-label" for="userpassword">Password</label>
-                <input type="password" class="form-control" asp-for="Password" placeholder="Enter password">
+                <label class="form-label" for="txtEmail">Email</label>
+                <input type="email" class="form-control" id="txtEmail" placeholder="Enter email" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="txtUsername">Username</label>
+                <input type="text" class="form-control" id="txtUsername" placeholder="Enter username" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="txtPassword">Password</label>
+                <input type="password" class="form-control" id="txtPassword" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{6,}$" placeholder="Enter password" required
+                    data-parsley-pattern-message="Password must be at least 6 characters long and include at least one uppercase letter, one lowercase letter, one digit, and one special character.">
             </div>
 
             <div class="mt-3 text-end">
-                <button class="btn btn-primary w-sm waves-effect waves-light" type="submit">Register</button>
+                <button id="btnRegister" class="btn btn-primary w-sm waves-effect waves-light" type="button">Register</button>
             </div>
 
             <div class="mt-4 text-center">
@@ -40,6 +49,49 @@
     <script>
         $(document).ready(() => {
             $('title').text('Register');
+            $('#btnRegister').off().click(register);
         })
+
+        async function register() {
+            if (!checkValidateForm())
+                return ;
+            const user = {
+                fullname: setCapitalize($('#txtFullname').val()),
+                phoneNumber: $('#txtPhoneNumber').val(),
+                email: $('#txtEmail').val(),
+                username: $('#txtUsername').val(),
+                password: $('#txtPassword').val(),
+            };
+            const res = await $.ajax({
+                type: 'POST',
+                contentType: 'application/json',
+                url: '/Admin/Authentication/Register',
+                data: JSON.stringify(user)
+            });
+            console.log(res);
+            if (!res.succeeded) {
+                SwalAlert.fire({
+                    text: res.errors[0].description
+                });
+                return ;
+            }
+            location.href = '/Admin/Authentication/Login';
+        }
+
+        function setCapitalize(text) {
+            const splitArr = text.split(' ');
+            return splitArr.map(a => a.substring(0, 1).toUpperCase() + a.substring(1).toLowerCase()).join(' ');
+        }
+
+        function checkValidateForm()
+        {
+          if ($("#frm").parsley().isValid() === false)
+          {
+            $("#frm").parsley().validate();
+            $("#frm").addClass("was-validated");
+            return false;
+          }
+          return true;
+        }
     </script>
 }

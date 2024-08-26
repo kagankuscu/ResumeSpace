@@ -34,9 +34,9 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> Register(UserForRegistration userDto)
+        public async Task<IActionResult> Register([FromBody] UserForRegistration userDto)
         {
-            return await _authService.Register(userDto);
+            return Json(await _authService.Register(userDto));
         }
 
         public async Task<IActionResult> Logout()

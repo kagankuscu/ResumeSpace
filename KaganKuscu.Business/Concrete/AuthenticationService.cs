@@ -1,4 +1,5 @@
-﻿using KaganKuscu.Business.Abstract;
+﻿using AutoMapper;
+using KaganKuscu.Business.Abstract;
 using KaganKuscu.Model.Dtos;
 using KaganKuscu.Model.Models;
 using Microsoft.AspNetCore.Identity;
@@ -9,11 +10,13 @@ public class AuthenticationService : IAuthenticationService
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly SignInManager<AppUser> _signInManager;
+    private readonly IMapper _mapper;
 
-    public AuthenticationService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+    public AuthenticationService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IMapper mapper)
     {
         _userManager = userManager;
         _signInManager = signInManager;
+        _mapper = mapper;
     }
 
     public async Task<bool> Login(UserForAuthentication userDto)
@@ -29,17 +32,15 @@ public class AuthenticationService : IAuthenticationService
         return true;
     }
 
-    public async Task<bool> Register(UserForRegistration userDto)
+    public async Task<IdentityResult> Register(UserForRegistration userDto)
     {
-        AppUser user = new AppUser
-            {
-                Email = userDto.Email,
-                UserName = userDto.Username,
-            };
+        AppUser user = _mapper.Map<AppUser>(userDto);
         var result = await _userManager.CreateAsync(user, userDto.Password!);
-        if (result.Succeeded)
-            await _userManager.AddToRoleAsync(user, "User");
+        if (!result.Succeeded)
+            return result;
 
-        return result.Succeeded;
+        await _userManager.AddToRoleAsync(user, "User");
+
+        return result;
     }
 }
