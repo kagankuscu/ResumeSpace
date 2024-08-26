@@ -100,7 +100,7 @@
             if (!checkValidateForm())
                 return;
             const user = {
-                fullName: $('#txtFullname').val(),
+                fullName: setCapitalize($('#txtFullname').val()),
                 phoneNumber: $('#txtPhone').val(),
                 email: $('#txtEmail').val()
             }
@@ -110,7 +110,7 @@
                 url: '/Admin/User/Update',
                 data: JSON.stringify(user)
             });
-            console.log(res);
+            setUser(res);
         }
 
         async function getUser() {
@@ -133,6 +133,10 @@
             $('#email').text(user.email === '' ? 'No Email' : user.email);
         }
 
+        function setCapitalize(text) {
+            const splitArr = text.split(' ');
+            return splitArr.map(a => a.substring(0, 1).toUpperCase() + a.substring(1).toLowerCase()).join(' ');
+        }
         function checkValidateForm()
         {
           if ($("#frm").parsley().isValid() === false)

@@ -4,6 +4,7 @@ using KaganKuscu.Business.Abstract;
 using KaganKuscu.Model.Dtos.UserDto;
 using KaganKuscu.Model.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace KaganKuscu.Business.Concrete
 {
@@ -26,7 +27,10 @@ namespace KaganKuscu.Business.Concrete
         public async Task<UserForGetDto> UpdateUser(UserForUpdateDto user, ClaimsPrincipal userClaims)
         {
             AppUser? real = await _userManager.GetUserAsync(userClaims);
-            return _mapper.Map<UserForGetDto>(await _userManager.UpdateAsync(_mapper.Map(user, real)!));
+            var result = await _userManager.UpdateAsync(_mapper.Map(user, real)!);
+            if (!result.Succeeded)
+                return new UserForGetDto();
+            return _mapper.Map<UserForGetDto>(real);
         }
     }
 }
