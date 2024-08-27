@@ -12,6 +12,7 @@
     <ProjectReference Include="..\KaganKuscu.Business\KaganKuscu.Business.csproj" />
     <ProjectReference Include="..\KaganKuscu.DataAccess\KaganKuscu.DataAccess.csproj" />
     <ProjectReference Include="..\KaganKuscu.Model\KaganKuscu.Model.csproj" />
+    <ProjectReference Include="..\KaganKuscu.EmailService\KaganKuscu.EmailService.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
