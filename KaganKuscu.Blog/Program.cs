@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using KaganKuscu.Business.Configurations;
 using KaganKuscu.Model.Models;
 using Microsoft.AspNetCore.Identity;
+using KaganKuscu.EmailService.Configuration;
+using KaganKuscu.EmailService.Abstract;
+using KaganKuscu.EmailService.Concrete;
 
 namespace KaganKuscu.Blog
 {
@@ -30,6 +33,12 @@ namespace KaganKuscu.Blog
                 options.AccessDeniedPath = "/admin/authentication/accessdenied";
                 options.LoginPath = "/admin/authentication/login";
             });
+
+            var emailConfig = builder.Configuration
+                .GetSection("EmailConfiguration")
+                .Get<EmailConfiguration>();
+            builder.Services.AddSingleton(emailConfig!);
+            builder.Services.AddScoped<IEmailSender, EmailSender>();
 
             var app = builder.Build();
 
