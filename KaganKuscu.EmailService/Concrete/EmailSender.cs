@@ -39,7 +39,7 @@ public class EmailSender : IEmailSender
                 await client.AuthenticateAsync(_emailConfig.Username, _emailConfig.Password);
                 await client.SendAsync(message);
             }
-            catch (Exception ex)
+            catch
             {
                 throw ;
             }
