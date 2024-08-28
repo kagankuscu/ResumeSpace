@@ -22,23 +22,26 @@ namespace KaganKuscu.Blog
             builder.Services.AddRepositoryDI();
             builder.Services.AddAuthorization();
             builder.Services.AddAutoMapper();
-
-            builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("connstr")));
-
-            builder.Services.AddIdentity<AppUser, IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>();
-
-            builder.Services.ConfigureApplicationCookie(options => 
-            {
-                options.AccessDeniedPath = "/admin/authentication/accessdenied";
-                options.LoginPath = "/admin/authentication/login";
-            });
-
             var emailConfig = builder.Configuration
                 .GetSection("EmailConfiguration")
                 .Get<EmailConfiguration>();
             builder.Services.AddSingleton(emailConfig!);
             builder.Services.AddScoped<IEmailSender, EmailSender>();
+
+            builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("connstr")));
+
+            builder.Services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
+            builder.Services.Configure<DataProtectionTokenProviderOptions>(opt =>
+                opt.TokenLifespan = TimeSpan.FromHours(2));
+
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = "/admin/authentication/accessdenied";
+                options.LoginPath = "/admin/authentication/login";
+            });
 
             var app = builder.Build();
 
@@ -55,6 +58,7 @@ namespace KaganKuscu.Blog
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

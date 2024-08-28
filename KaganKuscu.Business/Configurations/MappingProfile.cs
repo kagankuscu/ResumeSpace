@@ -1,4 +1,5 @@
 using AutoMapper;
+using KaganKuscu.Model.Dtos;
 using KaganKuscu.Model.Dtos.EducationDto;
 using KaganKuscu.Model.Dtos.QuoteDto;
 using KaganKuscu.Model.Dtos.ReferenceDto;
@@ -79,6 +80,7 @@ namespace KaganKuscu.Business.Configurations
 
       CreateMap<AppUser, UserForGetDto>().ReverseMap();
       CreateMap<AppUser, UserForUpdateDto>().ReverseMap();
+      CreateMap<AppUser, UserForRegistration>().ReverseMap();
     }
   }
 }

@@ -34,3 +34,11 @@ const SwalRemove = Swal.mixin
     cancelButtonText: "İptal",
     confirmButtonColor: "#dc3545",
 });
+
+const SwalAlert = Swal.mixin ({
+    icon: "error",
+    title: "Oops...",
+    text: "You have entered an invalid username or password",
+    timer: 3000,
+    timerProgressBar: true
+});

@@ -1,14 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace KaganKuscu.Model.Dtos
 {
     public record UserForRegistration
     {
-        public string? Username { get; init; }
-        public string? Password { get; init; }
-        public string? Email { get; init; }
+        public string Username { get; init; } = string.Empty;
+        public string Fullname { get; init; } = string.Empty;
+        public string? PhoneNumber { get; init; }
+        public string Password { get; init; } = string.Empty;
+        public string Email { get; init; } = string.Empty;
     }
 }
