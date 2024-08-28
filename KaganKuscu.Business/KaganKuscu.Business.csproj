@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\KaganKuscu.Repository\KaganKuscu.Repository.csproj" />
     <ProjectReference Include="..\KaganKuscu.Utilities\KaganKuscu.Utilities.csproj" />
+    <ProjectReference Include="..\KaganKuscu.EmailService\KaganKuscu.EmailService.csproj" />
   </ItemGroup>
 
 </Project>
