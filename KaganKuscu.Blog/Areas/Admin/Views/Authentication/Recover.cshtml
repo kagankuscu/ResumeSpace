@@ -1,0 +1,64 @@
+@{
+    Layout = "_LoginLayout";
+}
+
+<div class="card-body p-4">
+    <div class="text-center mt-2">
+        <h5 class="text-primary">Reset Password</h5>
+    </div>
+    <div class="p-2 mt-4">
+        <div id="alertSuccess" class="alert alert-success text-center mb-4 d-none" role="alert">
+            A request has been sent to change the password for your account.
+        </div>
+        <form id="frm">
+
+            <div class="mb-3">
+                <label class="form-label" for="useremail">Email</label>
+                <input type="email" class="form-control" id="useremail" placeholder="Enter email" required>
+            </div>
+
+            <div class="mt-3 text-end">
+                <button id="btnSend" class="btn btn-primary w-sm waves-effect waves-light" type="button">Reset</button>
+            </div>
+
+
+            <div class="mt-4 text-center">
+                <p class="mb-0">Remember It ? <a href="/Admin/Authentication/Login" class="fw-medium text-primary"> Signin </a></p>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(() => {
+            $('#btnSend').off().click(send);
+        });
+
+        async function send() {
+            if (!checkValidateForm())
+                return ;
+            console.log('send');
+            const res = await $.ajax({
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify($('#useremail').val()),
+                url: '/Admin/Authentication/Recover'
+            });
+            console.log(res);
+
+            $('#alertSuccess').removeClass('d-none');
+        }
+
+        function checkValidateForm()
+        {
+          if ($("#frm").parsley().isValid() === false)
+          {
+            $("#frm").parsley().validate();
+            $("#frm").addClass("was-validated");
+            return false;
+          }
+          return true;
+        }
+    </script>
+}
