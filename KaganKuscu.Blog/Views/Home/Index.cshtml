@@ -1,22 +1,10 @@
-﻿@section Styles {
-    <style>
-        .header-title {
-            text-align: center;
-            font-size: 34px;
-        }
-        .card-hover:hover {
-            border-top: 8px solid #56c8d2;
-            border-bottom: 8px solid #56c8d2;
-        }
-    </style>
-}
-<div class="animate-up animated">
-    <h2 class="header-title">Users</h2>
-    <div class="timeline">
-        <div class="timeline-bar"></div>
-        <div class="timeline-inner clearfix" id="usersTimeline">
-        </div>
-    </div>
+﻿<link rel="stylesheet" type="text/css" href="~/output.css">
+<div class='container mx-auto px-4 pt-16'>
+    <h1 class='text-center mx-auto text-3xl text-white'>Our Users</h1>
+    <hr class="mx-auto" />
+</div>
+<div id="users" class='container mx-auto px-4 pt-4 flex flex-wrap'>
+
 </div>
 
 @section Scripts {
@@ -39,21 +27,23 @@
 
         function setUsers(res) {
             res.forEach((user, index) => {
-                $('#usersTimeline').append(`
-                    <a href="/Home/Profile/${user.userName}">
-                        <div class="timeline-box timeline-box-compact timeline-box-${index % 2 === 0 ? 'left' : 'right'}">
-                            <span class="dot"></span>
-                            <div class="timeline-box-inner animate-${index % 2 === 0 ? 'left' : 'right'} animated card-hover">
-                                <span class="arrow"></span>
-                                <div class="date">
-                                    <span>${user.title}</span>
-                                </div>
-                                <h3>${user.fullName}</h3>
-                                ${user.about.length >= 200 ? `${user.about.slice(0, 200)} ...` : user.about}
+                $('#users').append(`
+                    <div class='p-2 w-1-1 md:w-1-2 lg:w-1-3' onclick=navigate('${user.userName}')>
+                        <div class='user-card bg-white rounded-lg p-6'>
+                            <img class='h-16 w-16 mb-2 rounded-full mx-auto' src='/admin/images/users/avatar-10.jpg' />
+                            <div class='text-center'>
+                                <div class='user-name text-lg font-bold text-black'>${user.userName}</div>
+                                <div class='user-title text-purple-500'>${user.title}</div>
+                                <div class='user-phone font-light text-gray-600'>${user.about.length >= 200 ? `${user.about.slice(0, 200)} ...` : user.about}</div>
                             </div>
                         </div>
-                    </a>`);
+                    </div>
+                `
+                );
             });
+        }
+        function navigate(username) {
+            location.href = `/Home/Profile/${username}`;
         }
     </script>
 }
