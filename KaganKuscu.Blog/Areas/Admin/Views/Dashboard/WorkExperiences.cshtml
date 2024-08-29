@@ -54,12 +54,14 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <a onclick="add()" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-plus me-2"></i> Yeni Ekle</a>
+                    @if (!User.IsInRole("Admin"))
+                    {
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <a onclick="add()" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-plus me-2"></i> Yeni Ekle</a>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    }
                 <!-- end row -->
                 
                 <div class="row">
