@@ -10,5 +10,5 @@ public interface IAuthenticationService
     Task<bool> Logout();
     Task<IdentityResult> Register(UserForRegistration userDto);
     Task<bool> Recover(UserForForgotPasswordDto forgotPassword);
-    Task<IdentityResult> Reset(UserForResetPasswordDto userDto);
+    Task<IdentityResult> Reset(UserForResetPasswordDto resetPassword);
 }

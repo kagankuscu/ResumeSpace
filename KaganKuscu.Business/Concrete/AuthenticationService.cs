@@ -40,7 +40,7 @@ public class AuthenticationService : IAuthenticationService
 
     public async Task<bool> Recover(UserForForgotPasswordDto forgotPassword)
     {
-        AppUser? user = await _userManager.FindByEmailAsync(forgotPassword.Email);
+        AppUser? user = await _userManager.FindByNameAsync(forgotPassword.Username);
 
         if (user is null)
             return false;
@@ -49,11 +49,11 @@ public class AuthenticationService : IAuthenticationService
         var param = new Dictionary<string, string>()
         {
             { "token", token },
-            { "email", forgotPassword.Email }
+            { "username", forgotPassword.Username }
         };
 
         var callback = QueryHelpers.AddQueryString(forgotPassword.ClientUri, param);
-        var message = new Message(new string[] { forgotPassword.Email }, "Reset password token", callback);
+        var message = new Message(new string[] { user.Email! }, "Reset password token", callback);
         await _emailSender.SendEmailAsync(message);
         return true;
     }
@@ -70,14 +70,14 @@ public class AuthenticationService : IAuthenticationService
         return result;
     }
 
-    public async Task<IdentityResult> Reset(UserForResetPasswordDto userDto)
+    public async Task<IdentityResult> Reset(UserForResetPasswordDto resetPassword)
     {
-        AppUser? user = await _userManager.FindByEmailAsync(userDto.Email!);
+        AppUser? user = await _userManager.FindByNameAsync(resetPassword.Username!);
 
         if (user is null)
             return new IdentityResult();
 
-        var result = await _userManager.ResetPasswordAsync(user, userDto.Token!, userDto.Password!);
+        var result = await _userManager.ResetPasswordAsync(user, resetPassword.Token!, resetPassword.Password!);
 
         return result;
     }

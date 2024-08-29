@@ -143,7 +143,7 @@
 
 <section id="text-section" class="section section-text">
     <div class="animate-up animated">
-        <h2 class="section-title">Text Section</h2>
+        <h2 class="section-title">Quote</h2>
 
         <div class="section-box">
             <blockquote>
@@ -230,8 +230,8 @@
                 try {
                     await getResume();
                     await positioningTimelineElements();
-                    await setReferenceSlider();
                     await getRandomQuote();
+                    setTimeout(() => setReferenceSlider(), 500);
                 } catch (error) {
                     console.error("An error occured:", error);
                 }

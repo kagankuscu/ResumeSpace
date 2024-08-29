@@ -13,8 +13,8 @@
         <form id="frm">
 
             <div class="mb-3">
-                <label class="form-label" for="useremail">Email</label>
-                <input type="email" class="form-control" id="useremail" placeholder="Enter email" required>
+                <label class="form-label" for="username">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="Enter username" required>
             </div>
 
             <div class="mt-3 text-end">
@@ -32,6 +32,7 @@
 @section Scripts {
     <script>
         $(document).ready(() => {
+            $('title').text('Recover Password');
             $('#btnSend').off().click(send);
         });
 
@@ -40,7 +41,7 @@
                 return ;
 
             const data = {
-                email: $('#useremail').val(),
+                username: $('#username').val(),
                 clientUri: location.origin + '/admin/authentication/resetpassword'
             };
             const res = await $.ajax({
