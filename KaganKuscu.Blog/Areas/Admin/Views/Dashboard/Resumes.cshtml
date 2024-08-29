@@ -74,7 +74,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
-                <button id="btnSave" type="button" class="btn btn-success">Kaydet</button>
+                @if (!User.IsInRole("Admin"))
+                {
+                    <button id="btnSave" type="button" class="btn btn-success">Kaydet</button>
+                }
                 <button class="btn btn-primary" data-bs-target="#mdlAddAndUpdate" data-bs-toggle="modal">
                     Önceki Sayfa
                 </button>
@@ -139,7 +142,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
-                <button id="btnExtrasSave" type="button" class="btn btn-success">Kaydet</button>
+                @if(!User.IsInRole("Admin"))
+                {
+                    <button id="btnExtrasSave" type="button" class="btn btn-success">Kaydet</button>
+                }
                 <button class="btn btn-primary" data-bs-target="#mdlExtras" data-bs-toggle="modal">
                     Önceki Sayfa
                 </button>
@@ -180,6 +186,7 @@
     <script src="~/lib/tinymce/tinymce.min.js"></script>
     <script src="~/js/customTinymce.init.js"></script>
     <script>
+        const isAdmin = '@User.IsInRole("Admin")' === 'True' ? true : false;
         let resume = [];
         let datatable;
 
@@ -229,19 +236,21 @@
                                             <li class="list-inline-item">
                                                 <a onclick="update('${guid}', this)" class="px-2 text-primary"><i class="uil uil-pen font-size-18"></i></a>
                                             </li>
-                                            <li class="list-inline-item">
+                                            ${!isAdmin ?
+                                            `<li class="list-inline-item">
                                                 <a onclick="remove('${guid}', this)" class="px-2 text-danger"><i class="uil uil-trash-alt font-size-18"></i></a>
-                                            </li>
+                                            </li> `: '' }
                                             <li class="list-inline-item dropdown">
                                                 <a class="text-muted dropdown-toggle font-size-18 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
                                                     <i class="uil uil-ellipsis-v"></i>
                                                 </a>
 
                                                 <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" onclick="toggleStatus(this)">
-                                                        <i class="${row.isActive ? "uil-check-circle" : "uil-times-circle" } me-2 
+                                                ${!isAdmin ?
+                                                    `<a class="dropdown-item" onclick="toggleStatus(this)">
+                                                        <i class="${row.isActive ? "uil-check-circle" : "uil-times-circle" } me-2
                                                         text-${row.isActive ? "success" : "danger" }" style="font-size: 19px"></i>${row.isActive ? "Pasif yap" : "Aktif yap" }
-                                                    </a>
+                                                    </a>` : '' }
                                                     <a class="dropdown-item" onclick="extrasInformation('${guid}', this)">Ektra Bilgiler Ekle</a>
                                                 </div>
                                             </li>
