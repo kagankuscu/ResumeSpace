@@ -79,8 +79,6 @@ async function setReferenceSlider() {
                 if ($(`#${ref_slider_prev.prop('id')} a`).length >= 1)
                     $(`#${ref_slider_prev.prop('id')} a`).remove();
 
-                console.log(ref_slider_next);
-
                 $(ref_slider[i]).bxSlider({
 					pager: false,
 					controls: true,
