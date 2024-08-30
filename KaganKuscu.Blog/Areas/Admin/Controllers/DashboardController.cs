@@ -10,7 +10,7 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Resumes");
         }
 
         public IActionResult Resumes()
