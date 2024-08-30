@@ -24,6 +24,11 @@ namespace KaganKuscu.Business.Concrete
             return _mapper.Map<UserForGetDto>(await _userManager.GetUserAsync(userClaims));
         }
 
+        public async Task<UserForGetDto> GetUserByUsername(string username)
+        {
+            return _mapper.Map<UserForGetDto>(await _userManager.FindByNameAsync(username));
+        }
+
         public async Task<UserForGetDto> UpdateUser(UserForUpdateDto user, ClaimsPrincipal userClaims)
         {
             AppUser? real = await _userManager.GetUserAsync(userClaims);

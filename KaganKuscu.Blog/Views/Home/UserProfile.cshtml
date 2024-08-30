@@ -203,13 +203,8 @@
                             <span class="line"></span>
                         </div>
 
-                        <div class="check-field">
-                            <input type="checkbox" name="rsPivacyPolicy" id="rsPivacyPolicy">
-                            <label for="rsPivacyPolicy">I have read the Privacy Policy note.</label>
-                        </div>
-
                         <span class="btn-outer btn-primary-outer ripple">
-                            <input class="rsFormSubmit btn btn-lg btn-primary" type="submit" value="Send">
+                            <input id="btnSend" class="rsFormSubmit btn btn-lg btn-primary" type="button" value="Send">
                         </span>
                     </form>
                 </div>
@@ -222,7 +217,9 @@
 
 @section Scripts
 {
+    <script src="~/admin/libs/sweetalert2/sweetalert2.all.min.js"></script>
     <script type="text/javascript" src="~/js/siteAsync.js"></script>
+    <script src="~/js/customSwalButton.js"></script>
     <script>
         $(document).ready(() => {
             console.clear();
@@ -236,11 +233,12 @@
                     console.error("An error occured:", error);
                 }
             })();
+            $('#btnSend').off().click(sendMail);
         });
 
         async function getResume() {
           try {
-            const username = location.pathname.split('/')[3];
+            const username = getUsername();
             let res = await $.ajax({
               type: "GET",
               contentType: 'application/json',
@@ -403,6 +401,49 @@
             });
             $('#text-section p').prepend(res.content);
             $('#text-section cite').append(res.owner);
+        }
+
+        async function sendMail() {
+            const username = getUsername();
+            const name = $('[name=rsName]').val();
+            const email = $('[name=rsEmail]').val();
+            const subject = $('[name=rsSubject]').val();
+            const message = $('[name=rsMessage]').val();
+
+            if (name === '' || email === '' || message === '' || !email.includes('@@'))
+                return;
+
+            const data = {
+                username,
+                name,
+                email,
+                subject,
+                message
+            }
+
+            const res = await $.ajax({
+                type: 'POST',
+                contentType: 'application/json',
+                url: '/Home/SendMail',
+                data: JSON.stringify(data)
+            });
+
+            if (!res) {
+                SwalAlert.fire({
+                    title: '',
+                    text: 'Something went wrong please try again.'
+                });
+                return ;
+            }
+            SwalAlert.fire({
+                icon: 'success',
+                title: '',
+                text: 'Thank you for reaching out to me. I appreciate your message and will get back to you as soon as possible.'
+            });
+        }
+
+        function getUsername() {
+            return location.pathname.split('/')[3];
         }
     </script>
 }
