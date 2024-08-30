@@ -238,7 +238,7 @@
 
         async function getResume() {
           try {
-            const username = location.pathname.split('/')[3];
+            const username = getUsername();
             let res = await $.ajax({
               type: "GET",
               contentType: 'application/json',
@@ -404,6 +404,7 @@
         }
 
         async function sendMail() {
+            const username = getUsername();
             const name = $('[name=rsName]').val();
             const email = $('[name=rsEmail]').val();
             const subject = $('[name=rsSubject]').val();
@@ -413,6 +414,7 @@
                 return;
 
             const data = {
+                username,
                 name,
                 email,
                 subject,
@@ -438,6 +440,10 @@
                 title: '',
                 text: 'Thank you for reaching out to me. I appreciate your message and will get back to you as soon as possible.'
             });
+        }
+
+        function getUsername() {
+            return location.pathname.split('/')[3];
         }
     </script>
 }
