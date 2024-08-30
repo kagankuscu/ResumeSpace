@@ -79,8 +79,11 @@
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
                                 <a class="dropdown-item" href="/Admin/User/Profile"><i class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i> <span class="align-middle">Profil'i Görüntüle</span></a>
-                                <a class="dropdown-item" href="/Home/Index"><i class="uil uil-home-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Anasayfa'ya Geri Dön</span></a>
-                                <a class="dropdown-item" href="/Admin/Authentication/Lockout"><i class="uil uil-lock-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Ekranı Kilitle</span></a>
+                                @if(User.IsInRole("Admin")) {
+                                    <a class="dropdown-item" href="/Home/Index"><i class="uil uil-home-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Anasayfa'ya Geri Dön</span></a>
+                                } else {
+                                    <a class="dropdown-item" href="/Home/Profile/@(User.FindFirstValue(ClaimTypes.Name))"><i class="uil uil-home-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Anasayfa'ya Geri Dön</span></a>
+                                }
                                 <a class="dropdown-item" href="/Admin/Authentication/Logout"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Çıkış</span></a>
                             </div>
                         </div>
