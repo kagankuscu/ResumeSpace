@@ -377,6 +377,10 @@
                 // Get the data
                 let data = datatable.row(x).data();
 
+                debugger
+                if (!data)
+                    break;
+
                 if (guid === data.guid)
                     continue;
 
