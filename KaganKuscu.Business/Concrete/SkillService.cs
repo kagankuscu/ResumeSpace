@@ -3,6 +3,7 @@ using KaganKuscu.Business.Abstract;
 using KaganKuscu.Model.Dtos.SkillsDto;
 using KaganKuscu.Model.Models;
 using KaganKuscu.Repository.Abstract;
+using Microsoft.EntityFrameworkCore;
 
 namespace KaganKuscu.Business.Concrete
 {
@@ -37,12 +38,12 @@ namespace KaganKuscu.Business.Concrete
 
         public SkillForGetWithResumesDto UpdateSkill(SkillForUpdateDto skillDto)
         {
-            Skill? real = _repository.GetAll(x => x.Guid ==skillDto.Guid).FirstOrDefault();
+            Skill? real = _repository.GetAll(x => x.Guid == skillDto.Guid).Include(x => x.ResumesSkills).FirstOrDefault();
             foreach (var item in real.ResumesSkills)
             {
                 if (real.ResumesSkills.Select(rs => rs.ResumeId).Contains(item.ResumeId))
                 {
-                    real.ResumesSkills.Remove(item);
+                    skillDto.ResumesSkills.Remove(item);
                 }
             }
             Skill? skill = _mapper.Map<SkillForUpdateDto, Skill>(skillDto, real!);

@@ -64,7 +64,7 @@
         <div class="mobile-nav-inner">
             <nav id="mobile-nav" class="nav">
                 <ul class="clearfix">
-                    @if (Context.Request.Path != "/")
+                    @if (!(Context.Request.Path == "/" || Context.Request.Path == "/Home/Index"))
                     {
                         <li><a href="/Home/Index#about">About</a></li>
                         <li><a href="/Home/Index#skills">Skills</a></li>
@@ -92,7 +92,7 @@
                             <div class="nav-wrap">
                                 <nav id="nav" class="nav">
                                     <ul class="clearfix">
-                                        @if (Context.Request.Path != "/")
+                                        @if (!(Context.Request.Path == "/" || Context.Request.Path == "/Home/Index"))
                                         {
                                             <li><a href="/Home/Index#about">About</a></li>
                                             <li><a href="/Home/Index#skills">Skills</a></li>

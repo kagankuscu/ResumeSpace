@@ -22,12 +22,12 @@
         <!-- Select2 Css -->
         <link href="~/admin/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
         <link href="~/admin/libs/select2/css/select2.dark.css" rel="stylesheet" type="text/css" />
-        
+
 
         @await RenderSectionAsync("Styles", false)
     </head>
 
-    
+
     <body>
 
     <!-- <body data-layout="horizontal" data-topbar="colored"> -->
@@ -35,7 +35,7 @@
         <!-- Begin page -->
         <div id="layout-wrapper">
 
-            
+
             <header id="page-topbar">
                 <div class="navbar-header">
                     <div class="d-flex">
@@ -78,13 +78,13 @@
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
-                                <a class="dropdown-item" href="/Admin/User/Profile"><i class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i> <span class="align-middle">Profil'i Görüntüle</span></a>
+                                <a class="dropdown-item" href="/Admin/User/Profile"><i class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i> <span class="align-middle">Edit Profile</span></a>
                                 @if(User.IsInRole("Admin")) {
-                                    <a class="dropdown-item" href="/Home/Index"><i class="uil uil-home-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Anasayfa'ya Geri Dön</span></a>
+                                    <a class="dropdown-item" href="/Home/Index"><i class="uil uil-home-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Back to Main Page</span></a>
                                 } else {
-                                    <a class="dropdown-item" href="/Home/Profile/@(User.FindFirstValue(ClaimTypes.Name))"><i class="uil uil-home-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Anasayfa'ya Geri Dön</span></a>
+                                    <a class="dropdown-item" href="/Home/Profile/@(User.FindFirstValue(ClaimTypes.Name))"><i class="uil uil-home-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Back to Main Page</span></a>
                                 }
-                                <a class="dropdown-item" href="/Admin/Authentication/Logout"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Çıkış</span></a>
+                                <a class="dropdown-item" href="/Admin/Authentication/Logout"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Logout</span></a>
                             </div>
                         </div>
 
@@ -130,49 +130,49 @@
                             <li>
                                 <a href="/Admin/Dashboard/Resumes" class=" waves-effect">
                                     <i class="uil-users-alt"></i>
-                                    <span>Öz Geçmişler</span>
+                                    <span>Resumes</span>
                                 </a>
                             </li>
 
                             <li>
                                 <a href="/Admin/Dashboard/Educations" class="waves-effect">
                                     <i class="uil-book-alt"></i>
-                                    <span>Eğitimler</span>
+                                    <span>Educations</span>
                                 </a>
                             </li>
 
                             <li>
                                 <a href="/Admin/Dashboard/Skills" class=" waves-effect">
                                     <i class="uil-lightbulb-alt"></i>
-                                    <span>Yetenekler</span>
+                                    <span>Skills</span>
                                 </a>
                             </li>
 
                             <li>
                                 <a href="/Admin/Dashboard/WorkExperiences" class=" waves-effect">
                                     <i class="uil-suitcase"></i>
-                                    <span>Çalışma Deneyimleri</span>
+                                    <span>Work Experiences</span>
                                 </a>
                             </li>
 
                             <li>
                                 <a href="/Admin/Dashboard/References" class=" waves-effect">
                                     <i class="uil-comments-alt"></i>
-                                    <span>Referanslar</span>
+                                    <span>References</span>
                                 </a>
                             </li>
 
                             <li>
                                 <a href="/Admin/Dashboard/SocialMedias" class=" waves-effect">
                                     <i class="uil-user-square"></i>
-                                    <span>Sosyal Medyalar</span>
+                                    <span>Social Media</span>
                                 </a>
                             </li>
 
                             <li>
                                 <a href="/Admin/Dashboard/Quotes" class=" waves-effect">
                                     <i class="uil-google-hangouts-alt"></i>
-                                    <span>Özlü Sözler</span>
+                                    <span>Quotes</span>
                                 </a>
                             </li>
 
@@ -183,7 +183,7 @@
             </div>
             <!-- Left Sidebar End -->
 
-            
+
 
             <!-- ============================================================== -->
             <!-- Start right Content here -->
@@ -253,7 +253,7 @@
         <script src="~/admin/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
         <script src="~/admin/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
         <script src="~/admin/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
-        
+
         <!-- Responsive examples -->
         <script src="~/admin/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
         <script src="~/admin/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
@@ -270,7 +270,7 @@
 
         <!-- Moment js -->
         <script src="~/admin/libs/moment/moment.js"></script>
-        
+
         @await RenderSectionAsync("Scripts", false)
     </body>
 

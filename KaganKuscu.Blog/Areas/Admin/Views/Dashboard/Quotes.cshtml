@@ -5,27 +5,27 @@
         <div class="modal-content">
             <form id="frm" class="needs-validation">
                 <div class="modal-header">
-                    <h5 id="mdlTitle" class="modal-title">Özlü Sözler</h5>
+                    <h5 id="mdlTitle" class="modal-title">Quotes</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="row mb-2">
-                        <label for="txtOwner">Sözün Sahibi :</label>
+                        <label for="txtOwner">Owner Quote :</label>
                         <input class="form-control" type="text" id="txtOwner"
-                            placeholder="Lütfen sözün sahibini adını giriniz." required />
+                            placeholder="Please enter quote owner name" required />
                     </div>
 
                     <div class="row mb-2">
-                        <label for="txtQuote">Söz :</label>
+                        <label for="txtQuote">Quote :</label>
                         <input class="form-control" type="text" id="txtQuote"
-                            placeholder="Lütfen sözü giriniz." required />
+                            placeholder="Please enter quote" required />
                     </div>
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
-                    <button id="btnSave" type="submit" class="btn btn-success">Kaydet</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <button id="btnSave" type="submit" class="btn btn-success">Save</button>
                 </div>
             </form>
         </div><!-- /.modal-content -->
@@ -40,7 +40,7 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <a onclick="add()" class="btn btn-success waves-effect waves-light"><i
-                                    class="mdi mdi-plus me-2"></i> Yeni Ekle</a>
+                                    class="mdi mdi-plus me-2"></i> Add New</a>
                         </div>
                     </div>
                 </div>
@@ -81,11 +81,11 @@
                     ajax: "/Admin/Quote/GetAllQuote",
                     columns:
                         [
-                            { data: "owner", title: "Sözün Sahibi" },
-                            { data: "content", title: "Söz" },
+                            { data: "owner", title: "Quote Owner" },
+                            { data: "content", title: "Quote" },
                             {
                                 data: "guid",
-                                title: "İşlemler",
+                                title: "Actions",
                                 render: (guid, type, row) => {
                                     return `<ul class="list-inline mb-0">
                                             <li class="list-inline-item">
@@ -115,9 +115,6 @@
                                 className: "text-center",
                             },
                         ],
-                    language: {
-                        url: "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Turkish.json"
-                    },
                     order: [0, "asc"]
 
                 });
@@ -127,13 +124,13 @@
             modalToggle();
             clearModal();
 
-            $("#btnSave").off().text("Kaydet").removeClass("btn-warning").addClass("btn-success").click(() => {
+            $("#btnSave").off().text("Save").removeClass("btn-warning").addClass("btn-success").click(() => {
                 event.preventDefault();
                 checkValidateForm();
                 SwalToast.fire
                     ({
                         icon: "success",
-                        title: "Kaydedildi"
+                        title: "Saved"
                     });
 
                 let data =
@@ -173,7 +170,7 @@
                                     SwalToast.fire
                                         ({
                                             icon: "success",
-                                            title: "Silindi"
+                                            title: "Deleted"
                                         });
 
                                 },
@@ -181,7 +178,7 @@
                                     SwalToast.fire
                                         ({
                                             icon: "error",
-                                            title: "error: " + err.responseText
+                                            title: "Something went wrong"
                                         });
                                 }
                             })
@@ -199,7 +196,7 @@
             $("#txtOwner").val(oldData.owner);
             $("#txtQuote").val(oldData.content);
 
-            $("#btnSave").off().text("Güncelle").removeClass("btn-success").addClass("btn-warning").click(() => {
+            $("#btnSave").off().text("Update").removeClass("btn-success").addClass("btn-warning").click(() => {
                 event.preventDefault();
                 checkValidateForm();
                 SwalSave
@@ -223,7 +220,7 @@
                                     SwalToast.fire(
                                         {
                                             icon: "success",
-                                            title: "Güncellendi"
+                                            title: "Updated"
                                         }
                                     );
                                 }

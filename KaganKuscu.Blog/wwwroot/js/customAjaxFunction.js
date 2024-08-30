@@ -1,4 +1,4 @@
-function AjaxWithData(url, data, type, successFunc, errorFunc) 
+function AjaxWithData(url, data, type, successFunc, errorFunc)
 {
     $.ajax
     ({
@@ -10,7 +10,7 @@ function AjaxWithData(url, data, type, successFunc, errorFunc)
     })
 }
 
-function AjaxWithoutData(url, type, successFunc, errorFunc) 
+function AjaxWithoutData(url, type, successFunc, errorFunc)
 {
     $.ajax
     ({
