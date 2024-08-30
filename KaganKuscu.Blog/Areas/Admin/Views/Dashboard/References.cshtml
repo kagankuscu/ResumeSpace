@@ -105,6 +105,7 @@
     <script src="~/lib/tinymce/tinymce.min.js"></script>
     <script src="~/js/customTinymce.init.js"></script>
     <script>
+        const isAdmin = '@User.IsInRole("Admin")' === "True" ? true : false;
         let datatable;
 
         $(document).ready(() => 
@@ -148,6 +149,7 @@
                         { 
                             data: "guid",
                             title: "İşlemler",
+                            visible: !isAdmin,
                             render: (guid, type, row) => 
                             {
                                 return `<ul class="list-inline mb-0">
