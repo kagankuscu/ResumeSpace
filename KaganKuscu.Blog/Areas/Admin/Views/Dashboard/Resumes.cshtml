@@ -4,51 +4,51 @@
         <div class="modal-content">
             <form id="frm" class="needs-validation">
                 <div class="modal-header">
-                    <h5 id="mdlTitle" class="modal-title">Kişi Bilgileri</h5>
+                    <h5 id="mdlTitle" class="modal-title">Person Information</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     </button>
                 </div>
                 <div class="modal-body">
                         <div class="row mb-2">
-                            <label for="txtResumeName">Öz Geçmiş Adı :</label>
-                            <input class="form-control" type="text" id="txtResumeName" placeholder="Lütfen adınızı giriniz." required/>
+                            <label for="txtResumeName">Resume Name: </label>
+                            <input class="form-control" type="text" id="txtResumeName" placeholder="Please add resume name" required/>
                         </div>
 
                         <div class="row mb-2">
-                            <label for="txtName">Ad Soyad :</label>
-                            <input class="form-control" type="text" id="txtName" placeholder="Lütfen adınızı giriniz." required/>
+                            <label for="txtName">Fullname: </label>
+                            <input class="form-control" type="text" id="txtName" placeholder="Please add fullname" required/>
                         </div>
 
                         <div class="row mb-2">
-                            <label for="txtBirthdate">Doğum Tarihi :</label>
-                            <input class="form-control input-mask" id="txtBirthdate" placeholder="Lütfen doğum tarihinizi giriniz." data-inputmask="'alias': 'datetime'" data-inputmask-inputformat="mm/dd/yyyy" im-insert="false" required/>
+                            <label for="txtBirthdate">Birth Date:</label>
+                            <input class="form-control input-mask" id="txtBirthdate" placeholder="Please add birth date" data-inputmask="'alias': 'datetime'" data-inputmask-inputformat="mm/dd/yyyy" im-insert="false" required/>
                         </div>
 
                         <div class="row mb-2">
-                            <label for="txtTitle">Pozisyon :</label>
-                            <input class="form-control" type="text" id="txtTitle" placeholder="Lütfen poziyonunuzu giriniz." required/>
+                            <label for="txtTitle">Role :</label>
+                            <input class="form-control" type="text" id="txtTitle" placeholder="Please add role" required/>
                         </div>
 
                         <div class="row mb-2">
                             <label for="txtEmail">Email :</label>
-                            <input id="txtEmail" placeholder="Lütfen email giriniz." class="form-control input-mask" data-inputmask="'alias': 'email'" im-insert="true" required>
+                            <input id="txtEmail" placeholder="Please add email" class="form-control input-mask" data-inputmask="'alias': 'email'" im-insert="true" required>
                         </div>
 
                         <div class="row mb-2">
-                            <label for="txtAddress">Adres :</label>
-                            <input class="form-control" type="text" id="txtAddress" placeholder="Lütfen adresinizi giriniz."/>
+                            <label for="txtAddress">Address :</label>
+                            <input class="form-control" type="text" id="txtAddress" placeholder="Please add address"/>
                         </div>
 
                         <div class="row mb-2">
-                            <label for="txtNumber">Gsm :</label>
-                            <input class="form-control input-mask" id="txtPhone" placeholder="Lütfen numaranızı giriniz." data-parsley-minlength="13" maxlength="13" 
-                            data-parsley-pattern="^\(5\d{2}\)-\d{7}$" data-inputmask="'mask': '(999)-9999999'"  im-insert="true" required/>
+                            <label for="txtNumber">Phone :</label>
+                            <input class="form-control input-mask" id="txtPhone" placeholder="Please add phone number" data-parsley-minlength="13" maxlength="13"
+                            data-parsley-pattern="^\(\d{3}\)-\d{7}$" data-inputmask="'mask': '(999)-9999999'"  im-insert="true" required/>
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
                     <button id="btnNextModal" type="submit" onclick="nextModal()" class="btn btn-primary">
-                        Sonraki Sayfa
+                        Next Page
                     </button>
                 </div>
             </form>
@@ -61,7 +61,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Hakkımda</h5>
+                <h5 class="modal-title">About Me</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
             </div>
@@ -73,13 +73,13 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
                 @if (!User.IsInRole("Admin"))
                 {
-                    <button id="btnSave" type="button" class="btn btn-success">Kaydet</button>
+                    <button id="btnSave" type="button" class="btn btn-success">Save</button>
                 }
                 <button class="btn btn-primary" data-bs-target="#mdlAddAndUpdate" data-bs-toggle="modal">
-                    Önceki Sayfa
+                    Previous Page
                 </button>
             </div>
         </div><!-- /.modal-content -->
@@ -92,31 +92,31 @@
         <div class="modal-content">
             <form id="frmExtra" class="needs-validation">
                 <div class="modal-header">
-                    <h5 class="modal-title">Kişi Ek Bilgileri</h5>
+                    <h5 class="modal-title">Person Extra Information</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="row mb-2">
-                        <label for="txtImage" class="form-label">Lütfen resim ekleyiniz</label>
+                        <label for="txtImage" class="form-label">Please add image</label>
                         <input class="form-control" type="file" id="txtImage" accept="image/png, image/jpeg">
                     </div>
 
                     <div class="row mb-2">
-                        <label for="txtResume" class="form-label">Lütfen CV ekleyiniz</label>
-                        <input class="form-control" type="file" id="txtResume" accept=".pdf" value="deneme">
+                        <label for="txtResume" class="form-label">Please add resume</label>
+                        <input class="form-control" type="file" id="txtResume" accept=".pdf">
                     </div>
 
                     <div class="row mb-2">
-                        <label for="txtSecondPhone">Gsm :</label>
-                        <input class="form-control input-mask" id="txtSecondPhone" placeholder="Lütfen numaranızı giriniz." data-parsley-minlength="13" maxlength="13" 
-                            data-parsley-pattern="^\(5\d{2}\)-\d{7}$" data-inputmask="'mask': '(999)-9999999'"  im-insert="true"/>
+                        <label for="txtSecondPhone">Second phone number :</label>
+                        <input class="form-control input-mask" id="txtSecondPhone" placeholder="Pleas add second phone number" data-parsley-minlength="13" maxlength="13"
+                        data-parsley-pattern="^\(\d{3}\)-\d{7}$" data-inputmask="'mask': '(999)-9999999'"  im-insert="true"/>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
                     <button id="btnNextModal" type="submit" onclick="nextExtraModal()" class="btn btn-primary">
-                        Sonraki Sayfa
+                        Next Page
                     </button>
                 </div>
             </form>
@@ -129,7 +129,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Hobilerim</h5>
+                <h5 class="modal-title">Hobby</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
             </div>
@@ -141,13 +141,13 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
                 @if(!User.IsInRole("Admin"))
                 {
-                    <button id="btnExtrasSave" type="button" class="btn btn-success">Kaydet</button>
+                    <button id="btnExtrasSave" type="button" class="btn btn-success">Save</button>
                 }
                 <button class="btn btn-primary" data-bs-target="#mdlExtras" data-bs-toggle="modal">
-                    Önceki Sayfa
+                    Previous Page
                 </button>
             </div>
         </div><!-- /.modal-content -->
@@ -184,7 +184,7 @@
                     {
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <a onclick="add()" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-plus me-2"></i> Yeni Ekle</a>
+                                <a onclick="add()" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-plus me-2"></i> Add New</a>
                             </div>
                         </div>
                     }
@@ -200,7 +200,7 @@
     </div>
 </div>
 
-@section Scripts 
+@section Scripts
 {    
     <script src="~/js/customSwalButton.js"></script>
     <script src="~/lib/tinymce/tinymce.min.js"></script>
@@ -210,7 +210,7 @@
         let resume = [];
         let datatable;
 
-        $(document).ready(() => 
+        $(document).ready(() =>
         {
             fillDatatable();
         });
@@ -230,28 +230,28 @@
                     paging: false,
                     pageLenght: 50,
                     data: data.data,
-                    columns: 
+                    columns:
                     [
-                        { data: "resumeName", title: "Öz Geçmiş Adı" },
-                        { data: "fullName", title: "Ad" },
-                        { data: "title", title: "Ünvan" },
+                        { data: "resumeName", title: "Resume Name" },
+                        { data: "fullName", title: "Fullname" },
+                        { data: "title", title: "Title" },
                         { data: "email", title: "Email" },
-                        { data: "address", title: "Adres" },
-                        { data: "phone", title: "Gsm" },
-                        { 
-                            data: "birthDate", 
-                            title: "Doğum Tarihi",
-                            render: (data) => 
+                        { data: "address", title: "Address" },
+                        { data: "phone", title: "Phone" },
+                        {
+                            data: "birthDate",
+                            title: "Birth Date",
+                            render: (data) =>
                             {
                                 return moment(data).format("DD/MM/YYYY");
                             }
                         },
-                        { data: "secondPhone", title: "Ikinci Gsm" },
+                        { data: "secondPhone", title: "Second Phone" },
                         {
                             data: "guid",
-                            title: "İşlemler",
+                            title: "Actions",
                             visible: !isAdmin,
-                            render: (guid, type, row) => 
+                            render: (guid, type, row) =>
                             {
                                 return `<ul class="list-inline mb-0">
                                             <li class="list-inline-item">
@@ -268,9 +268,9 @@
                                                 <div class="dropdown-menu dropdown-menu-end">
                                                     <a class="dropdown-item" onclick="toggleStatus(this)">
                                                         <i class="${row.isActive ? "uil-check-circle" : "uil-times-circle" } me-2
-                                                        text-${row.isActive ? "success" : "danger" }" style="font-size: 19px"></i>${row.isActive ? "Pasif yap" : "Aktif yap" }
+                                                        text-${row.isActive ? "success" : "danger" }" style="font-size: 19px"></i>${row.isActive ? "Make passive" : "Make active" }
                                                     </a>
-                                                    <a class="dropdown-item" onclick="extrasInformation('${guid}', this)">Ektra Bilgiler Ekle</a>
+                                                    <a class="dropdown-item" onclick="extrasInformation('${guid}', this)">Add extra information</a>
                                                 </div>
                                             </li>
                                         </ul>`
@@ -308,7 +308,7 @@
                         },
                         {
                             data: "isActive",
-                            title: "Durum",
+                            title: "Activity State",
                             render: (data) => `<i style="font-size: 25px" class="${data ? "uil-check-circle text-success" : "uil-times-circle text-danger"}"></i>`
                         },
                     ],
@@ -325,9 +325,6 @@
                             width: "5px"
                         }
                     ],
-                    language: {
-                        url: "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Turkish.json"
-                    }
                 });
         }
 
@@ -336,12 +333,12 @@
             toggleModal();
             clearModal();
 
-            $("#btnSave").off().text("Kaydet").removeClass("btn-warning").addClass("btn-success").click(() => 
+            $("#btnSave").off().text("Save").removeClass("btn-warning").addClass("btn-success").click(() =>
             {
                 SwalToast.fire
                 ({
                     icon: "success",
-                    title: "Kaydedildi"
+                    title: "Saved"
                 });
 
                 let data =
@@ -409,7 +406,7 @@
                         SwalToast.fire(
                             {
                                 icon: "success",
-                                title: !data.isActive ? "Aktif edildi." : "Pasif yapıldı"
+                                title: !data.isActive ? "Activated" : "Deactivated"
                             });
 
                         data.isActive = !data.isActive;
@@ -422,7 +419,7 @@
                         SwalToast.fire
                             ({
                                 icon: "error",
-                                title: "Hata: " + err.responseText
+                                title: "Something went wrong" + err.responseText
                             });
                     }
                 }
@@ -450,7 +447,7 @@
                                 SwalToast.fire
                                 ({
                                     icon: "success",
-                                    title: "Silindi"
+                                    title: "Deleted"
                                 });
 
                             },
@@ -484,11 +481,11 @@
             $("#txtEmail").val(oldData.email);
             tinymce.get("txtareaAbout").setContent(oldData.about === null ? "" : oldData.about);
 
-            $("#btnSave").off().text("Güncelle").removeClass("btn-success").addClass("btn-warning").click(() => 
+            $("#btnSave").off().text("Update").removeClass("btn-success").addClass("btn-warning").click(() =>
             {
                 SwalSave
                     .fire()
-                    .then(result => 
+                    .then(result =>
                     {
                         if(result.isConfirmed)
                         {
@@ -519,7 +516,7 @@
                                     SwalToast.fire(
                                         {
                                             icon: "success",
-                                            title: "Güncellendi"
+                                            title: "Updated"
                                         }
                                     );
                                 }
@@ -564,12 +561,12 @@
         function nextModal()
         {
             event.preventDefault();
-            if ($("#frm").parsley().isValid() === false) 
+            if ($("#frm").parsley().isValid() === false)
             {
                 $('#frm').parsley().validate();
                 $("#frm").addClass("was-validated");
-            } 
-            else 
+            }
+            else
             {
                 $("#mdlAddAndUpdate").modal("hide");
                 $("#mdlAbout").modal("show");
@@ -618,7 +615,7 @@
                     SwalToast.fire
                     ({
                         icon: "success",
-                        title: "Kaydedildi"
+                        title: "Saved"
                     });
                 },
                 error: (err) =>
@@ -626,7 +623,7 @@
                     SwalToast.fire
                     ({
                         icon: "error",
-                        title: err.responseText === '' ? "HATA!" : err.responseText
+                        title: err.responseText === '' ? "Something went wrong!" : err.responseText
                     })
                 }
             });
@@ -651,7 +648,7 @@
         function nextExtraModal()
         {
             event.preventDefault();
-            if ($("#frmExtra").parsley().isValid() === false) 
+            if ($("#frmExtra").parsley().isValid() === false)
             {
                 $('#frmExtra').parsley().validate();
                 $("#frmExtra").addClass("was-validated");
