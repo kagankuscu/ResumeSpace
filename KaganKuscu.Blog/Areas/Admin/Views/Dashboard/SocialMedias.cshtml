@@ -66,6 +66,7 @@
     <script src="~/js/customSwalButton.js"></script>
     <script src="~/admin/libs/select2/js/select2.min.js"></script>
     <script>
+        const isAdmin = '@User.IsInRole("Admin")' ? true : false;
         let datatable;
 
         $(document).ready(() => 
@@ -105,6 +106,7 @@
                         { 
                             data: "guid",
                             title: "İşlemler",
+                            visible: !isAdmin,
                             render: (guid, type, row) => 
                             {
                                 return `<ul class="list-inline mb-0">
