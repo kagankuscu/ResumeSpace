@@ -110,11 +110,11 @@ namespace KaganKuscu.Business.Concrete
 
         public void RemoveResume(Guid guid) => _repository.RemoveResume(guid);
 
-        public ICollection<ResumeForGetWithDetailsDto> GetAllResumeDto()
+        public ICollection<ResumeForAppUserDto> GetAllResumeDto()
         {
             var resumes = _repository.GetAllResumeWithDetail();
 
-            return _mapper.Map<List<ResumeForGetWithDetailsDto>>(resumes);
+            return _mapper.Map<List<ResumeForAppUserDto>>(resumes);
         }
 
         public bool UpdateStatusForUserGuid(Guid guid, Guid resumeGuid) => _repository.UpdateStatusForUserGuid(guid, resumeGuid);

@@ -8,7 +8,7 @@ namespace KaganKuscu.Business.Abstract
     {
         ResumeForGetDto AddResume(ResumeForAddDto resumeDto);
         ICollection<ResumeForAppUserDto> GetAllByAppUserGuid(Guid guid);
-        ICollection<ResumeForGetWithDetailsDto> GetAllResumeDto();
+        ICollection<ResumeForAppUserDto> GetAllResumeDto();
         ResumeForGetWithDetailsDto GetResumeWithDetailslByUsername(string username);
         ICollection<ResumeForGetList> GetAllUsers();
         bool ToggleStatus(Guid guid);

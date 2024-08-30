@@ -19,6 +19,9 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
 
     public IActionResult GetAllReference()
     {
+      if(User.FindFirstValue(ClaimTypes.Role) is "Admin")
+        return Json(new {Data = _referenceService.GetAllReferenceWithResumes() });
+
       string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
       if (userId is null)
         return BadRequest("User not found");

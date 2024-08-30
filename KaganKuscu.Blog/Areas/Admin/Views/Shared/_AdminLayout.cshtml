@@ -41,21 +41,21 @@
                     <div class="d-flex">
                         <!-- LOGO -->
                         <div class="navbar-brand-box">
-                            <a href="index.html" class="logo logo-dark">
+                            <a href="Index" class="logo logo-dark">
                                 <span class="logo-sm">
-                                    <img src="~/admin/images/logo-sm.png" alt="" height="22">
+                                    <img src="~/admin/images/kagankuscu-sm.svg" alt="" height="30">
                                 </span>
                                 <span class="logo-lg">
-                                    <img src="~/admin/images/logo-dark.png" alt="" height="20">
+                                    <img src="~/admin/images/kagankuscu-light.svg" alt="" height="40">
                                 </span>
                             </a>
 
-                            <a href="index.html" class="logo logo-light">
+                            <a href="Index" class="logo logo-light">
                                 <span class="logo-sm">
-                                    <img src="~/admin/images/logo-sm.png" alt="" height="22">
+                                    <img src="~/admin/images/kagankuscu-sm.svg" alt="" height="30">
                                 </span>
                                 <span class="logo-lg">
-                                    <img src="~/admin/images/logo-light.png" alt="" height="20">
+                                    <img src="~/admin/images/kagankuscu-dark.svg" alt="" height="40">
                                 </span>
                             </a>
                         </div>
@@ -79,8 +79,11 @@
                             <div class="dropdown-menu dropdown-menu-end">
                                 <!-- item-->
                                 <a class="dropdown-item" href="/Admin/User/Profile"><i class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i> <span class="align-middle">Profil'i Görüntüle</span></a>
-                                <a class="dropdown-item" href="/Home/Index"><i class="uil uil-home-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Anasayfa'ya Geri Dön</span></a>
-                                <a class="dropdown-item" href="/Admin/Authentication/Lockout"><i class="uil uil-lock-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Ekranı Kilitle</span></a>
+                                @if(User.IsInRole("Admin")) {
+                                    <a class="dropdown-item" href="/Home/Index"><i class="uil uil-home-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Anasayfa'ya Geri Dön</span></a>
+                                } else {
+                                    <a class="dropdown-item" href="/Home/Profile/@(User.FindFirstValue(ClaimTypes.Name))"><i class="uil uil-home-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Anasayfa'ya Geri Dön</span></a>
+                                }
                                 <a class="dropdown-item" href="/Admin/Authentication/Logout"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Çıkış</span></a>
                             </div>
                         </div>
@@ -93,21 +96,21 @@
 
                 <!-- LOGO -->
                 <div class="navbar-brand-box">
-                    <a href="index.html" class="logo logo-dark">
+                    <a href="Index" class="logo logo-dark">
                         <span class="logo-sm">
-                            <img src="~/admin/images/logo-sm.png" alt="" height="22">
+                            <img src="~/admin/images/kagankuscu-sm.svg" alt="" height="30">
                         </span>
                         <span class="logo-lg">
-                            <img src="~/admin/images/logo-dark.png" alt="" height="20">
+                            <img src="~/admin/images/kagankuscu-light.svg" alt="" height="40">
                         </span>
                     </a>
 
-                    <a href="index.html" class="logo logo-light">
+                    <a href="Index" class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="~/admin/images/logo-sm.png" alt="" height="22">
+                            <img src="~/admin/images/kagankuscu-sm.svg" alt="" height="30">
                         </span>
                         <span class="logo-lg">
-                            <img src="~/admin/images/logo-light.png" alt="" height="20">
+                            <img src="~/admin/images/kagankuscu-dark.svg" alt="" height="40">
                         </span>
                     </a>
                 </div>
@@ -125,28 +128,12 @@
                             <li class="menu-title">Menu</li>
 
                             <li>
-                                <a href="/Admin/Dashboard/">
-                                    <i class="uil-home-alt"></i>
-                                    <span>Anasayfa</span>
-                                </a>
-                            </li>
-
-                            <li>
                                 <a href="/Admin/Dashboard/Resumes" class=" waves-effect">
                                     <i class="uil-users-alt"></i>
                                     <span>Öz Geçmişler</span>
                                 </a>
                             </li>
 
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <li>
-                                    <a href="/Admin/Utility/Upcoming" class=" waves-effect">
-                                        <i class="uil-folder"></i>
-                                        <span>Dosyalar</span>
-                                    </a>
-                                </li>
-                                }
                             <li>
                                 <a href="/Admin/Dashboard/Educations" class="waves-effect">
                                     <i class="uil-book-alt"></i>

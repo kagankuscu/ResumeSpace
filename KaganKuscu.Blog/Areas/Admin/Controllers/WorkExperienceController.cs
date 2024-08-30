@@ -19,6 +19,9 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
 
       public IActionResult GetAllWorkExperience()
       {
+        if(User.FindFirstValue(ClaimTypes.Role) is "Admin")
+          return Json(new {Data = _workExperienceService.GetAllWorkExperienceWithResumes() });
+
         string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (userId is null)
           return BadRequest("User not found");

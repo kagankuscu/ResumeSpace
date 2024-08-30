@@ -19,6 +19,9 @@ namespace KaganKuscu.Blog.Areas.Admin.Controllers
 
         public IActionResult GetAll()
         {
+            if(User.FindFirstValue(ClaimTypes.Role) is "Admin")
+                return Json(new {Data = _skillService.GetAllSkillWithResumes() });
+
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId is null)
                 return NotFound();
