@@ -11,37 +11,37 @@
                 <div class="modal-body">
                         <div class="row mb-2">
                             <label for="txtResumeName">Resume Name: </label>
-                            <input class="form-control" type="text" id="txtResumeName" placeholder="Please add resume name" required/>
+                            <input class="form-control" type="text" id="txtResumeName" placeholder="Please enter resume name" required/>
                         </div>
 
                         <div class="row mb-2">
                             <label for="txtName">Fullname: </label>
-                            <input class="form-control" type="text" id="txtName" placeholder="Please add fullname" required/>
+                            <input class="form-control" type="text" id="txtName" placeholder="Please enter fullname" required/>
                         </div>
 
                         <div class="row mb-2">
                             <label for="txtBirthdate">Birth Date:</label>
-                            <input class="form-control input-mask" id="txtBirthdate" placeholder="Please add birth date" data-inputmask="'alias': 'datetime'" data-inputmask-inputformat="mm/dd/yyyy" im-insert="false" required/>
+                            <input class="form-control input-mask" id="txtBirthdate" placeholder="Please enter birth date" data-inputmask="'alias': 'datetime'" data-inputmask-inputformat="mm/dd/yyyy" im-insert="false" required/>
                         </div>
 
                         <div class="row mb-2">
                             <label for="txtTitle">Role :</label>
-                            <input class="form-control" type="text" id="txtTitle" placeholder="Please add role" required/>
+                            <input class="form-control" type="text" id="txtTitle" placeholder="Please enter role" required/>
                         </div>
 
                         <div class="row mb-2">
                             <label for="txtEmail">Email :</label>
-                            <input id="txtEmail" placeholder="Please add email" class="form-control input-mask" data-inputmask="'alias': 'email'" im-insert="true" required>
+                            <input id="txtEmail" placeholder="Please enter email" class="form-control input-mask" data-inputmask="'alias': 'email'" im-insert="true" required>
                         </div>
 
                         <div class="row mb-2">
                             <label for="txtAddress">Address :</label>
-                            <input class="form-control" type="text" id="txtAddress" placeholder="Please add address"/>
+                            <input class="form-control" type="text" id="txtAddress" placeholder="Please enter address"/>
                         </div>
 
                         <div class="row mb-2">
                             <label for="txtNumber">Phone :</label>
-                            <input class="form-control input-mask" id="txtPhone" placeholder="Please add phone number" data-parsley-minlength="13" maxlength="13"
+                            <input class="form-control input-mask" id="txtPhone" placeholder="Please enter phone number" data-parsley-minlength="13" maxlength="13"
                             data-parsley-pattern="^\(\d{3}\)-\d{7}$" data-inputmask="'mask': '(999)-9999999'"  im-insert="true" required/>
                         </div>
                 </div>
@@ -98,12 +98,12 @@
                 </div>
                 <div class="modal-body">
                     <div class="row mb-2">
-                        <label for="txtImage" class="form-label">Please add image</label>
+                        <label for="txtImage" class="form-label">Please enter image</label>
                         <input class="form-control" type="file" id="txtImage" accept="image/png, image/jpeg">
                     </div>
 
                     <div class="row mb-2">
-                        <label for="txtResume" class="form-label">Please add resume</label>
+                        <label for="txtResume" class="form-label">Please enter resume</label>
                         <input class="form-control" type="file" id="txtResume" accept=".pdf">
                     </div>
 
@@ -190,7 +190,7 @@
                     }
                 </div>
                 <!-- end row -->
-                
+
                 <div class="row">
                     <table id="datatable" class="table table-centered table-nowrap table-hover mb-0">
                     </table>
@@ -201,7 +201,7 @@
 </div>
 
 @section Scripts
-{    
+{
     <script src="~/js/customSwalButton.js"></script>
     <script src="~/lib/tinymce/tinymce.min.js"></script>
     <script src="~/js/customTinymce.init.js"></script>
@@ -315,15 +315,11 @@
                     columnDefs:
                     [
                         {
-                            targets: 8,
+                            targets: [8, 11],
                             visible: true,
                             className: "text-center",
                             width: "5px"
                         },
-                        {
-                            targets: 7,
-                            width: "5px"
-                        }
                     ],
                 });
         }
@@ -419,7 +415,7 @@
                         SwalToast.fire
                             ({
                                 icon: "error",
-                                title: "Something went wrong" + err.responseText
+                                title: "Something went wrong"
                             });
                     }
                 }
@@ -456,7 +452,7 @@
                                 SwalToast.fire
                                 ({
                                     icon: "error",
-                                    title: "error: " + err.responseText
+                                    title: "Something went wrong"
                                 });
                             }
                         })
@@ -584,7 +580,7 @@
 
             $("#btnExtrasSave").off().click(() => addExtrasInformation(guid, element));
         }
-        
+
         function addExtrasInformation(guid, element)
         {
             let formData = new FormData();
@@ -623,7 +619,7 @@
                     SwalToast.fire
                     ({
                         icon: "error",
-                        title: err.responseText === '' ? "Something went wrong!" : err.responseText
+                        title: "Something went wrong!"
                     })
                 }
             });

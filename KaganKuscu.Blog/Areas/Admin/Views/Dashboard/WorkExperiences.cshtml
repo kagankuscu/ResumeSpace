@@ -10,39 +10,39 @@
                 </div>
                 <div class="modal-body">
                         <div class="row mb-2">
-                            <label for="txtCompanyName">Firman Adı :</label>
-                            <input class="form-control" type="text" id="txtCompanyName" placeholder="Lütfen firmanın adını giriniz." required/>
+                            <label for="txtCompanyName">Company Name :</label>
+                            <input class="form-control" type="text" id="txtCompanyName" placeholder="Please enter company name" required/>
                         </div>
 
                         <div class="row mb-2">
-                            <label for="txtStartDate">Başlama Tarihi :</label>
-                            <input class="form-control input-mask" id="txtStartDate" placeholder="Lütfen başlama tarihini giriniz." data-inputmask="'alias': 'datetime'" data-inputmask-inputformat="mm/dd/yyyy" im-insert="false" required/>
+                            <label for="txtStartDate">Start Date :</label>
+                            <input class="form-control input-mask" id="txtStartDate" placeholder="Please enter start date" data-inputmask="'alias': 'datetime'" data-inputmask-inputformat="mm/dd/yyyy" im-insert="false" required/>
                         </div>
 
                         <div class="row mb-2">
-                            <label for="txtEndDate">Bitiş Tarihi :</label>
-                            <input class="form-control input-mask" id="txtEndDate" placeholder="Lütfen bitiş tarihini giriniz." data-inputmask="'alias': 'datetime'" data-inputmask-inputformat="mm/dd/yyyy" im-insert="false" />
+                            <label for="txtEndDate">End Date :</label>
+                            <input class="form-control input-mask" id="txtEndDate" placeholder="Please enter end date" data-inputmask="'alias': 'datetime'" data-inputmask-inputformat="mm/dd/yyyy" im-insert="false" />
                         </div>
 
                         <div class="row mb-2">
-                            <label for="txtRole">Pozisyon :</label>
-                            <input class="form-control" type="text" id="txtRole" placeholder="Lütfen bölümünüzü giriniz." required/>
+                            <label for="txtRole">Title :</label>
+                            <input class="form-control" type="text" id="txtRole" placeholder="Please enter title" required/>
                         </div>
 
                         <div class="row mb-2">
                             <label for="txtDescription">Açıklama :</label>
-                            <input class="form-control" type="text" id="txtDescription" placeholder="Lütfen açıklama giriniz."/>
+                            <input class="form-control" type="text" id="txtDescription" placeholder="Please enter description"/>
                         </div>
 
                         <div class="row mb-2">
-                          <label for="ddlResume">Öz Geçmiş :</label>
+                          <label for="ddlResume">Resumes :</label>
                           <select id="ddlResume" name="resumes[]" multiple="multiple" style="width: 100%" >
                           </select>
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
-                    <button id="btnSave" type="submit" class="btn btn-success">Kaydet</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <button id="btnSave" type="submit" class="btn btn-success">Save</button>
                 </div>
             </form>
         </div><!-- /.modal-content -->
@@ -58,12 +58,12 @@
                     {
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <a onclick="add()" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-plus me-2"></i> Yeni Ekle</a>
+                                <a onclick="add()" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-plus me-2"></i> Add New</a>
                             </div>
                         </div>
                     }
                 <!-- end row -->
-                
+
                 <div class="row">
                     <table id="datatable" class="table table-centered table-nowrap table-hover mb-0">
                     </table>
@@ -73,7 +73,7 @@
     </div>
 </div>
 
-@section Scripts 
+@section Scripts
 {
     <script src="~/js/customSwalButton.js"></script>
     <script src="~/admin/libs/select2/js/select2.min.js"></script>
@@ -81,7 +81,7 @@
         const isAdmin = '@User.IsInRole("Admin")' === 'True' ? true : false;
         let datatable;
 
-        $(document).ready(() => 
+        $(document).ready(() =>
         {
             $("#ddlResume").select2(
                 {
@@ -100,24 +100,24 @@
                     paging: false,
                     pageLenght: 100,
                     ajax: "/Admin/WorkExperience/GetAllWorkExperience",
-                    columns: 
+                    columns:
                     [
-                        { data: "name", title: "Firma Adı" },
-                        { 
-                          data: "startDate", 
-                          title: "Başlangıç Tarihi",
+                        { data: "name", title: "Company Name" },
+                        {
+                          data: "startDate",
+                          title: "Start Date",
                           render: (data) => moment(data).format("DD/MM/YYYY")
                         },
-                        { 
-                          data: "endDate", 
-                          title: "Bitiş Tarihi", 
+                        {
+                          data: "endDate",
+                          title: "End Date",
                           render: (data) => data.split("-")[0] === "0001" ? "Devam Ediyor" : moment(data).format("DD/MM/YYYY")
                         },
-                        { data: "role", title: "Pozisyon" },
+                        { data: "role", title: "Title" },
                         { data: "description", title: "Açıklama" },
-                        { 
-                          data: "resumes", 
-                          title: "Ekli olan Özgeçmişler", 
+                        {
+                          data: "resumes",
+                          title: "Resumes attached",
                           render: (data) => {
                             let txt = '';
 
@@ -126,11 +126,11 @@
                             return txt;
                           }
                         },
-                        { 
+                        {
                             data: "guid",
-                            title: "İşlemler",
+                            title: "Actions",
                             visible: !isAdmin,
-                            render: (guid, type, row) => 
+                            render: (guid, type, row) =>
                             {
                                 return `<ul class="list-inline mb-0">
                                             <li class="list-inline-item">
@@ -143,36 +143,33 @@
                                                 <a class="text-muted dropdown-toggle font-size-18 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
                                                     <i class="uil uil-ellipsis-v"></i>
                                                 </a>
-                                            
+
                                                 <div class="dropdown-menu dropdown-menu-end">
                                                     <a class="dropdown-item" onclick="toggleStatus(this)">
-                                                        <i class="${row.isActive ? "uil-check-circle" : "uil-times-circle" } me-2 
-                                                        text-${row.isActive ? "success" : "danger" }" style="font-size: 19px"></i>${row.isActive ? "Pasif yap" : "Aktif yap" }
+                                                        <i class="${row.isActive ? "uil-check-circle" : "uil-times-circle" } me-2
+                                                        text-${row.isActive ? "success" : "danger" }" style="font-size: 19px"></i>${row.isActive ? "Make passive" : "Make active" }
                                                     </a>
                                                 </div>
                                             </li>
                                         </ul>`
                             }
                         },
-                        { 
+                        {
                             data: "isActive",
-                            title: "Durum",
+                            title: "Activity State",
                             render: (data) => `<i style="font-size: 25px" class="${data ? "uil-check-circle text-success" : "uil-times-circle text-danger"}"></i>`
                         },
                     ],
                     columnDefs:
                     [
                         {
-                            targets: [5, 6],
+                            targets: [6, 7],
                             visible: true,
                             className: "text-center",
                             width: "5px"
                         },
                     ],
                     order: [[2, "desc"]],
-                    language: {
-                        url: "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Turkish.json"
-                    }
                 });
         }
 
@@ -182,7 +179,7 @@
           fillDdlResume();
           clearModal();
 
-          $("#btnSave").off().text("Kaydet").removeClass("btn-warning").addClass("btn-success").click(() => 
+          $("#btnSave").off().text("Save").removeClass("btn-warning").addClass("btn-success").click(() =>
             {
               event.preventDefault();
               if (!checkValidateForm())
@@ -215,7 +212,7 @@
                     SwalToast.fire
                     ({
                       icon: "success",
-                      title: "Kaydedildi"
+                      title: "Saved"
                     });
                   }
                 }
@@ -234,14 +231,14 @@
                     type: "POST",
                     contentType: "application/json",
                     data: JSON.stringify(data.guid),
-                    success: () => 
+                    success: () =>
                     {
                         SwalToast.fire(
                             {
                                 icon: "success",
-                                title: !data.isActive ? "Aktif edildi." : "Pasif yapıldı"
+                                title: !data.isActive ? "Activated" : "Deactivated"
                             });
-                        
+
                         data.isActive = !data.isActive;
                         datatable.row(row).data(data).draw();
                     },
@@ -250,7 +247,7 @@
                         SwalToast.fire
                             ({
                                 icon: "error",
-                                title: "Hata: " + err.responseText
+                                title: "Something went wrong"
                             });
                     }
                 }
@@ -261,7 +258,7 @@
         {
             SwalRemove
                 .fire()
-                .then(result => 
+                .then(result =>
                 {
                     if(result.isConfirmed)
                     {
@@ -271,14 +268,14 @@
                             type: "GET",
                             contentType: "application/json",
                             data: { guid: guid },
-                            success: res => 
+                            success: res =>
                             {
                                 datatable.row($(element).parents("tr")).remove().draw();
 
                                 SwalToast.fire
                                 ({
                                     icon: "success",
-                                    title: "Silindi"
+                                    title: "Deleted"
                                 });
 
                             },
@@ -287,7 +284,7 @@
                                 SwalToast.fire
                                 ({
                                     icon: "error",
-                                    title: "error: " + err.responseText
+                                    title: "Something went wrong"
                                 });
                             }
                         })
@@ -308,14 +305,14 @@
           $("#txtStartDate").val(moment(oldData.startDate).format("MM/DD/YYYY"));
           $("#txtDescription").val(oldData.description);
           $("#txtRole").val(oldData.role);
-          
+
           if (oldData.endDate.split("-")[0] !== "0001")
             $("#txtEndDate").val(moment(oldData.endDate).format("MM/DD/YYYY"));
 
 
           fillDdlResume(oldData.resumes);
 
-          $("#btnSave").off().text("Güncelle").removeClass("btn-success").addClass("btn-warning").click(() =>
+          $("#btnSave").off().text("Update").removeClass("btn-success").addClass("btn-warning").click(() =>
             {
               event.preventDefault();
               if (!checkValidateForm())
@@ -350,7 +347,7 @@
                     SwalToast.fire
                     ({
                       icon: "success",
-                      title: "Güncellendi"
+                      title: "Updated"
                     });
                   }
                 }
@@ -376,13 +373,13 @@
                 {
                     url: "/Admin/Resume/GetAll",
                     type: "GET",
-                    success: (res) => 
+                    success: (res) =>
                     {
                         for (let resume of res.data)
                         {
                             $("#ddlResume").append(
-                                new Option(resume.resumeName, resume.id, 
-                                    false, 
+                                new Option(resume.resumeName, resume.id,
+                                    false,
                                     resumes === undefined ? false : resumes.find(r => r.guid === resume.guid) !== undefined)
                                 );
                         }

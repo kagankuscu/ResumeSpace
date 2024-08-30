@@ -1,6 +1,6 @@
 let themeTinymce = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-let tinymceConfig = 
+let tinymceConfig =
 {
     selector: 'textarea.tinymce-modal',
     skin: ( themeTinymce ? 'oxide-dark' : 'oxide'),
@@ -15,12 +15,12 @@ let tinymceConfig =
     toolbar: 'undo redo | a11ycheck casechange blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist checklist outdent indent | removeformat | code table help',
     height: 500
     // init_instance_callback: function (editor) {
-    //     editor.on('focus', function (e) 
+    //     editor.on('focus', function (e)
     //     {
     //         console.log('Editor got focus!');
     //         $("#mdlAddAndUpdate .modal-body div.row:not(#test)").fadeOut(1500)
     //     });
-    //     editor.on('blur', function (e) 
+    //     editor.on('blur', function (e)
     //     {
     //         console.log(e);
     //         $("#mdlAddAndUpdate .modal-body div.row:not(#test)").fadeIn(1500)

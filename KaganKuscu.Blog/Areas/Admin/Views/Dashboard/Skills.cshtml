@@ -5,39 +5,35 @@
         <div class="modal-content">
             <form id="frm" class="needs-validation">
                 <div class="modal-header">
-                    <h5 id="mdlTitle" class="modal-title">Yetenekler</h5>
+                    <h5 id="mdlTitle" class="modal-title">Skills</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="row mb-2">
-                        <label for="txtSkill">Yetenek :</label>
+                        <label for="txtSkill">Skill :</label>
                         <input class="form-control" type="text" id="txtSkill"
-                            placeholder="Lütfen yetenek adını giriniz." required />
+                            placeholder="Please enter skill name" required />
                     </div>
-
                     <div class="row mb-2">
-                        <label for="txtPercent">Değer (%) :</label>
+                        <label for="txtPercent">Value (%) :</label>
                         <input class="form-control" max="100" min="0" type="number" id="txtPercent"
-                            placeholder="Lütfen yetenek adını giriniz." required />
+                            placeholder="Please enter skill percent" required />
                     </div>
-
                     <div class="row mb-2">
-                        <label for="ddlResume">Kişi :</label>
+                        <label for="ddlResume">Resumes :</label>
                         <select id="ddlResume" name="resumes[]" multiple="multiple" style="width: 100%" >
                         </select>
                     </div>
-
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Kapat</button>
-                    <button id="btnSave" type="submit" class="btn btn-success">Kaydet</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <button id="btnSave" type="submit" class="btn btn-success">Save</button>
                 </div>
             </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -47,13 +43,12 @@
                     {
                       <div class="col-md-6">
                           <div class="mb-3">
-                              <a onclick="add()" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-plus me-2"></i> Yeni Ekle</a>
+                              <a onclick="add()" class="btn btn-success waves-effect waves-light"><i class="mdi mdi-plus me-2"></i> Add New</a>
                           </div>
                       </div>
                     }
                 </div>
                 <!-- end row -->
-
                 <div class="row">
                     <table id="datatable" class="table table-centered table-nowrap table-hover mb-0">
                     </table>
@@ -62,7 +57,6 @@
         </div>
     </div>
 </div>
-
 @section Scripts
 {
     <script src="~/js/customSwalButton.js"></script>
@@ -70,7 +64,6 @@
     <script>
         const isAdmin = '@User.IsInRole("Admin")' === 'True' ? true : false;
         let datatable;
-
         $(document).ready(() => {
             $("#ddlResume").select2(
                 {
@@ -81,7 +74,6 @@
             )
             fillDatatable();
         });
-
         async function fillDatatable() {
             datatable = $("#datatable").DataTable
                 ({
@@ -90,26 +82,25 @@
                     ajax: "/Admin/Skill/GetAll",
                     columns:
                         [
-                            { data: "name", title: "Yetenek" },
-                            { 
+                            { data: "name", title: "Skill" },
+                            {
                                 data: "percent",
-                                title: "Değer (%)",
+                                title: "Value (%)",
                                 render: (data) => `${data} %`
                             },
                             {
                                 data: "resumes",
-                                title: "Ekli olan Özgeçmişler",
+                                title: "Resumes attached",
                                 render: (data) => {
                                     let txt = '';
-
                                     for (let item of data)
                                         txt += `<span>${item.resumeName}</span><br>`;
                                     return txt;
                                 }
-                            }, 
+                            },
                             {
                                 data: "guid",
-                                title: "İşlemler",
+                                title: "Actions",
                                 visible: !isAdmin,
                                 render: (guid, type, row) => {
                                     return `<ul class="list-inline mb-0">
@@ -123,11 +114,10 @@
                                                         <a class="text-muted dropdown-toggle font-size-18 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true">
                                                             <i class="uil uil-ellipsis-v"></i>
                                                         </a>
-
                                                         <div class="dropdown-menu dropdown-menu-end">
                                                             <a class="dropdown-item" onclick="toggleStatus(this)">
-                                                                <i class="${row.isActive ? "uil-check-circle" : "uil-times-circle"} me-2 
-                                                                text-${row.isActive ? "success" : "danger"}" style="font-size: 19px"></i>${row.isActive ? "Pasif yap" : "Aktif yap"}
+                                                                <i class="${row.isActive ? "uil-check-circle" : "uil-times-circle"} me-2
+                                                                text-${row.isActive ? "success" : "danger"}" style="font-size: 19px"></i>${row.isActive ? "Make passive" : "Make active"}
                                                             </a>
                                                         </div>
                                                     </li>
@@ -136,7 +126,7 @@
                             },
                             {
                                 data: "isActive",
-                                title: "Durum",
+                                title: "Activity State",
                                 render: (data) => `<i style="font-size: 25px" class="${data ? "uil-check-circle text-success" : "uil-times-circle text-danger"}"></i>`
                             },
                         ],
@@ -153,21 +143,15 @@
                                 className: "text-center",
                             },
                         ],
-                    language: {
-                        url: "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Turkish.json"
-                    },
                     order: [1, "desc"]
-
                 });
         }
-
-        function add() 
+        function add()
         {
             modalToggle();
             fillDdlResume();
             clearModal();
-
-            $("#btnSave").off().text("Kaydet").removeClass("btn-warning").addClass("btn-success").click(() => 
+            $("#btnSave").off().text("Save").removeClass("btn-warning").addClass("btn-success").click(() =>
             {
                 event.preventDefault();
                 if ($("#frm").parsley().isValid() === false)
@@ -180,20 +164,17 @@
                     SwalToast.fire
                     ({
                         icon: "success",
-                        title: "Kaydedildi"
+                        title: "Saved"
                     });
-
                     let data =
                     {
                         "name": $("#txtSkill").val(),
                         "percent": $("#txtPercent").val(),
                         "isActive": true,
-                        "resumesSkills": [] 
+                        "resumesSkills": []
                     }
-
                     for (let resumeId of $("#ddlResume").val())
                       data.resumesSkills.push({ resumeId: resumeId });
-
                     $.ajax
                     ({
                         url: "/Admin/Skill/Add",
@@ -208,20 +189,19 @@
                 }
             });
         }
-
         function fillDdlResume(resumes)
         {
             $.ajax(
                 {
                     url: "/Admin/Resume/GetAll",
                     type: "GET",
-                    success: (res) => 
+                    success: (res) =>
                     {
                         for (let resume of res.data)
                         {
                             $("#ddlResume").append(
-                                new Option(resume.resumeName, resume.id, 
-                                    false, 
+                                new Option(resume.resumeName, resume.id,
+                                    false,
                                     resumes === undefined ? false : resumes.find(r => r.guid === resume.guid) !== undefined)
                                 );
                         }
@@ -230,13 +210,10 @@
                 }
             )
         }
-
-        function toggleStatus(element) 
+        function toggleStatus(element)
         {
-
             let row = $(element).parents("tr");
             let data = datatable.row(row).data();
-
             $.ajax(
                 {
                     url: "/Admin/Skill/ToggleStatus",
@@ -246,25 +223,22 @@
                         SwalToast.fire(
                             {
                                 icon: "success",
-                                title: !data.isActive ? "Aktif edildi." : "Pasif yapıldı"
+                                title: !data.isActive ? "Activated" : "Deactivated"
                             });
-
                         data.isActive = !data.isActive;
                         datatable.row(row).data(data).draw();
-
                     },
                     error: (err) => {
                         SwalToast.fire
                             ({
                                 icon: "error",
-                                title: "Hata: " + err.responseText
+                                title: "Something went wrong"
                             });
                     }
                 }
             )
         }
-
-        function remove(guid, element) 
+        function remove(guid, element)
         {
             SwalRemove
                 .fire()
@@ -278,40 +252,33 @@
                                 data: JSON.stringify(guid),
                                 success: res => {
                                     datatable.row($(element).parents("tr")).remove().draw();
-
                                     SwalToast.fire
                                         ({
                                             icon: "success",
-                                            title: "Silindi"
+                                            title: "Deleted"
                                         });
-
                                 },
                                 error: (err) => {
                                     SwalToast.fire
                                         ({
                                             icon: "error",
-                                            title: "error: " + err.responseText
+                                            title: "Something went wrong"
                                         });
                                 }
                             })
                     }
                 });
         }
-
-        async function update(guid, element) 
+        async function update(guid, element)
         {
             modalToggle();
             clearModal();
-
             let row = $(element).parents("tr");
             let oldData = datatable.row(row).data();
-
             $("#txtSkill").val(oldData.name);
             $("#txtPercent").val(oldData.percent);
-
             fillDdlResume(oldData.resumes);
-
-            $("#btnSave").off().text("Güncelle").removeClass("btn-success").addClass("btn-warning").click(() => {
+            $("#btnSave").off().text("Update").removeClass("btn-success").addClass("btn-warning").click(() => {
                 event.preventDefault();
                 if ($("#frm").parsley().isValid() === false)
                 {
@@ -329,12 +296,10 @@
                                     "name": $("#txtSkill").val(),
                                     "percent": $("#txtPercent").val(),
                                     "guid" : oldData.guid,
-                                    "resumesSkills": [], 
+                                    "resumesSkills": [],
                                 }
-
                                 for (let resumeId of $("#ddlResume").val())
                                   data.resumesSkills.push({ resumeId: resumeId });
-
                                 $.ajax(
                                     {
                                         url: "/Admin/Skill/Update",
@@ -347,7 +312,7 @@
                                             SwalToast.fire(
                                                 {
                                                     icon: "success",
-                                                    title: "Güncellendi"
+                                                    title: "Updated"
                                                 }
                                             );
                                         }
@@ -357,7 +322,6 @@
                 }
             });
         }
-
         function modalToggle()
         {
             const mdlSkill = $("#mdlSkill");
@@ -366,20 +330,16 @@
             else
                 mdlSkill.modal("show");
         }
-
         function clearModal()
         {
             $("#ddlResume").empty();
             $("#mdlSkill input").val("");
-
             resetFormValidate();
         }
-
         function resetFormValidate()
         {
           $("#frm").parsley().reset();
           $("#frm").removeClass("was-validated");
         }
-
     </script>
 }
