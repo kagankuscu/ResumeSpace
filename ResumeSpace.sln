@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResumeSpace.Web", "ResumeSpace.Web\ResumeSpace.Web.csproj", "{889A6C80-0AB8-4590-8774-15E2761A8FDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResumeSpace.DataAccess", "ResumeSpace.DataAccess\ResumeSpace.DataAccess.csproj", "{D44B509C-9E55-42AD-B7CE-48518E99EC63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResumeSpace.EmailService", "ResumeSpace.EmailService\ResumeSpace.EmailService.csproj", "{5D86A7C3-00B0-49AF-B14E-4E4E60F7984F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResumeSpace.Model", "ResumeSpace.Model\ResumeSpace.Model.csproj", "{3B8D6324-8DE5-4AB7-AECB-43553998EF6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResumeSpace.Repository", "ResumeSpace.Repository\ResumeSpace.Repository.csproj", "{7A0F79C3-E7BE-438E-A70E-B8DE70D570BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResumeSpace.Utilities", "ResumeSpace.Utilities\ResumeSpace.Utilities.csproj", "{E7FA1E9F-43A2-4800-A950-B9C861EC485F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResumeSpace.Business", "ResumeSpace.Business\ResumeSpace.Business.csproj", "{B2FF5132-76BB-44FF-A021-07406654AEF2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{889A6C80-0AB8-4590-8774-15E2761A8FDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{889A6C80-0AB8-4590-8774-15E2761A8FDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{889A6C80-0AB8-4590-8774-15E2761A8FDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{889A6C80-0AB8-4590-8774-15E2761A8FDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D44B509C-9E55-42AD-B7CE-48518E99EC63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D44B509C-9E55-42AD-B7CE-48518E99EC63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D44B509C-9E55-42AD-B7CE-48518E99EC63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D44B509C-9E55-42AD-B7CE-48518E99EC63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D86A7C3-00B0-49AF-B14E-4E4E60F7984F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D86A7C3-00B0-49AF-B14E-4E4E60F7984F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D86A7C3-00B0-49AF-B14E-4E4E60F7984F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D86A7C3-00B0-49AF-B14E-4E4E60F7984F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B8D6324-8DE5-4AB7-AECB-43553998EF6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B8D6324-8DE5-4AB7-AECB-43553998EF6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B8D6324-8DE5-4AB7-AECB-43553998EF6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B8D6324-8DE5-4AB7-AECB-43553998EF6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A0F79C3-E7BE-438E-A70E-B8DE70D570BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A0F79C3-E7BE-438E-A70E-B8DE70D570BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A0F79C3-E7BE-438E-A70E-B8DE70D570BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A0F79C3-E7BE-438E-A70E-B8DE70D570BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7FA1E9F-43A2-4800-A950-B9C861EC485F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7FA1E9F-43A2-4800-A950-B9C861EC485F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7FA1E9F-43A2-4800-A950-B9C861EC485F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7FA1E9F-43A2-4800-A950-B9C861EC485F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2FF5132-76BB-44FF-A021-07406654AEF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2FF5132-76BB-44FF-A021-07406654AEF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2FF5132-76BB-44FF-A021-07406654AEF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2FF5132-76BB-44FF-A021-07406654AEF2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
