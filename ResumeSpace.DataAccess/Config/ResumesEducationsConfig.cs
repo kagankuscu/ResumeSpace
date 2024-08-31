@@ -19,4 +19,3 @@ namespace ResumeSpace.DataAccess.Config
     }
   }
 }
- 

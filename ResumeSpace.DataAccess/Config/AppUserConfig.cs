@@ -9,7 +9,7 @@ namespace ResumeSpace.DataAccess.Config
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<AppUser> builder)
         {
             var hasher = new PasswordHasher<AppUser>();
-            
+
             builder.HasData(
                 new AppUser
                 {

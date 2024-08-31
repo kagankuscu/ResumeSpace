@@ -16,7 +16,7 @@ namespace ResumeSpace.DataAccess.Config
                 new Interest {
                     Id = 1,
                     ResumeId = 1,
-                    Name = "Bisiklet",
+                    Name = "Bicycle",
                     IconCssClass = "map-icon map-icon-bicycling"
                 }
             );
