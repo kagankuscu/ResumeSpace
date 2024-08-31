@@ -10,32 +10,13 @@ namespace ResumeSpace.DataAccess.Config
     {
       builder.HasData
         (
-         new ResumeSkill
-         {
-         ResumeId = 1,
-         SkillId = 1,
-         },
-         new ResumeSkill
-         {
-         ResumeId = 1,
-         SkillId = 2,
-         },
-         new ResumeSkill
-         {
-         ResumeId = 1,
-         SkillId = 3,
-         },
-         new ResumeSkill
-         {
-         ResumeId = 1,
-         SkillId = 4,
-         },
-         new ResumeSkill
-         {
-           ResumeId = 1,
-           SkillId = 5,
-         }
-         );
+          new ResumeSkill { ResumeId = 1, SkillId = 1 },
+          new ResumeSkill { ResumeId = 1, SkillId = 2 },
+          new ResumeSkill { ResumeId = 1, SkillId = 3 },
+          new ResumeSkill { ResumeId = 1, SkillId = 4 },
+          new ResumeSkill { ResumeId = 1, SkillId = 5 },
+          new ResumeSkill { ResumeId = 1, SkillId = 6 }
+        );
     }
   }
 }

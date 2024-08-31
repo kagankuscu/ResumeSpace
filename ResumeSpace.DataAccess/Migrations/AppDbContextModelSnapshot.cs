@@ -257,16 +257,16 @@ namespace ResumeSpace.DataAccess.Migrations
                         {
                             Id = "bf6215ac-ffd1-4f8b-894e-8b9ab32e66c4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9ef3499c-8d4f-47de-bfe6-5d10d27740e8",
+                            ConcurrencyStamp = "295dac93-d2b7-4731-81d5-4861284c79f9",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             FullName = "",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEO9JN1j7RwDz49cSnsjEIuSbwOlO3arJN00dNiCvjw/9pZAOeUK4mVeGY6Gt9yshtg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENUEgkPnUy9VFkCRTO8GGeE/VmCNmUrMAtp80C5kjwUB4ekuedZoHgXxzXNzYYMMCw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0244e8b9-92da-40bb-88c3-0d664ecfaa72",
+                            SecurityStamp = "5bb91de5-174b-4c72-b0ba-6c0d51e6e7b7",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         },
@@ -274,16 +274,16 @@ namespace ResumeSpace.DataAccess.Migrations
                         {
                             Id = "D0C23476-68D0-4DA0-AAD4-3ADAE20702C0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "dc2b0a25-bea7-4318-b030-bac7da666e13",
+                            ConcurrencyStamp = "799d1fab-777c-4a17-9cef-d04a41157ac4",
                             Email = "kuscukagan@gmail.com",
                             EmailConfirmed = false,
                             FullName = "",
                             LockoutEnabled = false,
                             NormalizedEmail = "KUSCUKAGAN@GMAIL.COM",
                             NormalizedUserName = "KAGANKUSCU",
-                            PasswordHash = "AQAAAAIAAYagAAAAEADaTrsDiPXEBh3x3ambtIK+62yenJIheDS1vcIWyoLIuXyeakmnpb/LnpZsGczXPQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHN0vShVAC47kMLQiyW6hyD801QLGVeA9EFvSivYupJRxO0sqYAomk7z0jWcilZ/oA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6904b190-0b40-442c-9f40-877344941730",
+                            SecurityStamp = "63e54f55-44bc-46a6-a590-ef701b035556",
                             TwoFactorEnabled = false,
                             UserName = "kagankuscu"
                         });
@@ -461,74 +461,74 @@ namespace ResumeSpace.DataAccess.Migrations
                         {
                             Id = 1,
                             AppUserId = new Guid("d0c23476-68d0-4da0-aad4-3adae20702c0"),
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(6620),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(6690),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(5870),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(5920),
                             Description = "",
                             EndDate = new DateTime(2015, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Guid = new Guid("c998cbb9-bb20-4c6c-b3a9-e6073bad0582"),
+                            Guid = new Guid("61ccc377-f00d-4659-8d0f-036ccc3bdca5"),
                             IsActive = true,
                             IsDeleted = false,
-                            Name = "İZMİT MESLEKİ VE TEKNİK ANADOLU LİSESİ",
-                            Role = "Elektrik Teknisyeni",
+                            Name = "IZMIT VOCATIONAL AND TECHNICAL ANATOLIAN HIGH SCHOOL",
+                            Role = "Electrical Technician",
                             StartDate = new DateTime(2012, 9, 17, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 2,
                             AppUserId = new Guid("d0c23476-68d0-4da0-aad4-3adae20702c0"),
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(6710),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(6710),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(5950),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(5950),
                             Description = "",
                             EndDate = new DateTime(2017, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Guid = new Guid("9bbd7c9f-9d0b-4c6e-b518-1f5133939e96"),
+                            Guid = new Guid("1010e9cd-2459-4376-bd62-2e216d0bc60a"),
                             IsActive = true,
                             IsDeleted = false,
-                            Name = "KOCAELİ ÜNİVERSİTESİ HEREKE YÜKSEK OKULU",
-                            Role = "Elektrik Teknikeri",
+                            Name = "KOCAELI UNIVERSITY HEREKE VOCATIONAL SCHOOL",
+                            Role = "Electrical Engineer",
                             StartDate = new DateTime(2015, 9, 14, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 3,
                             AppUserId = new Guid("d0c23476-68d0-4da0-aad4-3adae20702c0"),
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(6720),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(6720),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(5960),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(5960),
                             Description = "",
                             EndDate = new DateTime(2021, 6, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Guid = new Guid("90b962ac-5a30-4130-b7e6-8f8dded2901d"),
+                            Guid = new Guid("dce7676a-e34f-4ff1-bd01-c2d0797310df"),
                             IsActive = true,
                             IsDeleted = false,
-                            Name = "SOFYA TEKNİK ÜNİVERSİTESİ",
-                            Role = "Mekatronik Mühendisi",
+                            Name = "SOFIA TECHNICAL UNIVERSITY",
+                            Role = "Mechatronics Engineer",
                             StartDate = new DateTime(2017, 9, 26, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 4,
                             AppUserId = new Guid("d0c23476-68d0-4da0-aad4-3adae20702c0"),
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(6720),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(6720),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(5960),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(5960),
                             Description = "",
                             EndDate = new DateTime(2023, 6, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Guid = new Guid("460d0b1c-4d37-4bf5-b5b0-7623c358d6ab"),
+                            Guid = new Guid("3ff70f55-7bf0-44bc-936e-c5705990e10c"),
                             IsActive = true,
                             IsDeleted = false,
-                            Name = "SOFYA TEKNİK ÜNİVERSİTESİ",
-                            Role = "Yüksek Lisans Mekatronik Mühendisi",
+                            Name = "SOFIA TECHNICAL UNIVERSITY",
+                            Role = "Master's in Mechatronics Engineering",
                             StartDate = new DateTime(2021, 11, 3, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 5,
                             AppUserId = new Guid("d0c23476-68d0-4da0-aad4-3adae20702c0"),
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(6730),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(6730),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(5970),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(5970),
                             Description = "",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Guid = new Guid("d06796be-aaec-492c-bf26-af54bc78e5ae"),
+                            Guid = new Guid("f27de5a1-bdb2-4d73-b8a7-8f39543ba88f"),
                             IsActive = true,
                             IsDeleted = false,
-                            Name = "ACUNMEDYA AKADEMİ",
+                            Name = "ACUNMEDYA ACADEMY",
                             Role = ".Net Core Backend Developer",
                             StartDate = new DateTime(2023, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
@@ -578,13 +578,13 @@ namespace ResumeSpace.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7240),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7240),
-                            Guid = new Guid("a80467bf-cd03-467f-be8b-c08b32309ed2"),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6460),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6460),
+                            Guid = new Guid("c8e551e5-fc02-45c9-89e0-6b720128909a"),
                             IconCssClass = "map-icon map-icon-bicycling",
                             IsActive = true,
                             IsDeleted = false,
-                            Name = "Bisiklet",
+                            Name = "Bicycle",
                             ResumeId = 1
                         });
                 });
@@ -665,10 +665,10 @@ namespace ResumeSpace.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            Content = "Başarısızlıktan korkma. Başarısızlık, başarıya giden yoldaki en önemli adımdır.",
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7670),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7670),
-                            Guid = new Guid("397a47ab-5f1e-48e3-b286-6c12e56ae07f"),
+                            Content = "Don’t be afraid of failure. Failure is a crucial step on the road to success.",
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6850),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6850),
+                            Guid = new Guid("a0f6ed5f-32b8-46a0-a6db-d7a173169593"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Bill Gates"
@@ -676,10 +676,10 @@ namespace ResumeSpace.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            Content = "Bilgisayarlar, bisiklete binmek gibi bir şeydir. Dengeyi bir kez yakaladınız mı, düşmeniz çok zor.",
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7680),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7680),
-                            Guid = new Guid("0a548571-3d6b-4a28-a5b6-0d8b0dfc5c88"),
+                            Content = "Computers are like riding a bicycle. Once you get the balance, it’s hard to fall off.",
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6860),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6860),
+                            Guid = new Guid("1f0e1804-8657-4545-8490-6ca631d22f9a"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Bill Gates"
@@ -687,10 +687,10 @@ namespace ResumeSpace.DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            Content = "Yazılım, bir insanın zekasını en iyi şekilde yansıtan şeydir.",
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7680),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7690),
-                            Guid = new Guid("97dd707e-11f1-48bd-9f7b-23cc85355937"),
+                            Content = "Software is the best reflection of a person’s intelligence.",
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6860),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6860),
+                            Guid = new Guid("2fb62d93-0515-45a3-a06d-a8526a1684ce"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Bill Gates"
@@ -698,10 +698,10 @@ namespace ResumeSpace.DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            Content = "Gelecek, bugünü nasıl geçirdiğimize bağlıdır.",
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7690),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7690),
-                            Guid = new Guid("f4f4b9e3-07d8-4500-bef0-6bd4c97808da"),
+                            Content = "The future depends on how we spend today.",
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6870),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6870),
+                            Guid = new Guid("a75eefe0-382b-477c-8358-20d3125c1428"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Bill Gates"
@@ -709,10 +709,10 @@ namespace ResumeSpace.DataAccess.Migrations
                         new
                         {
                             Id = 5,
-                            Content = "Dünyayı değiştirmek istiyorsan, önce kendini değiştirmelisin.",
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7700),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7700),
-                            Guid = new Guid("4674e32d-810c-466b-b460-a37f74fb461d"),
+                            Content = "If you want to change the world, you must first change yourself.",
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6880),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6880),
+                            Guid = new Guid("2d71b3d9-8f07-4c16-b707-9c041ec136fe"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Bill Gates"
@@ -720,10 +720,10 @@ namespace ResumeSpace.DataAccess.Migrations
                         new
                         {
                             Id = 6,
-                            Content = "Teknolojinin kalbi insan ruhudur.",
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7700),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7700),
-                            Guid = new Guid("e6c51353-4c56-4422-88cc-1c3231cb3b8d"),
+                            Content = "The heart of technology is the human soul.",
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6880),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6880),
+                            Guid = new Guid("5958556e-d9a1-4efa-a82c-2b5ab45c8257"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Steve Jobs"
@@ -731,10 +731,10 @@ namespace ResumeSpace.DataAccess.Migrations
                         new
                         {
                             Id = 7,
-                            Content = "Noktaları birleştirmek ancak geriye baktığınızda mümkündür.",
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7710),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7710),
-                            Guid = new Guid("e8b89137-c146-413b-bd7e-28353faddf6a"),
+                            Content = "You can only connect the dots looking backward.",
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6890),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6890),
+                            Guid = new Guid("fb2640b6-f114-4e4d-a4e5-59bd5fa072af"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Steve Jobs"
@@ -742,10 +742,10 @@ namespace ResumeSpace.DataAccess.Migrations
                         new
                         {
                             Id = 8,
-                            Content = "Zamanınız sınırlı, onu başkasının hayatını yaşayarak harcamayın.",
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7710),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7720),
-                            Guid = new Guid("8a8208fb-bd63-4865-bf04-d7e48cbde3cb"),
+                            Content = "Your time is limited, so don’t waste it living someone else’s life.",
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6890),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6890),
+                            Guid = new Guid("f4ff27b9-1dfb-490b-8f0a-ed0cc610aeb1"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Steve Jobs"
@@ -753,10 +753,10 @@ namespace ResumeSpace.DataAccess.Migrations
                         new
                         {
                             Id = 9,
-                            Content = "Harika işler yapmak için tutkulu olmanız gerekir.",
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7720),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7720),
-                            Guid = new Guid("69de6947-ac82-415a-bb51-d850381b4385"),
+                            Content = "To do great work, you need to be passionate.",
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6900),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6900),
+                            Guid = new Guid("60cf7ab8-2da1-4bbf-8fc0-e2e03a8dbe46"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Steve Jobs"
@@ -764,10 +764,10 @@ namespace ResumeSpace.DataAccess.Migrations
                         new
                         {
                             Id = 10,
-                            Content = "Yaratıcı olmak, başkalarının ne düşündüğünü önemsememektir.",
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7730),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7730),
-                            Guid = new Guid("f77c9ac1-ed4d-4d49-a28b-37ba1403da35"),
+                            Content = "Being creative means not caring about what others think.",
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6910),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6910),
+                            Guid = new Guid("2b10af82-31eb-431b-b6f9-86e3813f9fa2"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Steve Jobs"
@@ -775,10 +775,10 @@ namespace ResumeSpace.DataAccess.Migrations
                         new
                         {
                             Id = 11,
-                            Content = "Hızlı hareket et ve bir şeyler yap. Mükemmellik, eylemin sonucudur.",
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7730),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7730),
-                            Guid = new Guid("999e4b66-30c9-4b7b-8de6-093ed2bc258b"),
+                            Content = "Move fast and make things. Perfection is the result of action.",
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6910),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6910),
+                            Guid = new Guid("edf24942-a085-41e9-9ca4-1bc1d3ab6309"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Mark Zuckerberg"
@@ -786,10 +786,10 @@ namespace ResumeSpace.DataAccess.Migrations
                         new
                         {
                             Id = 12,
-                            Content = "Her zaman daha iyisini yapmanin bir yolu vardir.",
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7740),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7740),
-                            Guid = new Guid("94697484-4a1d-4a5d-ac15-265a5f05c177"),
+                            Content = "There is always a way to do better.",
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6920),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6920),
+                            Guid = new Guid("fff1aabd-3f17-49b4-b2e8-68f0c3433fcb"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Larry Page"
@@ -797,10 +797,10 @@ namespace ResumeSpace.DataAccess.Migrations
                         new
                         {
                             Id = 13,
-                            Content = "Başarısızlık bir seçenek değildir. Pes edene kadar denemeye devam et.",
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7740),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7750),
-                            Guid = new Guid("0d4f5f9e-ee64-4662-888c-835903f15b6c"),
+                            Content = "Failure is not an option. Keep trying until you succeed.",
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6920),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6920),
+                            Guid = new Guid("c51fb881-93e0-400a-a2b4-634858f40bdf"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Elon Musk"
@@ -808,10 +808,10 @@ namespace ResumeSpace.DataAccess.Migrations
                         new
                         {
                             Id = 14,
-                            Content = "Basitlik, karmaşıklığın en üst noktasıdır.",
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7750),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7750),
-                            Guid = new Guid("c72c67be-29b4-45be-9496-1f5c7d514f1f"),
+                            Content = "Simplicity is the ultimate sophistication.",
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6930),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6930),
+                            Guid = new Guid("28fc0cb7-e7cd-4c59-9e53-fce911fdfb7e"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Tim Cook"
@@ -819,10 +819,10 @@ namespace ResumeSpace.DataAccess.Migrations
                         new
                         {
                             Id = 15,
-                            Content = "Teknolojinin iyilik için bir güç olduğuna inanıyorum.",
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7760),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(7760),
-                            Guid = new Guid("5e22800a-9605-44a7-81fa-e8ca4024373f"),
+                            Content = "I believe technology is a force for good.",
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6940),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(6940),
+                            Guid = new Guid("0c6ce12d-cf60-43ed-b355-12d67e33c643"),
                             IsActive = true,
                             IsDeleted = false,
                             Owner = "Satya Nadella"
@@ -958,23 +958,23 @@ namespace ResumeSpace.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            About = "<p>Teknolojinin sunduğu sonsuz olasılıklar beni her zaman heyecanlandırmıştır. Yazılım geliştirme dünyasına adım atarak bu heyecanımı gerçeğe dönüştürme şansı yakaladım. .NET Core platformlarında backend web geliştirmeye olan ilgimi keşfettim ve bu alanlarda kendimi geliştirmeye başladım. C#, JavaScript ve MS SQL Server dillerini öğrenerek temellerimi sağlamlaştırmaya çalışıyorum.</p>\n\n                        <p>Meraklı ve araştırmacı ruhum sayesinde her gün yeni bir şeyler öğreniyor ve kendimi geliştirmeye devam ediyorum. Kod yazmak benim için sadece bir meslek değil, aynı zamanda bir tutku ve öğrenme fırsatı. Her projede kendimi geliştirmenin ve yeni bilgiler edinmenin heyecanını yaşıyorum.</p>\n\n                        <p>Problem çözme becerilerimi geliştirmeye ve analitik düşünme yeteneğimi güçlendirmeye odaklanıyorum. Karmaşık problemler karşısında yılmadan çözümler aramak ve en uygun çözümü bulmak için çabalıyorum.</p>\n\n                        <p>Ekip çalışmasına yatkın bir kişiliğe sahibim ve iletişim becerilerimi geliştirmeye önem veriyorum. Ekip arkadaşlarımla uyum içinde çalışarak ortak hedeflere ulaşmanın keyfini yaşıyorum.</p>",
+                            About = "<p>The endless possibilities offered by technology have always excited me. Stepping into the world of software development has given me the chance to turn this excitement into reality. I discovered my interest in backend web development on .NET Core platforms and started to improve myself in these areas. By learning C#, JavaScript, and MS SQL Server, I am working to solidify my foundations.</p>\n\n                    <p>Thanks to my curious and research-oriented nature, I learn new things every day and continue to develop myself. Writing code is not just a profession for me but also a passion and an opportunity for learning. I experience the thrill of growing and acquiring new knowledge with every project.</p>\n\n                    <p>I focus on enhancing my problem-solving skills and strengthening my analytical thinking abilities. I strive to find solutions and seek the best possible answers when faced with complex problems.</p>\n\n                    <p>I have a personality suited to teamwork and place great importance on developing my communication skills. I enjoy working in harmony with my team members to achieve common goals.</p>",
                             Address = "Kocaeli/Izmit",
                             AppUserId = "D0C23476-68D0-4DA0-AAD4-3ADAE20702C0",
                             BirthDate = new DateTime(1996, 2, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(8190),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 448, DateTimeKind.Local).AddTicks(8190),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(7330),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(7330),
                             Email = "kuscukagan@gmail.com",
-                            FullName = "Kağan Kuşcu",
-                            Guid = new Guid("96df543e-0af8-4726-96e1-a1fdac874934"),
-                            ImagePath = "img/resume/kagankuscu.jpg",
-                            Interest = "<p>Bisiklet tutkunuyum. Rüzgarı yüzümde hissederek pedallara basmak, özgürlüğün ve maceranın tadını çıkarmak benim için paha biçilemez bir deneyim. Her sürüşte yeni keşiflere yelken açıyor, doğanın güzelliklerine tanık oluyorum. Bisikletimle şehirlerin karmaşasından uzaklaşıp, sakin patikalarda huzur buluyorum. Her viraj yeni bir sürprizi, her tepe yeni bir manzarayı müjdeliyor.\n                        <br />\n                        <br />\n                        Bisikletim sadece bir ulaşım aracı değil, aynı zamanda bir yaşam tarzı. Bisiklet kullanmak bana sadece sağlık ve zindelik değil, aynı zamanda çevreye karşı sorumluluk bilinci de kazandırıyor. Bisikletimle pedal çevirdikçe dünyayı daha güzel bir yer yapmak için katkıda bulunuyorum.\n                        <br />\n                        <br />\n                        Bisiklet tutkum beni her geçen gün daha da ileriye taşıyor. Kendimi geliştirmek için sürekli yeni rotalar arıyor, daha uzun mesafeler kat etmek için antrenman yapıyorum. Bisiklet üzerinde kendimi sınırlarımı zorlarken, aynı zamanda kendimi de daha iyi tanıyorum.\n                        <br />\n                        <br />\n                        Bisikletimle çıktığım her yolculuk unutulmaz bir anıya dönüşüyor. Pedallara her basışımda yeni bir hikaye yazıyorum. Bisiklet tutkum bana sadece keyif ve huzur değil, aynı zamanda unutulmaz anılar ve deneyimler de kazandırıyor.</p>",
+                            FullName = "Kagan Kuscu",
+                            Guid = new Guid("7f531a24-84b6-4390-acec-8c2eb77994d4"),
+                            ImagePath = "kagankuscu/kagankuscu.jpg",
+                            Interest = "<p>I am passionate about cycling. Feeling the wind on my face as I pedal is an invaluable experience that embodies freedom and adventure. Each ride opens the door to new discoveries and allows me to witness the beauty of nature. I find tranquility away from the city’s chaos, exploring serene trails on my bike. Every turn brings a new surprise, and every hill reveals a new view.\n                    <br />\n                    <br />\n                    My bike is not just a mode of transportation; it’s a lifestyle. Cycling provides not only health and vitality but also a sense of responsibility towards the environment. By pedaling, I contribute to making the world a better place.\n                    <br />\n                    <br />\n                    My passion for cycling drives me forward each day. I am constantly seeking new routes to challenge myself and training to cover longer distances. As I push my limits on the bike, I also get to know myself better.\n                    <br />\n                    <br />\n                    Every journey I take on my bike becomes an unforgettable memory. With every pedal stroke, I write a new story. My passion for cycling brings me not only joy and peace but also unforgettable memories and experiences.</p>",
                             IsActive = true,
                             IsDeleted = false,
-                            Phone = "(551)-0973377",
+                            Phone = "(089)-3006776",
                             ResumeName = "KaganKuscu",
-                            ResumePath = "Files/Resume/kagankuscu.pdf",
-                            SecondPhone = "(089)-3006776",
+                            ResumePath = "kagankuscu/kagankuscu.pdf",
+                            SecondPhone = "",
                             Title = ".Net Backend Developer"
                         });
                 });
@@ -1021,9 +1021,9 @@ namespace ResumeSpace.DataAccess.Migrations
                         {
                             Id = 1,
                             AppUserId = new Guid("d0c23476-68d0-4da0-aad4-3adae20702c0"),
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(660),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(660),
-                            Guid = new Guid("e37e330b-4c3e-4579-8f06-d55737f52ec7"),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(9680),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(9680),
+                            Guid = new Guid("c2cb2fe6-e801-4af2-b615-85b78f30a727"),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Asp.Net Core",
@@ -1033,9 +1033,9 @@ namespace ResumeSpace.DataAccess.Migrations
                         {
                             Id = 2,
                             AppUserId = new Guid("d0c23476-68d0-4da0-aad4-3adae20702c0"),
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(670),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(670),
-                            Guid = new Guid("7c3774f7-20b6-4c68-8d95-14b4cec3a75c"),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(9690),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(9690),
+                            Guid = new Guid("027f7cc7-0851-4387-a2c5-efe4f48b7bc3"),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "C#",
@@ -1045,9 +1045,9 @@ namespace ResumeSpace.DataAccess.Migrations
                         {
                             Id = 3,
                             AppUserId = new Guid("d0c23476-68d0-4da0-aad4-3adae20702c0"),
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(680),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(680),
-                            Guid = new Guid("290b798b-a4d2-42c7-8039-739a76b553d7"),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(9690),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(9690),
+                            Guid = new Guid("cc26a2b3-be6d-42e7-b771-842250f8c8fa"),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Javascript",
@@ -1057,9 +1057,9 @@ namespace ResumeSpace.DataAccess.Migrations
                         {
                             Id = 4,
                             AppUserId = new Guid("d0c23476-68d0-4da0-aad4-3adae20702c0"),
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(690),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(690),
-                            Guid = new Guid("77ad2c88-c758-4d9e-8daf-b0bdca6fde5a"),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(9700),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(9700),
+                            Guid = new Guid("a28716ec-6ba6-420a-8c6d-24be789a394a"),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "MS SQL",
@@ -1069,13 +1069,25 @@ namespace ResumeSpace.DataAccess.Migrations
                         {
                             Id = 5,
                             AppUserId = new Guid("d0c23476-68d0-4da0-aad4-3adae20702c0"),
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(690),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(690),
-                            Guid = new Guid("65f43e71-3f82-431b-8279-6cc6f30ace5a"),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(9710),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(9710),
+                            Guid = new Guid("2da79711-d019-4c8c-a83f-8e78f08740f1"),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "HTML & CSS",
                             Percent = 82
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AppUserId = new Guid("d0c23476-68d0-4da0-aad4-3adae20702c0"),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(9710),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 928, DateTimeKind.Local).AddTicks(9710),
+                            Guid = new Guid("65ece91c-4f8d-4016-82bf-3f07be557aca"),
+                            IsActive = true,
+                            IsDeleted = false,
+                            Name = "JQuery",
+                            Percent = 75
                         });
                 });
 
@@ -1123,9 +1135,9 @@ namespace ResumeSpace.DataAccess.Migrations
                         {
                             Id = 1,
                             AppUserId = new Guid("d0c23476-68d0-4da0-aad4-3adae20702c0"),
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(1100),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(1100),
-                            Guid = new Guid("18c97685-44cc-41e5-9f5b-0fdbe8dd2295"),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 929, DateTimeKind.Local).AddTicks(190),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 929, DateTimeKind.Local).AddTicks(190),
+                            Guid = new Guid("5dfd70e8-c120-4fcd-8ae1-5bb864829e99"),
                             IsActive = true,
                             IsDeleted = false,
                             SocialMediaIconId = 1,
@@ -1135,9 +1147,9 @@ namespace ResumeSpace.DataAccess.Migrations
                         {
                             Id = 2,
                             AppUserId = new Guid("d0c23476-68d0-4da0-aad4-3adae20702c0"),
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(1110),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(1110),
-                            Guid = new Guid("42643af5-a103-4845-9ece-f2a82c806f9a"),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 929, DateTimeKind.Local).AddTicks(200),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 929, DateTimeKind.Local).AddTicks(200),
+                            Guid = new Guid("62f41be9-73de-45ce-9893-b5b929928f69"),
                             IsActive = true,
                             IsDeleted = false,
                             SocialMediaIconId = 2,
@@ -1147,9 +1159,9 @@ namespace ResumeSpace.DataAccess.Migrations
                         {
                             Id = 3,
                             AppUserId = new Guid("d0c23476-68d0-4da0-aad4-3adae20702c0"),
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(1110),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(1120),
-                            Guid = new Guid("fbb39a91-cadc-445b-91e5-dfa141747b43"),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 929, DateTimeKind.Local).AddTicks(200),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 929, DateTimeKind.Local).AddTicks(210),
+                            Guid = new Guid("2ff28b5c-fb25-433a-8730-6d194166b40c"),
                             IsActive = true,
                             IsDeleted = false,
                             SocialMediaIconId = 3,
@@ -1197,9 +1209,9 @@ namespace ResumeSpace.DataAccess.Migrations
                         {
                             Id = 1,
                             CssClass = "rsicon rsicon-github",
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(1480),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(1480),
-                            Guid = new Guid("b96ffdfc-27c5-47b9-916c-2b0dd9a89a5b"),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 929, DateTimeKind.Local).AddTicks(550),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 929, DateTimeKind.Local).AddTicks(560),
+                            Guid = new Guid("72add5b3-dd01-4eef-9821-ae10ba15506f"),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Github"
@@ -1208,9 +1220,9 @@ namespace ResumeSpace.DataAccess.Migrations
                         {
                             Id = 2,
                             CssClass = "rsicon rsicon-linkedin",
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(1490),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(1490),
-                            Guid = new Guid("947ddb81-c922-40d0-984f-0375e7f13003"),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 929, DateTimeKind.Local).AddTicks(560),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 929, DateTimeKind.Local).AddTicks(560),
+                            Guid = new Guid("f7b342a8-55a8-4a7e-a2a4-865d903479f5"),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "LinkedIn"
@@ -1219,9 +1231,9 @@ namespace ResumeSpace.DataAccess.Migrations
                         {
                             Id = 3,
                             CssClass = "rsicon rsicon-instagram",
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(1500),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(1500),
-                            Guid = new Guid("d431d715-2bc2-4da4-af04-92cfb02f3642"),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 929, DateTimeKind.Local).AddTicks(570),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 929, DateTimeKind.Local).AddTicks(570),
+                            Guid = new Guid("f6258325-15be-4c01-b39f-c3c7d88fe35e"),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Instagram"
@@ -1230,9 +1242,9 @@ namespace ResumeSpace.DataAccess.Migrations
                         {
                             Id = 4,
                             CssClass = "rsicon rsicon-facebook",
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(1500),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(1500),
-                            Guid = new Guid("d3faaf45-f92f-4ac7-8af8-bf06849f8a0c"),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 929, DateTimeKind.Local).AddTicks(570),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 929, DateTimeKind.Local).AddTicks(570),
+                            Guid = new Guid("767065ad-5554-4f0b-87c8-4a25a850842d"),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Facebook"
@@ -1241,9 +1253,9 @@ namespace ResumeSpace.DataAccess.Migrations
                         {
                             Id = 5,
                             CssClass = "rsicon rsicon-youtube",
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(1510),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(1510),
-                            Guid = new Guid("ee884add-22de-4f39-8484-36d459a0c7c7"),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 929, DateTimeKind.Local).AddTicks(580),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 929, DateTimeKind.Local).AddTicks(580),
+                            Guid = new Guid("3c57a646-cd92-4993-854d-749d8a03e084"),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Youtube"
@@ -1252,9 +1264,9 @@ namespace ResumeSpace.DataAccess.Migrations
                         {
                             Id = 6,
                             CssClass = "rsicon rsicon-twitter",
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(1510),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(1510),
-                            Guid = new Guid("713d05e8-bc09-4c74-8ab7-196ec04eff1f"),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 929, DateTimeKind.Local).AddTicks(580),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 929, DateTimeKind.Local).AddTicks(590),
+                            Guid = new Guid("ebc275a1-008b-452a-a8be-6ab96564ee6b"),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "X (Twitter)"
@@ -1263,9 +1275,9 @@ namespace ResumeSpace.DataAccess.Migrations
                         {
                             Id = 7,
                             CssClass = "rsicon rsicon-slack",
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(1520),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(1520),
-                            Guid = new Guid("aeec2bfc-63ba-49bb-90fe-d4239e60bb28"),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 929, DateTimeKind.Local).AddTicks(590),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 929, DateTimeKind.Local).AddTicks(590),
+                            Guid = new Guid("8741c59c-54a2-40e0-ac07-a8fc2b22bb25"),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Slack"
@@ -1274,9 +1286,9 @@ namespace ResumeSpace.DataAccess.Migrations
                         {
                             Id = 8,
                             CssClass = "rsicon rsicon-reddit",
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(1530),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(1530),
-                            Guid = new Guid("e94995e6-d56f-42a5-8a56-fd39d46c3760"),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 929, DateTimeKind.Local).AddTicks(600),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 929, DateTimeKind.Local).AddTicks(600),
+                            Guid = new Guid("f1407bcc-bbf4-4577-b48f-116f1ea44395"),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Reddit"
@@ -1373,14 +1385,14 @@ namespace ResumeSpace.DataAccess.Migrations
                         {
                             Id = 1,
                             AppUserId = new Guid("d0c23476-68d0-4da0-aad4-3adae20702c0"),
-                            DateCreated = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(1910),
-                            DateModified = new DateTime(2024, 8, 31, 13, 39, 48, 449, DateTimeKind.Local).AddTicks(1920),
+                            DateCreated = new DateTime(2024, 8, 31, 15, 49, 34, 929, DateTimeKind.Local).AddTicks(960),
+                            DateModified = new DateTime(2024, 8, 31, 15, 49, 34, 929, DateTimeKind.Local).AddTicks(960),
                             Description = ".Net Backend Developer",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Guid = new Guid("4c6011df-73d4-4f61-bc23-3561566029df"),
+                            Guid = new Guid("baaad4e7-988f-4b88-a93f-ec417c36ce4c"),
                             IsActive = true,
                             IsDeleted = false,
-                            Name = "Deadline Bilişim",
+                            Name = "Deadline Bilişim (Deadline Information Technology)",
                             Role = ".Net Backend Developer",
                             StartDate = new DateTime(2023, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
@@ -1425,6 +1437,11 @@ namespace ResumeSpace.DataAccess.Migrations
                         {
                             ResumeId = 1,
                             SkillId = 5
+                        },
+                        new
+                        {
+                            ResumeId = 1,
+                            SkillId = 6
                         });
                 });
 
